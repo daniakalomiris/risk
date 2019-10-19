@@ -153,12 +153,15 @@
   <ItemGroup>
     <ClCompile Include="Dice.cpp" />
     <ClCompile Include="DiceDriver.cpp" />
+    <ClCompile Include="Map.cpp" />
+    <ClCompile Include="MapDriver.cpp" />
     <ClCompile Include="MapLoader.cpp" />
     <ClCompile Include="MapLoaderDriver.cpp" />
     <ClCompile Include="Risk.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dice.h" />
+    <ClInclude Include="Map.h" />
     <ClInclude Include="MapLoader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

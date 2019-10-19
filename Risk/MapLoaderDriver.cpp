@@ -2,6 +2,7 @@
 #include "MapLoader.h"
 using namespace std;
 
+/*
 int main() {
 	string mapName;
 	MapLoader myMapLoader;
@@ -12,3 +13,4 @@ int main() {
 
 	cout << "End file" << endl;
 }
+*/
