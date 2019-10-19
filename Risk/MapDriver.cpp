@@ -4,16 +4,18 @@
 
 using namespace std;
 
-int main() {
+
+//int main() {
 
 	/* Create maps */
-	
+	/*
 	Map map;
 	Country canada;
 	string canadaName = "Canada";
 	canada.setCountryName(canadaName);
 
 	cout << "COUNTRY NAME IS: " << canada.getCountryName() << endl;
+	*/
 	
 
 	/* Valid map */
@@ -31,4 +33,4 @@ int main() {
 	/* Show that continents are connected subgraphs (BFS or DFS) */
 
 	/* Show that each country is owned by a player and contain a number of armies */
-}
+//}
