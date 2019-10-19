@@ -151,7 +151,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Dice.cpp" />
+    <ClCompile Include="DiceDriver.cpp" />
+    <ClCompile Include="MapLoader.cpp" />
+    <ClCompile Include="MapLoaderDriver.cpp" />
     <ClCompile Include="Risk.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Dice.h" />
+    <ClInclude Include="MapLoader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
