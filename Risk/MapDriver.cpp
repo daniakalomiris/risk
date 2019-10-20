@@ -5,7 +5,7 @@
 
 using namespace std;
 
-
+/*
 int main() {
 
 	Map* map1 = new Map();
@@ -54,8 +54,9 @@ int main() {
 	c5->setAdjacentCountries(c4);
 	c5->setAdjacentCountries(c6);
 	c6->setAdjacentCountries(c5);
-
+	*/
 	/* VALID map */
+/*
 	map1->isValidMap();
 
 	// map is connected subgraph with adjacency between countries
@@ -117,20 +118,24 @@ int main() {
 	map1->setCountry(c4M2);
 	map1->setCountry(c5M2);
 	map1->setCountry(c6M2);
-
+*/
 	/* Test cases for INVALID maps */
 
 	/* Not all countries belong to only one continent */
+/*
 	c3M2->setContinentOfCountry(continent1M2);
 	c3M2->setContinentOfCountry(continent2M2);
 	map1->isCountryInOneContinent();
+*/
 
 	/* Not all continents have countries */
-	map1->isNotEmptyContinent();
+	//map1->isNotEmptyContinent();
 
 	/* Not all countries belong to a continent */
+/*
 	c1M2->setContinentOfCountry(continent1M2);
 	c2M2->setContinentOfCountry(continent1M2);
 	c6M2->setContinentOfCountry(continent2M2);
 	map1->countryHasContinent();
 }
+*/

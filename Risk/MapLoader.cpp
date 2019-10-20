@@ -47,7 +47,6 @@ void MapLoader::readMapFile(string fileName) {
 			//start reading the continents until we reach an empty line
 			//Be carefull the last element will be an empty line
 			while (getline(mapFile, line) && line.find("[countries]") == std::string::npos) {
-
 				//push the continents data into the vector
 				continents_info.push_back(line);
 			}
@@ -114,4 +113,11 @@ void MapLoader::readMapFile(string fileName) {
 
 }
 
+void MapLoader::createMap() {
+	
 
+}
+
+Map* MapLoader::getMap() {
+	return map;
+}
