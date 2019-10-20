@@ -21,7 +21,7 @@ Player::Player() {
 	this->dice = new Dice();
 	this->hand = new Hand(counter);
 	counter++;
-	*id = counter; //id of player generated
+	id = make_unique<int>(counter); //id of player generated
 }
 
 Player::~Player() {

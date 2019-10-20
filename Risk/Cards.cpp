@@ -10,8 +10,8 @@
 using namespace std;
 
 Cards::Cards(int typeNum, int worth) {
-	*this->typeNum = typeNum;
-	*this->worth = worth;
+	this->typeNum = make_unique<int>(typeNum);
+	this->worth = make_unique<int>(worth);
 	this->locationId = -1; // when card is created, it is initially put in the deck
 };
 
@@ -40,11 +40,11 @@ Deck::Deck(Map* map) {
 	numOfCardsInDeck = make_unique<int>(numCountries);
 
 	//equal amount of cards per type
-	*cardsPerType = *numOfCardsInDeck / 3;
+	cardsPerType = make_unique<int>(*numOfCardsInDeck / 3);
 
 	cout << "There are a total of " << numCountries << " countries in the map." << endl;
-	cout << "There will be " << numOfCardsInDeck << " cards in the deck." << endl;
-	cout << "There will be " << cardsPerType << " cards per type." << endl;
+	cout << "There will be " << *numOfCardsInDeck << " cards in the deck." << endl;
+	cout << "There will be " << *cardsPerType << " cards per type." << endl;
 
 
 	//creates card objects of type infantry, sets worth to 1, sets location, pushes card to deck (based on the number of countries/3)
@@ -121,13 +121,13 @@ void Hand::exchange(Deck* deck, Hand* hand) {
 
 	for (unsigned int i = 0; i < deck->getCardsInDeck().size(); i++) {
 		if (deck->getCardsInDeck().at(i)->getLocationId() == hand->id) { // get all cards in this hand
-			if ((deck->getCardsInDeck().at(i)->getType())->compare("Infantry") == 0) { //checks if of type of infantry
+			if ((deck->getCardsInDeck().at(i)->getType()).compare("Infantry") == 0) { //checks if of type of infantry
 				infantry++;
 			}
-			else if ((deck->getCardsInDeck().at(i)->getType())->compare("Artillery") == 0) { //checks if of type artillery
+			else if ((deck->getCardsInDeck().at(i)->getType()).compare("Artillery") == 0) { //checks if of type artillery
 				artillery++;
 			}
-			else if ((deck->getCardsInDeck().at(i)->getType())->compare("Cavalry") == 0) { //checks if of type cavalry
+			else if ((deck->getCardsInDeck().at(i)->getType()).compare("Cavalry") == 0) { //checks if of type cavalry
 				cavalry++;
 			}
 		}
@@ -137,7 +137,7 @@ void Hand::exchange(Deck* deck, Hand* hand) {
 	if (infantry >= 3) {
 		for (unsigned int i = 0; i < deck->getCardsInDeck().size() && infantryExchanged < 3; i++) { // remove 3 infantry cards from hand
 			if (deck->getCardsInDeck().at(i)->getLocationId() == hand->id) {
-				if ((deck->getCardsInDeck().at(i)->getType())->compare("Infantry") == 0) {
+				if ((deck->getCardsInDeck().at(i)->getType()).compare("Infantry") == 0) {
 					deck->getCardsInDeck().at(i)->setLocationId(-1); // put card back in deck
 					infantryExchanged++; // increment the number of infantry cards we have exchanged
 				}
@@ -152,7 +152,7 @@ void Hand::exchange(Deck* deck, Hand* hand) {
 	else if (artillery >= 3) { //if number of artillery type cards if greater or equal than 3
 		for (unsigned int i = 0; i < deck->getCardsInDeck().size() && artilleryExchanged < 3; i++) {
 			if (deck->getCardsInDeck().at(i)->getLocationId() == hand->id) {
-				if ((deck->getCardsInDeck().at(i)->getType())->compare("Artillery") == 0) {
+				if ((deck->getCardsInDeck().at(i)->getType()).compare("Artillery") == 0) {
 					deck->getCardsInDeck().at(i)->setLocationId(-1);
 					artilleryExchanged++;
 				}
@@ -167,7 +167,7 @@ void Hand::exchange(Deck* deck, Hand* hand) {
 	else if (cavalry >= 3) {
 		for (unsigned int i = 0; i < deck->getCardsInDeck().size() && cavalryExchanged < 3; i++) {
 			if (deck->getCardsInDeck().at(i)->getLocationId() == hand->id) {
-				if ((deck->getCardsInDeck().at(i)->getType())->compare("Cavalry") == 0) {
+				if ((deck->getCardsInDeck().at(i)->getType()).compare("Cavalry") == 0) {
 					deck->getCardsInDeck().at(i)->setLocationId(-1);
 					cavalryExchanged++;
 				}
@@ -182,15 +182,15 @@ void Hand::exchange(Deck* deck, Hand* hand) {
 	else if (infantry > 1 || artillery > 1 || cavalry > 1) {
 		for (unsigned int i = 0; i < deck->getCardsInDeck().size() && infantryExchanged < 1 && artilleryExchanged < 1 && cavalryExchanged < 1; i++) {
 			if (deck->getCardsInDeck().at(i)->getLocationId() == hand->id) {
-				if ((deck->getCardsInDeck().at(i)->getType())->compare("Infantry") == 0) {
+				if ((deck->getCardsInDeck().at(i)->getType()).compare("Infantry") == 0) {
 					deck->getCardsInDeck().at(i)->setLocationId(-1);
 					infantryExchanged++;
 				}
-				else if ((deck->getCardsInDeck().at(i)->getType())->compare("Artillery") == 0) {
+				else if ((deck->getCardsInDeck().at(i)->getType()).compare("Artillery") == 0) {
 					deck->getCardsInDeck().at(i)->setLocationId(-1);
 					artilleryExchanged++;
 				}
-				else if ((deck->getCardsInDeck().at(i)->getType())->compare("Cavalry") == 0) {
+				else if ((deck->getCardsInDeck().at(i)->getType()).compare("Cavalry") == 0) {
 					deck->getCardsInDeck().at(i)->setLocationId(-1);
 					cavalryExchanged++;
 				}
@@ -208,7 +208,7 @@ void Hand::exchange(Deck* deck, Hand* hand) {
 }
 
 void Cards::setWorth(int worth) {
-	*this->worth = worth;
+	this->worth = make_unique<int>(worth);
 }
 int Cards::getWorth() {
 	return *worth;
@@ -226,20 +226,20 @@ void Cards::setLocationId(int locationId) {
 
 //sets the type of the card
 void Cards::setType(int typeNum) {
-	if (typeNum == 1) {
-		*type = "Infantry";
+	if (typeNum == 0) {
+		type = make_unique<string>("Infantry");
 	}
 	else if (typeNum == 1) {
-		*type = "Cavalry";
+		type = make_unique<string>("Cavalry");
 	}
 	else if (typeNum == 2) {
-		*type = "Artillery";
+		type = make_unique<string>("Artillery");
 	}
 }
 
 //gets the type of the card
-string* Cards::getType() {
-	return type;
+std::string Cards::getType() {
+	return *type;
 }
 
 Hand::Hand() {

@@ -15,7 +15,7 @@ public:
 	~Cards();
 
 	//type of card 
-	std::string* getType();
+    std::string getType();
 	void setType(int typeNum);
 
 	//worth in armies
@@ -30,12 +30,12 @@ public:
 
 private:
 	// //Type of card 0 -> infrantry, 1 -> artillery, 2 -> cavalry
-	int* typeNum;
+	std::unique_ptr<int> typeNum;
 
 	// //Worth of each card in terms of armies infantry -> 1 army, cavalry -> 5 armies, artillery -> 10 armies
-	int* worth;
+	std::unique_ptr<int> worth;
 
-	std::string* type;
+	std::unique_ptr<std::string> type;
 
 	// -1 if in deck, otherwise increment when drawn to hand
 	int locationId;
@@ -65,7 +65,7 @@ private:
 	std::unique_ptr<int> numOfCardsInDeck;
 
 	//Same number of cards per each type (infantry, cava, art)
-	int* cardsPerType;
+	std::unique_ptr<int> cardsPerType;
 
 	//declare vectors of card objects in deck
 	std::vector<Cards*> cardsInDeck;
@@ -77,9 +77,7 @@ public:
 	Hand(int id);
 	~Hand();
 
-	//Player *player; 
-
-	void exchange(Deck* deck, Hand* hand);
+    void exchange(Deck* deck, Hand* hand);
 
 	//card to be removed from hand during exchange
 	// void removeCardFromHand(Cards* cardExchanged);
