@@ -1,4 +1,5 @@
 #include "Map.h"
+
 #include<iostream>
 #include <queue>
 #include <memory>
@@ -33,6 +34,17 @@ vector<Continent*> Map::getContinents() {
 //returns vector of country objects
 vector<Country*> Map::getCountries() {
 	return countries;
+}
+
+
+vector<Country*> Map::getOwnerCountries(int playerId) {
+	for (unsigned int i = 0; i < countries.size(); i++) {
+		if (countries.at(i)->getCountryOwnerId() == playerId) {
+			ownerCountries.push_back(countries.at(i));
+			cout << "Player " << playerId << " owns the country " << countries.at(i)->getCountryName() << endl;
+		}
+	}
+	return ownerCountries;
 }
 
 //algorithm to search through continents
@@ -235,15 +247,15 @@ void Country::setContinentOfCountry(Continent * continentOfCountry) {
 	this->continentOfCountry = continentOfCountry;
 }
 
-/*
-Player* Country::getCountryOwner() {
-	return countryOwner;
+
+int Country::getCountryOwnerId() {
+	return *countryOwnerId;
 }
 
-void Country::setCountryOwner(Player* countryOwner) {
-	this->countryOwner = countryOwner;
+void Country::setCountryOwnerId(int countryOwnerId) {
+	this->countryOwnerId.reset(new int(countryOwnerId));
 }
-*/
+
 
 int Country::getCoordinateX() {
 	return *coordinateX;
@@ -268,3 +280,4 @@ vector<Country*> Country::getAdjacentCountries() {
 void Country::setAdjacentCountries(Country * country) {
 	adjacentCountries.push_back(country);
 }
+

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Map.h"
-//#include "Player.h"
 #include <string>
 #include <vector>
 #include <memory>
@@ -12,6 +11,7 @@ class Hand;
 class Cards {
 public:
 	Cards();
+	Cards(int typeNum, int worth);
 	~Cards();
 
 	//type of card 
@@ -44,6 +44,7 @@ private:
 
 class Deck {
 public:
+	Deck();
 	Deck(Map* map);
 	~Deck();
 
@@ -53,7 +54,7 @@ public:
 	std::vector<Cards*> getCardsInDeck();
 	void setCardInDeck(Cards* card);
 
-	int* getNumOfCardsInDeck();
+	int getNumOfCardsInDeck();
 
 	//draw method that allows player to draw a card from the cards remaining in the deck
 	void draw(int playerId, Hand* hand, Deck* deck);

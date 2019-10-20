@@ -1,12 +1,2 @@
-﻿  Cards.cpp
-C:\Users\kalfa\Desktop\risk\Risk\Player.h(37,7): error C2143:  syntax error: missing ';' before '*'
-C:\Users\kalfa\Desktop\risk\Risk\Player.h(37,7): error C4430:  missing type specifier - int assumed. Note: C++ does not support default-int
-C:\Users\kalfa\Desktop\risk\Risk\Player.h(37,13): error C2238:  unexpected token(s) preceding ';'
-  CardsDriver.cpp
-C:\Users\kalfa\Desktop\risk\Risk\Cards.cpp(88,13): warning C4244:  'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\kalfa\Desktop\risk\Risk\Player.h(37,7): error C2143:  syntax error: missing ';' before '*'
-C:\Users\kalfa\Desktop\risk\Risk\Player.h(37,7): error C4430:  missing type specifier - int assumed. Note: C++ does not support default-int
-  Player.cpp
-  PlayerDriver.cpp
-  Generating Code...
-C:\Users\kalfa\Desktop\risk\Risk\Player.h(37,13): error C2238:  unexpected token(s) preceding ';'
+﻿  PlayerDriver.cpp
+  Risk.vcxproj -> C:\Users\kalfa\Desktop\risk\Risk\Debug\Risk.exe

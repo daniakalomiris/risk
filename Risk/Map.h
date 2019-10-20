@@ -1,6 +1,5 @@
 #pragma once
 
-//#include "Player.h"
 #include <string>
 #include <vector>
 #include <queue>
@@ -32,6 +31,8 @@ public:
 	bool isNotEmptyContinent(); // checks if continent is empty
 	bool countryHasContinent(); // checks if country is on contient
 
+	std::vector<Country*> getOwnerCountries(int playerId); //returns vector of owner countries
+
 private:
 	std::vector<Continent*> continents;
 	std::vector<Country*> countries;
@@ -39,6 +40,7 @@ private:
 	//Declare variables
 	std::queue<Continent*> visitedContinentsQueue;
 	std::queue<Country*> visitedCountriesQueue;
+	std::vector<Country*> ownerCountries;
 };
 
 class Continent {
@@ -81,6 +83,9 @@ public:
 	void setContinentOfCountry(Continent* continentOfCountry);  //sets continent of country
 	Continent* getContinentOfCountry(); //returns continent object 
 
+	void setCountryOwnerId(int countryOwnerId);  //sets owner of country
+	int getCountryOwnerId(); //returns player id
+
 	void setAdjacentCountries(Country* country);//sets adjacent countries
 	std::vector<Country*> getAdjacentCountries(); //returns vector of adjacent countries
 
@@ -98,4 +103,6 @@ private:
 	std::unique_ptr<int> coordinateX;
 	std::unique_ptr<int> coordinateY;
 	std::vector<Country*> adjacentCountries;
+	std::unique_ptr<int> countryOwnerId;
+
 };

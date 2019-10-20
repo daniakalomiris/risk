@@ -3,6 +3,7 @@
 #include "Cards.h"
 using namespace std;
 
+/*
 int main() {
 
 
@@ -37,10 +38,12 @@ int main() {
 	cout << "This is the CardsDriver" << endl;
 
 	// drawing from the deck
-	/*
+	
 	deck1->draw(playerId, *player.getHand(), *deck1);
 
 	player.getHand()->exchange(*deck1, *player.getHand());
-	*/
+	
 
 }
+*/
+

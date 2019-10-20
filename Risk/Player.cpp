@@ -1,6 +1,5 @@
 #include <iostream>
 #include "Player.h"
-#include "Dice.h"
 #include <vector>
 #include <string>
 #include <memory>
@@ -15,9 +14,9 @@ Player::Player(string name) {
     
     //sets the id to the counter of the player
     id = make_unique<int>(counter);
-    
-    
+   
 }
+
 Player::Player() {
 	this->dice = new Dice();
 	this->hand = new Hand(counter);
@@ -38,26 +37,25 @@ string Player::getName() {
 	return name;
 }
 
-
-//returns vector of player countries
-vector<Country*> Player::getPlayerCountries() {
-	return playerCountries;
-}
-
 //gets id of player
 int Player::getID() {
 	return *id;
 }
+
+Hand* Player::getHand() {
+	return hand;
+}
+
+Dice* Player::getDice() {
+	return dice;
+}
+
 
 //Setters
 void Player::setName(string name) {
 	this->name = name;
 }
 
-//pushes player's countries to vector 
-void Player::setPlayerCountries(Country* country) {
-	playerCountries.push_back(country);
-}
 
 
 //extra methods , reinforce, attack and fortify, will be implemented in next iteration
@@ -75,10 +73,6 @@ void Player::fortify() {
 	cout << "The player fortify" << endl;
 }
 
-//to call players information in driver TO MODIFY 
-void Player::display() {
-	cout << " Player, " << name << " owns the following countries : " << endl;
-	/*cout << playerCountries <<
-	 ". The current rice roll is " << dice << ", and the current cards are " << hand << ". " << endl;*/
-}
+
+
 

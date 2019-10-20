@@ -1,4 +1,5 @@
 #include "Cards.h"
+#include "Map.h"
 #include <iostream>
 #include <memory>
 #include <vector>
@@ -8,15 +9,25 @@
 
 using namespace std;
 
-Cards::Cards() {
-
+Cards::Cards(int typeNum, int worth) {
+	*this->typeNum = typeNum;
+	*this->worth = worth;
+	this->locationId = -1; // when card is created, it is initially put in the deck
 };
+
+Cards::Cards() {
+	this->locationId = -1;
+};
+
 
 
 Cards::~Cards() {
 
 }
 
+Deck::Deck() {
+
+}
 
 Deck::Deck(Map* map) {
 
@@ -65,8 +76,8 @@ Deck::~Deck() {
 }
 
 //returns number of cards in the deck
-int* Deck::getNumOfCardsInDeck() {
-	return numOfCardsInDeck;
+int Deck::getNumOfCardsInDeck() {
+	return *numOfCardsInDeck;
 }
 
 //returns vectors of cards in the deck
@@ -248,16 +259,20 @@ Hand::~Hand() {
 
 //returns cards in hand
 void Hand::getCardsInHand(Deck* deck) {
+	/*
 	for (unsigned int i = 0; i < deck->getCardsInDeck().size(); i++) {
 		if (deck->getCardsInDeck().at(i)->getLocationId() == id) {
 			cout << "Card " << i << "\n" << " in hand " << id << endl;
 		}
 	}
+	*/
+	cout << "get cards in hand" << endl;
 }
 
 //sets the card in hand based on player id
 void Hand::setCardInHand(Cards* card) {
 	card->setLocationId(id);
+	cout << "set card in hand" << endl;
 }
 
 //returns number of armies 
