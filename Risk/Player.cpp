@@ -12,7 +12,11 @@ Player::Player(string name) {
 	this->hand = new Hand(counter); 
 	this->setName(name);
 	counter++;
-	*id = counter; //id of player generated 
+    
+    //sets the id to the counter of the player
+    id = make_unique<int>(counter);
+    
+    
 }
 Player::Player() {
 	this->dice = new Dice();

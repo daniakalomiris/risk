@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Map.h"
-#include "Player.h"
+//#include "Player.h"
 #include <string>
 #include <vector>
 #include <memory>
@@ -61,7 +61,7 @@ public:
 
 private:
 	//number of cards (= number of countries in the map)
-	int* numOfCardsInDeck;
+	std::unique_ptr<int> numOfCardsInDeck;
 
 	//Same number of cards per each type (infantry, cava, art)
 	int* cardsPerType;

@@ -31,12 +31,12 @@ int main() {
 	string playerName = "Jen";
 
 	// new player created with name
-	Player player(playerName);
-	int playerId = player.getID();
+	//Player player(playerName);
+	//int playerId = player.getID();
 	
 	cout << "This is the CardsDriver" << endl;
 
-	// drawing from the deck 
+	// drawing from the deck
 	/*
 	deck1->draw(playerId, *player.getHand(), *deck1);
 

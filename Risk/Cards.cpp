@@ -26,7 +26,7 @@ Deck::Deck(Map* map) {
 	vector<Country*> temp;
 	temp = map->getCountries();
 	int numCountries = temp.size();
-	*numOfCardsInDeck = numCountries;
+	numOfCardsInDeck = make_unique<int>(numCountries);
 
 	//equal amount of cards per type
 	*cardsPerType = *numOfCardsInDeck / 3;
