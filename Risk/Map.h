@@ -48,9 +48,6 @@ public:
 	Continent(); // continent constructor
 	~Continent();
 
-	void setNumberOfArmies(int numberOfArmies); //sets the number of armies
-	int getNumberOfArmies(); // number of armies on a continent
-
 	void setCountriesOfContinent(Country* country); // sets the countries on continents
 	std::vector<Country*> getCountriesOfContinent(); // returns vector of countries on continent
 
@@ -63,7 +60,6 @@ public:
 private:
 	//declare variables
 	std::unique_ptr<std::string> continentName;
-	std::unique_ptr<int> numberOfArmies;
 	std::vector<Country*> countriesOfContinent;
 	std::vector<Continent*> adjacentContinents;
 };
@@ -89,6 +85,9 @@ public:
 	void setAdjacentCountries(Country* country);//sets adjacent countries
 	std::vector<Country*> getAdjacentCountries(); //returns vector of adjacent countries
 
+	void setNumberOfArmies(int numberOfArmies); //sets the number of armies
+	int getNumberOfArmies(); // number of armies on a country
+
 	//methods to potentially implement GUI
 	void setCoordinateX(int coordinateX);
 	int getCoordinateX();
@@ -104,5 +103,7 @@ private:
 	std::unique_ptr<int> coordinateY;
 	std::vector<Country*> adjacentCountries;
 	std::unique_ptr<int> countryOwnerId;
+
+	std::unique_ptr<int> numberOfArmies;
 
 };

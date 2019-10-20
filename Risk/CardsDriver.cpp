@@ -4,7 +4,7 @@
 #include "Player.h"
 using namespace std;
 
-
+/*
 int main() {
 
 	Map* map = new Map();
@@ -44,5 +44,4 @@ int main() {
 	// exchange in return of armies
 	player->getHand()->exchange(deck, player->getHand());
 }
-
-
+*/

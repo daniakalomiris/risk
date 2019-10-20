@@ -43,7 +43,7 @@ Deck::Deck(Map* map) {
 	*cardsPerType = *numOfCardsInDeck / 3;
 
 	cout << "There are a total of " << numCountries << " countries in the map." << endl;
-	cout << "There will be " << getNumOfCardsInDeck() << " cards in the deck." << endl;
+	cout << "There will be " << numOfCardsInDeck << " cards in the deck." << endl;
 	cout << "There will be " << cardsPerType << " cards per type." << endl;
 
 

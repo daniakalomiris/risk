@@ -41,7 +41,7 @@ vector<Country*> Map::getOwnerCountries(int playerId) {
 	for (unsigned int i = 0; i < countries.size(); i++) {
 		if (countries.at(i)->getCountryOwnerId() == playerId) {
 			ownerCountries.push_back(countries.at(i));
-			cout << "Player " << playerId << " owns the country " << countries.at(i)->getCountryName() << endl;
+			cout << "Player " << playerId << " owns the country " << countries.at(i)->getCountryName() << " with " << countries.at(i)->getNumberOfArmies() << " armies." << endl;
 		}
 	}
 	return ownerCountries;
@@ -129,7 +129,7 @@ bool Map::isCountrySubgraph() {
 	return true;
 }
 
-//checks if country is one continent
+//checks if country is in one continent
 bool Map::isCountryInOneContinent() {
 	for (unsigned int i = 0; i < getCountries().size() - 1; i++) { // Loop through all continents
 		for (unsigned int j = 0; j < continents.at(i)->getCountriesOfContinent().size() - 1; j++) { // Loop through all countries of a continent
@@ -156,6 +156,7 @@ bool Map::isNotEmptyContinent() {
 			return false;
 		}
 	}
+	cout << "All continents have countries." << endl;
 	return true;
 }
 
@@ -167,6 +168,7 @@ bool Map::countryHasContinent() {
 			return false;
 		}
 	}
+	cout << "All countries belong to a continent." << endl;
 	return true;
 }
 
@@ -188,14 +190,6 @@ string Continent::getContinentName() {
 
 void Continent::setContinentName(string continentName) {
 	this->continentName.reset(new string(continentName));
-}
-
-int Continent::getNumberOfArmies() {
-	return *numberOfArmies;
-}
-
-void Continent::setNumberOfArmies(int numberOfArmies) {
-	this->numberOfArmies.reset(new int(numberOfArmies));
 }
 
 vector<Country*> Continent::getCountriesOfContinent() {
@@ -256,6 +250,13 @@ void Country::setCountryOwnerId(int countryOwnerId) {
 	this->countryOwnerId.reset(new int(countryOwnerId));
 }
 
+int Country::getNumberOfArmies() {
+	return *numberOfArmies;
+}
+
+void Country::setNumberOfArmies(int numberOfArmies) {
+	this->numberOfArmies.reset(new int(numberOfArmies));
+}
 
 int Country::getCoordinateX() {
 	return *coordinateX;

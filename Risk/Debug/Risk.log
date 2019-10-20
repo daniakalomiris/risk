@@ -1,3 +1,6 @@
-﻿  CardsDriver.cpp
-C:\Users\kalfa\Desktop\risk\Risk\CardsDriver.cpp(34,20): warning C4018:  '<': signed/unsigned mismatch
-  Risk.vcxproj -> C:\Users\kalfa\Desktop\risk\Risk\Debug\Risk.exe
+﻿  Map.cpp
+  MapDriver.cpp
+C:\Users\kalfa\Desktop\risk\Risk\MapDriver.cpp(59,20): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\kalfa\Desktop\risk\Risk\MapDriver.cpp(61,21): warning C4018:  '<': signed/unsigned mismatch
+  Generating Code...
+C:\Users\kalfa\Desktop\risk\Risk\MapDriver.cpp(62,85): error C3867:  'Country::getCountryName': non-standard syntax; use '&' to create a pointer to member
