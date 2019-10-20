@@ -1,2 +1,3 @@
-﻿  PlayerDriver.cpp
+﻿  CardsDriver.cpp
+C:\Users\kalfa\Desktop\risk\Risk\CardsDriver.cpp(34,20): warning C4018:  '<': signed/unsigned mismatch
   Risk.vcxproj -> C:\Users\kalfa\Desktop\risk\Risk\Debug\Risk.exe

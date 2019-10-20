@@ -42,8 +42,10 @@ Deck::Deck(Map* map) {
 	//equal amount of cards per type
 	*cardsPerType = *numOfCardsInDeck / 3;
 
-	cout << "There are a total of " << numCountries << " countries." << endl;
+	cout << "There are a total of " << numCountries << " countries in the map." << endl;
+	cout << "There will be " << getNumOfCardsInDeck() << " cards in the deck." << endl;
 	cout << "There will be " << cardsPerType << " cards per type." << endl;
+
 
 	//creates card objects of type infantry, sets worth to 1, sets location, pushes card to deck (based on the number of countries/3)
 	for (int i = 0; i < *cardsPerType; i++) {
