@@ -165,11 +165,14 @@ void MapLoader::createMap() {
 
          //create a country
          Country* country = new Country();
+         
+         //set all its data
          country->setCountryNumber(stoi(temp[0]));
          country->setCountryName(temp[1]);
          country->setCoordinateX(stoi(temp[3]));
          country->setCoordinateY(stoi(temp[4]));
          country->setContinentOfCountry(map->getContinents().at(stoi(temp[2])-1));
+         
          //push the country in one continent
          map->getContinents().at(stoi(temp[2])-1)->setCountriesOfContinent(country);
 
@@ -263,14 +266,16 @@ Map* MapLoader::getMap() {
 
 void MapLoader::displayMap() {
     
-cout << "\nThese are the map's continents and their armies: " << endl;
-  for (int i = 0; i < map->getContinents().size(); i++) {
+    cout << "\nThese are the map's continents and their armies: " << endl;
+    
+    
+    //display the continents
+    for (int i = 0; i < map->getContinents().size(); i++) {
       
       cout << "\nContinent #" << i <<endl;
       cout<< map->getContinents().at(i)->getContinentName() << ": " << map->getContinents().at(i)->getNumberOfArmies() << " armies" << endl;
-    
-//      cout << "Countries:" << endl;
-      
+
+      //diplay de countries
       for(int j = 0; j<map->getContinents().at(i)->getCountriesOfContinent().size(); j++) {
       cout<< "\t" << map->getContinents().at(i)->getCountriesOfContinent().at(j)->getCountryName() << endl;
       }
