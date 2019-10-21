@@ -32,10 +32,11 @@ public:
 	bool countryHasContinent(); // checks if country is on contient
 
 	std::vector<Country*> getOwnerCountries(int playerId); //returns vector of owner countries
+    std::vector<Country*> countries;
 
 private:
 	std::vector<Continent*> continents;
-	std::vector<Country*> countries;
+	
 
 	//Declare variables
 	std::queue<Continent*> visitedContinentsQueue;
@@ -56,12 +57,16 @@ public:
 
 	void setContinentName(std::string continentName); //sets continents name
 	std::string getContinentName();
+    
+    void setNumberOfArmies(int numberOfArmies); //sets the number of armies
+    int getNumberOfArmies(); // number of armies on a continent
 
 private:
 	//declare variables
 	std::unique_ptr<std::string> continentName;
 	std::vector<Country*> countriesOfContinent;
 	std::vector<Continent*> adjacentContinents;
+    std::unique_ptr<int> numberOfArmies;
 };
 
 class Country {

@@ -208,6 +208,15 @@ void Continent::setAdjacentContinents(Continent * continent) {
 	adjacentContinents.push_back(continent);
 }
 
+int Continent::getNumberOfArmies() {
+    return *numberOfArmies;
+}
+
+void Continent::setNumberOfArmies(int numberOfArmies) {
+    this->numberOfArmies = make_unique<int>(numberOfArmies);
+}
+
+
 //country constructors
 Country::Country() {
 
