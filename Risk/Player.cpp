@@ -60,6 +60,7 @@ void Player::setName(string name) {
 
 //extra methods , reinforce, attack and fortify, will be implemented in next iteration
 void Player::reinforce() {
+
 	cout << "The player reinforce his troops" << endl;
 }
 

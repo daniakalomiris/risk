@@ -5,7 +5,6 @@
 #include <memory>
 
 using namespace std;
-
 //map constructor
 Map::Map() {
 }
