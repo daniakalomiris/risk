@@ -5,7 +5,7 @@
 #include <string>
 #include <sstream>
 using namespace std;
-/*
+
 static vector<string> continents_info;
 static vector<string> countries_info;
 static vector<string> borders_info;
@@ -284,4 +284,3 @@ void MapLoader::displayMap() {
   
     
 }
-*/
