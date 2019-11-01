@@ -30,6 +30,7 @@ class Player {
 		void reinforce();
 
 	private:
+		int armyAdd;
 		Dice* dice;
 		Hand* hand;
 		std::string name;

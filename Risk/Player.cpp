@@ -60,7 +60,18 @@ void Player::setName(string name) {
 
 //extra methods , reinforce, attack and fortify, will be implemented in next iteration
 void Player::reinforce() {
-
+	int armyAdd = 0; 
+	//Number of armies according to number of countries 
+	//Min of 3 armies if less than 3 countries.
+	if (getOwnerCountries(getID()).size() < 3) { 
+		armyadd += 3;
+	}
+	// divide number of countries by 3 for number of armies to add
+	else {
+		armyAdd += (getOwnerCountries(getID()).size())/3
+	}
+	cout << " The number of troops added by the number of countries is " << armyAdd << "." << endl;
+	
 	cout << "The player reinforce his troops" << endl;
 }
 
