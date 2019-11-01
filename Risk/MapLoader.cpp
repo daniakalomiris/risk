@@ -145,6 +145,7 @@ void MapLoader::createMap() {
                 
         continent->setContinentName(temp[0]);
         continent->setNumberOfArmies(stoi(temp[1]));
+        
     }
     
     
@@ -180,7 +181,7 @@ void MapLoader::createMap() {
          
          //push the country in one continent
          map->getContinents().at(stoi(temp[2])-1)->setCountriesOfContinent(country);
-         
+
      }
     
     
@@ -229,7 +230,23 @@ void MapLoader::createMap() {
 //    for (int i =0; i< temp.size() ; i++) {
 //        cout << temp.at(i)<<endl;
 //    }
-
+    
+    //loop through the continents
+//    for(int i =0; i< map->getContinents().size(); i++) {
+//
+//       Continent* tempContinent = map->getContinents().at(i);
+//
+//         for(int j =0; j< tempContinent->getCountriesOfContinent().size(); j++) {
+//             if( tempContinent->getCountriesOfContinent().at(i)->getCountryNumber() == (stoi (temp.at(0)) )) {
+//                 tempContinent->getCountriesOfContinent().at(i)->setAdjacentCountries());
+//
+//
+//             }
+//             }
+//         }
+        
+        
+    }
     
         //we need to get the countries through the continents.
         //HERE
@@ -280,7 +297,7 @@ void MapLoader::createMap() {
     
     
     
-}
+//}
 
 Map* MapLoader::getMap() {
 	return map;

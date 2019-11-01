@@ -1,6 +1,7 @@
 #pragma once
 #include "Dice.h"
 #include "Cards.h"
+#include "Map.h"
 #include <string>
 #include <vector>
 #include <memory> //for pointer class
@@ -23,6 +24,8 @@ class Player {
 		Dice* getDice();
 		Hand* getHand();
 		
+        std::vector<Country* > getThisPlayerCountries();
+        void setThisPlayerCountry(Country* country);
 
 		//attack, fortify, reinforce methods
 		void attack();
@@ -37,4 +40,5 @@ class Player {
 
 		std::unique_ptr<int> id;
 		static int counter;
+        std::vector<Country*> countries;
 };

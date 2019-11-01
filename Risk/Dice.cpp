@@ -1,6 +1,7 @@
 #include "Dice.h"
 #include "time.h"
 #include<iostream>
+
 using namespace std;
 
  Dice:: Dice() {
@@ -12,6 +13,10 @@ using namespace std;
 
     //intializes the number of time the dice have been rolled
     timesRolled.reset(new int(0));
+}
+
+Dice::~Dice() {
+   
 }
 
 // Player selects how many dice (1 to 3) to roll
@@ -37,13 +42,13 @@ void Dice::rollDice() {
     int diceContainer[3];
 
     // Resets the random
-   // srand(time(NULL));
+    srand(time(NULL));
 
     // Generates numbers between 1 and 6 and stores them in an array
     for(int i = 0; i < *numOfDice; i++) {
         int temp = rand()% 6+1;
         diceContainer[i] = temp;
-
+        
         //Keep tracks of the number rolled
         valuesTracker[temp-1]++;
         
@@ -71,9 +76,13 @@ void Dice::rollDice() {
         cout << "You decided to roll " << *numOfDice << " dice. " << "These are the results of your dice: " << endl;
         for(int i = 0; i < *numOfDice; i++) {
             cout << diceContainer[i] << " ";
+            
+            //push the values in the vector valuesRolled
+            valuesRolled.push_back(diceContainer[i]);
         }
         cout << " " << endl;
     }
+    
 }
 
 void Dice::keepTracks() {
@@ -86,4 +95,9 @@ void Dice::keepTracks() {
 
 }
         cout << "Total number of times you rolled a die: " << *timesRolled << "\n" << endl;
+}
+
+
+std::vector<int> Dice:: getValuesRolled() {
+    return valuesRolled;
 }
