@@ -48,16 +48,13 @@ int main() {
         country6->setAdjacentCountries(country7);
         country7->setAdjacentCountries(country6);
         
-        
-        
-        
         country1->setNumberOfArmies(10);
         country2->setNumberOfArmies(5);
         country3->setNumberOfArmies(8);
         country4->setNumberOfArmies(4);
         country5->setNumberOfArmies(5);
-          country6->setNumberOfArmies(3);
-          country7->setNumberOfArmies(9);
+        country6->setNumberOfArmies(3);
+        country7->setNumberOfArmies(9);
         
         country1->setCountryOwnerId(player->getID());
         country2->setCountryOwnerId(player->getID());
@@ -87,15 +84,9 @@ int main() {
         player->setThisPlayerCountry(country3);
         player->setThisPlayerCountry(country4);
         player->setThisPlayerCountry(country5);
-         player->setThisPlayerCountry(country6);
-         player->setThisPlayerCountry(country7);
+        player->setThisPlayerCountry(country6);
+        player->setThisPlayerCountry(country7);
         
-//        for(int i = 0; i <player->getThisPlayerCountries().size() ; i++) {
-//            cout << player->getThisPlayerCountries().at(i)->getCountryName() << " " <<  player->getThisPlayerCountries().at(i)->getNumberOfArmies() <<    endl;
-//        }
-        
-        
-
 
 		// HAND
 		Cards* card1 = new Cards(0, 1);
@@ -114,9 +105,9 @@ int main() {
 		player->getHand()->getCardsInHand(deck);
 
 		// DICE
-		//player->getDice()->askRoll();
-		//player->getDice()->rollDice();
-		//player->getDice()->keepTracks();
+		player->getDice()->askRoll();
+		player->getDice()->rollDice();
+		player->getDice()->keepTracks();
 
 
 		// FORTIFY, ATTACK AND REINFORCE
