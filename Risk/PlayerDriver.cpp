@@ -11,6 +11,17 @@ int main() {
 	string name;
 	cout << "Do you want to create a new player Y/N ? " << endl;
 	cin >> answer;
+    
+    Map* map = new Map();
+    Country* country1 = new Country();
+    Country* country2 = new Country();
+    Country* country3 = new Country();
+    Country* country4 = new Country();
+    Country* country5 = new Country();
+    Country* country6 = new Country();
+    Country* country7 = new Country();
+    
+    
 	if (answer == 'Y') {
 		cout << "what is the players name ?" << endl;
 		cin >> name;
@@ -18,14 +29,7 @@ int main() {
 		player->setName(name);
 
 		// COUNTRIES
-		Map* map = new Map();
-		Country* country1 = new Country();
-		Country* country2 = new Country();
-		Country* country3 = new Country();
-		Country* country4 = new Country();
-		Country* country5 = new Country();
-        Country* country6 = new Country();
-        Country* country7 = new Country();
+		
 
 		country1->setCountryName("Canada");
 		country2->setCountryName("USA");
@@ -91,7 +95,7 @@ int main() {
 //        }
         
         
-		delete map;
+
 
 		// HAND
 		Cards* card1 = new Cards(0, 1);
@@ -123,6 +127,15 @@ int main() {
 	else {
 		cout << "Thank you for playing, Have a good day" << endl;
 	}
-	
+    
+    
+    delete country1;
+    delete country2;
+    delete country3;
+    delete country4;
+    delete country5;
+    delete country6;
+    delete country7;
+    delete map;
 }
 
