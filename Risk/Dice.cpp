@@ -15,6 +15,10 @@ using namespace std;
     timesRolled.reset(new int(0));
 }
 
+Dice::~Dice() {
+   
+}
+
 // Player selects how many dice (1 to 3) to roll
 void Dice::askRoll() {
     int diceToRoll;
@@ -74,7 +78,7 @@ void Dice::rollDice() {
             cout << diceContainer[i] << " ";
             
             //push the values in the vector valuesRolled
-            valuesRolled.push_back(&diceContainer[i]);
+            valuesRolled.push_back(diceContainer[i]);
         }
         cout << " " << endl;
     }
@@ -94,6 +98,6 @@ void Dice::keepTracks() {
 }
 
 
-std::vector<int*> Dice:: getValuesRolled() {
+std::vector<int> Dice:: getValuesRolled() {
     return valuesRolled;
 }
