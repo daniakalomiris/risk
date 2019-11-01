@@ -4,9 +4,18 @@
 
 using namespace std;
 
-//
-//int main() {
-//
+
+int main() {
+
+    Dice dice1;
+    
+    dice1.askRoll();
+    dice1.rollDice();
+    dice1.keepTracks();
+    
+    
+    
+    
 //    //tells true if we roll the dice again
 //    bool rollAgain = true;
 //
@@ -36,7 +45,7 @@ using namespace std;
 //
 //   }
 //   while(rollAgain == true);
-//    
+//
 //    //ask the player 2 to roll their dice
 //    cout << "\n*******----- Player 2, please roll your dice -----*******" << endl;
 //
@@ -62,5 +71,6 @@ using namespace std;
 //
 //   //Message to display that the program ended
 //   cout << "\n*******----- End of program -----*******" << endl;
-//}
-//
+
+}
+

@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include <vector>
 
 
 
@@ -19,6 +20,9 @@ class Dice {
 
         //function to keep tracks of the rolled values
         void keepTracks();
+        
+        //function to get the values rolled
+        std::vector<int*> getValuesRolled();
     
     private:
     // Smart pointer to number of dice that will be rolled
@@ -29,4 +33,7 @@ class Dice {
 
     //number of time the dice were rolled
     std::unique_ptr<int> timesRolled;
+    
+    std::vector<int*> valuesRolled;
+
 };

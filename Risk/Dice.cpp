@@ -1,6 +1,7 @@
 #include "Dice.h"
 #include "time.h"
 #include<iostream>
+
 using namespace std;
 
  Dice:: Dice() {
@@ -43,7 +44,7 @@ void Dice::rollDice() {
     for(int i = 0; i < *numOfDice; i++) {
         int temp = rand()% 6+1;
         diceContainer[i] = temp;
-
+        
         //Keep tracks of the number rolled
         valuesTracker[temp-1]++;
         
@@ -71,9 +72,13 @@ void Dice::rollDice() {
         cout << "You decided to roll " << *numOfDice << " dice. " << "These are the results of your dice: " << endl;
         for(int i = 0; i < *numOfDice; i++) {
             cout << diceContainer[i] << " ";
+            
+            //push the values in the vector valuesRolled
+            valuesRolled.push_back(&diceContainer[i]);
         }
         cout << " " << endl;
     }
+    
 }
 
 void Dice::keepTracks() {
@@ -86,4 +91,9 @@ void Dice::keepTracks() {
 
 }
         cout << "Total number of times you rolled a die: " << *timesRolled << "\n" << endl;
+}
+
+
+std::vector<int*> Dice:: getValuesRolled() {
+    return valuesRolled;
 }
