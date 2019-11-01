@@ -64,7 +64,7 @@ void Player::setThisPlayerCountry(Country* country) {
 	countries.push_back(country);
 }
 
-int Player::controlContinent(Country* country) {
+int Player::controlContinent(vector<Country*> country) {
 	int countryinContient = 0;
 	int numContinent = 0; 
 	for (int i = 0; i < getContinents().size(); i++) {
@@ -91,17 +91,26 @@ int Player::controlContinent(Country* country) {
 bool Map::equalCountries( vector<Country&> left, vector<Country&> right) {
 	bool same = false;
 	for (int i = 0, i < left.size(); i++) {
-		if (left.at(i) = right.at(i)){
+		if (left.at(i)== right.at(i)){
 		return true }
 		else {
-		break}
+		break;
+		}
 	}
 	return same;
 }
 */
+
 //extra methods , reinforce, attack and fortify, will be implemented in next iteration
 void Player::reinforce() {
-	int armyAdd = 0; 
+
+	//for the total number of troops to add
+	int armyAdd = 0;
+	//for the number of troops to add due to continent control 
+	int numContinent = 0; 
+	// for the number of troops to add due to exchanged cards.
+	int armyHand = 0;
+
 	//Number of armies according to number of countries 
 	//Min of 3 armies if less than 3 countries.
 	if (getOwnerCountries(getID()).size() < 3) { 
@@ -112,8 +121,35 @@ void Player::reinforce() {
 		armyAdd += (getOwnerCountries(getID()).size())/3
 	}
 	cout << " The number of troops added by the number of countries is " << armyAdd << "." << endl;
-	
-	cout << "The player reinforce his troops" << endl;
+
+	// the number of continent controlled by player is added to the number of troops for reinforcement 
+	numContinent = controlContinent(getOwnerCountries(getID()));
+	cout << " The number of troops added by the number of controled continents is " << numContinent << "." << endl;
+	armyAdd += numContinent;
+
+	// cards may be exchanged or forced exchange (if more than 5) for troops for reinforcement 
+	if (getCardsInHand().size > 5) {
+		cout << "Since there is more than 5 cards in your hand, you must exchange them." << endl;
+		armyHand = exchangeHand(deck, this->hand);
+		armyAdd += armyHand;
+	}
+	else {
+		cout << "Do you want to exchange your cards for extra reinforcement ? (y/n)" << endl;
+		cin >> string answer;
+
+		if (answer == "y") {
+			armyHand+= exchangeHand(deck, this->hand);
+			armyAdd += armyHand;
+		}
+		else {
+			cout << "No cards are exchange." << endl;
+		}
+
+	}
+	cout << " The number of troops added by exchanging cards is  " << armyHand << "." << endl;
+
+	//Conclusion
+	cout << "In total, " << armyAdd << " troops  can be added for reinforcement." << endl;
 }
 
 //attack method

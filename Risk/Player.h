@@ -27,13 +27,18 @@ class Player {
         std::vector<Country* > getThisPlayerCountries();
         void setThisPlayerCountry(Country* country);
 
+
 		//attack, fortify, reinforce methods
 		void attack();
 		void fortify();
 		void reinforce();
 
+		int  controlContinent(vector<Country*> country);
+
 	private:
 		int armyAdd;
+		int numContinent;
+		int armyHand;
 		Dice* dice;
 		Hand* hand;
 		std::string name;
