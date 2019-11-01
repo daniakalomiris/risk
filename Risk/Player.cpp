@@ -65,16 +65,40 @@ void Player::setThisPlayerCountry(Country* country) {
 }
 
 int Player::controlContinent(Country* country) {
+	int countryinContient = 0;
+	int numContinent = 0; 
 	for (int i = 0; i < getContinents().size(); i++) {
 		for (int j = 0; j < getCountries.size(); j++) {
-			for (int k =0 ; k < getOwnerCountries(getID).size(); k++)
-				getCountries.at(j) = getcountries.at(k)
+			for (int k = 0; k < getOwnerCountries(getID).size(); k++) {
+				if (getCountries.at(j) == getcountries.at(k)) { //NEED TO CREATE = OPERATOR TO COMPARE OBJECTS 
+					countryinContient += 1
+						break;
+				}
+				else {
+					continue;
+				}
+			}
 
+			if (countryinContient = getCountries.size()) {
+				numContinent += 1;
+			}
 		}
 	}
+	
+	return numContinent;
 }
-
-
+/*
+bool Map::equalCountries( vector<Country&> left, vector<Country&> right) {
+	bool same = false;
+	for (int i = 0, i < left.size(); i++) {
+		if (left.at(i) = right.at(i)){
+		return true }
+		else {
+		break}
+	}
+	return same;
+}
+*/
 //extra methods , reinforce, attack and fortify, will be implemented in next iteration
 void Player::reinforce() {
 	int armyAdd = 0; 
