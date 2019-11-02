@@ -1,11 +1,14 @@
 #pragma once
-
+#include <vector>
+#include <memory>
+#include "Player.h"
+#include "Map.h"
 class GameEngine {
 
 private:
-		int* numberofplayers; 
-		vector <Player*> allPlayers; 
-
+		std::unique_ptr<int> numberOfPlayers;
+		std::vector <Player*> allPlayers;
+        std::unique_ptr<Map> map;
 		
 
 	public:
@@ -13,13 +16,17 @@ private:
 		GameEngine(); //constructor
 		~GameEngine(); 
 
-		int getnumberofplayers();
-		void setnumberofplayers(); 
+		int getNumberOfPlayers();
+		void setNumberOfPlayers(int numberOfPlayers);
+        void askNumberOfPlayers();
 
 		void setPlayer(Player* player);
+        
+		void selectMap();
 
-		void selectmap();
-
-		createplayers(int);
-
+		void createPlayers();
+        
+        void mainGameLoop();
+    
+        std::vector <Player*> getAllPlayers();
 };

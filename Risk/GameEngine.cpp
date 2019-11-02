@@ -3,45 +3,65 @@
 #include "Player.h"
 #include <iostream>
 #include <string>
-
-using std::cout;
-using std::endl;
-using std::cin; 
-
+#include "GameEngine.h"
+//using std::cout;
+//using std::endl;
+//using std::cin;
+using namespace std;
 const int MIN_PLAYERS = 2; 
 const int MAX_PLAYERS = 6;
 
-GameEngine::setNumberOfPlayers() {
-	int* numberOfPlayers;
 
-	cout << "Please enter the number of players (between 2 and 6): " << endl; 
+GameEngine:: GameEngine() {
+    
+}
+
+GameEngine:: ~GameEngine() {
+    
+}
+
+
+void GameEngine::askNumberOfPlayers() {
+    int numPlayersEntered;
 	
-	int numPlayersEntered;
-	cin >> numPlayersEntered; 
+    cout << "Please enter the number of players (between 2 and 6): " << endl;
+	
+	cin >> numPlayersEntered;
 
 	while (numPlayersEntered<MIN_PLAYERS || numPlayersEntered > MAX_PLAYERS) {
 		cout << "Invalid entry. Please enter a number between 2 and 6" << endl;
 		cin >> numPlayersEntered; 
 	}
 
-	numberOfPlayers = &numPlayersEntered;
-	cout << "Ok, there will be " << *numberOfPlayers << " players" << endl; 
+	//numberOfPlayers = &numPlayersEntered;
+	cout << "Ok, there will be " << numPlayersEntered << " players" << endl;
 
-	createPlayers(int &numberOfPlayers);
+	
+    //sets the numberOfPlayers
+    this->setNumberOfPlayers(numPlayersEntered);
+    //createPlayers(numberOfPlayers);
 
 }
 
+void GameEngine::setNumberOfPlayers(int numberOfPlayers) {
+    this->numberOfPlayers = make_unique<int>(numberOfPlayers);
+}
 
-void GameEngine::createPlayers(int *numPlayers) {
+int GameEngine::getNumberOfPlayers() {
+    return *numberOfPlayers;
+}
+
+
+
+void GameEngine::createPlayers() {
 	
 	string playerName; 
 
-	for (int min = 2; min <= *numOfPlayers; min++) {
-		int i = 1; //player number
-
-		cout << "Please enter the name of player " << i << endl;
+	for (int i = 0; i < this->getNumberOfPlayers(); i++) {
+		
+		cout << "Please enter the name of player " << i +1 << endl;
 		cin >> playerName; 
-
+        
 		//creates a player with name, dice, and hand 
 		Player* player = new Player(playerName);
 		player->setName(playerName);
@@ -56,6 +76,9 @@ void GameEngine::setPlayer(Player* player) {
 	allPlayers.push_back(player);
 }
 
+vector<Player*> GameEngine::getAllPlayers() {
+    return allPlayers;
+}
 
 
 void GameEngine::selectMap() {
@@ -63,7 +86,7 @@ void GameEngine::selectMap() {
 	string mapFile; 
 
 
-	cout << "Please enter the number associated with the map you would like to play on: \n"
+	cout << "\nPlease enter the number associated with the map you would like to play on: \n"
 		"Select 1 for Big Europe \n"
 		"Select 2 for Geoscape \n"
 		"Select 3 for LOTR \n"
@@ -85,33 +108,62 @@ void GameEngine::selectMap() {
 	}
 
 	if (mapChoice == 1) {
-		cout >> "You selected Big Europe. We will load that up for you" << endl;
+		cout << "You selected Big Europe. We will load that up for you" << endl;
 		mapFile = "bigeurope";
 	}
 	else if (mapChoice == 2) {
-		cout >> "You selected Geoscape. We will load that up for you" << endl;
+		cout << "You selected Geoscape. We will load that up for you" << endl;
 		mapFile = "geoscape";
 	}
 	else if (mapChoice == 3) {
-		cout >> "You selected LOTR. We will load that up for you" << endl;
+		cout << "You selected LOTR. We will load that up for you" << endl;
 		mapFile = "lotr";
 	}
 	else if (mapChoice == 4) {
-		cout >> "You selected Risk. We will load that up for you" << endl;
+		cout << "You selected Risk. We will load that up for you" << endl;
 		mapFile = "risk";
 	}
 	else if (mapChoice == 5) {
-		cout >> "You selected Solar. We will load that up for you" << endl;
+		cout << "You selected Solar. We will load that up for you" << endl;
 		mapFile = "solar"; 
 	}
 		
 
 	// return mapFile;
-	void MapLoader::readMapFile(string mapFile);
+//	void MapLoader::readMapFile(string mapFile);
 
 }
 
-
+//part 3 main game loop
+void GameEngine:: mainGameLoop() {
+    bool gameEnd = false;
+    
+    while (gameEnd == false) {
+        
+        for(int i = 0; i< this->getNumberOfPlayers(); i++) {
+            
+            cout << "Player " +  i+1 << " turn" << endl;
+            
+            Player* tempPlayer = this->getAllPlayers().at(i);
+            
+            tempPlayer->reinforce();
+            tempPlayer->attack();
+            tempPlayer->fortify();
+        
+            
+            
+        }
+        
+        //Need to add an end, when one player controls all the countries
+        gameEnd = true;
+        
+    }
+    
+    
+    
+    
+    
+}
 
 
 //GameEngine::GameEngine() {
