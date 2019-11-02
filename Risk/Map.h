@@ -5,7 +5,7 @@
 #include <queue>
 #include <memory>
 
-
+ 
 class Continent;
 class Country;
 
@@ -20,10 +20,6 @@ public:
 	void setCountry(Country* country);
 	std::vector<Country*> getCountries(); // returns vector of countries
 
-
-	void breadthFirstSearchContinents(std::vector<Continent*> continents, Continent* continent); // continent is the continent's index in the vector of continents
-	void breadthFirstSearchCountries(std::vector<Country*> countries, Country* country);
-
 	bool isValidMap(); // checks if valid map
 	bool isContinentSubgraph(); // checks continents subgraph
 	bool isCountrySubgraph(); // checks if country subgraph
@@ -32,15 +28,12 @@ public:
 	bool countryHasContinent(); // checks if country is on contient
 
 	std::vector<Country*> getOwnerCountries(int playerId); //returns vector of owner countries
-    std::vector<Country*> countries;
-
+     
 private:
 	std::vector<Continent*> continents;
+	std::vector<Country*> countries;
 	
-
 	//Declare variables
-	std::queue<Continent*> visitedContinentsQueue;
-	std::queue<Country*> visitedCountriesQueue;
 	std::vector<Country*> ownerCountries;
 };
 
@@ -67,6 +60,7 @@ private:
 	std::vector<Country*> countriesOfContinent;
 	std::vector<Continent*> adjacentContinents;
     std::unique_ptr<int> numberOfArmies;
+	static int continentCounter;
 };
 
 class Country {
@@ -108,7 +102,7 @@ private:
 	std::unique_ptr<int> coordinateY;
 	std::vector<Country*> adjacentCountries;
 	std::unique_ptr<int> countryOwnerId;
-
 	std::unique_ptr<int> numberOfArmies;
+	static int countryCounter;
 
 };
