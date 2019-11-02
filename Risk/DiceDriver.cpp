@@ -6,7 +6,7 @@ using namespace std;
 
 //
 //int main() {
-//   
+//
 //    //tells true if we roll the dice again
 //    bool rollAgain = true;
 //
@@ -64,4 +64,3 @@ using namespace std;
 //   cout << "\n*******----- End of program -----*******" << endl;
 //
 //}
-

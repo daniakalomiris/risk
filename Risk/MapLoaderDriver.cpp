@@ -16,4 +16,3 @@ int main() {
 	cout << "End file" << endl;
 
 }
-

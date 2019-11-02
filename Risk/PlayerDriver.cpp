@@ -4,13 +4,24 @@
 #include "Map.h"
 using namespace std;
 
-//
+
 //int main() {
 //	
 //	char answer;
 //	string name;
 //	cout << "Do you want to create a new player Y/N ? " << endl;
 //	cin >> answer;
+//    
+//    Map* map = new Map();
+//    Country* country1 = new Country();
+//    Country* country2 = new Country();
+//    Country* country3 = new Country();
+//    Country* country4 = new Country();
+//    Country* country5 = new Country();
+//    Country* country6 = new Country();
+//    Country* country7 = new Country();
+//    
+//    
 //	if (answer == 'Y') {
 //		cout << "what is the players name ?" << endl;
 //		cin >> name;
@@ -18,30 +29,40 @@ using namespace std;
 //		player->setName(name);
 //
 //		// COUNTRIES
-//		Map* map = new Map();
-//		Country* country1 = new Country();
-//		Country* country2 = new Country();
-//		Country* country3 = new Country();
-//		Country* country4 = new Country();
-//		Country* country5 = new Country();
+//		
 //
 //		country1->setCountryName("Canada");
 //		country2->setCountryName("USA");
-//		country3->setCountryName("France");
+//		country3->setCountryName("Mexico");
 //		country4->setCountryName("Italy");
-//		country5->setCountryName("Japan");
+//		country5->setCountryName("France");
+//        country6->setCountryName("Japan");
+//        country7->setCountryName("China");
 //        
-//        country1->setNumberOfArmies(1);
-//        country2->setNumberOfArmies(2);
-//        country3->setNumberOfArmies(3);
+//        
+//        country1->setAdjacentCountries(country2);
+//        country2->setAdjacentCountries(country1);
+//        country2->setAdjacentCountries(country3);
+//        country4->setAdjacentCountries(country5);
+//        country5->setAdjacentCountries(country4);
+//        country6->setAdjacentCountries(country7);
+//        country7->setAdjacentCountries(country6);
+//        
+//        country1->setNumberOfArmies(10);
+//        country2->setNumberOfArmies(5);
+//        country3->setNumberOfArmies(8);
 //        country4->setNumberOfArmies(4);
 //        country5->setNumberOfArmies(5);
+//        country6->setNumberOfArmies(3);
+//        country7->setNumberOfArmies(9);
 //        
 //        country1->setCountryOwnerId(player->getID());
-//         country2->setCountryOwnerId(player->getID());
-//         country3->setCountryOwnerId(player->getID());
-//         country4->setCountryOwnerId(player->getID());
-//         country5->setCountryOwnerId(player->getID());
+//        country2->setCountryOwnerId(player->getID());
+//        country3->setCountryOwnerId(player->getID());
+//        country4->setCountryOwnerId(player->getID());
+//        country5->setCountryOwnerId(player->getID());
+//         country6->setCountryOwnerId(player->getID());
+//         country7->setCountryOwnerId(player->getID());
 //        
 //        
 //		map->setCountry(country1);
@@ -49,16 +70,23 @@ using namespace std;
 //		map->setCountry(country3);
 //		map->setCountry(country4);
 //		map->setCountry(country5);
+//        map->setCountry(country6);
+//        map->setCountry(country7);
 //
 //		int playerID = player->getID();
 //
-//		country1->setCountryOwnerId(playerID);
-//		country3->setCountryOwnerId(playerID); // stops here
-//		country5->setCountryOwnerId(playerID);
 //
 //		map->getOwnerCountries(playerID);
-//
-//		delete map;
+//        
+//        
+//        player->setThisPlayerCountry(country1);
+//        player->setThisPlayerCountry(country2);
+//        player->setThisPlayerCountry(country3);
+//        player->setThisPlayerCountry(country4);
+//        player->setThisPlayerCountry(country5);
+//        player->setThisPlayerCountry(country6);
+//        player->setThisPlayerCountry(country7);
+//        
 //
 //		// HAND
 //		Cards* card1 = new Cards(0, 1);
@@ -90,6 +118,15 @@ using namespace std;
 //	else {
 //		cout << "Thank you for playing, Have a good day" << endl;
 //	}
-//	
+//    
+//    
+//    delete country1;
+//    delete country2;
+//    delete country3;
+//    delete country4;
+//    delete country5;
+//    delete country6;
+//    delete country7;
+//    delete map;
 //}
-//
+
