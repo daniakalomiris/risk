@@ -5,7 +5,7 @@
 
 using namespace std;
 
-
+//
 //int main() {
 //
 //	Map* map1 = new Map();
@@ -138,4 +138,4 @@ using namespace std;
 //	c6M2->setContinentOfCountry(continent2M2);
 //	map1->countryHasContinent();
 //}
-
+//

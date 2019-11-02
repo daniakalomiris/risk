@@ -12,6 +12,11 @@ static vector<string> borders_info;
 
 MapLoader::MapLoader() {
      map = new Map();
+    
+    //clear vectors when creating a new map
+    continents_info.clear();
+    countries_info.clear();
+    borders_info.clear();
 }
 
 void MapLoader::readMapFile(string fileName) {
@@ -128,7 +133,7 @@ void MapLoader::createMap() {
         Continent* continent = new Continent();
         map->setContinent(continent);
         
-        //put each line of the contients_info vector into a string
+        //put each line of the continents_info vector into a string
         string line_info = continents_info[i];
         
         //create a stringstream to separate each elements on the line
@@ -140,6 +145,7 @@ void MapLoader::createMap() {
                 
         continent->setContinentName(temp[0]);
         continent->setNumberOfArmies(stoi(temp[1]));
+        
     }
     
     
@@ -180,34 +186,67 @@ void MapLoader::createMap() {
     
     
     
-    
+    //create borders
     //create a temp variable the size of the continents (worst case, all countries are adjacent to one country)
     //temp[0] is the number of the country
-    string temp[map->getContinents().size()-1];
+   // string *temp;
+    //temp = new string[map->getContinents().size()-1];
     
-    //put each line of the contients_info vector into a string
+    //create a temp vector containing the info of one line of the border_info
+    //we can't use an array like for countries and continents because the number of elements per line change
+    vector <string> temp;
+   
+    //put each line of the borders_info vector into a string
     string line_info = borders_info[0];
+   
+    //create a stringstream helper to find the number of elements on  each line
+    stringstream helper(line_info);
+    
+    //we put -1 so we don't count the first number given because it is the country
+    //int numBorders =-1;
+    //string temp3;
+    
+    //number of elements on the line
+    int numElements =0;
+   
+        string temp2;
+    
+    //while loop to calculate the number of element on 1 line
+        while(helper >> temp2 ) {
+            numElements++;
+            
+    }
     
     //create a stringstream to separate each elements on the line
     stringstream elements_line(line_info);
     
-    //we put -1 so we don't count the first number given because it is the country
-    int numBorders =-1;
-          for(int i =0; i< borders_info.size(); i++) {
-              string temp2;
-              elements_line >> temp2;
-              if(temp2.empty()) {
-                  continue;
-              }
-              numBorders++;
-              temp[i] = temp2;
-              }
-    
-  //  cout << "numOfBorders: " <<numBorders <<endl;
-    
-//    for(int i = 0; i <numBorders+1; i++) {
-//        cout << temp[i] <<endl;
+    //put each elements on the line in the vector temp
+    for(int i = 0 ; i < numElements; i++) {
+        elements_line >> temp2;
+        temp.push_back(temp2);
+    }
+  
+//      cout << "borders" << endl;
+//    for (int i =0; i< temp.size() ; i++) {
+//        cout << temp.at(i)<<endl;
 //    }
+    
+    //loop through the continents
+//    for(int i =0; i< map->getContinents().size(); i++) {
+//
+//       Continent* tempContinent = map->getContinents().at(i);
+//
+//         for(int j =0; j< tempContinent->getCountriesOfContinent().size(); j++) {
+//             if( tempContinent->getCountriesOfContinent().at(i)->getCountryNumber() == (stoi (temp.at(0)) )) {
+//                 tempContinent->getCountriesOfContinent().at(i)->setAdjacentCountries());
+//
+//
+//             }
+//             }
+//         }
+        
+        
+    }
     
         //we need to get the countries through the continents.
         //HERE
@@ -258,7 +297,7 @@ void MapLoader::createMap() {
     
     
     
-}
+//}
 
 Map* MapLoader::getMap() {
 	return map;
@@ -275,7 +314,7 @@ void MapLoader::displayMap() {
       cout << "\nContinent #" << i <<endl;
       cout<< map->getContinents().at(i)->getContinentName() << ": " << map->getContinents().at(i)->getNumberOfArmies() << " armies" << endl;
 
-      //diplay de countries
+      //diplay the countries
       for(int j = 0; j<map->getContinents().at(i)->getCountriesOfContinent().size(); j++) {
       cout<< "\t" << map->getContinents().at(i)->getCountriesOfContinent().at(j)->getCountryName() << endl;
       }
