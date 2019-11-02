@@ -6,54 +6,54 @@
 using namespace std;
 
 
-int main() {
-
-	Map* map1 = new Map();
-
-	Continent* northAmerica = new Continent();
-	Continent* europe = new Continent();
-
-	Country* c1 = new Country();
-	Country* c2 = new Country();
-	Country* c3 = new Country();
-	Country* c4 = new Country();
-	Country* c5 = new Country();
-	Country* c6 = new Country();
-
-	c1->setCountryName("Canada");
-	c2->setCountryName("USA");
-	c3->setCountryName("Mexico");
-	c4->setCountryName("France");
-	c5->setCountryName("Spain");
-	c6->setCountryName("Portugal");
-
-	c1->setContinentOfCountry(northAmerica);
-	c2->setContinentOfCountry(northAmerica);
-	c3->setContinentOfCountry(northAmerica);
-	c4->setContinentOfCountry(europe);
-	c5->setContinentOfCountry(europe);
-	c6->setContinentOfCountry(europe);
-
-	map1->setContinent(northAmerica);
-	map1->setContinent(europe);
-
-	map1->setCountry(c1);
-	map1->setCountry(c2);
-	map1->setCountry(c3);
-	map1->setCountry(c4);
-	map1->setCountry(c5);
-	map1->setCountry(c6);
-
-	northAmerica->setAdjacentContinents(europe);
-	europe->setAdjacentContinents(northAmerica);
-
-	c1->setAdjacentCountries(c2);
-	c2->setAdjacentCountries(c1);
-	c2->setAdjacentCountries(c3);
-	c4->setAdjacentCountries(c5);
-	c5->setAdjacentCountries(c4);
-	c5->setAdjacentCountries(c6);
-	c6->setAdjacentCountries(c5);
+//int main() {
+//
+//	Map* map1 = new Map();
+//
+//	Continent* northAmerica = new Continent();
+//	Continent* europe = new Continent();
+//
+//	Country* c1 = new Country();
+//	Country* c2 = new Country();
+//	Country* c3 = new Country();
+//	Country* c4 = new Country();
+//	Country* c5 = new Country();
+//	Country* c6 = new Country();
+//
+//	c1->setCountryName("Canada");
+//	c2->setCountryName("USA");
+//	c3->setCountryName("Mexico");
+//	c4->setCountryName("France");
+//	c5->setCountryName("Spain");
+//	c6->setCountryName("Portugal");
+//
+//	c1->setContinentOfCountry(northAmerica);
+//	c2->setContinentOfCountry(northAmerica);
+//	c3->setContinentOfCountry(northAmerica);
+//	c4->setContinentOfCountry(europe);
+//	c5->setContinentOfCountry(europe);
+//	c6->setContinentOfCountry(europe);
+//
+//	map1->setContinent(northAmerica);
+//	map1->setContinent(europe);
+//
+//	map1->setCountry(c1);
+//	map1->setCountry(c2);
+//	map1->setCountry(c3);
+//	map1->setCountry(c4);
+//	map1->setCountry(c5);
+//	map1->setCountry(c6);
+//
+//	northAmerica->setAdjacentContinents(europe);
+//	europe->setAdjacentContinents(northAmerica);
+//
+//	c1->setAdjacentCountries(c2);
+//	c2->setAdjacentCountries(c1);
+//	c2->setAdjacentCountries(c3);
+//	c4->setAdjacentCountries(c5);
+//	c5->setAdjacentCountries(c4);
+//	c5->setAdjacentCountries(c6);
+//	c6->setAdjacentCountries(c5);
 	
 	/* VALID map */
 
@@ -63,8 +63,8 @@ int main() {
 
 
 	/* ~~~~ DEBUGGING ~~~~*/
-	map1->isContinentSubgraph();
-	map1->isCountrySubgraph();
+	//map1->isContinentSubgraph();
+	//map1->isCountrySubgraph();
 
 
 	//// map is connected subgraph with adjacency between countries
@@ -145,5 +145,5 @@ int main() {
 	//c2M2->setContinentOfCountry(continent1M2);
 	//c6M2->setContinentOfCountry(continent2M2);
 	//map1->countryHasContinent();
-}
+//}
 
