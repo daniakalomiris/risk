@@ -171,4 +171,3 @@ int main() {
 	delete c3M2;
 	c3M2 = NULL;
 }
-

@@ -15,7 +15,5 @@ int main() {
     myMapLoader.displayMap();
 	cout << "End file" << endl;
 
-	//test
-
 }
 
