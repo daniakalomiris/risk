@@ -145,10 +145,16 @@ bool Map::countryHasContinent() {
 }
 
 bool Map::isValidMap() {
-	if (isContinentSubgraph() && isCountrySubgraph() && isCountryInOneContinent() && isNotEmptyContinent() && countryHasContinent()) {
-		cout << "Map is valid." << endl;
-		return true;
-	}
+    
+//	if (isContinentSubgraph() && isCountrySubgraph() && isCountryInOneContinent() && isNotEmptyContinent() && countryHasContinent()) {
+//		cout << "Map is valid." << endl;
+//		return true;
+//	}
+    
+    if (isCountrySubgraph() && isCountryInOneContinent() && isNotEmptyContinent() && countryHasContinent()) {
+        cout << "Map is valid." << endl;
+        return true;
+    }
 	return false;
 }
 

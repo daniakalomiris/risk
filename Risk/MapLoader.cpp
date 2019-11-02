@@ -222,6 +222,9 @@ void MapLoader::createMap() {
 
         }
     }
+    
+    //check if the map created is valid or not
+    map->isValidMap();
 }
     
 
