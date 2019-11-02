@@ -90,9 +90,10 @@ void Player::fortify() {
 //    Country sourceCountry;
 //    Country targetCountry;
     
+    cout << "***** Fortification Phase *******" << endl;
     
     //Prompts the user for the source country
-    cout << "Please write the name of the chosen source country (capitalize the first letter)" << endl;
+    cout << "Please write the name of the chosen source country \n(capitalize the first letter)" << endl;
     
         cin >> nameSourceCountry;
     
@@ -109,7 +110,7 @@ void Player::fortify() {
     //asks the player again to enter a valid source country if it was not valid
     while(isSourceCountryValid == false) {
         cout << "\nThe source country you choose is not own by you (or doesn't exist) \nPlease choose a country you own as the source country" << endl;
-       cout << "Please write the name of the chosen source country (capitalize the first letter)" << endl;
+       cout << "Please write the name of the chosen source country \n(capitalize the first letter)" << endl;
 
             cin >> nameSourceCountry;
         
@@ -154,7 +155,7 @@ void Player::fortify() {
 
       
     
-    cout << "Please write the name of the chosen target country (capitalize the first letter)" << endl;
+    cout << "Please write the name of the chosen target country \n(capitalize the first letter)" << endl;
        cin >> nameTargetCountry;
     
     //check if the player owns the target country
@@ -219,7 +220,7 @@ void Player::fortify() {
 //    cout << "Is the target country valid? " <<  std::boolalpha << isTargetCountryValid << endl;
     
     
-    cout << "The player fortify succesfully the country: " << nameTargetCountry  << endl;
+    cout << "The player fortified succesfully the country: " << nameTargetCountry  << endl;
     cout << nameSourceCountry << " has now " << this->getThisPlayerCountries().at(indexOfSourceCountry)->getNumberOfArmies() << " armies"  << endl;
      cout << nameTargetCountry << " has now " << this->getThisPlayerCountries().at(indexOfTargetCountry)->getNumberOfArmies() << " armies"  << endl;
     
