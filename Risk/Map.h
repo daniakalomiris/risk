@@ -27,14 +27,14 @@ public:
 	bool isNotEmptyContinent(); // checks if continent is empty
 	bool countryHasContinent(); // checks if country is on contient
 
-	std::vector<Country*> getOwnerCountries(int playerId); //returns vector of owner countries
+	void getOwnerCountries(int playerId); //returns vector of owner countries
+
+	// void displayAdjacentContinents();
+	// void displayAdjacentCountries();
      
 private:
 	std::vector<Continent*> continents;
 	std::vector<Country*> countries;
-	
-	//Declare variables
-	std::vector<Country*> ownerCountries;
 };
 
 class Continent {
