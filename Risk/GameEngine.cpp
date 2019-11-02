@@ -26,12 +26,41 @@ GameEngine::setNumberOfPlayers() {
 
 	numberOfPlayers = &numPlayersEntered;
 	cout << "Ok, there will be " << *numberOfPlayers << " players" << endl; 
-	
-	
+
+	createPlayers(int &numberOfPlayers);
+
 }
 
-GameEngine::selectMap() {
+
+void GameEngine::createPlayers(int *numPlayers) {
+	
+	string playerName; 
+
+	for (int min = 2; min <= *numOfPlayers; min++) {
+		int i = 1; //player number
+
+		cout << "Please enter the name of player " << i << endl;
+		cin >> playerName; 
+
+		//creates a player with name, dice, and hand 
+		Player* player = new Player(playerName);
+		player->setName(playerName);
+
+		setPlayer(player);
+		
+	}
+}
+
+void GameEngine::setPlayer(Player* player) {
+	cout << "adding player to list of players" << endl;
+	allPlayers.push_back(player);
+}
+
+
+
+void GameEngine::selectMap() {
 	int mapChoice;
+	string mapFile; 
 
 
 	cout << "Please enter the number associated with the map you would like to play on: \n"
@@ -57,25 +86,38 @@ GameEngine::selectMap() {
 
 	if (mapChoice == 1) {
 		cout >> "You selected Big Europe. We will load that up for you" << endl;
+		mapFile = "bigeurope";
 	}
 	else if (mapChoice == 2) {
 		cout >> "You selected Geoscape. We will load that up for you" << endl;
+		mapFile = "geoscape";
 	}
 	else if (mapChoice == 3) {
 		cout >> "You selected LOTR. We will load that up for you" << endl;
+		mapFile = "lotr";
 	}
 	else if (mapChoice == 4) {
 		cout >> "You selected Risk. We will load that up for you" << endl;
+		mapFile = "risk";
 	}
 	else if (mapChoice == 5) {
 		cout >> "You selected Solar. We will load that up for you" << endl;
+		mapFile = "solar"; 
 	}
 		
 
-}
-
-
-GameEngine::GameEngine() {
-
+	// return mapFile;
+	void MapLoader::readMapFile(string mapFile);
 
 }
+
+
+
+
+//GameEngine::GameEngine() {
+//
+//	setNumberOfPlayers();
+//	selectMap(); 
+//
+//
+//}
