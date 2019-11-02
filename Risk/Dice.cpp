@@ -42,7 +42,7 @@ void Dice::rollDice() {
     int diceContainer[3];
 
     // Resets the random
-   // srand(time(NULL));
+    srand(time(NULL));
 
     // Generates numbers between 1 and 6 and stores them in an array
     for(int i = 0; i < *numOfDice; i++) {
