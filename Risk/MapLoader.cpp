@@ -6,30 +6,36 @@
 #include <sstream>
 using namespace std;
 
-static vector<string> continents_info;
-static vector<string> countries_info;
-static vector<string> borders_info;
 
 MapLoader::MapLoader() {
      map = new Map();
     
     //clear vectors when creating a new map
-    continents_info.clear();
-    countries_info.clear();
-    borders_info.clear();
+//    continents_info.clear();
+//    countries_info.clear();
+//    borders_info.clear();
 }
 
+MapLoader:: ~MapLoader() {
+    delete map;
+}
 void MapLoader::readMapFile(string fileName) {
 
 
 	//create mapFile stream
 	ifstream mapFile;
+    
+    //tells if the map is valid or not
+    bool isValidMapFile1 = false;
+    bool isValidMapFile2 = false;
+    bool isValidMapFile3 = false;
 
 	string line;
 
 	//open the file
 	mapFile.open(fileName);
 
+    
 	//if i can't open the mapfile, display a error message and exit program
 	if (mapFile.fail()) {
 		cout << "Error: cannot open map" << endl;
@@ -39,17 +45,13 @@ void MapLoader::readMapFile(string fileName) {
 
 	cout << "Reading from " << fileName << endl;
 
-	// while(getline(mapFile, line) && line !="[continents]") {};
-
-	// while(getline(mapFile, line) && line != "") {
-	//     cout << line << endl;
-	// }
-
 	//while you can read a line and the file is not at the end
 	while (getline(mapFile, line) && !mapFile.eof()) {
-
+        
+        
 		//if line is equal to [continents]
 		if (line.find("[continents]") != std::string::npos) {
+            isValidMapFile1 = true;
 
 			//start reading the continents until we reach an empty line
 			//Be carefull the last element will be an empty line
@@ -60,8 +62,11 @@ void MapLoader::readMapFile(string fileName) {
 		}
 
 		//if the line is equal to [countries]
-		if (line.find("[countries]") != std::string::npos) {
+		 if (line.find("[countries]") != std::string::npos) {
+             
+             isValidMapFile2 = true;
 
+             
 			//start reading the countries until we reach an empty line
 			//Be carefull the last element will be an empty line
 			while (getline(mapFile, line) && line.find("[borders]") == std::string::npos) {
@@ -70,8 +75,11 @@ void MapLoader::readMapFile(string fileName) {
 			}
 		}
 
+        
 		//if the line is equal to [borders]
-		if (line.find("[borders]") != std::string::npos) {
+		 if (line.find("[borders]") != std::string::npos) {
+             
+             isValidMapFile3 = true;
 
 			//start reading the borders until we reach an empty line
 
@@ -81,6 +89,11 @@ void MapLoader::readMapFile(string fileName) {
 			}
 		}
 	}
+    
+    if( (isValidMapFile1 && isValidMapFile2 && isValidMapFile3) == false) {
+        cout << "This is not a valid map file, the program will terminate" <<endl;
+        exit(1);
+    }
 
 
 	//delete the last empty line of the countries_info and continents_info
@@ -115,11 +128,8 @@ void MapLoader::createMap() {
                 
         continent->setContinentName(temp[0]);
         continent->setNumberOfArmies(stoi(temp[1]));
-        
     }
-    
-    
-    
+
     //create countries
      for(int i = 0; i< countries_info.size(); i++) {
 
@@ -157,12 +167,8 @@ void MapLoader::createMap() {
     
     
     //create borders
-    //create a temp variable the size of the continents (worst case, all countries are adjacent to one country)
-    
     //create a temp vector containing the info of one line of the border_info
     //we can't use an array like for countries and continents because the number of elements per line change
-   
-    
     for(int i = 0; i < borders_info.size(); i++) {
     
     vector <string> temp;
