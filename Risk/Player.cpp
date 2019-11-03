@@ -67,10 +67,10 @@ void Player::setThisPlayerCountry(Country* country) {
 int Player::controlContinent(vector<Country*> country) {
 	int countryinContient = 0;
 	int numContinent = 0; 
-	for (int i = 0; i < getContinents().size(); i++) {
-		for (int j = 0; j < getCountries.size(); j++) {
-			for (int k = 0; k < getOwnerCountries(getID).size(); k++) {
-				if (getCountries.at(j) == getcountries.at(k)) { //NEED TO CREATE = OPERATOR TO COMPARE OBJECTS 
+	for (int i = 0; i < countries.getContinents().size(); i++) {
+		for (int j = 0; j < countries.getCountries.size(); j++) {
+			for (int k = 0; k < countries.getOwnerCountries(getID).size(); k++) {
+				if (countries.getCountries.at(j) == countries.getcountries.at(k)) { //NEED TO CREATE = OPERATOR TO COMPARE OBJECTS 
 					countryinContient += 1
 						break;
 				}
@@ -79,7 +79,7 @@ int Player::controlContinent(vector<Country*> country) {
 				}
 			}
 
-			if (countryinContient = getCountries.size()) {
+			if (countryinContient = countries.getCountries.size()) {
 				numContinent += 1;
 			}
 		}
@@ -113,7 +113,7 @@ void Player::reinforce() {
 
 	//Number of armies according to number of countries 
 	//Min of 3 armies if less than 3 countries.
-	if (getOwnerCountries(getID()).size() < 3) { 
+	if (countries.getOwnerCountries(getID()).size() < 3) { 
 		armyadd += 3;
 	}
 	// divide number of countries by 3 for number of armies to add
@@ -128,9 +128,9 @@ void Player::reinforce() {
 	armyAdd += numContinent;
 
 	// cards may be exchanged or forced exchange (if more than 5) for troops for reinforcement 
-	if (getCardsInHand().size > 5) {
+	if (hand.getCardsInHand().size > 5) {
 		cout << "Since there is more than 5 cards in your hand, you must exchange them." << endl;
-		armyHand = exchangeHand(deck, this->hand);
+		armyHand = hand.exchangeHand(deck, this->hand);
 		armyAdd += armyHand;
 	}
 	else {
@@ -138,7 +138,7 @@ void Player::reinforce() {
 		cin >> string answer;
 
 		if (answer == "y") {
-			armyHand+= exchangeHand(deck, this->hand);
+			armyHand+= hand.exchangeHand(deck, this->hand);
 			armyAdd += armyHand;
 		}
 		else {

@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Risk"
+    "\\Risk",
+    "\\Risk\\maps"
   ],
-  "SelectedNode": "\\Risk\\Risk.sln",
+  "SelectedNode": "\\Risk\\Cards.cpp",
   "PreviewInSolutionExplorer": false
 }
