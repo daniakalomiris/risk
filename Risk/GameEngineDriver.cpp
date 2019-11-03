@@ -1,32 +1,51 @@
 #include "GameEngine.h"
-#include "MapLoader.h"
 #include <iostream>
 using namespace std;
 
+void part1();
+void part2();
+void part3();
+
+
+
 int main() {
     
+   // part1();
+    part2();
+}
+
+
+//driver for part 1
+void part1() {
+        GameEngine* theGame = new GameEngine();
+
+       
+       theGame->createMap();
+       theGame->askNumberOfPlayers();
+       theGame->createPlayers();
+       cout << "There are " << theGame->getNumberOfPlayers() << " players." << endl;
+
+       
+       //cout << "There are " << theGame->getDeck()->getNumOfCardsInDeck() << " cards in the deck" << endl;
+        
+       
+       delete theGame;
+       theGame = NULL;
+       
+}
+
+//driver for part 2
+void part2() {
     GameEngine* theGame = new GameEngine();
-	MapLoader mapLoader; 
-	Map* map = new Map(); 
-	Deck* deck = new Deck(map); 
-
-	
-    
+    theGame->createMap();
     theGame->askNumberOfPlayers();
-	theGame->createPlayers();
-	cout << "There are " << theGame->getNumberOfPlayers() << " players." << endl;
-
-    
-
-    theGame->selectMap();
-	mapLoader.createMap();
-	mapLoader.displayMap(); 
-
-	cout << "There are " << deck->getNumOfCardsInDeck() << " cards in the deck" << endl; 
- 
-
+    theGame->createPlayers();
     theGame->mainGameLoop();
-    
     delete theGame;
-	delete mapLoader; 
+    theGame = NULL;
+}
+
+
+void part3() {
+    
 }

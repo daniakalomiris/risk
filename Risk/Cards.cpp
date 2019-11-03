@@ -31,7 +31,7 @@ Deck::Deck() {
 
 Deck::Deck(Map* map) {
 
-	cout << "Initializing Deck" << endl;
+	cout << "\nInitializing Deck" << endl;
 
 	//gets the number of cards from the countries
 	vector<Country*> temp;
@@ -89,7 +89,7 @@ vector<Cards*> Deck::getCardsInDeck() {
 
 //adds card object to deck
 void Deck::setCardInDeck(Cards* card) {
-	cout << "Adding card to deck." << endl;
+	//cout << "Adding card to deck." << endl;
 	cardsInDeck.push_back(card);
 }
 

@@ -3,14 +3,17 @@
 #include <memory>
 #include "Player.h"
 #include "Map.h"
+#include "MapLoader.h"
+#include "Cards.h"
 class GameEngine {
 
 private:
 		std::unique_ptr<int> numberOfPlayers;
 		std::vector <Player*> allPlayers;
 		std::vector <Player*> orderedPlayers;
-        std::unique_ptr<Map> map;
-		
+        Map* map;
+        MapLoader* maploader;
+        Deck* deck; 
 
 	public:
 		
@@ -20,15 +23,13 @@ private:
 		int getNumberOfPlayers();
 		void setNumberOfPlayers(int numberOfPlayers);
         void askNumberOfPlayers();
-
+        Deck* getDeck();    
 		void setPlayer(Player* player);
-        
-		void selectMap();
-
+		void createMap();
 		void createPlayers();
-		void playerOrder(vector<Player*>allPlayers);
-		void showPlayerOrder(vector<Player*>orderedPlayers);
-        
+		void playerOrder(std::vector<Player*>allPlayers);
+		void showPlayerOrder(std::vector<Player*>orderedPlayers);
+    
         void mainGameLoop();
     
         std::vector <Player*> getAllPlayers();

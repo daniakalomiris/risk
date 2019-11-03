@@ -1,6 +1,4 @@
-#include "Map.h"
-#include "MapLoader.h"
-#include "Player.h"
+
 #include <iostream>
 #include <string>
 #include "GameEngine.h"
@@ -14,21 +12,19 @@ const int MAX_PLAYERS = 6;
 
 
 GameEngine:: GameEngine() {
-    
+    maploader = new MapLoader();
 }
 
 GameEngine:: ~GameEngine() {
-    
+    delete maploader;
+    delete deck;
 }
-
-
-
 
 
 void GameEngine::askNumberOfPlayers() {
     int numPlayersEntered;
 	
-    cout << "Please enter the number of players (between 2 and 6): " << endl;
+    cout << "\nPlease enter the number of players (between 2 and 6): " << endl;
 	
 	cin >> numPlayersEntered;
 
@@ -55,7 +51,9 @@ int GameEngine::getNumberOfPlayers() {
     return *numberOfPlayers;
 }
 
-
+Deck* GameEngine::getDeck() {
+    return deck;
+}
 
 void GameEngine::createPlayers() {
 	
@@ -63,7 +61,7 @@ void GameEngine::createPlayers() {
 
 	for (int i = 0; i < this->getNumberOfPlayers(); i++) {
 		
-		cout << "Please enter the name of player " << i +1 << endl;
+		cout << "\nPlease enter the name of player " << i +1 << endl;
 		cin >> playerName; 
         
 		//creates a player with name, dice, and hand 
@@ -88,8 +86,8 @@ vector<Player*> GameEngine::getAllPlayers() {
 void GameEngine::playerOrder(vector<Player*>allPlayers) {
 	vector<Player*>orderedPlayers; 
 
-	for (int i = 0; i < allPlayers.size; i++) {
-		int random = rand() % allPlayers.size + 1;
+	for (int i = 0; i < allPlayers.size(); i++) {
+		int random = rand() % allPlayers.size() + 1;
 		//ordered vector of players based on their turn
 		orderedPlayers.push_back(allPlayers[random]); 
 
@@ -99,12 +97,12 @@ void GameEngine::playerOrder(vector<Player*>allPlayers) {
 
 
 void GameEngine::showPlayerOrder(vector<Player*>orderedPlayers) {
-	for (int i = 0; i<orderedPlayers.size; i++) {
+	for (int i = 0; i<orderedPlayers.size(); i++) {
 		cout << "Player " << orderedPlayers[i]->getName() << " is at position " << (i + 1) << endl; 
 	}
 
 }
-void GameEngine::selectMap() {
+void GameEngine::createMap() {
 	int mapChoice;
 	string mapFile; 
 
@@ -114,18 +112,20 @@ void GameEngine::selectMap() {
 		"Select 2 for Geoscape \n"
 		"Select 3 for LOTR \n"
 		"Select 4 for Risk \n"
-		"Select 5 for Solar \n" << endl; 
+		"Select 5 for Solar \n"
+        "Select 6 for notvalid2 \n" << endl; 
 
 	cin >> mapChoice;
 
 	//checks if entry is valid
-	while(mapChoice<1 || mapChoice>5){
+	while(mapChoice<1 || mapChoice>6){
 		cout << "Invalid entry please nter a valid choice: \n"
 				"Select 1 for Big Europe \n"
 				"Select 2 for Geoscape \n"
 				"Select 3 for LOTR \n"
 				"Select 4 for Risk \n"
-				"Select 5 for Solar \n" << endl;
+				"Select 5 for Solar \n"
+                "Select 6 for notvalid2 \n"<< endl;
 
 		cin >> mapChoice; 
 	}
@@ -150,12 +150,18 @@ void GameEngine::selectMap() {
 		cout << "You selected Solar. We will load that up for you" << endl;
 		mapFile = "solar"; 
 	}
-		
-	//reads the mapfile 
-	MapLoader::readMapFile("maps/" + mapFile+ ".map");
-
-	//return mapFile; 
-
+    
+    else if (mapChoice == 6) {
+        cout << "You selected notvalid2. We will load that up for you" << endl;
+        mapFile = "notvalid2";
+    }
+    
+    maploader->readMapFile("maps/" + mapFile+ ".map");
+    maploader->createMap();
+    maploader->displayMap();
+    map = maploader->getMap();
+    //create a new deck
+    deck = new Deck(map);
 }
 
 
@@ -163,13 +169,15 @@ void GameEngine::selectMap() {
 
 //part 3 main game loop
 void GameEngine:: mainGameLoop() {
+    
+    cout << "\n\n****** Main Game Loop *******" << endl;
     bool gameEnd = false;
     
     while (gameEnd == false) {
         
         for(int i = 0; i< this->getNumberOfPlayers(); i++) {
             
-            cout << "Player " +  i+1 << " turn" << endl;
+            cout << "Player " <<  i+1 << " turn" << endl;
             
             Player* tempPlayer = this->getAllPlayers().at(i);
             

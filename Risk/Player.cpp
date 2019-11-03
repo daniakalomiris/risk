@@ -90,7 +90,7 @@ void Player::fortify() {
 //    Country sourceCountry;
 //    Country targetCountry;
     
-    cout << "***** Fortification Phase *******" << endl;
+    cout << "\n\n***** Fortification Phase *******" << endl;
     
     //Prompts the user for the source country
     cout << "Please write the name of the chosen source country \n(capitalize the first letter)" << endl;
