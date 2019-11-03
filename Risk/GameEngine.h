@@ -8,6 +8,7 @@ class GameEngine {
 private:
 		std::unique_ptr<int> numberOfPlayers;
 		std::vector <Player*> allPlayers;
+		std::vector <Player*> orderedPlayers;
         std::unique_ptr<Map> map;
 		
 
@@ -25,6 +26,8 @@ private:
 		void selectMap();
 
 		void createPlayers();
+		void playerOrder(vector<Player*>allPlayers);
+		void showPlayerOrder(vector<Player*>orderedPlayers);
         
         void mainGameLoop();
     

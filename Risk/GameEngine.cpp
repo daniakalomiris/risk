@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include "GameEngine.h"
+#include "time.h"
 //using std::cout;
 //using std::endl;
 //using std::cin;
@@ -20,13 +21,7 @@ GameEngine:: ~GameEngine() {
     
 }
 
-MapLoader::MapLoader() {
 
-}
-
-MapLoader::~MapLoader() {
-
-}
 
 
 
@@ -90,7 +85,26 @@ vector<Player*> GameEngine::getAllPlayers() {
 }
 
 
-string GameEngine::selectMap() {
+void GameEngine::playerOrder(vector<Player*>allPlayers) {
+	vector<Player*>orderedPlayers; 
+
+	for (int i = 0; i < allPlayers.size; i++) {
+		int random = rand() % allPlayers.size + 1;
+		//ordered vector of players based on their turn
+		orderedPlayers.push_back(allPlayers[random]); 
+
+	}
+	
+}
+
+
+void GameEngine::showPlayerOrder(vector<Player*>orderedPlayers) {
+	for (int i = 0; i<orderedPlayers.size; i++) {
+		cout << "Player " << orderedPlayers[i]->getName() << " is at position " << (i + 1) << endl; 
+	}
+
+}
+void GameEngine::selectMap() {
 	int mapChoice;
 	string mapFile; 
 
@@ -137,10 +151,10 @@ string GameEngine::selectMap() {
 		mapFile = "solar"; 
 	}
 		
-	////reads the mapfile 
-	//MapLoader::readMapFile(mapFile); 
+	//reads the mapfile 
+	MapLoader::readMapFile("maps/" + mapFile+ ".map");
 
-	return mapFile; 
+	//return mapFile; 
 
 }
 
