@@ -8,11 +8,11 @@ void part3();
 
 
 
-int main() {
-    
-   // part1();
-    part2();
-}
+//int main() {
+//    
+//   // part1();
+//    part2();
+//}
 
 
 //driver for part 1

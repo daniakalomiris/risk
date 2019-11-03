@@ -57,7 +57,7 @@ public:
 	int getNumOfCardsInDeck();
 
 	//draw method that allows player to draw a card from the cards remaining in the deck
-	void draw(int playerId, Hand* hand, Deck* deck);
+	void draw(Hand* hand, std::string playerName);
 
 
 private:
@@ -82,16 +82,15 @@ public:
 	//card to be removed from hand during exchange
 	// void removeCardFromHand(Cards* cardExchanged);
 
-	void getCardsInHand(Deck* deck);
-	void setCardInHand(Cards* card);
-
 	int getNumOfArmies();
 	void setNumOfArmies(int numOfArmies);
-
-
+    
+    void setCardInHand(Cards* card);
+    std::vector<Cards*> getCardsInHand();
 private:
 	int id;
-	int numOfArmies; // number of armies player has
-	int armiesExchanged;
-	int exchangeCount; // number of exchanges player has done
+	int* numOfArmies; // number of armies player has
+	int* armiesExchanged;
+	int* exchangeCount; // number of exchanges player has done
+    std::vector<Cards*> cardsInHand;
 };

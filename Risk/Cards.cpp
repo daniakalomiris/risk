@@ -25,6 +25,41 @@ Cards::~Cards() {
 
 }
 
+void Cards::setWorth(int worth) {
+    this->worth = make_unique<int>(worth);
+}
+int Cards::getWorth() {
+    return *worth;
+}
+
+// -1 for cards in deck, otherwise it corresponds to the player's id if it's in their hand
+int Cards::getLocationId() {
+    return locationId;
+}
+
+//sets location of the card based on the player who has drawn the card
+void Cards::setLocationId(int locationId) {
+    this->locationId = locationId;
+}
+
+//sets the type of the card
+void Cards::setType(int typeNum) {
+    if (typeNum == 0) {
+        type = make_unique<string>("Infantry");
+    }
+    else if (typeNum == 1) {
+        type = make_unique<string>("Cavalry");
+    }
+    else if (typeNum == 2) {
+        type = make_unique<string>("Artillery");
+    }
+}
+
+//gets the type of the card
+std::string Cards::getType() {
+    return *type;
+}
+
 Deck::Deck() {
 
 }
@@ -37,8 +72,17 @@ Deck::Deck(Map* map) {
 	vector<Country*> temp;
 	temp = map->getCountries();
 	int numCountries = temp.size();
+    int remainder;
+    bool numCountriesDivisible3 = true;
 	numOfCardsInDeck = make_unique<int>(numCountries);
 
+    
+    //check if number of countries is divisible by 3
+    if( (numCountries % 3) != 0) {
+        numCountriesDivisible3 = false;
+        remainder = *numOfCardsInDeck % 3;
+    }
+    
 	//equal amount of cards per type
 	cardsPerType = make_unique<int>(*numOfCardsInDeck / 3);
 
@@ -71,6 +115,26 @@ Deck::Deck(Map* map) {
 		card->setLocationId(-1);
 		setCardInDeck(card);
 	}
+    
+    if(numCountriesDivisible3 == false) {
+      
+        
+        for(int i = 0; i < remainder; i++) {
+        Cards* card = new Cards();
+        card->setType(i);
+        card->setLocationId(-1);
+            
+            if(i == 0) {
+                card->setWorth(1);
+            }
+            
+            if(i == 1) {
+                card->setWorth(5);
+            }
+            
+        setCardInDeck(card);
+        }
+    }
 }
 
 Deck::~Deck() {
@@ -94,16 +158,31 @@ void Deck::setCardInDeck(Cards* card) {
 }
 
 //random card will be drawn from the deck
-void Deck::draw(int playerId, Hand* hand, Deck* deck) {
+void Deck::draw(Hand* hand, string playerName) {
+    
+    
+    if(cardsInDeck.size() == 0) {
+        cout << "No more cards in the deck. The player can't draw" << endl;
+    }
+    
+    else {
+    
+    cout << "\nPlayer " << playerName << " draw a card" << endl;
 	Cards* cardDrawn;
-
-	do {
-		srand(time(NULL)); // randomize
-		int temp = rand() % (*numOfCardsInDeck + 1);
-		cardDrawn = cardsInDeck.at(temp);
-	} while (cardDrawn->getLocationId() != -1); // -1 is for in deck
-
+    int temp;
+	
+    srand(time(NULL)); // randomize
+    temp = rand() % (*numOfCardsInDeck);
+    cardDrawn = cardsInDeck.at(temp);
+    
+    
+    //remove the card in deck
+    this->cardsInDeck.erase(cardsInDeck.begin() + temp);
+    *numOfCardsInDeck = *numOfCardsInDeck - 1;
 	hand->setCardInHand(cardDrawn);
+    }
+    
+    //cout << "num of cards in deck " << *numOfCardsInDeck << endl;
 }
 
 //method to exchange cards
@@ -143,10 +222,10 @@ void Hand::exchange(Deck* deck, Hand* hand) {
 				}
 			}
 		}
-		exchangeCount++;
-		armiesExchanged += 5; //increments by 5 at each exchange
-		cout << "Number of exchanges made so far: " << exchangeCount << endl;
-		cout << "You have exchanged 3 Infantry cards for " << armiesExchanged << " armies" << endl;
+		*exchangeCount++;
+		*armiesExchanged += 5; //increments by 5 at each exchange
+		cout << "Number of exchanges made so far: " << *exchangeCount << endl;
+		cout << "You have exchanged 3 Infantry cards for " << *armiesExchanged << " armies" << endl;
 	}
 
 	else if (artillery >= 3) { //if number of artillery type cards if greater or equal than 3
@@ -158,10 +237,10 @@ void Hand::exchange(Deck* deck, Hand* hand) {
 				}
 			}
 		}
-		exchangeCount++;
-		armiesExchanged += 5; //increments by 5 at each exchange
-		cout << "Number of exchanges made so far: " << exchangeCount << endl;
-		cout << "You have exchanged 3 Artillery cards for " << armiesExchanged << " armies" << endl;
+		*exchangeCount++;
+		*armiesExchanged += 5; //increments by 5 at each exchange
+		cout << "Number of exchanges made so far: " << *exchangeCount << endl;
+		cout << "You have exchanged 3 Artillery cards for " << *armiesExchanged << " armies" << endl;
 	}
 
 	else if (cavalry >= 3) {
@@ -173,10 +252,10 @@ void Hand::exchange(Deck* deck, Hand* hand) {
 				}
 			}
 		}
-		exchangeCount++;
-		armiesExchanged += 5;
-		cout << "Number of exchanges made so far: " << exchangeCount << endl;
-		cout << "You have exchanged 3 Cavalry cards for " << armiesExchanged << " armies" << endl;
+		*exchangeCount++;
+		*armiesExchanged += 5;
+		cout << "Number of exchanges made so far: " << *exchangeCount << endl;
+		cout << "You have exchanged 3 Cavalry cards for " << *armiesExchanged << " armies" << endl;
 
 	}
 	else if (infantry > 1 || artillery > 1 || cavalry > 1) {
@@ -196,93 +275,51 @@ void Hand::exchange(Deck* deck, Hand* hand) {
 				}
 			}
 		}
-		exchangeCount++;
-		armiesExchanged += 5;
-		cout << "Number of exchanges made so far: " << exchangeCount << endl;
-		cout << "You have exchanged " << infantryExchanged << " infantry cards, " << artilleryExchanged << " artillery cards and " << cavalryExchanged << " cavalry cards for " << armiesExchanged << " armies" << endl;
+		*exchangeCount++;
+		*armiesExchanged += 5;
+		cout << "Number of exchanges made so far: " << *exchangeCount << endl;
+		cout << "You have exchanged " << infantryExchanged << " infantry cards, " << artilleryExchanged << " artillery cards and " << cavalryExchanged << " cavalry cards for " << *armiesExchanged << " armies" << endl;
 	}
 	else {
 		cout << "You can not exchange any cards from your hand." << endl;
 	}
-	numOfArmies += armiesExchanged;
+	*numOfArmies += *armiesExchanged;
 }
 
-void Cards::setWorth(int worth) {
-	this->worth = make_unique<int>(worth);
-}
-int Cards::getWorth() {
-	return *worth;
-}
 
-// -1 for cards in deck, otherwise it corresponds to the player's id if it's in their hand
-int Cards::getLocationId() {
-	return locationId;
-}
-
-//sets location of the card based on the player who has drawn the card
-void Cards::setLocationId(int locationId) {
-	this->locationId = locationId;
-}
-
-//sets the type of the card
-void Cards::setType(int typeNum) {
-	if (typeNum == 0) {
-		type = make_unique<string>("Infantry");
-	}
-	else if (typeNum == 1) {
-		type = make_unique<string>("Cavalry");
-	}
-	else if (typeNum == 2) {
-		type = make_unique<string>("Artillery");
-	}
-}
-
-//gets the type of the card
-std::string Cards::getType() {
-	return *type;
-}
 
 Hand::Hand() {
-
+    delete numOfArmies;
+    delete armiesExchanged;
+    delete exchangeCount;
 }
 
 // Takes player's id
 Hand::Hand(int id) {
 	this->id = id;
-	numOfArmies = 0;
-	armiesExchanged = 0;
-	exchangeCount = 0;
+    numOfArmies = new int(0);
+	armiesExchanged = new int(0);
+	exchangeCount = new int(0);
 }
 
 Hand::~Hand() {
-
+    delete exchangeCount;
 }
 
-
-//returns cards in hand
-void Hand::getCardsInHand(Deck* deck) {
-	/*
-	for (unsigned int i = 0; i < deck->getCardsInDeck().size(); i++) {
-		if (deck->getCardsInDeck().at(i)->getLocationId() == id) {
-			cout << "Card " << i << "\n" << " in hand " << id << endl;
-		}
-	}
-	*/
-	cout << "get cards in hand" << endl;
+void Hand:: setCardInHand(Cards* card) {
+    cardsInHand.push_back(card);
 }
 
-//sets the card in hand based on player id
-void Hand::setCardInHand(Cards* card) {
-	card->setLocationId(id);
-	cout << "set card in hand" << endl;
+vector<Cards*> Hand:: getCardsInHand() {
+    return cardsInHand;
 }
 
 //returns number of armies 
 int Hand::getNumOfArmies() {
-	return numOfArmies;
+	return *numOfArmies;
 }
 
 //sets number of armies 
 void Hand::setNumOfArmies(int numOfArmies) {
-	this->numOfArmies = numOfArmies;
+	*this->numOfArmies = numOfArmies;
 }
