@@ -132,7 +132,16 @@ void GameEngine::assignCountriesToPlayers(vector<Player*>orderedPlayers) {
 	}
 	
 
+}
 
+void GameEngine::displayCountriesOfPlayers(vector<Player*>orderedPlayers) {
+	for (int i = 0; i < orderedPlayers.size; i++) {
+		cout << "Player " << i << " countries: " << endl;
+		orderedPlayers[i]->getThisPlayerCountries;
+		for (int i = 0; i < countries.size; i++) {
+			cout << countries[i] << endl;
+		}
+	}
 }
 
 void GameEngine::selectMap() {

@@ -29,6 +29,8 @@ private:
 		void playerOrder(vector<Player*>allPlayers);
 		void showPlayerOrder(vector<Player*>orderedPlayers);
         
+		void GameEngine::assignCountriesToPlayers(vector<Player*>orderedPlayers)
+		void GameEngine::displayCountriesOfPlayers(vector<Player*>orderedPlayers)
         void mainGameLoop();
     
         std::vector <Player*> getAllPlayers();

@@ -19,9 +19,15 @@ int main() {
 	theGame->playerOrder(vector<Player*>allPlayers);
 	theGame->showPlayerOrder(vector<Player*>orderedPlayers);
 
-    theGame->selectMap();
+	theGame->selectMap();
 	mapLoader.createMap();
-	mapLoader.displayMap(); 
+	mapLoader.displayMap();
+
+
+	cout << "We will now assign countries to each player" << endl; 
+	theGame->assignCountriesToPlayers(vector<Player*>orderedPlayers);
+	theGame->displayCountriesOfPlayers(vector<Player*>orderedPlayers);
+    
 
 	cout << "There are " << deck->getNumOfCardsInDeck() << " cards in the deck" << endl; 
  
