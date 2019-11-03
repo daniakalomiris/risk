@@ -20,6 +20,15 @@ GameEngine:: ~GameEngine() {
     
 }
 
+MapLoader::MapLoader() {
+
+}
+
+MapLoader::~MapLoader() {
+
+}
+
+
 
 void GameEngine::askNumberOfPlayers() {
     int numPlayersEntered;
@@ -81,7 +90,7 @@ vector<Player*> GameEngine::getAllPlayers() {
 }
 
 
-void GameEngine::selectMap() {
+string GameEngine::selectMap() {
 	int mapChoice;
 	string mapFile; 
 
@@ -128,11 +137,15 @@ void GameEngine::selectMap() {
 		mapFile = "solar"; 
 	}
 		
+	////reads the mapfile 
+	//MapLoader::readMapFile(mapFile); 
 
-	// return mapFile;
-//	void MapLoader::readMapFile(string mapFile);
+	return mapFile; 
 
 }
+
+
+
 
 //part 3 main game loop
 void GameEngine:: mainGameLoop() {
