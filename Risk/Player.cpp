@@ -72,8 +72,7 @@ void Player::reinforce() {
 //attack method
 void Player::attack() {
 	string playerAttack;
-	int selectAttackFrom;
-	int selectCountryToAttack;
+	int selectAttackFrom, selectCountryToAttack, attackerMaxNumOfDice, defenderMaxNumOfDice, attackerRoll, defenderRoll;
 	Country* attackFrom;
 	Country* countryToAttack;
 
@@ -134,6 +133,36 @@ void Player::attack() {
 		countryToAttack = attackFrom->getAdjacentCountries().at(selectCountryToAttack - 1);
 
 		cout << "You will be attacking " << countryToAttack->getCountryName() << " which belongs to Player " << countryToAttack->getCountryOwnerId() << ".\n" << endl;
+
+		// attacker chooses number of dice to roll
+		attackerMaxNumOfDice = countryToAttack->getNumberOfArmies() - 1;
+		if (attackerMaxNumOfDice > 3) {
+			attackerMaxNumOfDice = 3;
+		}
+
+		cout << "Attacker (Player " << this->getID() << "), please select the number of dice to roll. You may only roll 1 to " << attackerMaxNumOfDice << " dice." << endl;
+		cin >> attackerRoll;
+
+		// check if player selects a valid number of dice
+		while (attackerRoll < 1 || attackerRoll > attackerMaxNumOfDice) {
+			cout << "Attacker (Player " << this->getID() << "), please select a valid number of dice to roll. You may only roll 1 to " << attackerMaxNumOfDice << " dice." << endl;
+			cin >> attackerRoll;
+		}
+
+		// defender chooses number of dice to roll
+		defenderMaxNumOfDice = countryToAttack->getNumberOfArmies();
+		if (defenderMaxNumOfDice > 2) {
+			attackerMaxNumOfDice = 2;
+		}
+
+		cout << "Defender (Player " << countryToAttack->getCountryOwnerId() << "), please select the number of dice to roll. You may only roll 1 to " << defenderMaxNumOfDice << " dice." << endl;
+		cin >> defenderRoll;
+
+		// check if player selects a valid number of dice
+		while (defenderRoll < 1 || defenderRoll > defenderMaxNumOfDice) {
+			cout << "Defender (Player " << countryToAttack->getCountryOwnerId() << "), please select a valid number of dice to roll. You may only roll 1 to " << defenderMaxNumOfDice << " dice." << endl;
+			cin >> defenderRoll;
+		}
 
 		cout << "Player " << this->getID() << ", do you want to attack again? (Press Y to attack again or anything else to end attack phase)\n" << endl;
 		cin >> playerAttack;
