@@ -18,6 +18,7 @@ int main() {
 	cout << "We will now output the turn of each player: " << endl; 
 	theGame->playerOrder(vector<Player*>allPlayers);
 	theGame->showPlayerOrder(vector<Player*>orderedPlayers);
+	theGame->numberOfArmiesPerPlayer(int numberOfPlayers);
 
 	theGame->selectMap();
 	mapLoader.createMap();
@@ -27,6 +28,9 @@ int main() {
 	cout << "We will now assign countries to each player" << endl; 
 	theGame->assignCountriesToPlayers(vector<Player*>orderedPlayers);
 	theGame->displayCountriesOfPlayers(vector<Player*>orderedPlayers);
+	theGame->setArmiesToCountries(vector<Player*>orderedPlayers, int A);
+
+
     
 
 	cout << "There are " << deck->getNumOfCardsInDeck() << " cards in the deck" << endl; 

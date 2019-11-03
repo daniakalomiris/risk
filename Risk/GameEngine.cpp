@@ -61,8 +61,43 @@ int GameEngine::getNumberOfPlayers() {
     return *numberOfPlayers;
 }
 
+int GameEngine::numberOfArmiesPerPlayer(int numberOfPlayers) {
+	int A; 
+	if (numberOfPlayers == 2) {
+		A = 40;
+	}if else(numberOfPlayers == 3) {
+		A = 35;
+	}if else(numberOfPlayers == 4){
+		A = 30;
+	}if else(numberOfPlayers == 5) {
+		A = 25;
+	}if else(numberOfPlayers == 6) {
+		A = 20;
+	}
+	else {
+		cout << "The number of players must be between 2 and 6. This should never display. " << endl; 
+	}
 
+	return A; 
+}
 
+void GameEngine::setArmiesToCountries(vector<Player*>orderedPlayers, int A) {
+	for (int i = 0; i < orderedPlayers.size; i++) {
+		orderedPlayers[i]->getThisPlayerCountries();
+		for (j = 0; i < countries.size; j++) {
+			countries[i]->setNumberOfArmies(getNumberOfArmies() + 1);
+			A--;
+			if (j == countries.size() - 1 && A > 0) {
+				j = 0; 
+			}
+		}
+	}
+}
+
+void GameEngine::displayNumberOfArmies(int A) {
+	cout << "Number of armies each player has: " << A; 
+
+}
 void GameEngine::createPlayers() {
 	
 	string playerName; 

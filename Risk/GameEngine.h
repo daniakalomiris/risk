@@ -20,6 +20,8 @@ private:
 		int getNumberOfPlayers();
 		void setNumberOfPlayers(int numberOfPlayers);
         void askNumberOfPlayers();
+		int numberOfArmiesPerPlayer(int numberOfPlayers);
+		void setArmiesToCountries(vector<Player*>orderedPlayers, int A);
 
 		void setPlayer(Player* player);
         
@@ -29,9 +31,9 @@ private:
 		void playerOrder(vector<Player*>allPlayers);
 		void showPlayerOrder(vector<Player*>orderedPlayers);
         
-		void GameEngine::assignCountriesToPlayers(vector<Player*>orderedPlayers)
-		void GameEngine::displayCountriesOfPlayers(vector<Player*>orderedPlayers)
+		void assignCountriesToPlayers(vector<Player*>orderedPlayers)
+		void displayCountriesOfPlayers(vector<Player*>orderedPlayers)
         void mainGameLoop();
-    
+		
         std::vector <Player*> getAllPlayers();
 };
