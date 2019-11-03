@@ -21,7 +21,13 @@ GameEngine:: ~GameEngine() {
     
 }
 
+Map::Map() {
+	map = new Map();
+}
 
+Map::~Map() {
+	delete map;
+}
 
 
 
@@ -97,13 +103,38 @@ void GameEngine::playerOrder(vector<Player*>allPlayers) {
 	
 }
 
-
 void GameEngine::showPlayerOrder(vector<Player*>orderedPlayers) {
 	for (int i = 0; i<orderedPlayers.size; i++) {
 		cout << "Player " << orderedPlayers[i]->getName() << " is at position " << (i + 1) << endl; 
 	}
 
 }
+
+
+void GameEngine::assignCountriesToPlayers(vector<Player*>orderedPlayers) {
+	Map map = new Map();
+	MapLoader mapLoader;
+
+	
+
+	int numOfCountries = map->getCountries().size();
+	int numOfPlayers = orderedPlayers.size;
+	int countryNumberPushed = 0; 
+
+
+	for (int i = 0; i < numOfPlayers; i++) {
+		orderedPlayers[i]->setThisPlayerCountry(countries[i]);
+		countryNumberPushed++; 
+
+		//this makes the for loop reset
+		if (i = (numOfPlayers - 1) && countryNumberPushed == numOfCountries)
+			i = 0; 
+	}
+	
+
+
+}
+
 void GameEngine::selectMap() {
 	int mapChoice;
 	string mapFile; 
