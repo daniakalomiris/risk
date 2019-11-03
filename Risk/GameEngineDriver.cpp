@@ -15,8 +15,9 @@ int main() {
     theGame->askNumberOfPlayers();
 	theGame->createPlayers();
 	cout << "There are " << theGame->getNumberOfPlayers() << " players." << endl;
-
-    
+	cout << "We will now output the turn of each player: " << endl; 
+	theGame->playerOrder(vector<Player*>allPlayers);
+	theGame->showPlayerOrder(vector<Player*>orderedPlayers);
 
     theGame->selectMap();
 	mapLoader.createMap();
