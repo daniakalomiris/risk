@@ -71,7 +71,75 @@ void Player::reinforce() {
 
 //attack method
 void Player::attack() {
-	cout << "The player attacks" << endl;
+	string playerAttack;
+	int selectAttackFrom;
+	int selectCountryToAttack;
+	Country* attackFrom;
+	Country* countryToAttack;
+
+	cout << "~~~~~ Attack Phase ~~~~~\n" << endl;
+
+	cout << "Player " << this->getID() << ", do you want to attack? (Press Y to attack or anything else to end attack phase)\n" << endl;
+	cin >> playerAttack;
+
+	while (playerAttack == "Y") {
+		cout << "These are the countries you own and the number of armies placed on them:" << endl;
+		for (int i = 0; i < getThisPlayerCountries().size(); i++) {
+			cout << "Country " << i + 1 << ": " << getThisPlayerCountries().at(i)->getCountryName() << " \tNumber of Armies: " << getThisPlayerCountries().at(i)->getNumberOfArmies() << endl;
+			cout << "\n" << endl;
+		}
+		
+		cout << "Which country would you like to attack from? The country you select must have at least 2 armies placed on it. Please enter the country's number.\n" << endl;
+		cin >> selectAttackFrom;
+
+		// check if player enters a valid country number (not negative or bigger than number of owned countries)
+		while (selectAttackFrom <= 0 || selectAttackFrom > getThisPlayerCountries().size()) {
+			cout << "Please enter a valid country number." << endl;
+			cin >> selectAttackFrom;
+		}
+
+		// check if country selected has at least 2 armies placed on it
+		while (getThisPlayerCountries().at(selectAttackFrom -1)->getNumberOfArmies() < 2) {
+			cout << "Please select a country with at least 2 armies placed on it." << endl;
+			cin >> selectAttackFrom;
+		}
+
+		// player attacks from the valid country they selected
+		attackFrom = getThisPlayerCountries().at(selectAttackFrom - 1);
+
+		cout << "You will be attacking from " << attackFrom->getCountryName() << " with " << attackFrom->getNumberOfArmies() << " armies.\n" << endl;
+
+		cout << "These are the country's neighbors you can attack and the owners of them:" << endl;
+		for (int i = 0; i < attackFrom->getAdjacentCountries().size(); i++) {
+			cout << "Country " << i + 1 << ": " << attackFrom->getAdjacentCountries().at(i)->getCountryName() << "\tBelongs to: Player " << attackFrom->getCountryOwnerId() << endl;
+			cout << "\n" << endl;
+		}
+
+		cout << "Which one of this country's neighbors would you like to attack?. The country you select must belong to another player. Please enter the country's number.\n" << endl;
+		cin >> selectCountryToAttack;
+
+		// check if player enters a valid country number (not negative or bigger than number of neighbor countries)
+		while (selectCountryToAttack <= 0 || selectCountryToAttack > attackFrom->getAdjacentCountries().size()) {
+			cout << "Please enter a valid country number." << endl;
+			cin >> selectCountryToAttack;
+		}
+		
+		// check if player selects a country that belongs to another player
+		while (attackFrom->getAdjacentCountries().at(selectCountryToAttack - 1)->getCountryOwnerId() == this->getID()) {
+			cout << "Please select a country that is owned by another player." << endl;
+			cin >> selectCountryToAttack;
+		}
+
+		// player attacks the valid country they selected
+		countryToAttack = attackFrom->getAdjacentCountries().at(selectCountryToAttack - 1);
+
+		cout << "You will be attacking " << countryToAttack->getCountryName() << " which belongs to Player " << countryToAttack->getCountryOwnerId() << ".\n" << endl;
+
+		cout << "Player " << this->getID() << ", do you want to attack again? (Press Y to attack again or anything else to end attack phase)\n" << endl;
+		cin >> playerAttack;
+	};
+
+	cout << "Player " << this->getID() << "'s attack phase is over." << endl;
 }
 
 //fortify method
@@ -151,6 +219,7 @@ void Player::fortify() {
                isNumOfArmiesValid = true;
            }
         }
+
     
 
       
