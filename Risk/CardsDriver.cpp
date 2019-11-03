@@ -16,7 +16,8 @@ int main() {
         Country* country5 = new Country();
         Country* country6 = new Country();
         Country* country7 = new Country();
-     Country* country8 = new Country();
+        Country* country8 = new Country();
+        Country* country9 = new Country();
 
             country1->setCountryName("Canada");
             country2->setCountryName("USA");
@@ -26,6 +27,7 @@ int main() {
             country6->setCountryName("Japan");
             country7->setCountryName("China");
             country8->setCountryName("Denmark");
+    country9->setCountryName("Costa Rica");
 
             map->setCountry(country1);
             map->setCountry(country2);
@@ -35,6 +37,8 @@ int main() {
             map->setCountry(country6);
             map->setCountry(country7);
             map->setCountry(country8);
+    map->setCountry(country9);
+
 
 	//new deck based on number of countries in map (size of deck should be 3)
 	Deck* deck = new Deck(map);
@@ -50,9 +54,9 @@ int main() {
 	
     
     deck->draw(player->getHand(), player->getName());
-      deck->draw(player->getHand(), player->getName());
-      deck->draw(player->getHand(), player->getName());
-        deck->draw(player->getHand(), player->getName());
+    deck->draw(player->getHand(), player->getName());
+    deck->draw(player->getHand(), player->getName());
+    deck->draw(player->getHand(), player->getName());
     deck->draw(player->getHand(), player->getName());
     deck->draw(player->getHand(), player->getName());
     deck->draw(player->getHand(), player->getName());
@@ -70,12 +74,17 @@ int main() {
     for (int i = 0; i < player->getHand()->getCardsInHand().size(); i++) {
         cout << "Type of card " << i+1 << " is: " << player->getHand()->getCardsInHand().at(i)->getType() << endl;
     }
-	//player->getHand()->getCardsInHand(deck);
 
 	// exchange in return of armies
-	//player->getHand()->exchange(deck, player->getHand());
+	player->getHand()->exchange(player->getHand());
+    
+    cout << "\nCards in hand of player Pako after exchange: " << endl;
+    cout << "size of pako hand: " << player->getHand()->getCardsInHand().size()<< endl;
     
     
+    for (int i = 0; i < player->getHand()->getCardsInHand().size(); i++) {
+        cout << "Type of card " << i+1 << " is: " << player->getHand()->getCardsInHand().at(i)->getType() << endl;
+    }
     delete map;
     delete country1;
     delete country2;
@@ -85,6 +94,8 @@ int main() {
     delete country6;
     delete country7;
     delete country8;
+    delete country9;
+
     delete deck;
     
 }

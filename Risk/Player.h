@@ -38,6 +38,7 @@ class Player {
 		std::string name;
 
 		std::unique_ptr<int> id;
+        std::unique_ptr<int> numOfArmies;
 		static int counter;
         std::vector<Country*> countries;
 };

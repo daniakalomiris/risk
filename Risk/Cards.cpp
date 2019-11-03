@@ -185,8 +185,12 @@ void Deck::draw(Hand* hand, string playerName) {
     //cout << "num of cards in deck " << *numOfCardsInDeck << endl;
 }
 
+void Hand::removeCard(int i) {
+    this->cardsInHand.erase(cardsInHand.begin() + i);
+}
+
 //method to exchange cards
-void Hand::exchange(Deck* deck, Hand* hand) {
+void Hand::exchange(Hand* hand) {
 
 	//number of each type of cards
 	int infantry = 0;
@@ -198,82 +202,98 @@ void Hand::exchange(Deck* deck, Hand* hand) {
 	int artilleryExchanged = 0;
 	int cavalryExchanged = 0;
 
-	for (unsigned int i = 0; i < deck->getCardsInDeck().size(); i++) {
-		if (deck->getCardsInDeck().at(i)->getLocationId() == hand->id) { // get all cards in this hand
-			if ((deck->getCardsInDeck().at(i)->getType()).compare("Infantry") == 0) { //checks if of type of infantry
+	for (int i = 0; i < hand->getCardsInHand().size(); i++) {
+		
+			if ((hand->getCardsInHand().at(i)->getType()).compare("Infantry") == 0) { //checks if of type of infantry
 				infantry++;
 			}
-			else if ((deck->getCardsInDeck().at(i)->getType()).compare("Artillery") == 0) { //checks if of type artillery
+			else if ((hand->getCardsInHand().at(i)->getType()).compare("Artillery") == 0) { //checks if of type artillery
 				artillery++;
 			}
-			else if ((deck->getCardsInDeck().at(i)->getType()).compare("Cavalry") == 0) { //checks if of type cavalry
+			else if ((hand->getCardsInHand().at(i)->getType()).compare("Cavalry") == 0) { //checks if of type cavalry
 				cavalry++;
 			}
-		}
+		
 	}
+    
+    cout << "number of Infantry" << infantry << endl;
+    cout << "number of artillery" << artillery << endl;
+    cout << "number of cavalry" << cavalry << endl;
 
 	//worth of armies depends on the number of cards in the hand
 	if (infantry >= 3) {
-		for (unsigned int i = 0; i < deck->getCardsInDeck().size() && infantryExchanged < 3; i++) { // remove 3 infantry cards from hand
-			if (deck->getCardsInDeck().at(i)->getLocationId() == hand->id) {
-				if ((deck->getCardsInDeck().at(i)->getType()).compare("Infantry") == 0) {
-					deck->getCardsInDeck().at(i)->setLocationId(-1); // put card back in deck
+
+        while(infantryExchanged < 3) {
+        for (int i = 0; i < hand->getCardsInHand().size(); i++) { // remove 3 infantry cards from hand
+           
+				if ((hand->getCardsInHand().at(i)->getType()).compare("Infantry") == 0) {
+                
+                    hand->removeCard(i);
 					infantryExchanged++; // increment the number of infantry cards we have exchanged
-				}
-			}
-		}
+                    }
+        }
+            }
+		        
+   
 		*exchangeCount++;
 		*armiesExchanged += 5; //increments by 5 at each exchange
-		cout << "Number of exchanges made so far: " << *exchangeCount << endl;
+		//cout << "Number of exchanges made so far: " << *exchangeCount << endl;
 		cout << "You have exchanged 3 Infantry cards for " << *armiesExchanged << " armies" << endl;
 	}
 
-	else if (artillery >= 3) { //if number of artillery type cards if greater or equal than 3
-		for (unsigned int i = 0; i < deck->getCardsInDeck().size() && artilleryExchanged < 3; i++) {
-			if (deck->getCardsInDeck().at(i)->getLocationId() == hand->id) {
-				if ((deck->getCardsInDeck().at(i)->getType()).compare("Artillery") == 0) {
-					deck->getCardsInDeck().at(i)->setLocationId(-1);
+	 if (artillery >= 3) { //if number of artillery type cards if greater or equal than 3
+        
+        while(artilleryExchanged < 3) {
+		for (unsigned int i = 0; i < hand->getCardsInHand().size(); i++) {
+
+				if ((hand->getCardsInHand().at(i)->getType()).compare("Artillery") == 0) {
+					hand->removeCard(i);
 					artilleryExchanged++;
 				}
-			}
+        }
 		}
 		*exchangeCount++;
 		*armiesExchanged += 5; //increments by 5 at each exchange
-		cout << "Number of exchanges made so far: " << *exchangeCount << endl;
+		//cout << "Number of exchanges made so far: " << *exchangeCount << endl;
 		cout << "You have exchanged 3 Artillery cards for " << *armiesExchanged << " armies" << endl;
 	}
 
-	else if (cavalry >= 3) {
-		for (unsigned int i = 0; i < deck->getCardsInDeck().size() && cavalryExchanged < 3; i++) {
-			if (deck->getCardsInDeck().at(i)->getLocationId() == hand->id) {
-				if ((deck->getCardsInDeck().at(i)->getType()).compare("Cavalry") == 0) {
-					deck->getCardsInDeck().at(i)->setLocationId(-1);
+	 if (cavalry >= 3) {
+          while(cavalryExchanged < 3) {
+		for (unsigned int i = 0; i < hand->getCardsInHand().size(); i++) {
+
+				if ((hand->getCardsInHand().at(i)->getType()).compare("Cavalry") == 0) {
+					   hand->removeCard(i);
 					cavalryExchanged++;
 				}
-			}
+        }
 		}
 		*exchangeCount++;
 		*armiesExchanged += 5;
-		cout << "Number of exchanges made so far: " << *exchangeCount << endl;
+		//cout << "Number of exchanges made so far: " << *exchangeCount << endl;
 		cout << "You have exchanged 3 Cavalry cards for " << *armiesExchanged << " armies" << endl;
 
 	}
 	else if (infantry > 1 || artillery > 1 || cavalry > 1) {
-		for (unsigned int i = 0; i < deck->getCardsInDeck().size() && infantryExchanged < 1 && artilleryExchanged < 1 && cavalryExchanged < 1; i++) {
-			if (deck->getCardsInDeck().at(i)->getLocationId() == hand->id) {
-				if ((deck->getCardsInDeck().at(i)->getType()).compare("Infantry") == 0) {
-					deck->getCardsInDeck().at(i)->setLocationId(-1);
+        
+        while(cavalryExchanged < 1 && artilleryExchanged < 1 && cavalryExchanged < 1) {
+        
+		for (unsigned int i = 0; i < hand->getCardsInHand().size(); i++) {
+
+				if ((hand->getCardsInHand().at(i)->getType()).compare("Infantry") == 0) {
+					     hand->removeCard(i);
+                            
 					infantryExchanged++;
 				}
-				else if ((deck->getCardsInDeck().at(i)->getType()).compare("Artillery") == 0) {
-					deck->getCardsInDeck().at(i)->setLocationId(-1);
+				else if ((hand->getCardsInHand().at(i)->getType()).compare("Artillery") == 0) {
+					      hand->removeCard(i);
 					artilleryExchanged++;
 				}
-				else if ((deck->getCardsInDeck().at(i)->getType()).compare("Cavalry") == 0) {
-					deck->getCardsInDeck().at(i)->setLocationId(-1);
+				else if ((hand->getCardsInHand().at(i)->getType()).compare("Cavalry") == 0) {
+					        hand->removeCard(i);
 					cavalryExchanged++;
 				}
-			}
+            }
 		}
 		*exchangeCount++;
 		*armiesExchanged += 5;

@@ -77,14 +77,14 @@ public:
 	Hand(int id);
 	~Hand();
 
-    void exchange(Deck* deck, Hand* hand);
+    void exchange(Hand* hand);
 
 	//card to be removed from hand during exchange
 	// void removeCardFromHand(Cards* cardExchanged);
 
 	int getNumOfArmies();
 	void setNumOfArmies(int numOfArmies);
-    
+    void removeCard(int index);
     void setCardInHand(Cards* card);
     std::vector<Cards*> getCardsInHand();
 private:
