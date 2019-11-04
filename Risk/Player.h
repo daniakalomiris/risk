@@ -19,7 +19,6 @@ class Player {
 		//set and get player's name
 		void setName(std::string name);
 		std::string getName();
-
 		
 		Dice* getDice();
 		Hand* getHand();
@@ -40,4 +39,5 @@ class Player {
 		std::unique_ptr<int> id;
 		static int counter;
         std::vector<Country*> countries;
+		Player* defender;
 };
