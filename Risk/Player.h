@@ -23,8 +23,11 @@ class Player {
 		
 		Dice* getDice();
 		Hand* getHand();
+		Hand getNotPointerHand();
+		Deck* getDeck();
 		int getArmyAdd();
-		
+		Map getMap();
+
         std::vector<Country* > getThisPlayerCountries();
         void setThisPlayerCountry(Country* country);
 
@@ -37,10 +40,13 @@ class Player {
 
 	private:
 		int armyAdd;
-		int ownedContinent
+		int ownedContinent;
 		int armyHand;
 		Dice* dice;
 		Hand* hand;
+		Hand handNP;
+		Deck* deck;
+		Map map;
 		std::string name;
 		std::string answer;
 

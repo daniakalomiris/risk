@@ -47,8 +47,19 @@ Hand* Player::getHand() {
 	return hand;
 }
 
+Hand Player::getNotPointerHand() {
+	return handNP;
+}
+
 Dice* Player::getDice() {
 	return dice;
+}
+Deck* Player::getDeck() {
+	return deck;
+}
+
+Map Player::getMap() {
+	return map;
 }
 
 //gets num of army
@@ -80,8 +91,8 @@ void Player::reinforce() {
 	string answer; // for user input 
 
 	//Number of armies according to number of countries 
-	//Min of 3 armies if less than 3 countries.
-	if (countries.size() < 3) {
+	//add a minimum of 3 armies if less than 9 countries
+	if ((countries.size()/3) < 3) {
 		armyAdd += 3;
 	}
 
@@ -92,14 +103,14 @@ void Player::reinforce() {
 	cout << " The number of troops added by the number of countries is " << armyAdd << "." << endl;
 
 	// the number of continent controlled by player is added to the number of troops for reinforcement 
-	ownedContinent = controlContinent(countries);
-	cout << " The number of troops added by the number of controled continents is " << numContinent << "." << endl;
+	ownedContinent = map.controlContinent(countries);
+	cout << " The number of troops added by the number of controled continents is " << ownedContinent << "." << endl;
 	armyAdd += ownedContinent;
-
+/*
 	// cards may be exchanged or forced exchange (if more than 5) for troops for reinforcement 
-	if (hand.getCardsInHand().size > 5) {
+	if (handNP.getCardsInHand(deck).size > 5) {
 		cout << "Since there is more than 5 cards in your hand, you must exchange them." << endl;
-		armyHand = hand.exchangeHand(deck, this->hand);
+		armyHand = handNP.exchange(deck, hand);
 		armyAdd += armyHand;
 	}
 	else {
@@ -107,7 +118,7 @@ void Player::reinforce() {
 		cin >> answer;
 
 		if (answer == "y") {
-			armyHand+= hand.exchangeHand(deck, this->hand);
+			armyHand+= handNP.exchange(deck, hand);
 			armyAdd += armyHand;
 		}
 		else {
@@ -116,7 +127,7 @@ void Player::reinforce() {
 
 	}
 	cout << " The number of troops added by exchanging cards is  " << armyHand << "." << endl;
-
+	*/
 	//Conclusion
 	cout << "In total, " << armyAdd << " troops  can be added for reinforcement." << endl;
 }
@@ -146,7 +157,7 @@ void Player::fortify() {
 
 
 	//check if the player owns the source country
-	for (int i = 0; i < this->getThisPlayerCountries().size(); i++) {
+	for (unsigned int i = 0; i < this->getThisPlayerCountries().size(); i++) {
 		if (nameSourceCountry.compare(this->getThisPlayerCountries().at(i)->getCountryName()) == 0) {
 			isSourceCountryValid = true;
 			indexOfSourceCountry = i;
@@ -166,7 +177,7 @@ void Player::fortify() {
 	cin >> nameTargetCountry;
 
 	//check if the player owns the target country
-	for (int i = 0; i < this->getThisPlayerCountries().size(); i++) {
+	for (unsigned int i = 0; i < this->getThisPlayerCountries().size(); i++) {
 		if (nameTargetCountry.compare(this->getThisPlayerCountries().at(i)->getCountryName()) == 0) {
 			isSourceCountryValid = true;
 			indexOfSourceCountry = i;

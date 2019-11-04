@@ -4,10 +4,7 @@
 
 using namespace std;
 
-<<<<<<< HEAD
-=======
 
->>>>>>> dca3588b34152b4352c87f0e44a20441699da17d
 //int main() {
 //   
 //    //tells true if we roll the dice again
@@ -65,9 +62,6 @@ using namespace std;
 //
 //   //Message to display that the program ended
 //   cout << "\n*******----- End of program -----*******" << endl;
-<<<<<<< HEAD
-=======
-//
->>>>>>> dca3588b34152b4352c87f0e44a20441699da17d
+
 //}
 
