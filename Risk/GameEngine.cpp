@@ -37,7 +37,7 @@ void GameEngine::askNumberOfPlayers() {
 	
 	cin >> numPlayersEntered;
 
-	//verifies that user input a valid number of players
+	//verifies that user input a valid number of players and asks them to input again if not
 	while (numPlayersEntered<MIN_PLAYERS || numPlayersEntered > MAX_PLAYERS) {
 		cout << "Invalid entry. Please enter a number between 2 and 6" << endl;
 		cin >> numPlayersEntered; 
@@ -130,13 +130,14 @@ void GameEngine::setArmiesToCountries() {
     for (int i = 0; i < allPlayers.size(); i++) {
         
         bool isCountryChosenValid = false;
+		//country chosen by player to place an army on 
         string countryChosen;
         int indexOfCountryChosen =0;
         
         cout << "\n\nPlayer " << allPlayers.at(i)->getName() << " turn" << endl;
         cout << "This is your countries with their number of armies" << endl;
         
-		//loops through all countries of player
+		//loops through all countries of the player which is set to play
         for(int j = 0; j < allPlayers.at(i)->getThisPlayerCountries().size(); j++ ) {
             cout << allPlayers.at(i)->getThisPlayerCountries().at(j)->getCountryName() << " " << allPlayers.at(i)->getThisPlayerCountries().at(j)->getNumberOfArmies() << endl;
         }
@@ -148,10 +149,10 @@ void GameEngine::setArmiesToCountries() {
         cin >> countryChosen;
        
         
-        //check if the country enter is valid
+        //check if the country entered is valid
         for(int j = 0; j < allPlayers.at(i)->getThisPlayerCountries().size(); j++ ) {
             
-            //if the country is own by the player, the country is valid
+            //if the country is owned by the player, the country is valid
             if(countryChosen.compare(allPlayers.at(i)->getThisPlayerCountries().at(j)->getCountryName()) == 0 ) {
                 isCountryChosenValid = true;
                 indexOfCountryChosen = j;
@@ -169,7 +170,7 @@ void GameEngine::setArmiesToCountries() {
                     //check if the country enter is valid
                    for(int j = 0; j < allPlayers.at(i)->getThisPlayerCountries().size(); j++ ) {
                       
-                       //if the country is own by the player, the country is valid
+                       //if the country is owned by the player, the country is valid
                        if(countryChosen.compare(allPlayers.at(i)->getThisPlayerCountries().at(j)->getCountryName()) == 0 ) {
                            isCountryChosenValid = true;
                            indexOfCountryChosen = j;
@@ -190,9 +191,10 @@ void GameEngine::setArmiesToCountries() {
         
         cout << "You have place 1 more army on the country " << allPlayers.at(i)->getThisPlayerCountries().at(indexOfCountryChosen)->getCountryName()<< endl;
         
+
         cout << allPlayers.at(i)->getThisPlayerCountries().at(indexOfCountryChosen)->getCountryName() << " has now " << allPlayers.at(i)->getThisPlayerCountries().at(indexOfCountryChosen)->getNumberOfArmies() << " armies " << endl;
         
-        
+        //checks if all armies have been placed
         if(allPlayers.at(i)->getNumOfArmiesAtStartUpPhase() == 0) {
             done = true;
         }
@@ -203,7 +205,7 @@ void GameEngine::setArmiesToCountries() {
 //creates players
 void GameEngine::createPlayers() {
 	
-	string playerName; 
+	string playerName; //player name
 
 	for (int i = 0; i < this->getNumberOfPlayers(); i++) {
 		
@@ -252,10 +254,10 @@ void GameEngine::showPlayerOrder() {
 
 }
 
-
+//assigning countries to each player
 void GameEngine::assignCountriesToPlayers() {
 
-	int numOfCountries = this->map->getCountries().size();
+	int numOfCountries = this->map->getCountries().size(); //number of countries in the map 
 	int numOfPlayers = this->allPlayers.size();
 	int countryNumberPushed = 0;
     int playerTurns = 0;
@@ -264,6 +266,7 @@ void GameEngine::assignCountriesToPlayers() {
     // Resets the random
         srand(time(NULL));
     
+	//checks that there are still countries to assign
     while(countryNumberPushed < numOfCountries) {
     
         int randomCountry = rand() % numOfCountries;
@@ -278,10 +281,11 @@ void GameEngine::assignCountriesToPlayers() {
             //set the owner id
              map->getCountries().at(randomCountry)->setCountryOwnerId(allPlayers.at(playerTurns)->getID());
             
+			//loops through all players once
             if(playerTurns < this->allPlayers.size()-1) {
             playerTurns ++;
             }
-        
+			//resets playerTurns to go through the loop again with the first player
             else {
             playerTurns = 0;
             }
@@ -293,6 +297,7 @@ void GameEngine::assignCountriesToPlayers() {
     
 }
 
+//displays countries of a player
 void GameEngine::displayCountriesOfPlayers() {
 	for (int i = 0; i < allPlayers.size(); i++) {
 		cout << "\n\nPlayer " << allPlayers.at(i)->getName() << " countries: " << endl;
@@ -303,9 +308,10 @@ void GameEngine::displayCountriesOfPlayers() {
 	}
 }
 
+//creates a map based on the choice of the user
 void GameEngine::createMap() {
 	int mapChoice;
-    string mapFile;
+    string mapFile; //input of user
 
 
     cout << "\nPlease enter the number associated with the map you would like to play on: \n"
@@ -331,6 +337,7 @@ void GameEngine::createMap() {
         cin >> mapChoice;
     }
 
+	//associated choice of user with a map that is available
     if (mapChoice == 1) {
         cout << "You selected Big Europe. We will load that up for you" << endl;
         mapFile = "bigeurope";
@@ -357,13 +364,14 @@ void GameEngine::createMap() {
         mapFile = "notvalid2";
     }
     
+	//calls methods from maploader to open the file selected, create it, and display it
     maploader->readMapFile("maps/" + mapFile+ ".map");
     maploader->createMap();
     maploader->displayMap();
     
     map = maploader->getMap();
    
-    //create a new deck
+    //create a new deck based on the map selected 
     deck = new Deck(map);
 
 }
