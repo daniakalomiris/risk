@@ -80,9 +80,23 @@ void part2() {
     theGame->assignCountriesToPlayers();
     theGame->displayCountriesOfPlayers();
     theGame->setNumberOfArmiesPerPlayer();
-    cout << "This is the number of armies each player will have to place on the game: " << theGame->getNumberOfArmiesPerPlayer() << " armies" << endl;;
+    cout << "\n\nThis is the number of armies each player will have to place on the game: " << theGame->getNumberOfArmiesPerPlayer() << " armies" << endl;;
     
     theGame->setArmiesToCountries();
+    
+    cout << "\n\nThis the countries of each players and their number of armies after army placement" << endl;
+    
+    for(int i =0; i <theGame->getAllPlayers().size(); i++) {
+        cout << "Player " << theGame->getAllPlayers().at(i)->getName() << " countries and armies" << endl;
+        
+        for(int j = 0; j<theGame->getAllPlayers().at(i)->getThisPlayerCountries().size(); j++) {
+            cout << theGame->getAllPlayers().at(i)->getThisPlayerCountries().at(j)->getCountryName() << " "  << theGame->getAllPlayers().at(i)->getThisPlayerCountries().at(j)->getNumberOfArmies() << endl;
+        }
+        
+        
+    }
+    
+    
 }
 
 

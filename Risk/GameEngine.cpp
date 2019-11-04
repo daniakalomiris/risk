@@ -176,7 +176,7 @@ void GameEngine::setArmiesToCountries() {
         
         cout << "You have place 1 more army on the country " << allPlayers.at(i)->getThisPlayerCountries().at(indexOfCountryChosen)->getCountryName()<< endl;
         
-        cout << allPlayers.at(i)->getThisPlayerCountries().at(indexOfCountryChosen)->getCountryName() << " " << allPlayers.at(i)->getThisPlayerCountries().at(indexOfCountryChosen)->getNumberOfArmies() << endl;
+        cout << allPlayers.at(i)->getThisPlayerCountries().at(indexOfCountryChosen)->getCountryName() << " has now " << allPlayers.at(i)->getThisPlayerCountries().at(indexOfCountryChosen)->getNumberOfArmies() << " armies " << endl;
         
         
         if(allPlayers.at(i)->getNumOfArmiesAtStartUpPhase() == 0) {
@@ -217,8 +217,12 @@ vector<Player*> GameEngine::getAllPlayers() {
 
 void GameEngine::setPlayerOrder() {
     
+    //get a time base seed to have a new random random generator
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    
+    
     //shuffle the player's order
-    shuffle(this->allPlayers.begin(), this->allPlayers.end(), default_random_engine());
+    shuffle(this->allPlayers.begin(), this->allPlayers.end(), default_random_engine(seed));
     
    
     }
@@ -246,20 +250,13 @@ void GameEngine::assignCountriesToPlayers() {
     while(countryNumberPushed < numOfCountries) {
     
         int randomCountry = rand() % numOfCountries;
-      //  cout << "random Country index " << randomCountry << endl;
+     
         //if the index of countries is not already assigned
         if(find(countriesAlreadyAssigned.begin(), countriesAlreadyAssigned.end(), randomCountry) == countriesAlreadyAssigned.end()) {
         
-            
-         //   cout << "country not assigned yet" << endl;
-            
-        
-        
-            
-         //   cout << "Turn of player  " << playerTurns << endl;
         //set the country to the player
             
-           // cout << "assign country of index " << randomCountry << "to player  " << playerTurns << endl;
+           
             this-> allPlayers.at(playerTurns)->setThisPlayerCountry(map->getCountries().at(randomCountry));
             //set the owner id
              map->getCountries().at(randomCountry)->setCountryOwnerId(allPlayers.at(playerTurns)->getID());
@@ -275,8 +272,6 @@ void GameEngine::assignCountriesToPlayers() {
             countryNumberPushed ++;
             countriesAlreadyAssigned.push_back(randomCountry);
         }
-        
-       // else { cout << "Country already assigned" << endl;}
     }
     
 }
@@ -351,15 +346,6 @@ void GameEngine::createMap() {
     
     map = maploader->getMap();
    
-    
-  
-
-    
-    
-    
-    
-    
-    
     //create a new deck
     deck = new Deck(map);
 
@@ -381,19 +367,11 @@ void GameEngine:: mainGameLoop() {
             tempPlayer->reinforce();
             tempPlayer->attack();
             tempPlayer->fortify();
-        
-            
-            
         }
         
         //Need to add an end, when one player controls all the countries
         gameEnd = true;
         
     }
-    
-    
-    
-    
-    
 }
 
