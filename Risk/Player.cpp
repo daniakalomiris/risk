@@ -69,21 +69,22 @@ void Player::setThisPlayerCountry(Country* country) {
 	countries.push_back(country);
 }
 
+
 //extra methods , reinforce, attack and fortify, will be implemented in next iteration
+
 void Player::reinforce() {
 
-	//for the total number of troops to add
-	int armyAdd = 0;
-	//for the number of troops to add due to continent control 
-	int numContinent = 0; 
-	// for the number of troops to add due to exchanged cards.
-	int armyHand = 0;
-	string answer;
+	int armyAdd = 0;//for the total number of troops to add
+	int ownedContinent = 0; //for the number of troops to add due to continent control 
+	int armyHand = 0;// for the number of troops to add due to exchanged cards.
+	string answer; // for user input 
+
 	//Number of armies according to number of countries 
 	//Min of 3 armies if less than 3 countries.
 	if (countries.size() < 3) {
 		armyAdd += 3;
 	}
+
 	// divide number of countries by 3 for number of armies to add
 	else {
 		armyAdd += (countries.size()) / 3;
@@ -91,9 +92,9 @@ void Player::reinforce() {
 	cout << " The number of troops added by the number of countries is " << armyAdd << "." << endl;
 
 	// the number of continent controlled by player is added to the number of troops for reinforcement 
-	numContinent = controlContinent(countries);
+	ownedContinent = controlContinent(countries);
 	cout << " The number of troops added by the number of controled continents is " << numContinent << "." << endl;
-	armyAdd += numContinent;
+	armyAdd += ownedContinent;
 
 	// cards may be exchanged or forced exchange (if more than 5) for troops for reinforcement 
 	if (hand.getCardsInHand().size > 5) {

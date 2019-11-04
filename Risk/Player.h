@@ -37,6 +37,7 @@ class Player {
 
 	private:
 		int armyAdd;
+		int ownedContinent
 		int armyHand;
 		Dice* dice;
 		Hand* hand;
