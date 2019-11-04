@@ -55,6 +55,10 @@ int GameEngine::getNumberOfArmiesPerPlayer() {
     return *numberOfArmiesPerPlayer;
 }
 
+Map* GameEngine:: getMap() {
+    return map;
+}
+
 void GameEngine::setNumberOfArmiesPerPlayer() {
 	int A;
 	if (this->allPlayers.size() == 2) {
@@ -349,7 +353,7 @@ void GameEngine::createMap() {
 }
 
 
-//part 3 main game loop
+//part 3 main game loop, each player play turn by turn
 void GameEngine:: mainGameLoop() {
 
     cout << "\n\n****** Main Game Loop *******" << endl;
@@ -358,18 +362,24 @@ void GameEngine:: mainGameLoop() {
     while (gameEnd == false) {
 
         for(int i = 0; i< this->getNumberOfPlayers(); i++) {
-
-            cout << "Player " <<  i+1 << " turn" << endl;
-
-            Player* tempPlayer = this->getAllPlayers().at(i);
-
-            tempPlayer->reinforce();
-            tempPlayer->attack();
-            tempPlayer->fortify();
+            
+            //display which player is playing
+            cout << "\n\nPlayer " <<  i+1 << ": " << this->getAllPlayers().at(i)->getName() << " turn" << endl;
+            
+            this->getAllPlayers().at(i)->reinforce();
+            this->getAllPlayers().at(i)->attack();
+            this->getAllPlayers().at(i)->fortify();
+           
+            
+            //check if a player owns all the countries
+            if(this->getAllPlayers().at(i)->getThisPlayerCountries().size() == this->map->getCountries().size()) {
+                gameEnd = true;
+            }
         }
-
+        
+       
         //Need to add an end, when one player controls all the countries
-        gameEnd = true;
+    //    gameEnd = true;
 
     }
 }

@@ -9,37 +9,11 @@ void part3();
 
 int main() {
 
-    part2();
-
-//    mapLoader.createMap();
-//    theGame->askNumberOfPlayers();
-//	theGame->createPlayers();
-//	cout << "There are " << theGame->getNumberOfPlayers() << " players." << endl;
-//	cout << "We will now output the turn of each player: " << endl;
-//	theGame->playerOrder(vector<Player*>allPlayers);
-//	theGame->showPlayerOrder(vector<Player*>orderedPlayers);
-//	theGame->numberOfArmiesPerPlayer(int numberOfPlayers);
-//
-//
-//
-//
-//
-//
-//	cout << "We will now assign countries to each player" << endl;
-	//theGame->assignCountriesToPlayers(vector<Player*>orderedPlayers);
-	//theGame->displayCountriesOfPlayers(vector<Player*>orderedPlayers);
-	//theGame->setArmiesToCountries(vector<Player*>orderedPlayers, int A);
-
-
-
-
-//	cout << "There are " << deck->getNumOfCardsInDeck() << " cards in the deck" << endl;
-//
-//
-//    theGame->mainGameLoop();
-//
-//    delete theGame;
-//	//delete mapLoader;
+   
+// part1();
+// part2();
+    part3();
+    
 }
 
 
@@ -96,15 +70,33 @@ void part2() {
 
     }
 
-
+    delete theGame;
+    theGame = NULL;
 }
 
 
 void part3() {
+    
     GameEngine* theGame = new GameEngine();
     theGame->createMap();
     theGame->askNumberOfPlayers();
     theGame->createPlayers();
+    theGame->assignCountriesToPlayers();
+    theGame->displayCountriesOfPlayers();
+    
+    
+    
+    //assign 5 armies to all countries of each player, just for testing
+    
+    for(int i =0; i < theGame->getAllPlayers().size(); i++) {
+        
+        for(int j = 0; j < theGame->getAllPlayers().at(i)->getThisPlayerCountries().size(); j++) {
+    theGame->getAllPlayers().at(i)->getThisPlayerCountries().at(j)->setNumberOfArmies(5);
+            
+        }
+    }
+    
+    
     theGame->mainGameLoop();
     delete theGame;
     theGame = NULL;

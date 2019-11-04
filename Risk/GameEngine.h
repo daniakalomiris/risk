@@ -34,7 +34,7 @@ private:
 		void createPlayers();
 		void setPlayerOrder();
 		void showPlayerOrder();
-
+        Map* getMap();
         void assignCountriesToPlayers();
         void displayCountriesOfPlayers();
         void mainGameLoop();

@@ -92,8 +92,9 @@ void Player::fortify() {
     string nameTargetCountry;
     bool isSourceCountryValid = false;
     bool isTargetCountryValid = false;
+    bool isTargetCountryNeighbour = false;
     bool isNumOfArmiesValid = true;
-    
+    bool neighbourCountries = false;
  
     int numOfArmies = 0;
     int indexOfSourceCountry = 0;
@@ -104,8 +105,47 @@ void Player::fortify() {
     
     cout << "\n\n***** Fortification Phase *******" << endl;
     
+    cout << "This is your country, its number of armies and its adjacent countries" << endl;
+  
+    for(int i = 0 ; i < getThisPlayerCountries().size(); i++) {
+        cout << getThisPlayerCountries().at(i)->getCountryName() << " " << getThisPlayerCountries().at(i)->getNumberOfArmies();
+
+        cout << " (";
+        for(int j =0; j < getThisPlayerCountries().at(i)->getAdjacentCountries().size(); j++) {
+            cout << getThisPlayerCountries().at(i)->getAdjacentCountries().at(j)->getCountryName() << ",";
+        }
+        cout << ") " << endl;
+    }
+    
+    
+    //check if there are countries adjacent to each other, if not, the player can't fortify
+    //check if the country is a neighboring country of the source country
+    string nameCountry;
+    for(int i =0; i< this->getThisPlayerCountries().size(); i++) {
+        
+        for(int j = 0; j < this->getThisPlayerCountries().size(); j++) {
+       
+            nameCountry = getThisPlayerCountries().at(i)->getCountryName();
+            
+        for(int k = 0; k < this->getThisPlayerCountries().at(j)->getAdjacentCountries().size(); k++ ) {
+           
+            if(nameCountry.compare( this->getThisPlayerCountries().at(j)->getAdjacentCountries().at(k)->getCountryName() ) == 0) {
+                neighbourCountries = true;
+            }
+                }
+        }
+  
+        }
+    
+    if(neighbourCountries == false) {
+        cout << "There are no neightbour countries. You cannot fortify" << endl;
+    }
+    
+    //else fortify
+    else {
+    
     //Prompts the user for the source country
-    cout << "Please write the name of the chosen source country \n(capitalize the first letter)" << endl;
+    cout << "\nPlease write the name of the chosen source country \n(capitalize the first letter)" << endl;
     
         cin >> nameSourceCountry;
     
@@ -118,7 +158,12 @@ void Player::fortify() {
         }
     }
     
-    
+    //check if the country chosen has neighbours in the countries of the player
+
+        
+        
+        
+        
     //asks the player again to enter a valid source country if it was not valid
     while(isSourceCountryValid == false) {
         cout << "\nThe source country you choose is not own by you (or doesn't exist) \nPlease choose a country you own as the source country" << endl;
@@ -172,7 +217,9 @@ void Player::fortify() {
     
     //check if the player owns the target country
        for(int i = 0; i < this->getThisPlayerCountries().size(); i++) {
-           if( nameTargetCountry.compare(this->getThisPlayerCountries().at(i)->getCountryName()) == 0) {
+           if(nameTargetCountry.compare(this->getThisPlayerCountries().at(i)->getCountryName()) == 0) {
+               
+               cout << "The country is own by the player" << endl;
                isTargetCountryValid = true;
                indexOfTargetCountry = i;
            }
@@ -181,23 +228,23 @@ void Player::fortify() {
     
     //check if the country is a neighboring country of the source country
     for(int i =0; i< this->getThisPlayerCountries().at(indexOfSourceCountry)->getAdjacentCountries().size(); i++) {
-        if(nameTargetCountry.compare(this->getThisPlayerCountries().at(indexOfSourceCountry)->getAdjacentCountries().at(i)->getCountryName()) != 0) {
-             isTargetCountryValid = false;
+        if(nameTargetCountry.compare(this->getThisPlayerCountries().at(indexOfSourceCountry)->getAdjacentCountries().at(i)->getCountryName()) == 0) {
+            isTargetCountryNeighbour =true;
+            cout << "The country is a neighbour" << endl;
         }
-        
-        else {
-             isTargetCountryValid= true;
-        }
+      
     }
     
-    while(isTargetCountryValid == false) {
+    while(isTargetCountryValid == false && isTargetCountryNeighbour == false) {
            cout << "\nThe target country you choose is not own by you or doesn't exists or is not a neighbour of the source country \nPlease choose a valid country" << endl;
             cout << "Enter the name of a valid chosen target country" << endl;
            cin >> nameTargetCountry;
         
-        //check if the player owns the target country
+          //check if the player owns the target country
            for(int i = 0; i < this->getThisPlayerCountries().size(); i++) {
-               if( nameTargetCountry.compare(this->getThisPlayerCountries().at(i)->getCountryName()) == 0) {
+               if(nameTargetCountry.compare(this->getThisPlayerCountries().at(i)->getCountryName()) == 0) {
+                   
+                  // cout << "The country is own by the player" << endl;
                    isTargetCountryValid = true;
                    indexOfTargetCountry = i;
                }
@@ -206,13 +253,11 @@ void Player::fortify() {
         
         //check if the country is a neighboring country of the source country
         for(int i =0; i< this->getThisPlayerCountries().at(indexOfSourceCountry)->getAdjacentCountries().size(); i++) {
-            if(nameTargetCountry.compare(this->getThisPlayerCountries().at(indexOfSourceCountry)->getAdjacentCountries().at(i)->getCountryName()) != 0) {
-                 isTargetCountryValid = false;
+            if(nameTargetCountry.compare(this->getThisPlayerCountries().at(indexOfSourceCountry)->getAdjacentCountries().at(i)->getCountryName()) == 0) {
+                isTargetCountryNeighbour =true;
+               // cout << "The country is a neighbour" << endl;
             }
-            
-            else {
-                 isTargetCountryValid= true;
-            }
+          
         }
         
     }
@@ -241,6 +286,6 @@ void Player::fortify() {
     //loop everything until all values are good
 }
 
-
+}
 
 
