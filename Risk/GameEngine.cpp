@@ -42,8 +42,7 @@ void GameEngine::askNumberOfPlayers() {
 	
     //sets the numberOfPlayers
     this->setNumberOfPlayers(numPlayersEntered);
-    //createPlayers(numberOfPlayers);
-
+    
 }
 
 void GameEngine::setNumberOfPlayers(int numberOfPlayers) {
