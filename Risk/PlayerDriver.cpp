@@ -8,11 +8,11 @@ void part4();
 void part5();
 void part6();
 
-int main() {
-   // part4();
-   // part5();
-    part6();
-}
+//int main() {
+//   // part4();
+//   // part5();
+//    part6();
+//}
 
 
 

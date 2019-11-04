@@ -450,7 +450,7 @@ void Player::fortify() {
             
         }
         
-        while(isTargetCountryValid == false && isTargetCountryNeighbour == false) {
+        while(isTargetCountryValid == false || isTargetCountryNeighbour == false) {
             cout << "\nThe target country you choose is not own by you or doesn't exists or is not a neighbour of the source country \nPlease choose a valid country" << endl;
             cout << "Enter the name of a valid chosen target country" << endl;
             cin >> nameTargetCountry;
