@@ -175,24 +175,25 @@ bool Map::isValidMap() {
 	return isContinentSubgraph() && isCountrySubgraph() && isCountryInOneContinent() && isNotEmptyContinent() && countryHasContinent();
 }
 
+//this method is used to see if a vector country occupies full continents , returning the number of concured continents
 int Map::controlContinent(vector<Country*> country) {
-	int countryinContinent = 0;
+	int countryinContinent = 0; //counter to see how many countries from vector country is found in the continent
 	int numContinent = 0;
-	for (int i = 0; i < continents.size(); i++) {
-		for (int j = 0; j < countries.size(); j++) {
-			for (int k = 0; k < countries.size(); k++) {
-				if (countries.at(j) == countries.at(k)) { 
+	for (int i = 0; i < continents.size(); i++) { //look continent by continent 
+		for (int j = 0; j < countries.size(); j++) {// once in the continent, look at all the countries
+			for (int k = 0; k < country.size(); k++) {// loop through the input of countries 
+				if (countries.at(j) == country.at(k)) { // if the country from the list is in that continent, than increment the counter
 					countryinContinent += 1;
-					break;
+					break; //exit because you do not need to keep looping, a country will not show up twice in the vector and go to the next country from the input
 				}
-				else {
-					continue;
-				}
+				
 			}
 
-			if (countryinContinent == countries.size()) { // COME BACK THIS IS WRONG
+			//before going to the next continent, if the number of countries in the continent are equal to the number of verrified countries in the input, the continent has been conquered. 
+			if (countryinContinent == countries.size()) {
 				numContinent += 1;
 			}
+			countryinContinent = 0; //reinitialize before going to the next continent
 		}
 	}
 

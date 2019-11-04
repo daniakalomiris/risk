@@ -68,31 +68,6 @@ vector<Country*> Player::getThisPlayerCountries() {
 void Player::setThisPlayerCountry(Country* country) {
 	countries.push_back(country);
 }
-/* most probably delete, migrating to map
-int Player::controlContinent(vector<Country*> country) {
-	int countryinContient = 0;
-	int numContinent = 0; 
-	for (int i = 0; i < continents.getContinents().size(); i++) {
-		for (int j = 0; j < countries.getCountries.size(); j++) {
-			for (int k = 0; k < countries.getOwnerCountries(getID).size(); k++) {
-				if (countries.getCountries.at(j) == countries.getcountries.at(k)) { //NEED TO CREATE = OPERATOR TO COMPARE OBJECTS 
-					countryinContient += 1;
-						break;
-				}
-				else {
-					continue;
-				}
-			}
-
-			if (countryinContient = countries.getCountries.size()) {
-				numContinent += 1;
-			}
-		}
-	}
-	
-	return numContinent;
-}
-*/
 
 //extra methods , reinforce, attack and fortify, will be implemented in next iteration
 void Player::reinforce() {
@@ -116,7 +91,7 @@ void Player::reinforce() {
 	cout << " The number of troops added by the number of countries is " << armyAdd << "." << endl;
 
 	// the number of continent controlled by player is added to the number of troops for reinforcement 
-	numContinent = controlContinent(getOwnerCountries(getID()));
+	numContinent = controlContinent(countries);
 	cout << " The number of troops added by the number of controled continents is " << numContinent << "." << endl;
 	armyAdd += numContinent;
 
