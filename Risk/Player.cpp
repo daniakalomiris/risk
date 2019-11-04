@@ -69,12 +69,13 @@ void Player::reinforce() {
 	cout << "The player reinforce his troops" << endl;
 }
 
-//attack method
+// attack method
 void Player::attack() {
 	string playerAttack;
-	int selectAttackFrom, selectCountryToAttack, attackerMaxNumOfDice, defenderMaxNumOfDice, attackerRoll, defenderRoll;
+	int selectAttackFrom, selectCountryToAttack, attackerMaxNumOfDice, defenderMaxNumOfDice, attackerRoll, defenderRoll, numOfPairs, numOfArmiesToMove;
 	Country* attackFrom;
 	Country* countryToAttack;
+	vector<int> attackerDiceValues, defenderDiceValues;
 
 	cout << "~~~~~ Attack Phase ~~~~~\n" << endl;
 
@@ -87,7 +88,7 @@ void Player::attack() {
 			cout << "Country " << i + 1 << ": " << getThisPlayerCountries().at(i)->getCountryName() << " \tNumber of Armies: " << getThisPlayerCountries().at(i)->getNumberOfArmies() << endl;
 			cout << "\n" << endl;
 		}
-		
+
 		cout << "Which country would you like to attack from? The country you select must have at least 2 armies placed on it. Please enter the country's number.\n" << endl;
 		cin >> selectAttackFrom;
 
@@ -98,7 +99,7 @@ void Player::attack() {
 		}
 
 		// check if country selected has at least 2 armies placed on it
-		while (getThisPlayerCountries().at(selectAttackFrom -1)->getNumberOfArmies() < 2) {
+		while (getThisPlayerCountries().at(selectAttackFrom - 1)->getNumberOfArmies() < 2) {
 			cout << "Please select a country with at least 2 armies placed on it." << endl;
 			cin >> selectAttackFrom;
 		}
@@ -122,7 +123,7 @@ void Player::attack() {
 			cout << "Please enter a valid country number." << endl;
 			cin >> selectCountryToAttack;
 		}
-		
+
 		// check if player selects a country that belongs to another player
 		while (attackFrom->getAdjacentCountries().at(selectCountryToAttack - 1)->getCountryOwnerId() == this->getID()) {
 			cout << "Please select a country that is owned by another player." << endl;
@@ -149,6 +150,8 @@ void Player::attack() {
 			cin >> attackerRoll;
 		}
 
+		cout << "Attacker (Player " << this->getID() << "), you will roll " << attackerRoll << " dice." << endl;
+
 		// defender chooses number of dice to roll
 		defenderMaxNumOfDice = countryToAttack->getNumberOfArmies();
 		if (defenderMaxNumOfDice > 2) {
@@ -164,6 +167,71 @@ void Player::attack() {
 			cin >> defenderRoll;
 		}
 
+		cout << "Defender (Player " << countryToAttack->getCountryOwnerId() << "), you will roll " << defenderRoll << " dice." << endl;
+ 
+		// roll attacker's dice
+		cout << "~ Attacker is rolling ~" << endl;
+		dice->setDiceToRoll(attackerRoll);
+		dice->rollDice();
+		for (int i = 0; i < attackerRoll; i++) {
+			attackerDiceValues.push_back(dice->getValuesRolled().at(attackerRoll));
+		}
+
+		// roll defender's dice
+		cout << "~ Defender is rolling ~" << endl;
+		dice->setDiceToRoll(defenderRoll);
+		dice->rollDice();
+		for (int i = 0; i < defenderRoll; i++) {
+			defenderDiceValues.push_back(dice->getValuesRolled().at(defenderRoll));
+		}
+
+		// determine how many comparisons we do depending on number of dice both players rolled
+		if (attackerRoll < defenderRoll) {
+			numOfPairs = 1;
+		}
+		else {
+			numOfPairs = defenderRoll;
+		}
+
+		// compare pairs of dice
+		for (int i = 0; i < numOfPairs; i++) {
+			if (attackerDiceValues.at(i) == defenderDiceValues.at(i) || defenderDiceValues.at(i) > attackerDiceValues.at(i)) {
+				cout << "Attacker (Player " << this->getID() << "), you have lost 1 army in " << attackFrom->getCountryName() << "." << endl;
+				attackFrom->setNumberOfArmies(attackFrom->getNumberOfArmies() - 1); // attacker loses one army from their country
+			}
+			if (attackerDiceValues.at(i) > defenderDiceValues.at(i)) {
+				cout << "Defender (Player " << countryToAttack->getCountryOwnerId() << "), you have lost 1 army in " << countryToAttack->getCountryName() << "." << endl;
+				countryToAttack->setNumberOfArmies(countryToAttack->getNumberOfArmies() - 1); // defender looses one army from their country
+				
+				// check if defender has been defeated (no more armies left)
+				if (countryToAttack->getNumberOfArmies() == 0) {
+					cout << "Defender (Player " << countryToAttack->getCountryOwnerId() << "), you have lost all armies in " << countryToAttack->getCountryName() << "." << endl;
+					cout << "Attacker (Player " << this->getID() << ") now owns " << countryToAttack->getCountryName() << "." << endl;
+					
+					// assign attacked country to attacker
+					countryToAttack->setCountryOwnerId(this->getID());  
+					this->setThisPlayerCountry(countryToAttack);
+
+					// attacker moves number of armies to attacked country
+					cout << "Attacker (Player " << this->getID() << "), please select the number armies you want to move to " << countryToAttack->getCountryName() << " from " << attackFrom->getCountryName() << "." << endl;
+					cout << "You may move between 1 to " << attackFrom->getNumberOfArmies() - 1 << " armies." << endl;
+					cin >> numOfArmiesToMove;
+
+					// check if player selects a valid number of armies
+					while (numOfArmiesToMove < 1 || numOfArmiesToMove > attackFrom->getNumberOfArmies() - 1) {
+						cout << "Attacker (Player " << this->getID() << "), please select a valid number of armies to move from " << attackFrom->getCountryName() << ". You may move between 1 to " << attackFrom->getNumberOfArmies() - 1 << " armies." << endl;
+						cin >> numOfArmiesToMove;
+					}
+					// numOfArmiesToMove
+					countryToAttack->setNumberOfArmies(numOfArmiesToMove);
+
+					cout << "Attacker (Player " << this->getID() << "), you have decided to move " << numOfArmiesToMove << " armies to " << countryToAttack->getCountryName() << "." << endl;
+					cout << countryToAttack->getCountryName() << " now has " << numOfArmiesToMove << " armies." << endl;
+				}
+			}
+		}
+
+		
 		cout << "Player " << this->getID() << ", do you want to attack again? (Press Y to attack again or anything else to end attack phase)\n" << endl;
 		cin >> playerAttack;
 	};
