@@ -23,6 +23,7 @@ class Player {
 		
 		Dice* getDice();
 		Hand* getHand();
+		int getArmyAdd();
 		
         std::vector<Country* > getThisPlayerCountries();
         void setThisPlayerCountry(Country* country);
@@ -33,15 +34,15 @@ class Player {
 		void fortify();
 		void reinforce();
 
-		int  controlContinent(vector<Country*> country);
 
 	private:
 		int armyAdd;
-		int numContinent;
+	
 		int armyHand;
 		Dice* dice;
 		Hand* hand;
 		std::string name;
+		std::string answer;
 
 		std::unique_ptr<int> id;
 		static int counter;

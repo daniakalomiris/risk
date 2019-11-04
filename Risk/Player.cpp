@@ -31,7 +31,8 @@ Player::~Player() {
 
 //id counter starts at 0
 int Player::counter = 0;
-
+//initialize variable for number of army to add for future method
+int armyAdd = 0;
 //Gets name of player
 string Player::getName() {
 	return name;
@@ -50,6 +51,10 @@ Dice* Player::getDice() {
 	return dice;
 }
 
+//gets num of army
+int Player::getArmyAdd() {
+	return armyAdd;
+}
 
 //Setters
 void Player::setName(string name) {
@@ -63,15 +68,15 @@ vector<Country*> Player::getThisPlayerCountries() {
 void Player::setThisPlayerCountry(Country* country) {
 	countries.push_back(country);
 }
-
+/* most probably delete, migrating to map
 int Player::controlContinent(vector<Country*> country) {
 	int countryinContient = 0;
 	int numContinent = 0; 
-	for (int i = 0; i < countries.getContinents().size(); i++) {
+	for (int i = 0; i < continents.getContinents().size(); i++) {
 		for (int j = 0; j < countries.getCountries.size(); j++) {
 			for (int k = 0; k < countries.getOwnerCountries(getID).size(); k++) {
 				if (countries.getCountries.at(j) == countries.getcountries.at(k)) { //NEED TO CREATE = OPERATOR TO COMPARE OBJECTS 
-					countryinContient += 1
+					countryinContient += 1;
 						break;
 				}
 				else {
@@ -87,18 +92,6 @@ int Player::controlContinent(vector<Country*> country) {
 	
 	return numContinent;
 }
-/*
-bool Map::equalCountries( vector<Country&> left, vector<Country&> right) {
-	bool same = false;
-	for (int i = 0, i < left.size(); i++) {
-		if (left.at(i)== right.at(i)){
-		return true }
-		else {
-		break;
-		}
-	}
-	return same;
-}
 */
 
 //extra methods , reinforce, attack and fortify, will be implemented in next iteration
@@ -110,15 +103,15 @@ void Player::reinforce() {
 	int numContinent = 0; 
 	// for the number of troops to add due to exchanged cards.
 	int armyHand = 0;
-
+	string answer;
 	//Number of armies according to number of countries 
 	//Min of 3 armies if less than 3 countries.
-	if (countries.getOwnerCountries(getID()).size() < 3) { 
-		armyadd += 3;
+	if (countries.size() < 3) {
+		armyAdd += 3;
 	}
 	// divide number of countries by 3 for number of armies to add
 	else {
-		armyAdd += (getOwnerCountries(getID()).size())/3
+		armyAdd += (countries.size()) / 3;
 	}
 	cout << " The number of troops added by the number of countries is " << armyAdd << "." << endl;
 
@@ -135,7 +128,7 @@ void Player::reinforce() {
 	}
 	else {
 		cout << "Do you want to exchange your cards for extra reinforcement ? (y/n)" << endl;
-		cin >> string answer;
+		cin >> answer;
 
 		if (answer == "y") {
 			armyHand+= hand.exchangeHand(deck, this->hand);

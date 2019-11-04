@@ -175,6 +175,31 @@ bool Map::isValidMap() {
 	return isContinentSubgraph() && isCountrySubgraph() && isCountryInOneContinent() && isNotEmptyContinent() && countryHasContinent();
 }
 
+int Map::controlContinent(vector<Country*> country) {
+	int countryinContinent = 0;
+	int numContinent = 0;
+	for (int i = 0; i < continents.size(); i++) {
+		for (int j = 0; j < countries.size(); j++) {
+			for (int k = 0; k < countries.size(); k++) {
+				if (countries.at(j) == countries.at(k)) { 
+					countryinContinent += 1;
+					break;
+				}
+				else {
+					continue;
+				}
+			}
+
+			if (countryinContinent == countries.size()) { // COME BACK THIS IS WRONG
+				numContinent += 1;
+			}
+		}
+	}
+
+	return numContinent;
+}
+
+
 //continent constructor
 Continent::Continent() {
 }

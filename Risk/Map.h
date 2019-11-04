@@ -34,10 +34,13 @@ public:
 	std::vector<Country*> getOwnerCountries(int playerId); //returns vector of owner countries
     std::vector<Country*> countries;
 
+	int controlContinent(std::vector<Country*> country);
+
 private:
 	std::vector<Continent*> continents;
-	
-
+	// for controlcontinent variables
+	int countryinContinent;
+	int numContinent;
 	//Declare variables
 	std::queue<Continent*> visitedContinentsQueue;
 	std::queue<Country*> visitedCountriesQueue;
