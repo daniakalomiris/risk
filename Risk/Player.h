@@ -20,36 +20,39 @@ class Player {
 		void setName(std::string name);
 		std::string getName();
 
-		
 		Dice* getDice();
 		Hand* getHand();
-		
+
         std::vector<Country* > getThisPlayerCountries();
         void setThisPlayerCountry(Country* country);
-        
-    
+
+
     int getNumOfArmiesAtStartUpPhase();
     void setNumOfArmiesAtStartUpPhase(int num);
-    
-    
+
+
 		//attack, fortify, reinforce methods
 		void attack();
 		void fortify();
 		void reinforce();
       //  void addNumberOfArmies(int num);
      //   void deleteNumberOfArmies(int num);
-    
+
 	private:
 		Dice* dice;
 		Hand* hand;
 		std::string name;
 
 		std::unique_ptr<int> id;
-    
-       
+
+
 		static int counter;
         std::vector<Country*> countries;
-    
+
+
         std::unique_ptr<int> numOfArmiesAtStartUpPhase;
+
+
+		Player* defender;
 
 };

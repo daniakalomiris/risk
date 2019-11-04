@@ -13,7 +13,7 @@ class Dice {
         Dice();
         ~Dice();
         //function to ask to how many dice the player wants to roll
-        void askRoll();
+        void setDiceToRoll(int diceToRoll);
 
         //function to roll the dice
         void rollDice();
