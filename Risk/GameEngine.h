@@ -9,11 +9,11 @@ class GameEngine {
 private:
 		std::unique_ptr<int> numberOfPlayers;
 		std::vector <Player*> allPlayers;
-		std::vector <Player*> orderedPlayers;
         Map* map;
         MapLoader* maploader;
         Deck* deck;
-		
+        std::unique_ptr<int> numberOfArmiesPerPlayer;
+
 
 	public:
 		
@@ -23,19 +23,19 @@ private:
 		int getNumberOfPlayers();
 		void setNumberOfPlayers(int numberOfPlayers);
         void askNumberOfPlayers();
-		int numberOfArmiesPerPlayer(int numberOfPlayers);
-		//void setArmiesToCountries(vector<Player*>orderedPlayers, int A);
+		void setNumberOfArmiesPerPlayer();
+        int getNumberOfArmiesPerPlayer();
+		void setArmiesToCountries();
 
 		void setPlayer(Player* player);
         
 		void createMap();
-
 		void createPlayers();
 		void setPlayerOrder();
 		void showPlayerOrder();
         
-    void assignCountriesToPlayers();
-	//	void displayCountriesOfPlayers(vector<Player*>orderedPlayers)
+        void assignCountriesToPlayers();
+        void displayCountriesOfPlayers();
         void mainGameLoop();
 		
         std::vector <Player*> getAllPlayers();

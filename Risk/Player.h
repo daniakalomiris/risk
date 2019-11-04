@@ -26,7 +26,12 @@ class Player {
 		
         std::vector<Country* > getThisPlayerCountries();
         void setThisPlayerCountry(Country* country);
-
+        
+    
+    int getNumOfArmiesAtStartUpPhase();
+    void setNumOfArmiesAtStartUpPhase(int num);
+    
+    
 		//attack, fortify, reinforce methods
 		void attack();
 		void fortify();
@@ -40,4 +45,7 @@ class Player {
 		std::unique_ptr<int> id;
 		static int counter;
         std::vector<Country*> countries;
+    
+        std::unique_ptr<int> numOfArmiesAtStartUpPhase;
+
 };

@@ -5,6 +5,7 @@
 #include <string>
 #include "GameEngine.h"
 #include "time.h"
+#include <random>
 //using std::cout;
 //using std::endl;
 //using std::cin;
@@ -15,16 +16,12 @@ const int MAX_PLAYERS = 6;
 
 GameEngine:: GameEngine() {
     maploader = new MapLoader();
-    
 }
 
 GameEngine:: ~GameEngine() {
     delete maploader;
     delete deck;
 }
-
-
-
 
 
 void GameEngine::askNumberOfPlayers() {
@@ -57,43 +54,139 @@ int GameEngine::getNumberOfPlayers() {
     return *numberOfPlayers;
 }
 
-//int GameEngine::numberOfArmiesPerPlayer(int numberOfPlayers) {
-//	int A;
-//	if (numberOfPlayers == 2) {
-//		A = 40;
-//	}if else(numberOfPlayers == 3) {
-//		A = 35;
-//	}if else(numberOfPlayers == 4){
-//		A = 30;
-//	}if else(numberOfPlayers == 5) {
-//		A = 25;
-//	}if else(numberOfPlayers == 6) {
-//		A = 20;
-//	}
-//	else {
-//		cout << "The number of players must be between 2 and 6. This should never display. " << endl;
-//	}
-//
-//	return A;
-//}
+int GameEngine::getNumberOfArmiesPerPlayer() {
+    return *numberOfArmiesPerPlayer;
+}
 
-//void GameEngine::setArmiesToCountries(vector<Player*>orderedPlayers, int A) {
-//	for (int i = 0; i < orderedPlayers.size; i++) {
-//		orderedPlayers[i]->getThisPlayerCountries();
-//		for (j = 0; i < countries.size; j++) {
-//			countries[i]->setNumberOfArmies(getNumberOfArmies() + 1);
-//			A--;
-//			if (j == countries.size() - 1 && A > 0) {
-//				j = 0;
-//			}
-//		}
-//	}
-//}
+void GameEngine::setNumberOfArmiesPerPlayer() {
+	int A;
+	if (this->allPlayers.size() == 2) {
+		A = 40;
+	}
+    else if(this->allPlayers.size() == 3) {
+		A = 35;
+	}
+    
+    else if(this->allPlayers.size() == 4){
+		A = 30;
+	}
+    
+    else if(this->allPlayers.size() == 5) {
+		A = 25;
+	}
+    
+    else if(this->allPlayers.size() == 6) {
+		A = 20;
+	}
+	else {
+		cout << "The number of players must be between 2 and 6. The program will terminate. " << endl;
+        exit(1);
+	}
 
-//void GameEngine::displayNumberOfArmies(int A) {
-//	cout << "Number of armies each player has: " << A;
-//
-//}
+	numberOfArmiesPerPlayer = make_unique<int>(A);
+    
+    //gives to each player a numberOfArmies at startup phase
+    for(int i =0; i < allPlayers.size(); i++) {
+        allPlayers.at(i)->setNumOfArmiesAtStartUpPhase(*numberOfArmiesPerPlayer);
+    }
+}
+
+void GameEngine::setArmiesToCountries() {
+      
+    bool done = false;
+    
+    //put 1 army in each player country
+     for (int i = 0; i < allPlayers.size(); i++) {
+         
+         int remainingArmies = this->getNumberOfArmiesPerPlayer();
+
+         //place at least 1 armie on each player's countries
+         for(int j =0; j < allPlayers.at(i)->getThisPlayerCountries().size(); j++) {
+             allPlayers.at(i)->getThisPlayerCountries().at(j)->setNumberOfArmies(1);
+             remainingArmies = remainingArmies -1;
+         }
+         
+         //set the number of armies a player need to place to the remaining armies
+        allPlayers.at(i)->setNumOfArmiesAtStartUpPhase(remainingArmies);
+     }
+    
+    
+    cout << "each country has 1 army now" << endl;
+    
+    while(done == false) {
+    for (int i = 0; i < allPlayers.size(); i++) {
+        
+        bool isCountryChosenValid = false;
+        string countryChosen;
+        int indexOfCountryChosen =0;
+        
+        cout << "\n\nPlayer " << allPlayers.at(i)->getName() << " turn" << endl;
+        cout << "This is your countries with their number of armies" << endl;
+        
+        for(int j = 0; j < allPlayers.at(i)->getThisPlayerCountries().size(); j++ ) {
+            cout << allPlayers.at(i)->getThisPlayerCountries().at(j)->getCountryName() << " " << allPlayers.at(i)->getThisPlayerCountries().at(j)->getNumberOfArmies() << endl;
+        }
+        
+        cout << "You have " << allPlayers.at(i)->getNumOfArmiesAtStartUpPhase() << " armies left to place" << endl;
+        cout << "Enter the name of the country you would like to place one army" << endl;
+        
+        
+        cin >> countryChosen;
+       
+        
+        //check if the country enter is valid
+        for(int j = 0; j < allPlayers.at(i)->getThisPlayerCountries().size(); j++ ) {
+            
+            //if the country is own by the player, the country is valid
+            if(countryChosen.compare(allPlayers.at(i)->getThisPlayerCountries().at(j)->getCountryName()) == 0 ) {
+                isCountryChosenValid = true;
+                indexOfCountryChosen = j;
+            }
+           }
+        
+        //ask to enter another country if the one enter is not valid
+        while(isCountryChosenValid == false) {
+            
+            cout << "You have enter the name of an invalid country" << endl;
+            cout << "Enter the name of the country you would like to place one army" << endl;
+                   
+                   cin >> countryChosen;
+                   
+                    //check if the country enter is valid
+                   for(int j = 0; j < allPlayers.at(i)->getThisPlayerCountries().size(); j++ ) {
+                      
+                       //if the country is own by the player, the country is valid
+                       if(countryChosen.compare(allPlayers.at(i)->getThisPlayerCountries().at(j)->getCountryName()) == 0 ) {
+                           isCountryChosenValid = true;
+                           indexOfCountryChosen = j;
+                       }
+                      }
+        }
+        
+        
+        //if country chosen is valid put 1 armie in that country
+        int numOfAmrmiesInCountry = allPlayers.at(i)->getThisPlayerCountries().at(indexOfCountryChosen)->getNumberOfArmies();
+        numOfAmrmiesInCountry = numOfAmrmiesInCountry +1;
+        allPlayers.at(i)->getThisPlayerCountries().at(indexOfCountryChosen)->setNumberOfArmies(numOfAmrmiesInCountry);
+        
+        //delete the number of armies to place for the player
+        int numOfArmiesToPlace = allPlayers.at(i)->getNumOfArmiesAtStartUpPhase();
+        numOfArmiesToPlace = numOfArmiesToPlace -1;
+        allPlayers.at(i)->setNumOfArmiesAtStartUpPhase(numOfArmiesToPlace);
+        
+        cout << "You have place 1 more army on the country " << allPlayers.at(i)->getThisPlayerCountries().at(indexOfCountryChosen)->getCountryName()<< endl;
+        
+        cout << allPlayers.at(i)->getThisPlayerCountries().at(indexOfCountryChosen)->getCountryName() << " " << allPlayers.at(i)->getThisPlayerCountries().at(indexOfCountryChosen)->getNumberOfArmies() << endl;
+        
+        
+        if(allPlayers.at(i)->getNumOfArmiesAtStartUpPhase() == 0) {
+            done = true;
+        }
+    }
+        	}
+}
+
+
 void GameEngine::createPlayers() {
 	
 	string playerName; 
@@ -123,71 +216,80 @@ vector<Player*> GameEngine::getAllPlayers() {
 
 
 void GameEngine::setPlayerOrder() {
-    int numOfPlayer = allPlayers.size();
-    vector<int> index;
-    bool alreadySelected = false;
     
-    while(numOfPlayer > 0) {
-        int random = rand() % numOfPlayer;
-        
-        for(int i = 0; i < index.size(); i++) {
-            if(random != index.at(i)) {
-                alreadySelected = true;
-            }
-        orderedPlayers.push_back(this->allPlayers[random]);
-        }
-        
-        numOfPlayer = numOfPlayer - 1;
-        index.push_back(random);
-
+    //shuffle the player's order
+    shuffle(this->allPlayers.begin(), this->allPlayers.end(), default_random_engine());
+    
+   
     }
 
-//	for (int i = 0; i < this->allPlayers.size(); i++) {
-//		int random = rand() % allPlayers.size();
-//
-//        //ordered vector of players based on their turn
-//		orderedPlayers.push_back(this->allPlayers[random]);
-//
-//	}
-	
-}
 
 void GameEngine::showPlayerOrder() {
-	for (int i = 0; i<orderedPlayers.size(); i++) {
-		cout << "Player " << orderedPlayers[i]->getName() << " is at position " << (i + 1) << endl; 
+	for (int i = 0; i<allPlayers.size(); i++) {
+		cout << "Player " << allPlayers[i]->getName() << " is at position " << (i + 1) << endl; 
 	}
 
 }
 
 
-//void GameEngine::assignCountriesToPlayers() {
-//
-//	int numOfCountries = this->map->getCountries().size();
-//	int numOfPlayers = this->orderedPlayers.size();
-//	int countryNumberPushed = 0;
-//
-//
-//	for (int i = 0; i < numOfPlayers; i++) {
-//		orderedPlayers[i]->setThisPlayerCountry(countries[i]);
-//		countryNumberPushed++;
-//
-//		//this makes the for loop reset
-//		if (i = (numOfPlayers - 1) && countryNumberPushed == numOfCountries)
-//			i = 0;
-//	}
-//
-//
-//}
+void GameEngine::assignCountriesToPlayers() {
 
-//void GameEngine::displayCountriesOfPlayers(vector<Player*>orderedPlayers) {
-//	for (int i = 0; i < orderedPlayers.size; i++) {
-//		cout << "Player " << i << " countries: " << endl;
-//		orderedPlayers[i]->getThisPlayerCountries;
-//		for (int i = 0; i < countries.size; i++) {
-//			cout << countries[i] << endl;
-//		}
-//	}
-//}
+	int numOfCountries = this->map->getCountries().size();
+	int numOfPlayers = this->allPlayers.size();
+	int countryNumberPushed = 0;
+    int playerTurns = 0;
+    //contains index of countries already assigned to a player
+    vector<int> countriesAlreadyAssigned;
+    // Resets the random
+        srand(time(NULL));
+    
+    while(countryNumberPushed < numOfCountries) {
+    
+        int randomCountry = rand() % numOfCountries;
+      //  cout << "random Country index " << randomCountry << endl;
+        //if the index of countries is not already assigned
+        if(find(countriesAlreadyAssigned.begin(), countriesAlreadyAssigned.end(), randomCountry) == countriesAlreadyAssigned.end()) {
+        
+            
+         //   cout << "country not assigned yet" << endl;
+            
+        
+        
+            
+         //   cout << "Turn of player  " << playerTurns << endl;
+        //set the country to the player
+            
+           // cout << "assign country of index " << randomCountry << "to player  " << playerTurns << endl;
+            this-> allPlayers.at(playerTurns)->setThisPlayerCountry(map->getCountries().at(randomCountry));
+            //set the owner id
+             map->getCountries().at(randomCountry)->setCountryOwnerId(allPlayers.at(playerTurns)->getID());
+            
+            if(playerTurns < this->allPlayers.size()-1) {
+            playerTurns ++;
+            }
+        
+            else {
+            playerTurns = 0;
+            }
+            
+            countryNumberPushed ++;
+            countriesAlreadyAssigned.push_back(randomCountry);
+        }
+        
+       // else { cout << "Country already assigned" << endl;}
+    }
+    
+}
+
+void GameEngine::displayCountriesOfPlayers() {
+	for (int i = 0; i < allPlayers.size(); i++) {
+		cout << "\n\nPlayer " << allPlayers.at(i)->getName() << " countries: " << endl;
+		
+		for (int j = 0; j < allPlayers.at(i)->getThisPlayerCountries().size(); j++) {
+			cout << j+1 << " " << allPlayers.at(i)->getThisPlayerCountries().at(j)->getCountryName() << endl;
+		}
+	}
+}
 
 void GameEngine::createMap() {
 	int mapChoice;
@@ -246,13 +348,22 @@ void GameEngine::createMap() {
     maploader->readMapFile("maps/" + mapFile+ ".map");
     maploader->createMap();
     maploader->displayMap();
+    
     map = maploader->getMap();
+   
+    
+  
+
+    
+    
+    
+    
+    
+    
     //create a new deck
     deck = new Deck(map);
 
 }
-
-
 
 
 //part 3 main game loop
@@ -286,11 +397,3 @@ void GameEngine:: mainGameLoop() {
     
 }
 
-
-//GameEngine::GameEngine() {
-//
-//	setNumberOfPlayers();
-//	selectMap(); 
-//
-//
-//}

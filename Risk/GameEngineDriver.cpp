@@ -9,7 +9,7 @@ void part3();
 
 int main() {
     
-    part3();
+    part2();
 	
 //    mapLoader.createMap();
 //    theGame->askNumberOfPlayers();
@@ -61,18 +61,8 @@ void part1() {
        
 }
 
+
 void part2() {
-    GameEngine* theGame = new GameEngine();
-    theGame->createMap();
-    theGame->askNumberOfPlayers();
-    theGame->createPlayers();
-    theGame->mainGameLoop();
-    delete theGame;
-    theGame = NULL;
-}
-
-
-void part3() {
     GameEngine* theGame = new GameEngine();
 
     
@@ -85,4 +75,23 @@ void part3() {
         cout << "We will now output the turn of each player: " << endl;
         theGame->setPlayerOrder();
         theGame->showPlayerOrder();
+    
+    cout << "We will now assign countries to each player" << endl;
+    theGame->assignCountriesToPlayers();
+    theGame->displayCountriesOfPlayers();
+    theGame->setNumberOfArmiesPerPlayer();
+    cout << "This is the number of armies each player will have to place on the game: " << theGame->getNumberOfArmiesPerPlayer() << " armies" << endl;;
+    
+    theGame->setArmiesToCountries();
+}
+
+
+void part3() {
+    GameEngine* theGame = new GameEngine();
+    theGame->createMap();
+    theGame->askNumberOfPlayers();
+    theGame->createPlayers();
+    theGame->mainGameLoop();
+    delete theGame;
+    theGame = NULL;
 }
