@@ -10,33 +10,39 @@
 //using std::endl;
 //using std::cin;
 using namespace std;
+
+//maximum and minimum number of players that can play the game
 const int MIN_PLAYERS = 2; 
 const int MAX_PLAYERS = 6;
 
 
+//constructor
 GameEngine:: GameEngine() {
     maploader = new MapLoader();
 }
 
+//destructor
 GameEngine:: ~GameEngine() {
     delete maploader;
     delete deck;
 }
 
-
+//ask user the number of players playing
 void GameEngine::askNumberOfPlayers() {
-    int numPlayersEntered;
+
+	//variable to store user input
+    int numPlayersEntered; 
 	
     cout << "Please enter the number of players (between 2 and 6): " << endl;
 	
 	cin >> numPlayersEntered;
 
+	//verifies that user input a valid number of players
 	while (numPlayersEntered<MIN_PLAYERS || numPlayersEntered > MAX_PLAYERS) {
 		cout << "Invalid entry. Please enter a number between 2 and 6" << endl;
 		cin >> numPlayersEntered; 
 	}
 
-	//numberOfPlayers = &numPlayersEntered;
 	cout << "Ok, there will be " << numPlayersEntered << " players" << endl;
 
 	
@@ -44,6 +50,7 @@ void GameEngine::askNumberOfPlayers() {
     this->setNumberOfPlayers(numPlayersEntered);
     
 }
+
 
 void GameEngine::setNumberOfPlayers(int numberOfPlayers) {
     this->numberOfPlayers = make_unique<int>(numberOfPlayers);
@@ -53,12 +60,17 @@ int GameEngine::getNumberOfPlayers() {
     return *numberOfPlayers;
 }
 
+//number of armies per player
 int GameEngine::getNumberOfArmiesPerPlayer() {
     return *numberOfArmiesPerPlayer;
 }
 
+
 void GameEngine::setNumberOfArmiesPerPlayer() {
+	//number of armies per player
 	int A;
+
+	//number of armies depends on the number of players
 	if (this->allPlayers.size() == 2) {
 		A = 40;
 	}
@@ -90,6 +102,7 @@ void GameEngine::setNumberOfArmiesPerPlayer() {
     }
 }
 
+//placing armies on countries
 void GameEngine::setArmiesToCountries() {
       
     bool done = false;
@@ -113,6 +126,7 @@ void GameEngine::setArmiesToCountries() {
     cout << "each country has 1 army now" << endl;
     
     while(done == false) {
+	//players can place remainder of armies on country of their choice
     for (int i = 0; i < allPlayers.size(); i++) {
         
         bool isCountryChosenValid = false;
@@ -122,6 +136,7 @@ void GameEngine::setArmiesToCountries() {
         cout << "\n\nPlayer " << allPlayers.at(i)->getName() << " turn" << endl;
         cout << "This is your countries with their number of armies" << endl;
         
+		//loops through all countries of player
         for(int j = 0; j < allPlayers.at(i)->getThisPlayerCountries().size(); j++ ) {
             cout << allPlayers.at(i)->getThisPlayerCountries().at(j)->getCountryName() << " " << allPlayers.at(i)->getThisPlayerCountries().at(j)->getNumberOfArmies() << endl;
         }
@@ -185,7 +200,7 @@ void GameEngine::setArmiesToCountries() {
         	}
 }
 
-
+//creates players
 void GameEngine::createPlayers() {
 	
 	string playerName; 
@@ -199,21 +214,24 @@ void GameEngine::createPlayers() {
 		Player* player = new Player(playerName);
 		player->setName(playerName);
 
+		//sets the player
 		setPlayer(player);
 		
 	}
 }
 
+//adds players to vector of players
 void GameEngine::setPlayer(Player* player) {
 	cout << "adding player to list of players" << endl;
 	allPlayers.push_back(player);
 }
 
+//returns unordered vector of players
 vector<Player*> GameEngine::getAllPlayers() {
     return allPlayers;
 }
 
-
+//randomly set players' turns
 void GameEngine::setPlayerOrder() {
     
     //get a time base seed to have a new random random generator
@@ -226,7 +244,7 @@ void GameEngine::setPlayerOrder() {
    
     }
 
-
+//displays order of players
 void GameEngine::showPlayerOrder() {
 	for (int i = 0; i<allPlayers.size(); i++) {
 		cout << "Player " << allPlayers[i]->getName() << " is at position " << (i + 1) << endl; 
