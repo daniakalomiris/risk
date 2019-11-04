@@ -151,7 +151,7 @@ void Player::attack() {
 			cin >> attackerRoll;
 		}
 
-		cout << "Attacker (Player " << this->getID() << "), you will roll " << attackerRoll << " dice." << endl;
+		cout << "Attacker (Player " << this->getID() << "), you will roll " << attackerRoll << " dice.\n" << endl;
 
 		// defender chooses number of dice to roll
 		defenderMaxNumOfDice = countryToAttack->getNumberOfArmies();
@@ -168,13 +168,13 @@ void Player::attack() {
 			cin >> defenderRoll;
 		}
 
-		cout << "Defender (Player " << countryToAttack->getCountryOwnerId() << "), you will roll " << defenderRoll << " dice." << endl;
+		cout << "Defender (Player " << countryToAttack->getCountryOwnerId() << "), you will roll " << defenderRoll << " dice.\n" << endl;
  
 		// roll attacker's dice
 		cout << "~ Attacker is rolling ~" << endl;
 		dice->setDiceToRoll(attackerRoll);
 		dice->rollDice();
-		cout << " " << endl;
+		cout << "\n" << endl;
 		for (int i = 0; i < attackerRoll; i++) {
 			attackerDiceValues.push_back(dice->getValuesRolled().at(i));
 		}
@@ -183,7 +183,7 @@ void Player::attack() {
 		cout << "~ Defender is rolling ~" << endl;
 		dice->setDiceToRoll(defenderRoll);
 		dice->rollDice();
-		cout << " " << endl;
+		cout << "\n" << endl;
 		for (int i = 0; i < defenderRoll; i++) {
 			defenderDiceValues.push_back(dice->getValuesRolled().at(i));
 		}
@@ -198,16 +198,22 @@ void Player::attack() {
 
 		// compare pairs of dice
 		for (int i = 0; i < numOfPairs; i++) {
+            cout << "~ Pair of dice comparison #" << (i + 1) << " ~\n" << endl;
+            cout << "Attacker rolled a " << attackerDiceValues.at(i) << " and Defender rolled a " << defenderDiceValues.at(i) << ".\n" << endl;
 			if (attackerDiceValues.at(i) == defenderDiceValues.at(i)) {
-				cout << "Attacker (Player " << this->getID() << "), you have lost 1 army in " << attackFrom->getCountryName() << "." << endl;
+                cout << "Attacker's next highest dice and Defender's next highest dice are the same. Attacker lost this battle.\n" << endl;
+				cout << "Attacker (Player " << this->getID() << "), you have lost 1 army in " << attackFrom->getCountryName() << ".\n" << endl;
 				attackFrom->setNumberOfArmies(attackFrom->getNumberOfArmies() - 1); // attacker loses one army from their country
 			}
 			else if (defenderDiceValues.at(i) > attackerDiceValues.at(i)) {
-				cout << "Attacker (Player " << this->getID() << "), you have lost 1 army in " << attackFrom->getCountryName() << "." << endl;
+                cout << "Attacker's next highest dice is lower than Defender's next highest dice. Attacker lost this battle.\n" << endl;
+                
+				cout << "Attacker (Player " << this->getID() << "), you have lost 1 army in " << attackFrom->getCountryName() << ".\n" << endl;
 				attackFrom->setNumberOfArmies(attackFrom->getNumberOfArmies() - 1); // attacker loses one army from their country
 			}
 			else if (attackerDiceValues.at(i) > defenderDiceValues.at(i)) {
-				cout << "Defender (Player " << countryToAttack->getCountryOwnerId() << "), you have lost 1 army in " << countryToAttack->getCountryName() << "." << endl;
+                 cout << "Defender's next highest dice is lower than Defender's next highest dice. Defender lost this battle.\n" << endl;
+				cout << "Defender (Player " << countryToAttack->getCountryOwnerId() << "), you have lost 1 army in " << countryToAttack->getCountryName() << ".\n" << endl;
 				countryToAttack->setNumberOfArmies(countryToAttack->getNumberOfArmies() - 1); // defender looses one army from their country
 				
 				// check if defender has been defeated (no more armies left)
@@ -238,7 +244,10 @@ void Player::attack() {
 			}
 		}
 
-		
+		// clear dice vectors at the end of each attack
+        attackerDiceValues.clear();
+        defenderDiceValues.clear();
+        
 		cout << "Player " << this->getID() << ", do you want to attack again? (Press Y to attack again or anything else to end attack phase)\n" << endl;
 		cin >> playerAttack;
 	};
