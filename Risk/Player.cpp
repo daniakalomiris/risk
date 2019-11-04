@@ -22,6 +22,7 @@ Player::Player() {
 	this->hand = new Hand(counter);
 	counter++;
 	id = make_unique<int>(counter); //id of player generated
+    numOfArmiesAtStartUpPhase = make_unique<int>(0);
 }
 
 Player::~Player() {
@@ -48,6 +49,14 @@ Hand* Player::getHand() {
 
 Dice* Player::getDice() {
 	return dice;
+}
+
+int Player::getNumOfArmiesAtStartUpPhase() {
+    return *numOfArmiesAtStartUpPhase;
+}
+
+void Player::setNumOfArmiesAtStartUpPhase(int num) {
+    numOfArmiesAtStartUpPhase.reset(new int(num));
 }
 
 
