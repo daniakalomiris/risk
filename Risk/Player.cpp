@@ -390,10 +390,7 @@ void Player::fortify() {
            }
         }
 
-    
-
-      
-    
+         
     cout << "Please write the name of the chosen target country \n(capitalize the first letter)" << endl;
        cin >> nameTargetCountry;
     
@@ -401,7 +398,7 @@ void Player::fortify() {
        for(int i = 0; i < this->getThisPlayerCountries().size(); i++) {
            if(nameTargetCountry.compare(this->getThisPlayerCountries().at(i)->getCountryName()) == 0) {
                
-               cout << "The country is own by the player" << endl;
+              // cout << "The country is own by the player" << endl;
                isTargetCountryValid = true;
                indexOfTargetCountry = i;
            }
@@ -412,7 +409,7 @@ void Player::fortify() {
     for(int i =0; i< this->getThisPlayerCountries().at(indexOfSourceCountry)->getAdjacentCountries().size(); i++) {
         if(nameTargetCountry.compare(this->getThisPlayerCountries().at(indexOfSourceCountry)->getAdjacentCountries().at(i)->getCountryName()) == 0) {
             isTargetCountryNeighbour =true;
-            cout << "The country is a neighbour" << endl;
+           // cout << "The country is a neighbour" << endl;
         }
       
     }
