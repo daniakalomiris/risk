@@ -93,15 +93,16 @@ void Player::attack() {
 		cin >> selectAttackFrom;
 
 		// check if player enters a valid country number (not negative or bigger than number of owned countries)
-		while (selectAttackFrom <= 0 || selectAttackFrom > getThisPlayerCountries().size()) {
-			cout << "Please enter a valid country number." << endl;
-			cin >> selectAttackFrom;
-		}
-
-		// check if country selected has at least 2 armies placed on it
-		while (getThisPlayerCountries().at(selectAttackFrom - 1)->getNumberOfArmies() < 2) {
-			cout << "Please select a country with at least 2 armies placed on it." << endl;
-			cin >> selectAttackFrom;
+        // check if country selected has at least 2 armies placed on it
+		while (selectAttackFrom <= 0 || selectAttackFrom > getThisPlayerCountries().size() || getThisPlayerCountries().at(selectAttackFrom - 1)->getNumberOfArmies() < 2) {
+            if (selectAttackFrom <= 0 || selectAttackFrom > getThisPlayerCountries().size()) {
+                cout << "Please enter a valid country number." << endl;
+                cin >> selectAttackFrom;
+            }
+            if (getThisPlayerCountries().at(selectAttackFrom - 1)->getNumberOfArmies() < 2) {
+                cout << "Please select a country with at least 2 armies placed on it." << endl;
+                cin >> selectAttackFrom;
+            }
 		}
 
 		// player attacks from the valid country they selected
@@ -118,15 +119,16 @@ void Player::attack() {
 		cin >> selectCountryToAttack;
 
 		// check if player enters a valid country number (not negative or bigger than number of neighbor countries)
-		while (selectCountryToAttack <= 0 || selectCountryToAttack > attackFrom->getAdjacentCountries().size()) {
-			cout << "Please enter a valid country number." << endl;
-			cin >> selectCountryToAttack;
-		}
-
-		// check if player selects a country that belongs to another player
-		while (attackFrom->getAdjacentCountries().at(selectCountryToAttack - 1)->getCountryOwnerId() == this->getID()) {
-			cout << "Please select a country that is owned by another player." << endl;
-			cin >> selectCountryToAttack;
+        // check if player selects a country that belongs to another player
+		while (selectCountryToAttack <= 0 || selectCountryToAttack > attackFrom->getAdjacentCountries().size() || attackFrom->getAdjacentCountries().at(selectCountryToAttack - 1)->getCountryOwnerId() == this->getID()) {
+            if (selectCountryToAttack <= 0 || selectCountryToAttack > attackFrom->getAdjacentCountries().size()) {
+                cout << "Please enter a valid country number." << endl;
+                cin >> selectCountryToAttack;
+            }
+            if (attackFrom->getAdjacentCountries().at(selectCountryToAttack - 1)->getCountryOwnerId() == this->getID()) {
+                cout << "Please select a country that is owned by another player." << endl;
+                cin >> selectCountryToAttack;
+            }
 		}
 
 		// player attacks the valid country they selected

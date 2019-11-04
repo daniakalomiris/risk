@@ -6,9 +6,7 @@ using namespace std;
 
 
 int main() {
-	
-	char answer;
-	string name;
+
     
     Map* map = new Map();
     Country* country1 = new Country();
@@ -19,16 +17,8 @@ int main() {
     Country* country6 = new Country();
     Country* country7 = new Country();
     
-    
-	cout << "what is the Player 1's name ?" << endl;
-	cin >> name;
-	Player* player = new Player(name);
-	player->setName(name);
-
-	cout << "what is the Player 2's name ?" << endl;
-	cin >> name;
-	Player* player2 = new Player(name);
-	player2->setName(name);
+	Player* player = new Player();
+	Player* player2 = new Player();
 
 	// add countries to map
 	map->setCountry(country1);
@@ -73,14 +63,14 @@ int main() {
     country6->setNumberOfArmies(3);
     country7->setNumberOfArmies(0);
        
-	// setting owners of each country 
+	// setting owners of each country
 	 
     country1->setCountryOwnerId(player->getID());
     country2->setCountryOwnerId(player->getID());
 	country4->setCountryOwnerId(player->getID());
 	country6->setCountryOwnerId(player->getID());
     country3->setCountryOwnerId(player2->getID());
-    country5->setCountryOwnerId(player2->getID()); 
+    country5->setCountryOwnerId(player2->getID());
     country7->setCountryOwnerId(player2->getID());
 	player->setThisPlayerCountry(country1);
 	player->setThisPlayerCountry(country2);
@@ -98,7 +88,7 @@ int main() {
 	//Cards* card1 = new Cards(0, 1);
 	//Cards* card2 = new Cards(1, 5);
 	//Cards* card3 = new Cards(2, 10);
-	//	
+	//
 	//Deck* deck = new Deck();
 	//deck->setCardInDeck(card1);
 	//deck->setCardInDeck(card2);
