@@ -22,9 +22,9 @@ using namespace std;
 //
 ////do-while loop to keep asking to roll the dice
 // do {
-//   dice1.askRoll();
+//	 dice1.setDiceToRoll(3);
 //    dice1.rollDice();
-//    dice1.keepTracks();
+//    //dice1.keepTracks();
 //
 //   cout << "Do you want to roll the dice again? If yes, enter 1, if no, please press 0" << endl;
 //   cin >> choice;
@@ -45,9 +45,9 @@ using namespace std;
 //
 //    //do-while loop to keep asking to roll the dice
 //    do {
-//    dice2.askRoll();
+//		dice2.setDiceToRoll(3);
 //    dice2.rollDice();
-//    dice2.keepTracks();
+//    //dice2.keepTracks();
 //
 //   cout << "Do you want to roll the dice again? If yes, enter 1, if no, please press 0" << endl;
 //   cin >> choice;
