@@ -269,12 +269,15 @@ void Player::attack() {
 
 //fortify method
 void Player::fortify() {
+    
     string nameSourceCountry;
     string nameTargetCountry;
     bool isSourceCountryValid = false;
     bool isTargetCountryValid = false;
     bool isTargetCountryNeighbour = false;
     bool isNumOfArmiesValid = true;
+    
+    //tells if the source countries has a neighbour that the user own
     bool neighbourCountries = false;
     
     //tells if the source countries has adjencent countries that the player own
@@ -282,9 +285,6 @@ void Player::fortify() {
     int numOfArmies = 0;
     int indexOfSourceCountry = 0;
     int indexOfTargetCountry = 0;
-    
-    //    Country sourceCountry;
-    //    Country targetCountry;
     
     cout << "\n\n***** Fortification Phase *******" << endl;
     
@@ -319,7 +319,7 @@ void Player::fortify() {
         }
         
     }
-    
+    //if the player owns no neighbour countries, end the fortify
     if(neighbourCountries == false) {
         cout << "There are no neightbour countries. You cannot fortify" << endl;
     }
@@ -402,13 +402,13 @@ void Player::fortify() {
         cout << "Please enter the number of armies you would like to move" << endl;
         cin >> numOfArmies;
         
-        
+        //check if the number of armies entered is valid
         if(numOfArmies < 1 || numOfArmies > this->getThisPlayerCountries().at(indexOfSourceCountry)->getNumberOfArmies() -1 ) {
             isNumOfArmiesValid = false;
         }
         
         
-        //asks the player again to enter a valid number of armies
+        //prompts the player again to enter a valid number of armies
         while(isNumOfArmiesValid == false) {
             cout << numOfArmies << endl;
             cout << "\nThe number of armies you enter is not valid.\nPlease enter a value in the range of [1 to (number of armies in the source country -1)]" << endl;
@@ -416,7 +416,7 @@ void Player::fortify() {
             
             cin >> numOfArmies;
             
-            
+            //if number of armies enter is not in the range, set isNumberArmiesValid to false
             if(numOfArmies < 1 || numOfArmies > this->getThisPlayerCountries().at(indexOfSourceCountry)->getNumberOfArmies() -1 ) {
                 isNumOfArmiesValid = false;
             }
@@ -426,7 +426,7 @@ void Player::fortify() {
             }
         }
         
-        
+        //Prompts the user for a target country
         cout << "Please write the name of the chosen target country \n(capitalize the first letter)" << endl;
         cin >> nameTargetCountry;
         
@@ -450,6 +450,7 @@ void Player::fortify() {
             
         }
         
+        //if the target country is not valid, ask again
         while(isTargetCountryValid == false || isTargetCountryNeighbour == false) {
             cout << "\nThe target country you choose is not own by you or doesn't exists or is not a neighbour of the source country \nPlease choose a valid country" << endl;
             cout << "Enter the name of a valid chosen target country" << endl;
@@ -458,8 +459,6 @@ void Player::fortify() {
             //check if the player owns the target country
             for(int i = 0; i < this->getThisPlayerCountries().size(); i++) {
                 if(nameTargetCountry.compare(this->getThisPlayerCountries().at(i)->getCountryName()) == 0) {
-                    
-                    // cout << "The country is own by the player" << endl;
                     isTargetCountryValid = true;
                     indexOfTargetCountry = i;
                 }
@@ -485,20 +484,12 @@ void Player::fortify() {
         int numberOfArmiesTargetCountry = this->getThisPlayerCountries().at(indexOfTargetCountry)->getNumberOfArmies();
         this->getThisPlayerCountries().at(indexOfTargetCountry)->setNumberOfArmies(numberOfArmiesTargetCountry + numOfArmies);
         
-        //    cout << "Is the source country valid? " <<  std::boolalpha << isSourceCountryValid << endl;
-        //
-        //    cout << "Is the source number of armies valid? " <<  std::boolalpha << isNumOfArmiesValid << endl;
-        //
-        //    cout << "Is the target country valid? " <<  std::boolalpha << isTargetCountryValid << endl;
-        
-        
+
+        //Display the new number of armies for source country and target country
         cout << "The player fortified succesfully the country: " << nameTargetCountry  << endl;
         cout << nameSourceCountry << " has now " << this->getThisPlayerCountries().at(indexOfSourceCountry)->getNumberOfArmies() << " armies"  << endl;
         cout << nameTargetCountry << " has now " << this->getThisPlayerCountries().at(indexOfTargetCountry)->getNumberOfArmies() << " armies"  << endl;
         
-        
-        //if the number of armies is valid, i need to decrement the number of armies in source and increment in target
-        //loop everything until all values are good
     }
     
 }
