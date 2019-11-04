@@ -82,15 +82,22 @@ public:
 	//card to be removed from hand during exchange
 	// void removeCardFromHand(Cards* cardExchanged);
 
-	int getNumOfArmies();
-	void setNumOfArmies(int numOfArmies);
+	//int getNumOfArmies();
+	//void setNumOfArmies(int numOfArmies);
     void removeCard(int index);
     void setCardInHand(Cards* card);
     std::vector<Cards*> getCardsInHand();
+    int getNumberOfArmiesToPlace();
+    void setNumberOfArmiesToPlace(int num);
+    void addNumberOfArmies(int num);
+    void deleteNumberOfArmies(int num);
+
 private:
 	int id;
-	int* numOfArmies; // number of armies player has
-	int* armiesExchanged;
-	int* exchangeCount; // number of exchanges player has done
+	//int* numOfArmies; // number of armies player has
+	static int numArmiesExchanged ;
+	static int* exchangeCount; // number of exchanges player has done
     std::vector<Cards*> cardsInHand;
+    // number of armies the player needs to place on the map when his turn starts
+    std::unique_ptr<int> numOfArmiesToPlace;
 };

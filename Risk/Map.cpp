@@ -14,6 +14,7 @@ Map::~Map() {
 
 }
 
+
 //setter 
 
 //pushes continent objects to continent vector

@@ -18,6 +18,10 @@ int main() {
         Country* country7 = new Country();
         Country* country8 = new Country();
         Country* country9 = new Country();
+    Country* country10 = new Country();
+    Country* country11 = new Country();
+    Country* country12 = new Country();
+
 
             country1->setCountryName("Canada");
             country2->setCountryName("USA");
@@ -27,7 +31,10 @@ int main() {
             country6->setCountryName("Japan");
             country7->setCountryName("China");
             country8->setCountryName("Denmark");
-    country9->setCountryName("Costa Rica");
+            country9->setCountryName("Costa Rica");
+            country10->setCountryName("Sweden");
+        country11->setCountryName("Finland");
+        country12->setCountryName("Crotia");
 
             map->setCountry(country1);
             map->setCountry(country2);
@@ -37,8 +44,10 @@ int main() {
             map->setCountry(country6);
             map->setCountry(country7);
             map->setCountry(country8);
-    map->setCountry(country9);
-
+        map->setCountry(country9);
+        map->setCountry(country10);
+        map->setCountry(country11);
+        map->setCountry(country12);
 
 	//new deck based on number of countries in map (size of deck should be 3)
 	Deck* deck = new Deck(map);
@@ -50,6 +59,10 @@ int main() {
 
 	Player* player = new Player();
     player->setName("pako");
+    
+    Player* player2 = new Player();
+    player2->setName("boi");
+    
 	// drawing from the deck and placing card in player's hand
 	
     
@@ -58,11 +71,10 @@ int main() {
     deck->draw(player->getHand(), player->getName());
     deck->draw(player->getHand(), player->getName());
     deck->draw(player->getHand(), player->getName());
-    deck->draw(player->getHand(), player->getName());
-    deck->draw(player->getHand(), player->getName());
-    deck->draw(player->getHand(), player->getName());
-    deck->draw(player->getHand(), player->getName());
-
+    deck->draw(player2->getHand(), player2->getName());
+    deck->draw(player2->getHand(), player2->getName());
+    deck->draw(player2->getHand(), player2->getName());
+    deck->draw(player2->getHand(), player2->getName());
 
     
     cout << "\nCards in deck now: " << endl;
@@ -85,6 +97,34 @@ int main() {
     for (int i = 0; i < player->getHand()->getCardsInHand().size(); i++) {
         cout << "Type of card " << i+1 << " is: " << player->getHand()->getCardsInHand().at(i)->getType() << endl;
     }
+    
+    cout << "number of armies to place by pako " << player->getHand()->getNumberOfArmiesToPlace() << endl;
+    
+    
+    cout << "\nCards in deck now: " << endl;
+    for (int i = 0; i < deck->getCardsInDeck().size(); i++) {
+        cout << "Type of card " << i+1 << " is: " << deck->getCardsInDeck().at(i)->getType() << endl;
+    }
+    
+    cout << "\nCards in hand of player Boi: " << endl;
+    for (int i = 0; i < player2->getHand()->getCardsInHand().size(); i++) {
+        cout << "Type of card " << i+1 << " is: " << player2->getHand()->getCardsInHand().at(i)->getType() << endl;
+    }
+
+    // exchange in return of armies
+    player2->getHand()->exchange(player2->getHand());
+    
+    cout << "\nCards in hand of player boi after exchange: " << endl;
+    cout << "size of boi hand: " << player2->getHand()->getCardsInHand().size()<< endl;
+    
+    
+    for (int i = 0; i < player2->getHand()->getCardsInHand().size(); i++) {
+        cout << "Type of card " << i+1 << " is: " << player2->getHand()->getCardsInHand().at(i)->getType() << endl;
+    }
+    
+    cout << "number of armies to place by player " << player2->getHand()->getNumberOfArmiesToPlace() << endl;
+    
+    
     delete map;
     delete country1;
     delete country2;

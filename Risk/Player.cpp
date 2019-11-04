@@ -64,6 +64,9 @@ void Player:: setThisPlayerCountry(Country* country) {
     countries.push_back(country);
 }
 
+
+
+
 //extra methods , reinforce, attack and fortify, will be implemented in next iteration
 void Player::reinforce() {
 	cout << "The player reinforce his troops" << endl;

@@ -31,14 +31,17 @@ class Player {
 		void attack();
 		void fortify();
 		void reinforce();
-
+      //  void addNumberOfArmies(int num);
+     //   void deleteNumberOfArmies(int num);
+    
 	private:
 		Dice* dice;
 		Hand* hand;
 		std::string name;
 
 		std::unique_ptr<int> id;
-        std::unique_ptr<int> numOfArmies;
+    
+       
 		static int counter;
         std::vector<Country*> countries;
 };
