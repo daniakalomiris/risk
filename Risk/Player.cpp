@@ -106,7 +106,7 @@ void Player::reinforce() {
 	ownedContinent = map.controlContinent(countries);
 	cout << " The number of troops added by the number of controled continents is " << ownedContinent << "." << endl;
 	armyAdd += ownedContinent;
-/*
+
 	// cards may be exchanged or forced exchange (if more than 5) for troops for reinforcement 
 	if (handNP.getCardsInHand(deck).size > 5) {
 		cout << "Since there is more than 5 cards in your hand, you must exchange them." << endl;
@@ -127,7 +127,7 @@ void Player::reinforce() {
 
 	}
 	cout << " The number of troops added by exchanging cards is  " << armyHand << "." << endl;
-	*/
+	
 	//Conclusion
 	cout << "In total, " << armyAdd << " troops  can be added for reinforcement." << endl;
 }

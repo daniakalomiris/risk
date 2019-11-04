@@ -107,25 +107,26 @@ int main() {
 		 //print all cards in player's hand (should be card2)
 		player->getHand()->getCardsInHand(deck);
 
-		// DICE
-		//player->getDice()->askRoll();
-		//player->getDice()->rollDice();
-		//player->getDice()->keepTracks();
+		 //DICE
+		player->getDice()->askRoll();
+		player->getDice()->rollDice();
+		player->getDice()->keepTracks();
 		
 		// FORTIFY, ATTACK AND REINFORCE
-		//player->fortify();
-		//player->attack();
+		player->fortify();
+		player->attack();
 
 		// TWO CASES FOR REINFORCE 
 		cout << endl;
 		cout << "case 1 for reinforce" << endl;
 		player->reinforce();
-		/*
+		
 		int newArmy = country4.getNumberOfArmies() + player.getNumArmy();
 		country4->setNumberOfArmies(newArmy);
 		cout << "number of armies in Italy is " << country4.getNumberOfArmies() << endl;
-		*/
+		
 		// player owns continents and has 5 cards for exchange 
+		cout << endl;
 		cout << "case 2 for fortify" << endl; 
 
 		Country* country8 = new Country();
@@ -187,10 +188,10 @@ int main() {
 		player->getHand()->getCardsInHand(deck);
 		//Should show different armie count , including an owned continent , and a force card exchange
 		player->reinforce();
-		/*int newArmy = country10.getNumberOfArmies() + player.getNumArmy();
+		int newArmy = country10.getNumberOfArmies() + player.getNumArmy();
 		country11->setNumberOfArmies(newArmy);
 		cout << "number of armies in Brazil is " << country10.getNumberOfArmies() << endl;
-		*/
+		
 	}
 	else {
 		cout << "Thank you for playing, Have a good day" << endl;
