@@ -7,14 +7,14 @@ void part1();
 void part2();
 void part3();
 
-int main() {
-
-   
-// part1();
-// part2();
-    part3();
-    
-}
+//int main() {
+//
+//   
+//// part1();
+//// part2();
+//    part3();
+//    
+//}
 
 
 void part1() {

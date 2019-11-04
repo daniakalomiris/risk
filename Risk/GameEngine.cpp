@@ -14,6 +14,7 @@ const int MAX_PLAYERS = 6;
 
 GameEngine:: GameEngine() {
     maploader = new MapLoader();
+    endGame = make_unique<bool>(false);
 }
 
 GameEngine:: ~GameEngine() {
@@ -57,6 +58,14 @@ int GameEngine::getNumberOfArmiesPerPlayer() {
 
 Map* GameEngine:: getMap() {
     return map;
+}
+
+bool GameEngine::getEndGame() {
+    return *endGame;
+}
+
+void GameEngine::setEndGame(bool value) {
+    *endGame = value;
 }
 
 void GameEngine::setNumberOfArmiesPerPlayer() {
@@ -357,9 +366,9 @@ void GameEngine::createMap() {
 void GameEngine:: mainGameLoop() {
 
     cout << "\n\n****** Main Game Loop *******" << endl;
-    bool gameEnd = false;
+    //bool gameEnd = false;
 
-    while (gameEnd == false) {
+    while (getEndGame() == false) {
 
         for(int i = 0; i< this->getNumberOfPlayers(); i++) {
             
@@ -373,7 +382,7 @@ void GameEngine:: mainGameLoop() {
             
             //check if a player owns all the countries
             if(this->getAllPlayers().at(i)->getThisPlayerCountries().size() == this->map->getCountries().size()) {
-                gameEnd = true;
+                this->setEndGame(true);
             }
         }
         

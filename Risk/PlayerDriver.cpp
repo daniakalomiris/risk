@@ -8,11 +8,11 @@ void part4();
 void part5();
 void part6();
 
-//int main() {
-//   // part4();
-//   // part5();
-//    part6();
-//}
+int main() {
+   // part4();
+   // part5();
+    part6();
+}
 
 
 
@@ -178,7 +178,7 @@ void part6() {
         country4->setAdjacentCountries(country5);
         country5->setAdjacentCountries(country4);
         country6->setAdjacentCountries(country7);
-        country7->setAdjacentCountries(country6);
+       country7->setAdjacentCountries(country6);
 
         country1->setNumberOfArmies(10);
         country2->setNumberOfArmies(5);
@@ -194,7 +194,7 @@ void part6() {
         country4->setCountryOwnerId(player->getID());
         country5->setCountryOwnerId(player->getID());
          country6->setCountryOwnerId(player->getID());
-         country7->setCountryOwnerId(player->getID());
+       //  country7->setCountryOwnerId(player->getID());
 
 
         map->setCountry(country1);
@@ -203,7 +203,7 @@ void part6() {
         map->setCountry(country4);
         map->setCountry(country5);
         map->setCountry(country6);
-        map->setCountry(country7);
+       // map->setCountry(country7);
 
         int playerID = player->getID();
 
@@ -217,7 +217,7 @@ void part6() {
         player->setThisPlayerCountry(country4);
         player->setThisPlayerCountry(country5);
         player->setThisPlayerCountry(country6);
-        player->setThisPlayerCountry(country7);
+       // player->setThisPlayerCountry(country7);
 
 
         // HAND

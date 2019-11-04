@@ -14,7 +14,7 @@ private:
         MapLoader* maploader;
         Deck* deck;
         std::unique_ptr<int> numberOfArmiesPerPlayer;
-
+        std::unique_ptr<bool> endGame;
 
 	public:
 
@@ -27,6 +27,8 @@ private:
 		void setNumberOfArmiesPerPlayer();
         int getNumberOfArmiesPerPlayer();
 		void setArmiesToCountries();
+        bool getEndGame();
+        void setEndGame(bool value);
 
 		void setPlayer(Player* player);
 
@@ -38,7 +40,7 @@ private:
         void assignCountriesToPlayers();
         void displayCountriesOfPlayers();
         void mainGameLoop();
-
+    
         std::vector <Player*> getAllPlayers();
         Deck* getDeck();
 };
