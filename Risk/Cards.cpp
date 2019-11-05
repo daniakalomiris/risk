@@ -22,6 +22,13 @@ Cards::Cards() {
 
 };
 
+// copy constructor
+Cards::Cards(const Cards & cards) {
+    cout << "Copy constructor called" << endl;
+    this->typeNum = make_unique<int>(cards.typeNum);
+    this->worth = make_unique<int>(cards.worth);
+}
+
 Cards::~Cards() {
 
 }

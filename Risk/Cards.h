@@ -12,6 +12,7 @@ class Cards {
 public:
 	Cards();
 	Cards(int typeNum, int worth);
+    Cards(const Cards&);
 	~Cards();
 
 	//type of card 
