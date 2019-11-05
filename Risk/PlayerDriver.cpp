@@ -11,11 +11,11 @@ void part5();
 void part6();
 
 //main method that can call each part's driver
-int main() {
-   // part4();
-   // part5();
-    part6();
-}
+//int main() {
+//   // part4();
+//   // part5();
+//    part6();
+//}
 
 
 
