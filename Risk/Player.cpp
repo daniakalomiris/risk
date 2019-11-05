@@ -63,13 +63,6 @@ int Player::getNumOfArmiesAtStartUpPhase() {
 void Player::setNumOfArmiesAtStartUpPhase(int num) {
     numOfArmiesAtStartUpPhase.reset(new int(num));
 }
-Deck* Player::getDeck() {
-	return deck;
-}
-
-Map Player::getMap() {
-	return map;
-}
 
 //gets num of army added
 int Player::getNumOfArmiesAdd() {
@@ -95,14 +88,15 @@ void Player::setThisPlayerCountry(Country* country) {
 //extra methods , reinforce, attack and fortify, will be implemented in next iteration
 
 void Player::reinforce() {
+    cout << "~~~~~ Reinforcement Phase ~~~~~\n" << endl;
 
-	armyAdd = 0;//for the total number of troops to add
-	int ownedContinent = 0; //for the number of troops to add due to continent control
-	int armyHand = 0;// for the number of troops to add due to exchanged cards.
+	armyAdd = 0;//for the total number of armies to add
+	int ownedContinent = 0; //for the number of armies to add due to continent control
+	int armyHand = 0;// for the number of armies to add due to exchanged cards
 	string answer; // for user input
 
-	//Number of armies according to number of countries
-	//add a minimum of 3 armies if less than 9 countries
+	// number of armies according to number of countries
+	// add a minimum of 3 armies if less than 9 countries
 	if ((countries.size()/3) < 3) {
 		armyAdd += 3;
 	}
@@ -111,14 +105,14 @@ void Player::reinforce() {
 	else {
 		armyAdd += (countries.size()) / 3;
 	}
-	cout << " The number of troops added by the number of countries is " << armyAdd << "." << endl;
+	cout << "The number of armies you will get to add to your countries is " << armyAdd << "." << endl;
 
-	// the number of continent controlled by player is added to the number of troops for reinforcement
+	// the number of continent controlled by player is added to the number of armies for reinforcement
 	ownedContinent = map.controlContinent(countries);
-	cout << " The number of troops added by the number of controled continents is " << ownedContinent << "." << endl;
+	cout << "The number of armies added by the number of controled continents is " << ownedContinent << "." << endl;
 	armyAdd += ownedContinent;
 
-	// cards may be exchanged or forced exchange (if more than 5) for troops for reinforcement
+	// cards may be exchanged or forced exchange (if more than 5) for armies for reinforcement
 	if (hand->getCardsInHand().size() > 5) {
 		cout << "Since there is more than 5 cards in your hand, you must exchange them." << endl;
         armyHand = hand->getNumberOfArmiesToPlace();
@@ -133,14 +127,14 @@ void Player::reinforce() {
 			armyAdd += armyHand;
 		}
 		else {
-			cout << "No cards are exchange." << endl;
+			cout << "No cards are exchanged." << endl;
 		}
 
 	}
-	cout << " The number of troops added by exchanging cards is  " << armyHand << "." << endl;
+	cout << "The number of armies added by exchanging cards is  " << armyHand << "." << endl;
 
 	//Conclusion
-	cout << "In total, " << armyAdd << " troops  can be added for reinforcement." << endl;
+	cout << "In total, " << armyAdd << " armies  can be added for reinforcement." << endl;
 }
 
 // attack method
@@ -150,7 +144,6 @@ void Player::attack() {
     Country* attackFrom;
     Country* countryToAttack;
     vector<int> attackerDiceValues, defenderDiceValues;
-
 
     cout << "~~~~~ Attack Phase ~~~~~\n" << endl;
 

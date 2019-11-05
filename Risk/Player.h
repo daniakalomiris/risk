@@ -12,7 +12,6 @@ class Player {
 		~Player();
 		Player(std::string name); //constructor which takes a name
 
-
 		//returns id of player that is generated during player object creation
 		int getID();
 
@@ -22,13 +21,7 @@ class Player {
 
 		Dice* getDice();
 		Hand* getHand();
-        //***************PART ADDED BY LOUJAIN ***************
-        //Deck and map should not be there
-		Deck* getDeck();
-		Map getMap();
-		//***************PART ADDED BY LOUJAIN END ***************
 
-        
         int getNumOfArmiesAdd();
 
         std::vector<Country* > getThisPlayerCountries();
@@ -37,7 +30,6 @@ class Player {
 
         int getNumOfArmiesAtStartUpPhase();
         void setNumOfArmiesAtStartUpPhase(int num);
-
 
 		//attack, fortify, reinforce methods
 		void attack();
