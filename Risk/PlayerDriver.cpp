@@ -9,8 +9,6 @@ void part4();
 void part5();
 void part6();
 
-
-
 int main() {
     // part4();
     // part5();
@@ -142,6 +140,47 @@ void part4() {
         newArmy = country10->getNumberOfArmies() + player->getNumOfArmiesAdd();
         country11->setNumberOfArmies(newArmy);
         cout << "number of armies in Brazil is " << country10->getNumberOfArmies() << endl;
+        
+        delete player;
+        player = NULL;
+        delete map;
+        map = NULL;
+        delete country1;
+        country2 = NULL;
+        delete country2;
+        country2 = NULL;
+        delete country3;
+        country3 = NULL;
+        delete country4;
+        country4 = NULL;
+        delete country5;
+        country5 = NULL;
+        delete country6;
+        country6 = NULL;
+        delete country7;
+        country7 = NULL;
+        delete country8;
+        country8 = NULL;
+        delete country9;
+        country9 = NULL;
+        delete country10;
+        country10 = NULL;
+        delete country11;
+        country11 = NULL;
+        delete card1;
+        card1 = NULL;
+        delete card2;
+        card2 = NULL;
+        delete card3;
+        card3 = NULL;
+        delete card4;
+        card4 = NULL;
+        delete card5;
+        card5 = NULL;
+        delete card6;
+        card6 = NULL;
+        delete deck;
+        deck = NULL;
     }
 }
 
@@ -307,7 +346,6 @@ void part6() {
         country6->setCountryOwnerId(player->getID());
         //  country7->setCountryOwnerId(player->getID());
         
-        
         map->setCountry(country1);
         map->setCountry(country2);
         map->setCountry(country3);
@@ -318,9 +356,7 @@ void part6() {
         
         int playerID = player->getID();
         
-        
         map->getOwnerCountries(playerID);
-        
         
         player->setThisPlayerCountry(country1);
         player->setThisPlayerCountry(country2);
@@ -329,7 +365,6 @@ void part6() {
         player->setThisPlayerCountry(country5);
         player->setThisPlayerCountry(country6);
         // player->setThisPlayerCountry(country7);
-        
         
         // HAND
         Cards* card1 = new Cards(0, 1);
@@ -347,14 +382,23 @@ void part6() {
         //print all cards in player's hand (should be card2)
         player->getHand()->getCardsInHand();
                 
-        
-        // FORTIFY
+        // initializing fortify phase
         player->fortify();
+        
+        delete player;
+        player = NULL;
+        delete card1;
+        card1 = NULL;
+        delete card2;
+        card2 = NULL;
+        delete card3;
+        card3 = NULL;
+        delete deck;
+        deck = NULL;
     }
     else {
         cout << "Thank you for playing, Have a good day" << endl;
     }
-    
     
     delete country1;
     country1 = NULL;
