@@ -12,7 +12,6 @@ class Player {
 		~Player();
 		Player(std::string name); //constructor which takes a name
 
-
 		//returns id of player that is generated during player object creation
 		int getID();
 
@@ -23,35 +22,36 @@ class Player {
 		Dice* getDice();
 		Hand* getHand();
 
+        int getNumOfArmiesAdd();
+
         std::vector<Country* > getThisPlayerCountries();
         void setThisPlayerCountry(Country* country);
 
 
-    int getNumOfArmiesAtStartUpPhase();
-    void setNumOfArmiesAtStartUpPhase(int num);
-
+        int getNumOfArmiesAtStartUpPhase();
+        void setNumOfArmiesAtStartUpPhase(int num);
 
 		//attack, fortify, reinforce methods
 		void attack();
 		void fortify();
-		void reinforce();
+        void reinforce();
 
-
+        Map* getMap();
+        void setMap(Map* map);
 	private:
 		Dice* dice;
 		Hand* hand;
+		Deck* deck;
+		//Map map;
 		std::string name;
-
+		std::string answer;
 		std::unique_ptr<int> id;
-
-
 		static int counter;
         std::vector<Country*> countries;
-
-
+        int armyAdd;
         std::unique_ptr<int> numOfArmiesAtStartUpPhase;
 
-
 		Player* defender;
+        Map* map;
 
 };

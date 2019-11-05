@@ -5,7 +5,7 @@
 #include <queue>
 #include <memory>
 
- 
+
 class Continent;
 class Country;
 
@@ -29,12 +29,21 @@ public:
 
 	void getOwnerCountries(int playerId); //returns vector of owner countries
 
-	// void displayAdjacentContinents();
-	// void displayAdjacentCountries();
-     
+    //********************** PART added by Loujain **********************
+	int controlContinent(std::vector<Country*> country);
+
 private:
 	std::vector<Continent*> continents;
-	std::vector<Country*> countries;
+    std::vector<Country*> countries;
+	
+    // for controlcontinent variables
+	int countryinContinent;
+	int numContinent;
+    
+	//Declare variables
+	std::queue<Continent*> visitedContinentsQueue;
+	std::queue<Country*> visitedCountriesQueue;
+	std::vector<Country*> ownerCountries;
 };
 
 class Continent {
@@ -50,7 +59,7 @@ public:
 
 	void setContinentName(std::string continentName); //sets continents name
 	std::string getContinentName();
-    
+
     void setNumberOfArmies(int numberOfArmies); //sets the number of armies
     int getNumberOfArmies(); // number of armies on a continent
 
@@ -76,7 +85,7 @@ public:
 	int getCountryNumber(); //country id
 
 	void setContinentOfCountry(Continent* continentOfCountry);  //sets continent of country
-	Continent* getContinentOfCountry(); //returns continent object 
+	Continent* getContinentOfCountry(); //returns continent object
 
 	void setCountryOwnerId(int countryOwnerId);  //sets owner of country
 	int getCountryOwnerId(); //returns player id
