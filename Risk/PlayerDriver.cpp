@@ -29,7 +29,7 @@ void part4() {
         cin >> name;
         Player* player = new Player(name);
         player->setName(name);
-        
+
         // COUNTRIES
         Map* map = new Map();
         Country* country1 = new Country();
@@ -39,9 +39,7 @@ void part4() {
         Country* country5 = new Country();
         Country* country6 = new Country();
         Country* country7 = new Country();
-        
-        
-        
+
         country1->setCountryName("Canada");
         country2->setCountryName("USA");
         country3->setCountryName("Mexico");
@@ -49,106 +47,101 @@ void part4() {
         country5->setCountryName("France");
         country6->setCountryName("Japan");
         country7->setCountryName("China");
-        
+
         // FORTIFY, ATTACK AND REINFORCE
         player->fortify();
         player->attack();
-        
+
         // TWO CASES FOR REINFORCE
         cout << endl;
         cout << "case 1 for reinforce" << endl;
         player->reinforce();
         
-        int newArmy = country4.getNumberOfArmies() + player.getNumArmy();
+        int newArmy;
+
+        newArmy = country4->getNumberOfArmies() + player->getNumOfArmiesAtStartUpPhase();
         country4->setNumberOfArmies(newArmy);
-        cout << "number of armies in Italy is " << country4.getNumberOfArmies() << endl;
-        
+        cout << "number of armies in Italy is " << country4->getNumberOfArmies() << endl;
+
         // player owns continents and has 5 cards for exchange
         cout << endl;
         cout << "case 2 for fortify" << endl;
-        
+
         Country* country8 = new Country();
         Country* country9 = new Country();
         Country* country10 = new Country();
         Country* country11 = new Country();
-        // adding extra countries that are all in the same continent in risk.map to demonstrate how a player gets extra points if conquers a continent.
+        
+        // adding extra countries that are all in the same continent in risk.map to demonstrate how a player gets extra points if conquers a continent
         country8->setCountryName("Venezuela");
         country9->setCountryName("Peru");
         country10->setCountryName("Brazil");
         country11->setCountryName("Argentina");
+        
         //set adjacency
         country8->setAdjacentCountries(country7);
         country9->setAdjacentCountries(country8);
         country10->setAdjacentCountries(country9);
         country11->setAdjacentCountries(country10);
-        
+
         //set armies on territories
         country8->setNumberOfArmies(3);
         country9->setNumberOfArmies(5);
         country10->setNumberOfArmies(4);
         country11->setNumberOfArmies(2);
-        
+
         //ownership of new countries
         country8->setCountryOwnerId(player->getID());
         country9->setCountryOwnerId(player->getID());
         country10->setCountryOwnerId(player->getID());
         country11->setCountryOwnerId(player->getID());
-        
+
         //add countries on map
         map->setCountry(country8);
         map->setCountry(country9);
         map->setCountry(country10);
         map->setCountry(country11);
         
-        
-        map->getOwnerCountries(playerID);
-        
+        map->getOwnerCountries(player->getID());
+
         player->setThisPlayerCountry(country8);
         player->setThisPlayerCountry(country9);
         player->setThisPlayerCountry(country10);
         player->setThisPlayerCountry(country11);
         
         // create new cards
+        Cards* card1 = new Cards(0, 1);
+        Cards* card2 = new Cards(1, 5);
+        Cards* card3 = new Cards(2, 10);
         Cards* card4 = new Cards(0, 1);
         Cards* card5 = new Cards(1, 5);
         Cards* card6 = new Cards(2, 10);
+               
+        Deck* deck = new Deck();
+        deck->setCardInDeck(card1);
+        deck->setCardInDeck(card2);
+        deck->setCardInDeck(card3);
         deck->setCardInDeck(card4);
         deck->setCardInDeck(card5);
         deck->setCardInDeck(card6);
+
         //add cards in player hands, card2 is already in players hand
         player->getHand()->setCardInHand(card1);
+        player->getHand()->setCardInHand(card2);
         player->getHand()->setCardInHand(card3);
         player->getHand()->setCardInHand(card4);
         player->getHand()->setCardInHand(card5);
         player->getHand()->setCardInHand(card6);
         
-        //print all cards in player's hand (should be card1 to 6)
-        player->getHand()->getCardsInHand(deck);
-        //Should show different armie count , including an owned continent , and a force card exchange
-        player->reinforce();
-        int newArmy = country10.getNumberOfArmies() + player.getNumArmy();
-        country11->setNumberOfArmies(newArmy);
-        cout << "number of armies in Brazil is " << country10.getNumberOfArmies() << endl;
-        // HAND
-        Cards* card1 = new Cards(0, 1);
-        Cards* card2 = new Cards(1, 5);
-        Cards* card3 = new Cards(2, 10);
-        
-        Deck* deck = new Deck();
-        deck->setCardInDeck(card1);
-        deck->setCardInDeck(card2);
-        deck->setCardInDeck(card3);
-        
-        //add card2 to player's hand
-        player->getHand()->setCardInHand(card2);
-        
-        
-        //print all cards in player's hand (should be card2)
+        // print all cards in player's hand
         player->getHand()->getCardsInHand();
         
+        // should show different armiy count, including an owned continent and a force card exchange
+        player->reinforce();
         
-        
-        
+        newArmy = country10->getNumberOfArmies() + player->getNumOfArmiesAdd();
+        country11->setNumberOfArmies(newArmy);
+        cout << "number of armies in Brazil is " << country10->getNumberOfArmies() << endl;
     }
 }
 
@@ -232,27 +225,6 @@ void part5() {
     
     // initializing attack phase
     player->attack();
-    
-    // HAND
-    //Cards* card1 = new Cards(0, 1);
-    //Cards* card2 = new Cards(1, 5);
-    //Cards* card3 = new Cards(2, 10);
-    //
-    //Deck* deck = new Deck();
-    //deck->setCardInDeck(card1);
-    //deck->setCardInDeck(card2);
-    //deck->setCardInDeck(card3);
-    
-    //add card2 to player's hand
-    //player->getHand()->setCardInHand(card2);
-    
-    //print all cards in player's hand (should be card2)
-    /*player->getHand()->getCardsInHand(deck);*/
-    
-    // DICE
-    // player->getDice()->askRoll();
-    /*player->getDice()->rollDice();
-     player->getDice()->keepTracks();*/
     
     delete country1;
     country1 = NULL;
@@ -385,11 +357,19 @@ void part6() {
     
     
     delete country1;
+    country1 = NULL;
     delete country2;
+    country2 = NULL;
     delete country3;
+    country3 = NULL;
     delete country4;
+    country4 = NULL;
     delete country5;
+    country5 = NULL;
     delete country6;
+    country6 = NULL;
     delete country7;
+    country7 = NULL;
     delete map;
+    map = NULL;
 }

@@ -29,24 +29,21 @@ public:
 
 	void getOwnerCountries(int playerId); //returns vector of owner countries
 
-//********************** PART added by Loujain **********************
+    //********************** PART added by Loujain **********************
 	int controlContinent(std::vector<Country*> country);
 
 private:
 	std::vector<Continent*> continents;
-	// for controlcontinent variables
+    std::vector<Country*> countries;
+	
+    // for controlcontinent variables
 	int countryinContinent;
 	int numContinent;
+    
 	//Declare variables
 	std::queue<Continent*> visitedContinentsQueue;
 	std::queue<Country*> visitedCountriesQueue;
 	std::vector<Country*> ownerCountries;
-// ****************** THE END of loujain **********************
-
-  // void displayAdjacentContinents();
-	// void displayAdjacentCountries();
- std::vector<Continent*> continents;
- std::vector<Country*> countries;
 };
 
 class Continent {

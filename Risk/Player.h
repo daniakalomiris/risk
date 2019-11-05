@@ -22,53 +22,40 @@ class Player {
 
 		Dice* getDice();
 		Hand* getHand();
-//***************PART ADDED BY LOUJAIN ***************
-//Deck and map should not be there
-		Hand getNotPointerHand();
+        //***************PART ADDED BY LOUJAIN ***************
+        //Deck and map should not be there
 		Deck* getDeck();
-		int getArmyAdd();
 		Map getMap();
 		//***************PART ADDED BY LOUJAIN END ***************
 
+        
+        int getNumOfArmiesAdd();
 
         std::vector<Country* > getThisPlayerCountries();
         void setThisPlayerCountry(Country* country);
 
 
-    int getNumOfArmiesAtStartUpPhase();
-    void setNumOfArmiesAtStartUpPhase(int num);
+        int getNumOfArmiesAtStartUpPhase();
+        void setNumOfArmiesAtStartUpPhase(int num);
 
 
 		//attack, fortify, reinforce methods
 		void attack();
 		void fortify();
 		void reinforce();
-      //  void addNumberOfArmies(int num);
-     //   void deleteNumberOfArmies(int num);
-
 
 	private:
-		int armyAdd;
-		int ownedContinent;
-		int armyHand;
 		Dice* dice;
 		Hand* hand;
-		Hand handNP;
 		Deck* deck;
 		Map map;
 		std::string name;
 		std::string answer;
-
 		std::unique_ptr<int> id;
-
-
 		static int counter;
         std::vector<Country*> countries;
-
-
+        int armyAdd;
         std::unique_ptr<int> numOfArmiesAtStartUpPhase;
 
-
 		Player* defender;
-
 };

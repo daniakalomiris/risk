@@ -48,9 +48,9 @@ Hand* Player::getHand() {
     return hand;
 }
 
-Hand Player::getNotPointerHand() {
-	return handNP;
-}
+//Hand Player::getNotPointerHand() {
+//	return handNP;
+//}
 
 Dice* Player::getDice() {
     return dice;
@@ -71,8 +71,8 @@ Map Player::getMap() {
 	return map;
 }
 
-//gets num of army
-int Player::getArmyAdd() {
+//gets num of army added
+int Player::getNumOfArmiesAdd() {
 	return armyAdd;
 }
 
@@ -96,7 +96,7 @@ void Player::setThisPlayerCountry(Country* country) {
 
 void Player::reinforce() {
 
-	int armyAdd = 0;//for the total number of troops to add
+	armyAdd = 0;//for the total number of troops to add
 	int ownedContinent = 0; //for the number of troops to add due to continent control
 	int armyHand = 0;// for the number of troops to add due to exchanged cards.
 	string answer; // for user input
@@ -119,9 +119,9 @@ void Player::reinforce() {
 	armyAdd += ownedContinent;
 
 	// cards may be exchanged or forced exchange (if more than 5) for troops for reinforcement
-	if (handNP.getCardsInHand(deck).size > 5) {
+	if (hand->getCardsInHand().size() > 5) {
 		cout << "Since there is more than 5 cards in your hand, you must exchange them." << endl;
-		armyHand = handNP.exchange(deck, hand);
+        armyHand = hand->getNumberOfArmiesToPlace();
 		armyAdd += armyHand;
 	}
 	else {
@@ -129,7 +129,7 @@ void Player::reinforce() {
 		cin >> answer;
 
 		if (answer == "y") {
-			armyHand+= handNP.exchange(deck, hand);
+			armyHand+= hand->getNumberOfArmiesToPlace();
 			armyAdd += armyHand;
 		}
 		else {

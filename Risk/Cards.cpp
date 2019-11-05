@@ -297,7 +297,7 @@ void Hand::exchange(Hand* hand) {
         bool allCardsFound = false;
         while(!allCardsFound) {
         
-		for (int i = hand->getCardsInHand().size()-1; i >= 0; i--) {
+		for (unsigned int i = hand->getCardsInHand().size()-1; i >= 0; i--) {
           
 				if ((hand->getCardsInHand().at(i)->getType()).compare("Infantry") == 0 && infantryExchanged != 1) {
 					     hand->removeCard(i);
@@ -352,7 +352,7 @@ Hand::Hand() {
 // Takes player's id
 Hand::Hand(int id) {
 	this->id = id;
-   // numOfArmies = new int(0);
+    // numOfArmies = new int(0);
 	//armiesExchanged = new int(0);
 	
     numOfArmiesToPlace = make_unique<int>(0);
