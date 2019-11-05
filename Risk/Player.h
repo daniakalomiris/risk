@@ -20,22 +20,31 @@ class Player {
 		void setName(std::string name);
 		std::string getName();
 
-		
 		Dice* getDice();
 		Hand* getHand();
+//***************PART ADDED BY LOUJAIN ***************
+//Deck and map should not be there
 		Hand getNotPointerHand();
 		Deck* getDeck();
 		int getArmyAdd();
 		Map getMap();
+		//***************PART ADDED BY LOUJAIN END ***************
+
 
         std::vector<Country* > getThisPlayerCountries();
         void setThisPlayerCountry(Country* country);
+
+
+    int getNumOfArmiesAtStartUpPhase();
+    void setNumOfArmiesAtStartUpPhase(int num);
 
 
 		//attack, fortify, reinforce methods
 		void attack();
 		void fortify();
 		void reinforce();
+      //  void addNumberOfArmies(int num);
+     //   void deleteNumberOfArmies(int num);
 
 
 	private:
@@ -51,6 +60,15 @@ class Player {
 		std::string answer;
 
 		std::unique_ptr<int> id;
+
+
 		static int counter;
         std::vector<Country*> countries;
+
+
+        std::unique_ptr<int> numOfArmiesAtStartUpPhase;
+
+
+		Player* defender;
+
 };

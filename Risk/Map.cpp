@@ -10,13 +10,15 @@ Map::Map() {
 }
 
 Map::~Map() {
+
 }
+
 
 //setter 
 
 //pushes continent objects to continent vector
 
-void Map::setContinent(Continent * continent) {
+void Map::setContinent(Continent* continent) {
 	continents.push_back(continent);
 }
 
@@ -36,105 +38,76 @@ vector<Country*> Map::getCountries() {
 }
 
 
-vector<Country*> Map::getOwnerCountries(int playerId) {
+void Map::getOwnerCountries(int playerId) {
 	for (unsigned int i = 0; i < countries.size(); i++) {
-		if (countries.at(i)->getCountryOwnerId() == playerId) {
-			ownerCountries.push_back(countries.at(i));
+		if (countries.at(i)->getCountryOwnerId() != NULL && countries.at(i)->getCountryOwnerId() == playerId) {
 			cout << "Player " << playerId << " owns the country " << countries.at(i)->getCountryName() << " with " << countries.at(i)->getNumberOfArmies() << " armies." << endl;
-		}
-	}
-	return ownerCountries;
-}
-
-//algorithm to search through continents
-void Map::breadthFirstSearchContinents(vector<Continent*> continents, Continent* continent) {
-	cout << "Beginning a Breadth First Search on continent subgraph." << endl;
-
-	bool visitedContinents[100]; // Array to keep track of which continent we have visited
-	for (unsigned int i = 0; i < getContinents().size(); i++) { // Initialize array with false (we have yet to visit these continents)
-		visitedContinents[i] = false;
-	}
-
-	visitedContinentsQueue.push(continent);
-	visitedContinents[0] = true; // Our search starts at the first continent
-
-	while (!visitedContinentsQueue.empty()) {
-		Continent* continentNode = visitedContinentsQueue.front(); // Get first continent from the queue
-		visitedContinentsQueue.pop(); // Remove that continent from the queue
-		cout << continentNode << endl;
-
-		for (unsigned int i = 0; i < continents.size(); i++) {  // Loop through all continents
-			Continent* adjacentContinent = continents.at(i)->getAdjacentContinents().at(i); // Get an adjacent continent
-			if (visitedContinents[i] == false) { // If this continent has not been visited, we mark it as visited and add it to the queue
-				visitedContinents[i] = true;
-				visitedContinentsQueue.push(adjacentContinent);
-			}
-		}
-	}
-}
-
-//Algorithm to search through countries 
-void Map::breadthFirstSearchCountries(vector<Country*> countries, Country* country) {
-	cout << "Beginning a Breadth First Search on country subgraph." << endl;
-
-	bool visitedCountries[100]; // Array to keep track of which country we have visited
-	for (unsigned int i = 0; i < getCountries().size(); i++) { // Initialize array with false (we have yet to visit these countries)
-		visitedCountries[i] = false;
-	}
-
-	visitedCountriesQueue.push(country);
-	visitedCountries[0] = true; // Our search starts at the first country
-
-	while (!visitedCountriesQueue.empty()) {
-		Country* countryNode = visitedCountriesQueue.front(); // Get first country from the queue
-		visitedCountriesQueue.pop(); // Remove that country from the queue
-		cout << countryNode << endl;
-
-		for (unsigned int i = 0; i < countries.size(); i++) {  // Loop through all countries
-			Country* adjacentCountry = countries.at(i)->getAdjacentCountries().at(i); // Get an adjacent country
-			if (visitedCountries[i] == false) { // If this country has not been visited, we mark it as visited and add it to the queue
-				visitedCountries[i] = true;
-				visitedCountriesQueue.push(adjacentCountry);
-			}
 		}
 	}
 }
 
 //checks if continent is a subgraph 
 bool Map::isContinentSubgraph() {
-	if (getContinents().size() == 0) {
+	if (continents.size() == 0) {
 		return false;
-	}
+	} 
 	else {
-		breadthFirstSearchContinents(getContinents(), getContinents().at(0));
-		if (getContinents().size() == visitedContinentsQueue.size()) {
+		vector<Continent*> visited;
+		visited.push_back(continents.at(0)); // Push first continent
+		for (unsigned int i = 0; i < continents.size(); i++) {  // Loop through all continents
+			for (unsigned int j = 0; j < continents.at(i)->getAdjacentContinents().size(); j++) { // Loop through all adjacent continents of a continent
+				vector<Continent*>::iterator it = find(visited.begin(), visited.end(), continents.at(i)->getAdjacentContinents().at(j));
+				if (it == visited.end()) { // Check if continent has not been visited
+					visited.push_back(continents.at(i)->getAdjacentContinents().at(j)); // Add it to the list of visited continents
+				}
+			}
+		}
+		if (continents.size() == visited.size()) {
 			cout << "Continents are connected subgraphs." << endl;
+			return true;
+		}
+		else {
+			cout << "Continents are not connected subgraphs." << endl;
+			return false;
 		}
 	}
-	return true;
 }
 
 //checks if country is subgraph 
 bool Map::isCountrySubgraph() {
-	if (getCountries().size() == 0) {
+	if (countries.size() == 0) {
 		return false;
 	}
 	else {
-		breadthFirstSearchCountries(getCountries(), getCountries().at(0));
-		if (getContinents().size() == visitedCountriesQueue.size()) {
-			cout << "Map is a connected subgraphs." << endl;
+		vector<Country*> visited;
+		visited.push_back(countries.at(0)); // Push first country
+		for (unsigned int i = 0; i < countries.size(); i++) {  // Loop through all countries
+			for (unsigned int j = 0; j < countries.at(i)->getAdjacentCountries().size(); j++) { // Loop through all adjacent countries of a country
+				vector<Country*>::iterator it = find(visited.begin(), visited.end(), countries.at(i)->getAdjacentCountries().at(j));
+				if (it == visited.end()) { // Check if country has not been visited
+					visited.push_back(countries.at(i)->getAdjacentCountries().at(j)); // Add it to the list of visited countries
+				}
+			}
+		}
+		if (countries.size() == visited.size()) {
+			cout << "Map is a connected subgraph." << endl;
+			return true;
+		}
+		else {
+			cout << "Map is not a connected subgraph." << endl;
+			return false;
 		}
 	}
-	return true;
 }
 
 //checks if country is in one continent
 bool Map::isCountryInOneContinent() {
-	for (unsigned int i = 0; i < getCountries().size() - 1; i++) { // Loop through all continents
-		for (unsigned int j = 0; j < continents.at(i)->getCountriesOfContinent().size() - 1; j++) { // Loop through all countries of a continent
-			for (unsigned int k = 0; k < getCountries().size() - 1; k++) { // Loop through all continents
-				for (unsigned int l = j + 1; l < continents.at(k)->getCountriesOfContinent().size() - 1; l++) { // Loop through all other countries of a continent
-					if (continents.at(i)->getCountriesOfContinent().at(j)->getCountryName() == continents.at(k)->getCountriesOfContinent().at(l)->getCountryName()) { // Check if each country belongs to only 1 continent
+	for (unsigned int i = 0; i < countries.size(); i++) { // Loop through all countries
+		Country* tempCountry = countries.at(i); // Country to find only once
+		for (unsigned int j = 0; j < continents.size(); j++) { // Loop through all continents
+			if (tempCountry->getContinentOfCountry() != continents.at(j)) { // If continent is the same as the continent of the country we are looking for, move to next continent
+				for (unsigned int k = 0; k < continents.at(j)->getCountriesOfContinent().size(); k++) { // Loop through next continent's countries
+					if (tempCountry->getCountryName() == continents.at(j)->getCountriesOfContinent().at(k)->getCountryName()) { // Check if each country belongs to only 1 continent
 						cout << "Country " << continents.at(i)->getCountriesOfContinent().at(j)->getCountryName() << " belongs to more than one continent." << endl;
 						cout << "Map is invalid." << endl;
 						return false;
@@ -148,19 +121,19 @@ bool Map::isCountryInOneContinent() {
 }
 
 bool Map::isNotEmptyContinent() {
-	for (unsigned int i = 0; i < continents.size() - 1; i++) { // Loop through all continents
-		if (continents.at(i)->getCountriesOfContinent().size() - 1 < 1) { // Check if each continent has at least 1 country
+	for (unsigned int i = 0; i < continents.size(); i++) { // Loop through all continents
+		if (continents.at(i)->getCountriesOfContinent().empty()) { // Check if each continent has at least 1 country
 			cout << "Continent " << continents.at(i)->getContinentName() << " does not have any countries." << endl;
 			cout << "Map is invalid." << endl;
 			return false;
 		}
 	}
-	cout << "All continents have countries." << endl;
+	cout << "All continents contain countries." << endl;
 	return true;
 }
 
 bool Map::countryHasContinent() {
-	for (unsigned int i = 0; i < countries.size() - 1; i++) { // Loop through all countries and check if they belong to a continent
+	for (unsigned int i = 0; i < countries.size(); i++) { // Loop through all countries and check if they belong to a continent
 		if (countries.at(i)->getContinentOfCountry() == NULL) {
 			cout << "Country " << countries.at(i)->getCountryName() << " does not belong to a continent." << endl;
 			cout << "Map is invalid." << endl;
@@ -172,8 +145,36 @@ bool Map::countryHasContinent() {
 }
 
 bool Map::isValidMap() {
-	return isContinentSubgraph() && isCountrySubgraph() && isCountryInOneContinent() && isNotEmptyContinent() && countryHasContinent();
+    
+//	if (isContinentSubgraph() && isCountrySubgraph() && isCountryInOneContinent() && isNotEmptyContinent() && countryHasContinent()) {
+//		cout << "Map is valid." << endl;
+//		return true;
+//	}
+    
+    if (isCountrySubgraph() && isCountryInOneContinent() && isNotEmptyContinent() && countryHasContinent()) {
+        cout << "Map is valid." << endl;
+        return true;
+    }
+	return false;
 }
+
+//void Map::displayAdjacentContinents() {
+//	for (int i = 0; i < continents.size(); i++) { 
+//		cout << continents.at(i)->getContinentName() << " has these adjacent continents: " << endl;
+//		for (int j = 0; j < continents.at(i)->getAdjacentContinents().size(); i++) {
+//			cout << continents.at(i)->getAdjacentContinents().at(j)->getContinentName() << endl;
+//		}
+//	}
+//}
+
+//void Map::displayAdjacentCountries() {
+//	for (int i = 0; i < countries.size(); i++) { 
+//		cout << countries.at(i)->getCountryName() << " has these adjacent countries: " << endl;
+//		for (int j = 0; j < countries.at(i)->getAdjacentCountries().size(); i++) {
+//			cout << countries.at(i)->getAdjacentCountries().at(j)->getCountryName() << endl;
+//		}
+//	}
+//}
 
 //this method is used to see if a vector country occupies full continents , returning the number of concured continents
 int Map::controlContinent(vector<Country*> country) {

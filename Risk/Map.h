@@ -20,10 +20,6 @@ public:
 	void setCountry(Country* country);
 	std::vector<Country*> getCountries(); // returns vector of countries
 
-
-	void breadthFirstSearchContinents(std::vector<Continent*> continents, Continent* continent); // continent is the continent's index in the vector of continents
-	void breadthFirstSearchCountries(std::vector<Country*> countries, Country* country);
-
 	bool isValidMap(); // checks if valid map
 	bool isContinentSubgraph(); // checks continents subgraph
 	bool isCountrySubgraph(); // checks if country subgraph
@@ -31,9 +27,9 @@ public:
 	bool isNotEmptyContinent(); // checks if continent is empty
 	bool countryHasContinent(); // checks if country is on contient
 
-	std::vector<Country*> getOwnerCountries(int playerId); //returns vector of owner countries
-    std::vector<Country*> countries;
+	void getOwnerCountries(int playerId); //returns vector of owner countries
 
+//********************** PART added by Loujain **********************
 	int controlContinent(std::vector<Country*> country);
 
 private:
@@ -45,6 +41,12 @@ private:
 	std::queue<Continent*> visitedContinentsQueue;
 	std::queue<Country*> visitedCountriesQueue;
 	std::vector<Country*> ownerCountries;
+// ****************** THE END of loujain **********************
+
+  // void displayAdjacentContinents();
+	// void displayAdjacentCountries();
+ std::vector<Continent*> continents;
+ std::vector<Country*> countries;
 };
 
 class Continent {
@@ -60,7 +62,7 @@ public:
 
 	void setContinentName(std::string continentName); //sets continents name
 	std::string getContinentName();
-    
+
     void setNumberOfArmies(int numberOfArmies); //sets the number of armies
     int getNumberOfArmies(); // number of armies on a continent
 
@@ -70,6 +72,7 @@ private:
 	std::vector<Country*> countriesOfContinent;
 	std::vector<Continent*> adjacentContinents;
     std::unique_ptr<int> numberOfArmies;
+	static int continentCounter;
 };
 
 class Country {
@@ -85,7 +88,7 @@ public:
 	int getCountryNumber(); //country id
 
 	void setContinentOfCountry(Continent* continentOfCountry);  //sets continent of country
-	Continent* getContinentOfCountry(); //returns continent object 
+	Continent* getContinentOfCountry(); //returns continent object
 
 	void setCountryOwnerId(int countryOwnerId);  //sets owner of country
 	int getCountryOwnerId(); //returns player id
@@ -111,7 +114,7 @@ private:
 	std::unique_ptr<int> coordinateY;
 	std::vector<Country*> adjacentCountries;
 	std::unique_ptr<int> countryOwnerId;
-
 	std::unique_ptr<int> numberOfArmies;
+	static int countryCounter;
 
 };

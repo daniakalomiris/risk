@@ -19,19 +19,8 @@ Dice::~Dice() {
    
 }
 
-// Player selects how many dice (1 to 3) to roll
-void Dice::askRoll() {
-    int diceToRoll;
-    cout << "\nPlease enter the number of dice you would like to roll (must be 1 to 3): " << endl;
-    cin >> diceToRoll;
-
-    // Player must keep choosing the number of dice to roll if it is not 1, 2 or 3
-    while (diceToRoll < 1 || diceToRoll > 3) {
-        cout << "You may only roll 1 to 3 dice. Please try again." << endl;
-        cin >> diceToRoll;
-    }
-
-    // Point to the number of dice player decides to roll
+// Player selects how many dice to roll
+void Dice::setDiceToRoll(int diceToRoll) {
     numOfDice.reset(new int(diceToRoll));
 }
 
@@ -59,7 +48,7 @@ void Dice::rollDice() {
     //Sorts the array diceContainer
     for(int i = 0; i < *numOfDice; i++) {
         for(int j = i+1; j < *numOfDice; j++) {
-            if(diceContainer[i] > diceContainer[j]) {
+            if(diceContainer[i] < diceContainer[j]) {
                 int temp = diceContainer[i];
                 diceContainer[i] = diceContainer[j];
                 diceContainer[j] = temp;
@@ -69,19 +58,19 @@ void Dice::rollDice() {
 
     // Display the values for each dice rolled
     if (*numOfDice == 1) {
-        cout << "You decided to roll 1 die. This is the result of your die: " << diceContainer[0] << endl;
-        // cout <<  << endl;
+        cout << "This is the result of your die: " << diceContainer[0] << endl;
     }
     else {
-        cout << "You decided to roll " << *numOfDice << " dice. " << "These are the results of your dice: " << endl;
+        cout << "These are the results of your dice: " << endl;
         for(int i = 0; i < *numOfDice; i++) {
             cout << diceContainer[i] << " ";
             
             //push the values in the vector valuesRolled
             valuesRolled.push_back(diceContainer[i]);
         }
-        cout << " " << endl;
+         
     }
+	cout << " " << endl;
     
 }
 

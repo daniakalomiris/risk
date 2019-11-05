@@ -7,7 +7,7 @@ using namespace std;
 
 
 //int main() {
-//
+//	/* creating VALID map */
 //	Map* map1 = new Map();
 //
 //	Continent* northAmerica = new Continent();
@@ -27,12 +27,21 @@ using namespace std;
 //	c5->setCountryName("Spain");
 //	c6->setCountryName("Portugal");
 //
+//	northAmerica->setContinentName("North America");
+//	europe->setContinentName("Europe");
+//
 //	c1->setContinentOfCountry(northAmerica);
 //	c2->setContinentOfCountry(northAmerica);
 //	c3->setContinentOfCountry(northAmerica);
 //	c4->setContinentOfCountry(europe);
 //	c5->setContinentOfCountry(europe);
 //	c6->setContinentOfCountry(europe);
+//	northAmerica->setCountriesOfContinent(c1);
+//	northAmerica->setCountriesOfContinent(c2);
+//	northAmerica->setCountriesOfContinent(c3);
+//	europe->setCountriesOfContinent(c4);
+//	europe->setCountriesOfContinent(c5);
+//	europe->setCountriesOfContinent(c6);
 //
 //	map1->setContinent(northAmerica);
 //	map1->setContinent(europe);
@@ -54,47 +63,55 @@ using namespace std;
 //	c5->setAdjacentCountries(c4);
 //	c5->setAdjacentCountries(c6);
 //	c6->setAdjacentCountries(c5);
-//	
-//	/* VALID map */
 //
+//	cout << "~~~~~ Testing VALID map ~~~~~" << endl;
 //	map1->isValidMap();
 //
-//	// map is connected subgraph with adjacency between countries
-//	map1->isCountrySubgraph();
-//	for (int i = 0; i < map1->getCountries().size(); i++) {
-//		cout << map1->getCountries().at(i)->getCountryName() << " has these adjacent countries: " << endl;
-//		for (int j = 0; j < map1->getCountries().at(i)->getAdjacentCountries().size(); i++) {
-//			cout << map1->getCountries().at(i)->getAdjacentCountries().at(j)->getCountryName() << endl;
-//		}
-//	}
-//	
-//	// continents are connected subgraphs
-//	map1->isContinentSubgraph();
-//	for (int i = 0; i < map1->getContinents().size(); i++) {
-//		cout << map1->getContinents().at(i)->getContinentName() << " has these adjacent continents: " << endl;
-//		for (int j = 0; j < map1->getContinents().at(i)->getAdjacentContinents().size(); i++) {
-//			cout << map1->getContinents().at(i)->getAdjacentContinents().at(j)->getContinentName() << endl;
-//		}
-//	}
-//
-//	// each country belongs to only one continent
-//	map1->isCountryInOneContinent();
-//
 //	// country owned by player and contains armies
-//	Player* player = new Player();
-//	player->setName("Dania");
+//	Player* player1 = new Player();
+//	player1->setName("Dania");
 //
-//	c1->setCountryOwnerId(player->getID());
+//	Player* player2 = new Player();
+//	player2->setName("Not Dania");
+//
+//	c1->setCountryOwnerId(player1->getID());
 //	c1->setNumberOfArmies(1);
-//
-//	c2->setCountryOwnerId(player->getID());
+//	c2->setCountryOwnerId(player1->getID());
 //	c2->setNumberOfArmies(2);
-//
-//	c6->setCountryOwnerId(player->getID());
+//	c6->setCountryOwnerId(player1->getID());
 //	c6->setNumberOfArmies(3);
+//	c3->setCountryOwnerId(player2->getID());
+//	c3->setNumberOfArmies(3);
+//	c4->setCountryOwnerId(player2->getID());
+//	c4->setNumberOfArmies(2);
+//	c5->setCountryOwnerId(player2->getID());
+//	c5->setNumberOfArmies(1);
 //
-//	map1->getOwnerCountries(player->getID());
+//	map1->getOwnerCountries(player1->getID());
+//	map1->getOwnerCountries(player2->getID());
 //
+//	// deallocate all pointers for map1
+//	delete map1;
+//	map1 = NULL;
+//	delete northAmerica;
+//	northAmerica = NULL;
+//	delete europe;
+//	europe = NULL;
+//	delete c1;
+//	c1 = NULL;
+//	delete c2;
+//	c2 = NULL;
+//	delete c3;
+//	c3 = NULL;
+//	delete c4;
+//	c4 = NULL;
+//	delete c5;
+//	c5 = NULL;
+//	delete c6;
+//	c6 = NULL;
+//
+//
+//	/* creating INVALID map */
 //	Map* map2 = new Map();
 //
 //	Continent* continent1M2 = new Continent();
@@ -104,38 +121,53 @@ using namespace std;
 //	Country* c1M2 = new Country();
 //	Country* c2M2 = new Country();
 //	Country* c3M2 = new Country();
-//	Country* c4M2 = new Country();
-//	Country* c5M2 = new Country();
-//	Country* c6M2 = new Country();
 //
-//	map1->setContinent(continent1M2);
-//	map1->setContinent(continent2M2);
-//	map1->setContinent(continent3M2);
+//	c1M2->setCountryName("Country 1");
+//	c2M2->setCountryName("Country 2");
+//	c3M2->setCountryName("Country 3");
 //
-//	map1->setCountry(c1M2);
-//	map1->setCountry(c2M2);
-//	map1->setCountry(c3M2);
-//	map1->setCountry(c4M2);
-//	map1->setCountry(c5M2);
-//	map1->setCountry(c6M2);
+//	continent1M2->setContinentName("Continent 1");
+//	continent2M2->setContinentName("Continent 2");
+//	continent3M2->setContinentName("Continent 3");
 //
-//	/* Test cases for INVALID maps */
+//	map2->setContinent(continent1M2);
+//	map2->setContinent(continent2M2);
+//	map2->setContinent(continent3M2);
+//
+//	map2->setCountry(c1M2);
+//	map2->setCountry(c2M2);
+//	map2->setCountry(c3M2);
+//
+//	cout << "\n~~~~~ Testing INVALID map ~~~~~" << endl;
 //
 //	/* Not all countries belong to only one continent */
-//
-//	c3M2->setContinentOfCountry(continent1M2);
-//	c3M2->setContinentOfCountry(continent2M2);
-//	map1->isCountryInOneContinent();
-//
-//
-//	/* Not all continents have countries */
-//	map1->isNotEmptyContinent();
-//
-//	/* Not all countries belong to a continent */
-//
 //	c1M2->setContinentOfCountry(continent1M2);
 //	c2M2->setContinentOfCountry(continent1M2);
-//	c6M2->setContinentOfCountry(continent2M2);
-//	map1->countryHasContinent();
-//}
+//	c2M2->setContinentOfCountry(continent1M2);
+//	continent1M2->setCountriesOfContinent(c1M2);
+//	continent1M2->setCountriesOfContinent(c2M2);
+//	continent1M2->setCountriesOfContinent(c2M2);
+//	map2->isCountryInOneContinent(); // Country 2 belongs to Continent 1 and Continent 2
 //
+//	/* Not all continents have countries */
+//	map2->isNotEmptyContinent(); // Continent 2 has no countries
+//
+//	/* Not all countries belong to a continent */
+//	map2->countryHasContinent(); // Country 3 has no continent
+//
+//	// deallocate all pointers for map2
+//	delete map2;
+//	map2 = NULL;
+//	delete continent1M2;
+//	continent1M2 = NULL;
+//	delete continent2M2;
+//	continent2M2 = NULL;
+//	delete continent3M2;
+//	continent3M2 = NULL;
+//	delete c1M2;
+//	c1M2 = NULL;
+//	delete c2M2;
+//	c2M2 = NULL;
+//	delete c3M2;
+//	c3M2 = NULL;
+//}

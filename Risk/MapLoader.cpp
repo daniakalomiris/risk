@@ -6,30 +6,36 @@
 #include <sstream>
 using namespace std;
 
-static vector<string> continents_info;
-static vector<string> countries_info;
-static vector<string> borders_info;
 
 MapLoader::MapLoader() {
      map = new Map();
     
     //clear vectors when creating a new map
-    continents_info.clear();
-    countries_info.clear();
-    borders_info.clear();
+//    continents_info.clear();
+//    countries_info.clear();
+//    borders_info.clear();
 }
 
+MapLoader:: ~MapLoader() {
+    delete map;
+}
 void MapLoader::readMapFile(string fileName) {
 
 
 	//create mapFile stream
 	ifstream mapFile;
+    
+    //tells if the map is valid or not
+    bool isValidMapFile1 = false;
+    bool isValidMapFile2 = false;
+    bool isValidMapFile3 = false;
 
 	string line;
 
 	//open the file
 	mapFile.open(fileName);
 
+    
 	//if i can't open the mapfile, display a error message and exit program
 	if (mapFile.fail()) {
 		cout << "Error: cannot open map" << endl;
@@ -39,17 +45,13 @@ void MapLoader::readMapFile(string fileName) {
 
 	cout << "Reading from " << fileName << endl;
 
-	// while(getline(mapFile, line) && line !="[continents]") {};
-
-	// while(getline(mapFile, line) && line != "") {
-	//     cout << line << endl;
-	// }
-
 	//while you can read a line and the file is not at the end
 	while (getline(mapFile, line) && !mapFile.eof()) {
-
+        
+        
 		//if line is equal to [continents]
 		if (line.find("[continents]") != std::string::npos) {
+            isValidMapFile1 = true;
 
 			//start reading the continents until we reach an empty line
 			//Be carefull the last element will be an empty line
@@ -60,8 +62,11 @@ void MapLoader::readMapFile(string fileName) {
 		}
 
 		//if the line is equal to [countries]
-		if (line.find("[countries]") != std::string::npos) {
+		 if (line.find("[countries]") != std::string::npos) {
+             
+             isValidMapFile2 = true;
 
+             
 			//start reading the countries until we reach an empty line
 			//Be carefull the last element will be an empty line
 			while (getline(mapFile, line) && line.find("[borders]") == std::string::npos) {
@@ -70,8 +75,11 @@ void MapLoader::readMapFile(string fileName) {
 			}
 		}
 
+        
 		//if the line is equal to [borders]
-		if (line.find("[borders]") != std::string::npos) {
+		 if (line.find("[borders]") != std::string::npos) {
+             
+             isValidMapFile3 = true;
 
 			//start reading the borders until we reach an empty line
 
@@ -81,41 +89,16 @@ void MapLoader::readMapFile(string fileName) {
 			}
 		}
 	}
+    
+    if( (isValidMapFile1 && isValidMapFile2 && isValidMapFile3) == false) {
+        cout << "This is not a valid map file, the program will terminate" <<endl;
+        exit(1);
+    }
 
 
 	//delete the last empty line of the countries_info and continents_info
 	countries_info.pop_back();
 	continents_info.pop_back();
-
-
-	//outputs continent info
-//	cout << "\n**the Continents**" << endl;
-//	for (int i = 0; i < continents_info.size(); i++) {
-//		cout << continents_info[i] << endl;
-//	}
-//
-//
-//	//code to help debugging
-//		// bool lineIsEmpty;
-//		// lineIsEmpty =continents_info[10].empty();
-//		// cout << continents_info[10] << endl;
-//	   // cout << continents_info[9].length() << endl;
-//
-//
-//
-//		//outputs country info
-//	cout << "\n**the Countries**" << endl;
-//	for (int i = 0; i < countries_info.size(); i++) {
-//		cout << countries_info[i] << endl;
-//	}
-//
-//	//outputs border info
-//	cout << "\n**the Borders**" << endl;
-//	for (int i = 0; i < borders_info.size(); i++) {
-//		cout << borders_info[i] << endl;
-//	}
-
-
 	mapFile.close();
 
 }
@@ -145,11 +128,8 @@ void MapLoader::createMap() {
                 
         continent->setContinentName(temp[0]);
         continent->setNumberOfArmies(stoi(temp[1]));
-        
     }
-    
-    
-    
+
     //create countries
      for(int i = 0; i< countries_info.size(); i++) {
 
@@ -181,23 +161,20 @@ void MapLoader::createMap() {
          
          //push the country in one continent
          map->getContinents().at(stoi(temp[2])-1)->setCountriesOfContinent(country);
-
+         map->setCountry(country);
      }
     
     
     
     //create borders
-    //create a temp variable the size of the continents (worst case, all countries are adjacent to one country)
-    //temp[0] is the number of the country
-   // string *temp;
-    //temp = new string[map->getContinents().size()-1];
-    
     //create a temp vector containing the info of one line of the border_info
     //we can't use an array like for countries and continents because the number of elements per line change
+    for(int i = 0; i < borders_info.size(); i++) {
+    
     vector <string> temp;
    
     //put each line of the borders_info vector into a string
-    string line_info = borders_info[0];
+    string line_info = borders_info[i];
    
     //create a stringstream helper to find the number of elements on  each line
     stringstream helper(line_info);
@@ -225,79 +202,32 @@ void MapLoader::createMap() {
         elements_line >> temp2;
         temp.push_back(temp2);
     }
-  
-//      cout << "borders" << endl;
-//    for (int i =0; i< temp.size() ; i++) {
-//        cout << temp.at(i)<<endl;
-//    }
     
-    //loop through the continents
-//    for(int i =0; i< map->getContinents().size(); i++) {
-//
-//       Continent* tempContinent = map->getContinents().at(i);
-//
-//         for(int j =0; j< tempContinent->getCountriesOfContinent().size(); j++) {
-//             if( tempContinent->getCountriesOfContinent().at(i)->getCountryNumber() == (stoi (temp.at(0)) )) {
-//                 tempContinent->getCountriesOfContinent().at(i)->setAdjacentCountries());
-//
-//
-//             }
-//             }
-//         }
-        
-        
+    
+
+    for(int j = 1; j < temp.size(); j ++) {
+       // cout << temp.at(j) << endl;
+         
+        for(int k = 0; k < map->getCountries().size(); k++) {
+
+            if(this->map->getCountries().at(k)->getCountryNumber() == (stoi(temp.at(j)))) {
+                
+             //   cout << map->getCountries().at(k)->getCountryName() << endl;
+                map->getCountries().at(i)->setAdjacentCountries(map->getCountries().at(k));
+
+         }
+
+
+         }
+
+        }
     }
     
-        //we need to get the countries through the continents.
-        //HERE
+    //check if the map created is valid or not
+    map->isValidMap();
+}
     
-    
-     //   map->getContinents().at(i)->getCountriesOfContinent().at(stoi(temp[0])-1);
-    
-    
-    //  map->getCountries().at(stoi(temp[0])-1)->setAdjacentCountries(map->getCountries().at(1));
-    
-//    for(int i = 1; i < numBorders; i++) {
-//        map->getCountries().at(stoi(temp[0])-1)->setAdjacentCountries(map->getCountries().at(stoi(temp[i])-1));
-//    }
-    
-    
-    
-    
-    //create borders
-//    for(int i = 0; i< borders_info.size(); i++) {
-//
-//        //create a temp variable the size of the continents (worst case, all countries are adjacent to one country)
-//        //temp[0] is the number of the country
-//        string temp[map->getContinents().size()-1];
-//
-//        //put each line of the contients_info vector into a string
-//        string line_info = borders_info[i];
-//
-//        //create a stringstream to separate each elements on the line
-//               stringstream elements_line(line_info);
-//
-//        int numBorders;
-//              for(int i =0; i< borders_info.size(); i++) {
-//
-//                  if(elements_line.str() == "") {
-//                      continue;
-//                  }
-//                  numBorders++;
-//                  elements_line >> temp[i];
-//                  }
-//
-//        for(int i = 1; i < numBorders; i++) {
-//            map->getCountries().at(stoi(temp[0]))->setAdjacentCountries(map->getCountries().at(stoi(temp[i])));
-//        }
-//       // map->getCountries().at(stoi(temp[0]));
-//
-//
-//    }
-    
-    
-    
-//}
+
 
 Map* MapLoader::getMap() {
 	return map;
@@ -320,6 +250,16 @@ void MapLoader::displayMap() {
       }
   }
     
-  
     
+    cout << "\n\nThis is a list of each country and its adjacent countries: " << endl;
+    for(int i = 0; i < map->getCountries().size(); i++) {
+        cout << map->getCountries().at(i)->getCountryName() << " : " ;
+        for(int j = 0 ; j < map->getCountries().at(i)->getAdjacentCountries().size(); j++) {
+            cout << map->getCountries().at(i)->getAdjacentCountries().at(j)->getCountryName() << ", " ;
+        
+        
+        }
+        
+        cout << " " << endl;
+    }
 }
