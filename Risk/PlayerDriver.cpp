@@ -4,19 +4,22 @@
 #include "Map.h"
 using namespace std;
 
+
+//declares function that will be the drivers for part4, part5 and part 6 of assignment 2
 void part4();
 void part5();
 void part6();
 
-//int main() {
-//   // part4();
-//   // part5();
-//    part6();
-//}
+//main method that can call each part's driver
+int main() {
+   // part4();
+   // part5();
+    part6();
+}
 
 
 
-
+//driver for part 5: attack of assignment 2
 void part5() {
 
     Map* map = new Map();
@@ -138,7 +141,7 @@ void part5() {
 	player2 = NULL;
 }
 
-
+//driver for part 6: fortify of assignment 2
 void part6() {
 
     char answer;
