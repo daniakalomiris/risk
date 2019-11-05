@@ -9,11 +9,12 @@ void part2();
 void part3();
 
 //int main() {
-//
-//   //call the drivers that is necessary to test the parts
-//// part1();
-//// part2();
-//    part3();
+//    
+//    //call the drivers that is necessary to test the parts
+//    //uncommented the part you want to test
+//    // part1();
+//   //  part2();
+//    //part3();
 //    
 //}
 
@@ -21,16 +22,11 @@ void part3();
 void part1() {
     GameEngine* theGame = new GameEngine();
     
-    
     theGame->createMap();
     theGame->askNumberOfPlayers();
     theGame->createPlayers();
     cout << "There are " << theGame->getNumberOfPlayers() << " players." << endl;
-    
-    
-    //cout << "There are " << theGame->getDeck()->getNumOfCardsInDeck() << " cards in the deck" << endl;
-    
-    
+        
     delete theGame;
     theGame = NULL;
     
@@ -62,13 +58,11 @@ void part2() {
     cout << "\n\nThis the countries of each players and their number of armies after army placement" << endl;
     
     for(int i =0; i <theGame->getAllPlayers().size(); i++) {
-        cout << "Player " << theGame->getAllPlayers().at(i)->getName() << " countries and armies" << endl;
+        cout << "\nPlayer " << theGame->getAllPlayers().at(i)->getName() << " countries and armies" << endl;
         
         for(int j = 0; j<theGame->getAllPlayers().at(i)->getThisPlayerCountries().size(); j++) {
             cout << theGame->getAllPlayers().at(i)->getThisPlayerCountries().at(j)->getCountryName() << " "  << theGame->getAllPlayers().at(i)->getThisPlayerCountries().at(j)->getNumberOfArmies() << endl;
         }
-        
-        
     }
     
     delete theGame;
@@ -87,7 +81,6 @@ void part3() {
     
     
     //assign 5 armies to all countries of each player, just for testing
-    
     for(int i =0; i < theGame->getAllPlayers().size(); i++) {
         
         for(int j = 0; j < theGame->getAllPlayers().at(i)->getThisPlayerCountries().size(); j++) {
@@ -96,6 +89,10 @@ void part3() {
         }
     }
     
+    //sets all countries to player Id 0, to pretend player at index 0 won the game
+    for(int i =0; i < theGame->getMap()->getCountries().size(); i++) {
+        theGame->getMap()->getCountries().at(i)->setCountryOwnerId(0);
+    }
     
     theGame->mainGameLoop();
     delete theGame;

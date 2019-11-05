@@ -35,8 +35,7 @@ class Player {
 		void attack();
 		void fortify();
 		void reinforce();
-      //  void addNumberOfArmies(int num);
-     //   void deleteNumberOfArmies(int num);
+
 
 	private:
 		Dice* dice;

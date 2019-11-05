@@ -402,6 +402,9 @@ void GameEngine::createMap() {
 //part 3: main game loop, each player play turn by turn
 void GameEngine:: mainGameLoop() {
     
+    bool allCountriesOwnByPlayer = false;
+    int indexOfWinningPlayer = 0;
+    
     cout << "\n\n****** Main Game Loop *******" << endl;
     
     //while the game is still playing
@@ -410,7 +413,7 @@ void GameEngine:: mainGameLoop() {
         for(int i = 0; i< this->getNumberOfPlayers(); i++) {
             
             //display which player is playing
-            cout << "\n\nPlayer " <<  i+1 << ": " << this->getAllPlayers().at(i)->getName() << " turn" << endl;
+            cout << "\n\n************** Player " <<  i+1 << ": " << this->getAllPlayers().at(i)->getName() << "'s turn **************\n" << endl;
             
             //make the player reinforce, attack and fortify
             this->getAllPlayers().at(i)->reinforce();
@@ -422,7 +425,31 @@ void GameEngine:: mainGameLoop() {
             if(this->getAllPlayers().at(i)->getThisPlayerCountries().size() == this->map->getCountries().size()) {
                 this->setEndGame(true);
             }
+            
+            
         }
         
+        //check if countries are own by same player"
+        for(int j =0; j < this->getMap()->getCountries().size()-1; j++) {
+            
+            //compare the index of the country owner with the next one, if they are not the same then the countries are not own byt the player
+            if(getMap()->getCountries().at(j)->getCountryOwnerId() != getMap()->getCountries().at(j+1)->getCountryOwnerId()) {
+                allCountriesOwnByPlayer = false;
+                break;
+            }
+            
+            else {
+                allCountriesOwnByPlayer = true;
+                indexOfWinningPlayer = getMap()->getCountries().at(0)->getCountryOwnerId();
+            }
+            
+        }
+        
+        //if countries are own by same player, set the game to end. There is a winner.
+        if(allCountriesOwnByPlayer == true) {
+            this->setEndGame(true);
+        }
     }
+    
+    cout << "\n\n **************Player " << indexOfWinningPlayer +1 << " wins the game **************\n End of the game" << endl;
 }

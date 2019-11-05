@@ -10,12 +10,13 @@ void part4();
 void part5();
 void part6();
 
-//main method that can call each part's driver
-//int main() {
-//   // part4();
-//   // part5();
-//    part6();
-//}
+//main method that can call each driver for each part
+//uncomment the part you want to test
+int main() {
+   // part4();
+   // part5();
+   // part6();
+}
 
 
 
