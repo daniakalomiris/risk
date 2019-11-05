@@ -10,6 +10,7 @@ class Player {
 	public:
 		Player(); // default constructor
 		~Player();
+        Player(const Player&);
 		Player(std::string name); //constructor which takes a name
 
 		//returns id of player that is generated during player object creation

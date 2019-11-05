@@ -25,6 +25,12 @@ Player::Player() {
     numOfArmiesAtStartUpPhase = make_unique<int>(0);
 }
 
+Player::Player(const Player& player) {
+    this->dice = player.dice;
+    this->hand = player.hand;
+    this->name = player.name;
+}
+
 Player::~Player() {
     delete hand;
     delete dice;
