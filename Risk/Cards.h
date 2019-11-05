@@ -12,6 +12,7 @@ class Cards {
 public:
 	Cards();
 	Cards(int typeNum, int worth);
+    Cards(const Cards&);
 	~Cards();
 
 	//type of card 
@@ -22,11 +23,6 @@ public:
 	int getWorth();
 	void setWorth(int worth);
 
-	//location of card based on id of player 
-	int getLocationId();
-	void setLocationId(int locationId);
-
-	//void setDeck(Deck* deck);
 
 private:
 	// //Type of card 0 -> infrantry, 1 -> artillery, 2 -> cavalry
@@ -37,8 +33,6 @@ private:
 
 	std::unique_ptr<std::string> type;
 
-	// -1 if in deck, otherwise increment when drawn to hand
-	int locationId;
 
 };
 
@@ -57,7 +51,7 @@ public:
 	int getNumOfCardsInDeck();
 
 	//draw method that allows player to draw a card from the cards remaining in the deck
-	void draw(int playerId, Hand* hand, Deck* deck);
+	void draw(Hand* hand, std::string playerName);
 
 
 private:
@@ -76,22 +70,26 @@ public:
 	Hand();
 	Hand(int id);
 	~Hand();
-
-    void exchange(Deck* deck, Hand* hand);
-
-	//card to be removed from hand during exchange
-	// void removeCardFromHand(Cards* cardExchanged);
-
-	void getCardsInHand(Deck* deck);
-	void setCardInHand(Cards* card);
-
-	int getNumOfArmies();
-	void setNumOfArmies(int numOfArmies);
-
+    
+    //exchange cards in hand in returns of armies
+    void exchange(Hand* hand);
+    
+    void removeCard(int index);
+    void setCardInHand(Cards* card);
+    std::vector<Cards*> getCardsInHand();
+    int getNumberOfArmiesToPlace();
+    void setNumberOfArmiesToPlace(int num);
+    void addNumberOfArmies(int num);
+    void deleteNumberOfArmies(int num);
 
 private:
 	int id;
-	int numOfArmies; // number of armies player has
-	int armiesExchanged;
-	int exchangeCount; // number of exchanges player has done
+    
+    //number of armies a player will get from an exchange of set of cards
+	static int numArmiesExchanged ;
+	static int* exchangeCount; // number of exchanges player has done
+    std::vector<Cards*> cardsInHand;
+    
+    // number of armies the player needs to place on the map when his turn starts
+    std::unique_ptr<int> numOfArmiesToPlace;
 };
