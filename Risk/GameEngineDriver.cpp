@@ -3,20 +3,21 @@
 using namespace std;
 
 
+//declare 3 functions that will serve as drivers for part1, part2 and part 3 of assignment 2
 void part1();
 void part2();
 void part3();
 
 int main() {
 
-   
+   //call the drivers that is necessary to test the parts
 // part1();
 // part2();
     part3();
     
 }
 
-
+//driver for part 1 Game Start of assignment 2
 void part1() {
         GameEngine* theGame = new GameEngine();
 
@@ -35,7 +36,7 @@ void part1() {
 
 }
 
-
+//driver for part 2 Game Play startup phase of assignment 2
 void part2() {
     GameEngine* theGame = new GameEngine();
 
@@ -74,7 +75,7 @@ void part2() {
     theGame = NULL;
 }
 
-
+//driver for part 3 Game play main loop of assignment 2
 void part3() {
     
     GameEngine* theGame = new GameEngine();
