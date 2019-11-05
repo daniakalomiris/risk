@@ -302,7 +302,6 @@ void Player::fortify() {
     
     
     //check if there are countries adjacent to each other, if not, the player can't fortify
-    //check if the country is a neighboring country of the source country
     string nameCountry;
     for(int i =0; i< this->getThisPlayerCountries().size(); i++) {
         
@@ -319,7 +318,7 @@ void Player::fortify() {
         }
         
     }
-    //if the player owns no neighbour countries, end the fortify
+    //if the player owns no neighbour countries, end the fortify phase
     if(neighbourCountries == false) {
         cout << "There are no neightbour countries. You cannot fortify" << endl;
     }
@@ -342,26 +341,17 @@ void Player::fortify() {
         }
         
         //check if the country chosen has neighbours in the countries of the player
-        
         for(int i = 0; i < this->getThisPlayerCountries().size(); i++) {
-            
-            
+                    
             for(int j = 0; j < this->getThisPlayerCountries().at(indexOfSourceCountry)->getAdjacentCountries().size(); j++) {
-                
                 
                 //compare the adjacent countries of the source countries with the list of countries own by the player
                 if((getThisPlayerCountries().at(indexOfSourceCountry)->getAdjacentCountries().at(j)->getCountryName()).compare(getThisPlayerCountries().at(i)->getCountryName()) == 0 ) {
                     sourceCountriesNeighbours = true;
                 }
-                
-                
             }
-            
-            
         }
         
-        
-        //        cout << "source country neighbour " << std::boolalpha << sourceCountriesNeighbours << endl;
         
         //asks the player again to enter a valid source country if it was not valid
         while(isSourceCountryValid == false || sourceCountriesNeighbours == false) {
@@ -380,7 +370,6 @@ void Player::fortify() {
             }
             
             //check if the country chosen has neighbours in the countries of the player
-            
             for(int i = 0; i < this->getThisPlayerCountries().size(); i++) {
                 
                 
@@ -408,7 +397,7 @@ void Player::fortify() {
         }
         
         
-        //prompts the player again to enter a valid number of armies
+        //prompts the player again to enter a valid number of armies if the number entered is not valid
         while(isNumOfArmiesValid == false) {
             cout << numOfArmies << endl;
             cout << "\nThe number of armies you enter is not valid.\nPlease enter a value in the range of [1 to (number of armies in the source country -1)]" << endl;
@@ -433,15 +422,13 @@ void Player::fortify() {
         //check if the player owns the target country
         for(int i = 0; i < this->getThisPlayerCountries().size(); i++) {
             if(nameTargetCountry.compare(this->getThisPlayerCountries().at(i)->getCountryName()) == 0) {
-                
-                // cout << "The country is own by the player" << endl;
                 isTargetCountryValid = true;
                 indexOfTargetCountry = i;
             }
         }
         
         
-        //check if the country is a neighboring country of the source country
+        //check if the target country is a neighboring country of the source country
         for(int i =0; i< this->getThisPlayerCountries().at(indexOfSourceCountry)->getAdjacentCountries().size(); i++) {
             if(nameTargetCountry.compare(this->getThisPlayerCountries().at(indexOfSourceCountry)->getAdjacentCountries().at(i)->getCountryName()) == 0) {
                 isTargetCountryNeighbour =true;
@@ -469,7 +456,6 @@ void Player::fortify() {
             for(int i =0; i< this->getThisPlayerCountries().at(indexOfSourceCountry)->getAdjacentCountries().size(); i++) {
                 if(nameTargetCountry.compare(this->getThisPlayerCountries().at(indexOfSourceCountry)->getAdjacentCountries().at(i)->getCountryName()) == 0) {
                     isTargetCountryNeighbour =true;
-                    // cout << "The country is a neighbour" << endl;
                 }
                 
             }
@@ -484,7 +470,7 @@ void Player::fortify() {
         int numberOfArmiesTargetCountry = this->getThisPlayerCountries().at(indexOfTargetCountry)->getNumberOfArmies();
         this->getThisPlayerCountries().at(indexOfTargetCountry)->setNumberOfArmies(numberOfArmiesTargetCountry + numOfArmies);
         
-
+        
         //Display the new number of armies for source country and target country
         cout << "The player fortified succesfully the country: " << nameTargetCountry  << endl;
         cout << nameSourceCountry << " has now " << this->getThisPlayerCountries().at(indexOfSourceCountry)->getNumberOfArmies() << " armies"  << endl;
