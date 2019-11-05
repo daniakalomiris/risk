@@ -344,9 +344,6 @@ Hand::Hand() {
 // Takes player's id
 Hand::Hand(int id) {
     this->id = id;
-    // numOfArmies = new int(0);
-    //armiesExchanged = new int(0);
-    
     numOfArmiesToPlace = make_unique<int>(0);
     
 }
