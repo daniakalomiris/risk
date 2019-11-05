@@ -22,11 +22,6 @@ public:
 	int getWorth();
 	void setWorth(int worth);
 
-	//location of card based on id of player 
-	int getLocationId();
-	void setLocationId(int locationId);
-
-	//void setDeck(Deck* deck);
 
 private:
 	// //Type of card 0 -> infrantry, 1 -> artillery, 2 -> cavalry
@@ -37,8 +32,6 @@ private:
 
 	std::unique_ptr<std::string> type;
 
-	// -1 if in deck, otherwise increment when drawn to hand
-	int locationId;
 
 };
 

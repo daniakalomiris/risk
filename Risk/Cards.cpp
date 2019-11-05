@@ -13,12 +13,11 @@ using namespace std;
 Cards::Cards(int typeNum, int worth) {
     this->typeNum = make_unique<int>(typeNum);
     this->worth = make_unique<int>(worth);
-    this->locationId = -1; // when card is created, it is initially put in the deck
 };
 
 //default constructor
 Cards::Cards() {
-    this->locationId = -1;
+   
 };
 
 Cards::~Cards() {
@@ -32,15 +31,6 @@ int Cards::getWorth() {
     return *worth;
 }
 
-// -1 for cards in deck, otherwise it corresponds to the player's id if it's in their hand
-int Cards::getLocationId() {
-    return locationId;
-}
-
-//sets location of the card based on the player who has drawn the card
-void Cards::setLocationId(int locationId) {
-    this->locationId = locationId;
-}
 
 //sets the type of the card
 void Cards::setType(int typeNum) {
@@ -97,7 +87,6 @@ Deck::Deck(Map* map) {
         Cards* card = new Cards();
         card->setType(0);
         card->setWorth(1);
-        card->setLocationId(-1); // -1 for cards in deck
         setCardInDeck(card);
     }
     
@@ -105,7 +94,6 @@ Deck::Deck(Map* map) {
         Cards* card = new Cards();
         card->setType(1);
         card->setWorth(5);
-        card->setLocationId(-1);
         setCardInDeck(card);
     }
     
@@ -113,7 +101,6 @@ Deck::Deck(Map* map) {
         Cards* card = new Cards();
         card->setType(2);
         card->setWorth(10);
-        card->setLocationId(-1);
         setCardInDeck(card);
     }
     
@@ -123,7 +110,6 @@ Deck::Deck(Map* map) {
         for(int i = 0; i < remainder; i++) {
             Cards* card = new Cards();
             card->setType(i);
-            card->setLocationId(-1);
             
             if(i == 0) {
                 card->setWorth(1);
