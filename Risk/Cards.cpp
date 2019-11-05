@@ -13,6 +13,7 @@ Cards::Cards(int typeNum, int worth) {
 	this->typeNum = make_unique<int>(typeNum);
 	this->worth = make_unique<int>(worth);
 	this->locationId = -1; // when card is created, it is initially put in the deck
+    setType(typeNum);
 };
 
 Cards::Cards() {

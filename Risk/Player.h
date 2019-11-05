@@ -34,13 +34,15 @@ class Player {
 		//attack, fortify, reinforce methods
 		void attack();
 		void fortify();
-		void reinforce();
-
+        void reinforce();
+        
+        Map* getMap();
+        void setMap(Map* map);
 	private:
 		Dice* dice;
 		Hand* hand;
 		Deck* deck;
-		Map map;
+		//Map map;
 		std::string name;
 		std::string answer;
 		std::unique_ptr<int> id;
@@ -50,4 +52,6 @@ class Player {
         std::unique_ptr<int> numOfArmiesAtStartUpPhase;
 
 		Player* defender;
+        Map* map;
+
 };

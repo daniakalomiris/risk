@@ -82,7 +82,13 @@ void Player::setThisPlayerCountry(Country* country) {
 	countries.push_back(country);
 }
 
+void Player::setMap(Map* map) {
+    this->map = map;
+}
 
+Map* Player::getMap() {
+    return map;
+}
 
 
 //extra methods , reinforce, attack and fortify, will be implemented in next iteration
@@ -108,14 +114,15 @@ void Player::reinforce() {
 	cout << "The number of armies you will get to add to your countries is " << armyAdd << "." << endl;
 
 	// the number of continent controlled by player is added to the number of armies for reinforcement
-	ownedContinent = map.controlContinent(countries);
+	//ownedContinent = map->controlContinent(countries);
 	cout << "The number of armies added by the number of controled continents is " << ownedContinent << "." << endl;
 	armyAdd += ownedContinent;
 
 	// cards may be exchanged or forced exchange (if more than 5) for armies for reinforcement
 	if (hand->getCardsInHand().size() > 5) {
 		cout << "Since there is more than 5 cards in your hand, you must exchange them." << endl;
-        armyHand = hand->getNumberOfArmiesToPlace();
+        this->getHand()->exchange(this->hand);
+        armyHand = this->getHand()->getNumberOfArmiesToPlace();
 		armyAdd += armyHand;
 	}
 	else {
@@ -123,6 +130,7 @@ void Player::reinforce() {
 		cin >> answer;
 
 		if (answer == "y") {
+            this->getHand()->exchange(this->hand);
 			armyHand+= hand->getNumberOfArmiesToPlace();
 			armyAdd += armyHand;
 		}
