@@ -8,15 +8,15 @@ void part1();
 void part2();
 void part3();
 
-int main() {
-
-    //call the drivers that is necessary to test the parts
-    //uncommented the part you want to test
-     //part1();
-   //  part2();
-  //  part3();
-
-}
+//int main() {
+//
+//    //call the drivers that is necessary to test the parts
+//    //uncommented the part you want to test
+//     //part1();
+//   //  part2();
+//  //  part3();
+//
+//}
 
 //driver for part 1 Game Start of assignment 2
 void part1() {

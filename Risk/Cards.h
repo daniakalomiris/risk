@@ -72,7 +72,7 @@ public:
 	~Hand();
     
     //exchange cards in hand in returns of armies
-    void exchange(Hand* hand);
+    void exchange();
     
     void removeCard(int index);
     void setCardInHand(Cards* card);

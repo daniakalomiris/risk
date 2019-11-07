@@ -127,7 +127,7 @@ void Player::reinforce() {
 	// cards may be exchanged or forced exchange (if more than 5) for armies for reinforcement
 	if (hand->getCardsInHand().size() > 5) {
 		cout << "Since there is more than 5 cards in your hand, you must exchange them." << endl;
-        this->getHand()->exchange(this->hand);
+        this->getHand()->exchange();
         armyHand = this->getHand()->getNumberOfArmiesToPlace();
 		armyAdd += armyHand;
 	}
@@ -136,7 +136,7 @@ void Player::reinforce() {
 		cin >> answer;
 
 		if (answer == "y") {
-            this->getHand()->exchange(this->hand);
+            this->getHand()->exchange();
 			armyHand+= hand->getNumberOfArmiesToPlace();
 			armyAdd += armyHand;
 		}
