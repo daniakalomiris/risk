@@ -131,14 +131,14 @@ void Player::reinforce() {
 	if (hand->getCardsInHand().size() > 5) {
         
 		cout << "\nSince there is more than 5 cards in your hand, you must exchange them." << endl;
-        this->getHand()->exchange();
+      //  this->getHand()->exchange();
         
-        while(hand->getCardsInHand().size() > 5) {
-        cout << "\n\n ****** You didn't exchange enough cards, you still have more than 5 cards in your hand. You need to exchange your cards. ******" << endl;
+     //   while(hand->getCardsInHand().size() > 5) {
+      //  cout << "\n\n ****** You didn't exchange enough cards, you still have more than 5 cards in your hand. You need to exchange your cards. ******" << endl;
         this->getHand()->exchange();
         armyHand = this->getHand()->getNumberOfArmiesToPlace();
 		armyAdd += armyHand;
-        }
+      //  }
 	}
 	else {
 		cout << "Do you want to exchange your cards for extra reinforcement ? (y/n)" << endl;
