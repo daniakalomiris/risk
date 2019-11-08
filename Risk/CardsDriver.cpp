@@ -71,10 +71,12 @@ int main() {
     deck->draw(player->getHand(), player->getName());
     deck->draw(player->getHand(), player->getName());
     deck->draw(player->getHand(), player->getName());
-    deck->draw(player->getHand(), player2->getName());
-    deck->draw(player->getHand(), player2->getName());
-    deck->draw(player->getHand(), player2->getName());
-    deck->draw(player->getHand(), player2->getName());
+    deck->draw(player2->getHand(), player2->getName());
+    deck->draw(player2->getHand(), player2->getName());
+    deck->draw(player2->getHand(), player2->getName());
+    deck->draw(player2->getHand(), player2->getName());
+    deck->draw(player2->getHand(), player2->getName());
+    
     
     
     cout << "\nCards in deck now: " << endl;
@@ -105,24 +107,24 @@ int main() {
     for (int i = 0; i < deck->getCardsInDeck().size(); i++) {
         cout << "Type of card " << i+1 << " is: " << deck->getCardsInDeck().at(i)->getType() << endl;
     }
-//
-//    cout << "\nCards in hand of player Boi: " << endl;
-//    for (int i = 0; i < player2->getHand()->getCardsInHand().size(); i++) {
-//        cout << "Type of card " << i+1 << " is: " << player2->getHand()->getCardsInHand().at(i)->getType() << endl;
-//    }
-//
-//    // exchange in return of armies
-//    player2->getHand()->exchange();
-//
-//    cout << "\nCards in hand of player boi after exchange: " << endl;
-//    cout << "size of boi hand: " << player2->getHand()->getCardsInHand().size()<< endl;
-//
-//
-//    for (int i = 0; i < player2->getHand()->getCardsInHand().size(); i++) {
-//        cout << "Type of card " << i+1 << " is: " << player2->getHand()->getCardsInHand().at(i)->getType() << endl;
-//    }
-//
-//    cout << "number of armies to place by player " << player2->getHand()->getNumberOfArmiesToPlace() << endl;
+
+    cout << "\nCards in hand of player Boi: " << endl;
+    for (int i = 0; i < player2->getHand()->getCardsInHand().size(); i++) {
+        cout << "Type of card " << i+1 << " is: " << player2->getHand()->getCardsInHand().at(i)->getType() << endl;
+    }
+
+    // exchange in return of armies
+    player2->getHand()->exchange();
+
+    cout << "\nCards in hand of player boi after exchange: " << endl;
+    cout << "size of boi hand: " << player2->getHand()->getCardsInHand().size()<< endl;
+
+
+    for (int i = 0; i < player2->getHand()->getCardsInHand().size(); i++) {
+        cout << "Type of card " << i+1 << " is: " << player2->getHand()->getCardsInHand().at(i)->getType() << endl;
+    }
+
+    cout << "number of armies to place by player " << player2->getHand()->getNumberOfArmiesToPlace() << endl;
     
     
     delete map;
