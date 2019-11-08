@@ -4,7 +4,10 @@
 #include <string>
 #include <memory>
 using namespace std;
-
+Player::Player(const Player& orig) {
+	dice = new Dice(*orig.dice);
+	hand = new Deck(*orig.hand);
+}
 //player constructor
 Player::Player(string name) {
     this->dice = new Dice();

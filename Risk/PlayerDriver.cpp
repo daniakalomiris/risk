@@ -10,9 +10,9 @@ void part5();
 void part6();
 
 int main() {
-    // part4();
+     part4();
     // part5();
-    part6();
+    //part6();
 }
 
 
@@ -46,9 +46,6 @@ void part4() {
         country6->setCountryName("Japan");
         country7->setCountryName("China");
 
-        // FORTIFY, ATTACK AND REINFORCE
-        player->fortify();
-        player->attack();
 
         // TWO CASES FOR REINFORCE
         cout << endl;
