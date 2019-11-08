@@ -139,7 +139,8 @@ void part4() {
         cout << endl;
         cout << "case 1 for reinforce" << endl;
         player->reinforce();
-        
+        //create a player 2
+        Player* player2 = new Player();
         
         // CASE 2 : Countries added to control a full continent +  over 5 cards in hand to force exchange
         //ownership of new countries
@@ -152,10 +153,12 @@ void part4() {
         player->setThisPlayerCountry(country8);
         player->setThisPlayerCountry(country9);
         player->setThisPlayerCountry(country10);
+        
+        
         player->setThisPlayerCountry(country11);
         player->setThisPlayerCountry(country12);
         
-        
+        cout << "Is continent2 control by same player? " << std::boolalpha << continent2->continentOwnByAPlayer() << endl;
         
         //add new cards to hand
         deck->draw(player->getHand(), player->getName());

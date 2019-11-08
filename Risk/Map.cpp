@@ -242,6 +242,21 @@ void Continent::setNumberOfArmies(int numberOfArmies) {
     this->numberOfArmies = make_unique<int>(numberOfArmies);
 }
 
+bool Continent::continentOwnByAPlayer() {
+    
+    //get the id of the country owner.
+    int countryOwner = getCountriesOfContinent().at(0)->getCountryOwnerId();
+    
+    for(int i = 0; i <getCountriesOfContinent().size(); i++) {
+//        cout << getCountriesOfContinent().at(i)->getCountryOwnerId() << endl;
+        if(countryOwner != getCountriesOfContinent().at(i)->getCountryOwnerId()) {
+            return false;
+        }
+        
+    }
+    
+    return true;
+}
 
 //country constructors
 Country::Country() {

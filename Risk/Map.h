@@ -62,7 +62,7 @@ public:
 
     void setNumberOfArmies(int numberOfArmies); //sets the number of armies
     int getNumberOfArmies(); // number of armies on a continent
-
+    bool continentOwnByAPlayer();
 private:
 	//declare variables
 	std::unique_ptr<std::string> continentName;
