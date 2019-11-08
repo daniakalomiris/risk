@@ -205,6 +205,8 @@ void Hand::exchange() {
     bool exchangeAgain = true;
     
     while(exchangeAgain) {
+        
+        //resets all data
         infantry =0;
         artillery =0;
         cavalry = 0;
@@ -212,7 +214,6 @@ void Hand::exchange() {
         exchangeInfantry = false;
         exchangeArtillery = false;
         exchangeCavalry = false;
-       // exchangeAgain = true;
         infantryExchanged =0;
         artilleryExchanged = 0;
         cavalryExchanged =0;
