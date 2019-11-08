@@ -4,10 +4,10 @@
 #include <string>
 #include <memory>
 using namespace std;
-Player::Player(const Player& orig) {
+/*Player::Player(const Player& orig) {
 	dice = new Dice(*orig.dice);
 	hand = new Deck(*orig.hand);
-}
+}*/
 //player constructor
 Player::Player(string name) {
     this->dice = new Dice();
@@ -26,6 +26,12 @@ Player::Player() {
     counter++;
     id = make_unique<int>(counter); //id of player generated
     numOfArmiesAtStartUpPhase = make_unique<int>(0);
+}
+
+Player::Player(const Player& player) {
+    this->dice = player.dice;
+    this->hand = player.hand;
+    this->name = player.name;
 }
 
 Player::~Player() {
@@ -66,13 +72,6 @@ int Player::getNumOfArmiesAtStartUpPhase() {
 void Player::setNumOfArmiesAtStartUpPhase(int num) {
     numOfArmiesAtStartUpPhase.reset(new int(num));
 }
-Deck* Player::getDeck() {
-	return deck;
-}
-
-Map Player::getMap() {
-	return map;
-}
 
 //gets num of army added
 int Player::getNumOfArmiesAdd() {
@@ -92,20 +91,27 @@ void Player::setThisPlayerCountry(Country* country) {
 	countries.push_back(country);
 }
 
+void Player::setMap(Map* map) {
+    this->map = map;
+}
 
+Map* Player::getMap() {
+    return map;
+}
 
 
 //extra methods , reinforce, attack and fortify, will be implemented in next iteration
 
 void Player::reinforce() {
+    cout << "~~~~~ Reinforcement Phase ~~~~~\n" << endl;
 
-	armyAdd = 0;//for the total number of troops to add
-	int ownedContinent = 0; //for the number of troops to add due to continent control
-	int armyHand = 0;// for the number of troops to add due to exchanged cards.
+	armyAdd = 0;//for the total number of armies to add
+	int ownedContinent = 0; //for the number of armies to add due to continent control
+	int armyHand = 0;// for the number of armies to add due to exchanged cards
 	string answer; // for user input
 
-	//Number of armies according to number of countries
-	//add a minimum of 3 armies if less than 9 countries
+	// number of armies according to number of countries
+	// add a minimum of 3 armies if less than 9 countries
 	if ((countries.size()/3) < 3) {
 		armyAdd += 3;
 	}
@@ -114,17 +120,18 @@ void Player::reinforce() {
 	else {
 		armyAdd += (countries.size()) / 3;
 	}
-	cout << " The number of troops added by the number of countries is " << armyAdd << "." << endl;
+	cout << "The number of armies you will get to add to your countries is " << armyAdd << "." << endl;
 
-	// the number of continent controlled by player is added to the number of troops for reinforcement
-	ownedContinent = map.controlContinent(countries);
-	cout << " The number of troops added by the number of controled continents is " << ownedContinent << "." << endl;
+	// the number of continent controlled by player is added to the number of armies for reinforcement
+	//ownedContinent = map->controlContinent(countries);
+	cout << "The number of armies added by the number of controled continents is " << ownedContinent << "." << endl;
 	armyAdd += ownedContinent;
 
-	// cards may be exchanged or forced exchange (if more than 5) for troops for reinforcement
+	// cards may be exchanged or forced exchange (if more than 5) for armies for reinforcement
 	if (hand->getCardsInHand().size() > 5) {
 		cout << "Since there is more than 5 cards in your hand, you must exchange them." << endl;
-        armyHand = hand->getNumberOfArmiesToPlace();
+        this->getHand()->exchange();
+        armyHand = this->getHand()->getNumberOfArmiesToPlace();
 		armyAdd += armyHand;
 	}
 	else {
@@ -132,18 +139,19 @@ void Player::reinforce() {
 		cin >> answer;
 
 		if (answer == "y") {
+            this->getHand()->exchange();
 			armyHand+= hand->getNumberOfArmiesToPlace();
 			armyAdd += armyHand;
 		}
 		else {
-			cout << "No cards are exchange." << endl;
+			cout << "No cards are exchanged." << endl;
 		}
 
 	}
-	cout << " The number of troops added by exchanging cards is  " << armyHand << "." << endl;
+	cout << "The number of armies added by exchanging cards is  " << armyHand << "." << endl;
 
 	//Conclusion
-	cout << "In total, " << armyAdd << " troops  can be added for reinforcement." << endl;
+	cout << "In total, " << armyAdd << " armies  can be added for reinforcement." << endl;
 }
 
 // attack method
@@ -153,7 +161,6 @@ void Player::attack() {
     Country* attackFrom;
     Country* countryToAttack;
     vector<int> attackerDiceValues, defenderDiceValues;
-
 
     cout << "~~~~~ Attack Phase ~~~~~\n" << endl;
 
@@ -367,7 +374,6 @@ void Player::fortify() {
 
 
     //check if there are countries adjacent to each other, if not, the player can't fortify
-    //check if the country is a neighboring country of the source country
     string nameCountry;
     for(int i =0; i< this->getThisPlayerCountries().size(); i++) {
 
@@ -384,7 +390,7 @@ void Player::fortify() {
         }
 
     }
-    //if the player owns no neighbour countries, end the fortify
+    //if the player owns no neighbour countries, end the fortify phase
     if(neighbourCountries == false) {
         cout << "There are no neightbour countries. You cannot fortify" << endl;
     }
@@ -407,26 +413,17 @@ void Player::fortify() {
         }
 
         //check if the country chosen has neighbours in the countries of the player
-
         for(int i = 0; i < this->getThisPlayerCountries().size(); i++) {
 
-
             for(int j = 0; j < this->getThisPlayerCountries().at(indexOfSourceCountry)->getAdjacentCountries().size(); j++) {
-
 
                 //compare the adjacent countries of the source countries with the list of countries own by the player
                 if((getThisPlayerCountries().at(indexOfSourceCountry)->getAdjacentCountries().at(j)->getCountryName()).compare(getThisPlayerCountries().at(i)->getCountryName()) == 0 ) {
                     sourceCountriesNeighbours = true;
                 }
-
-
             }
-
-
         }
 
-
-        //        cout << "source country neighbour " << std::boolalpha << sourceCountriesNeighbours << endl;
 
         //asks the player again to enter a valid source country if it was not valid
         while(isSourceCountryValid == false || sourceCountriesNeighbours == false) {
@@ -445,7 +442,6 @@ void Player::fortify() {
             }
 
             //check if the country chosen has neighbours in the countries of the player
-
             for(int i = 0; i < this->getThisPlayerCountries().size(); i++) {
 
 
@@ -473,7 +469,7 @@ void Player::fortify() {
         }
 
 
-        //prompts the player again to enter a valid number of armies
+        //prompts the player again to enter a valid number of armies if the number entered is not valid
         while(isNumOfArmiesValid == false) {
             cout << numOfArmies << endl;
             cout << "\nThe number of armies you enter is not valid.\nPlease enter a value in the range of [1 to (number of armies in the source country -1)]" << endl;
@@ -498,15 +494,13 @@ void Player::fortify() {
         //check if the player owns the target country
         for(int i = 0; i < this->getThisPlayerCountries().size(); i++) {
             if(nameTargetCountry.compare(this->getThisPlayerCountries().at(i)->getCountryName()) == 0) {
-
-                // cout << "The country is own by the player" << endl;
                 isTargetCountryValid = true;
                 indexOfTargetCountry = i;
             }
         }
 
 
-        //check if the country is a neighboring country of the source country
+        //check if the target country is a neighboring country of the source country
         for(int i =0; i< this->getThisPlayerCountries().at(indexOfSourceCountry)->getAdjacentCountries().size(); i++) {
             if(nameTargetCountry.compare(this->getThisPlayerCountries().at(indexOfSourceCountry)->getAdjacentCountries().at(i)->getCountryName()) == 0) {
                 isTargetCountryNeighbour =true;
@@ -534,7 +528,6 @@ void Player::fortify() {
             for(int i =0; i< this->getThisPlayerCountries().at(indexOfSourceCountry)->getAdjacentCountries().size(); i++) {
                 if(nameTargetCountry.compare(this->getThisPlayerCountries().at(indexOfSourceCountry)->getAdjacentCountries().at(i)->getCountryName()) == 0) {
                     isTargetCountryNeighbour =true;
-                    // cout << "The country is a neighbour" << endl;
                 }
 
             }

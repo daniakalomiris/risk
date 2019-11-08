@@ -12,6 +12,7 @@ class Cards {
 public:
 	Cards();
 	Cards(int typeNum, int worth);
+    Cards(const Cards&);
 	~Cards();
 
 	//type of card 
@@ -22,11 +23,6 @@ public:
 	int getWorth();
 	void setWorth(int worth);
 
-	//location of card based on id of player 
-	int getLocationId();
-	void setLocationId(int locationId);
-
-	//void setDeck(Deck* deck);
 
 private:
 	// //Type of card 0 -> infrantry, 1 -> artillery, 2 -> cavalry
@@ -37,8 +33,6 @@ private:
 
 	std::unique_ptr<std::string> type;
 
-	// -1 if in deck, otherwise increment when drawn to hand
-	int locationId;
 
 };
 
@@ -76,14 +70,10 @@ public:
 	Hand();
 	Hand(int id);
 	~Hand();
-
-    void exchange(Hand* hand);
-
-	//card to be removed from hand during exchange
-	// void removeCardFromHand(Cards* cardExchanged);
-
-	//int getNumOfArmies();
-	//void setNumOfArmies(int numOfArmies);
+    
+    //exchange cards in hand in returns of armies
+    void exchange();
+    
     void removeCard(int index);
     void setCardInHand(Cards* card);
     std::vector<Cards*> getCardsInHand();
@@ -94,10 +84,12 @@ public:
 
 private:
 	int id;
-	//int* numOfArmies; // number of armies player has
+    
+    //number of armies a player will get from an exchange of set of cards
 	static int numArmiesExchanged ;
 	static int* exchangeCount; // number of exchanges player has done
     std::vector<Cards*> cardsInHand;
+    
     // number of armies the player needs to place on the map when his turn starts
     std::unique_ptr<int> numOfArmiesToPlace;
 };
