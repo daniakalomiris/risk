@@ -112,13 +112,13 @@ void Player::reinforce() {
 
 	// number of armies according to number of countries
 	// add a minimum of 3 armies if less than 9 countries
-	if ((countries.size()/3) < 3) {
+	if ((getThisPlayerCountries().size()/3) < 3) {
 		armyAdd += 3;
 	}
 
 	// divide number of countries by 3 for number of armies to add
 	else {
-		armyAdd += (countries.size()) / 3;
+		armyAdd += (getThisPlayerCountries().size())/ 3;
 	}
 	cout << "The number of armies you will get to add to your countries is " << armyAdd << "." << endl;
 
@@ -129,10 +129,16 @@ void Player::reinforce() {
 
 	// cards may be exchanged or forced exchange (if more than 5) for armies for reinforcement
 	if (hand->getCardsInHand().size() > 5) {
-		cout << "Since there is more than 5 cards in your hand, you must exchange them." << endl;
+        
+		cout << "\nSince there is more than 5 cards in your hand, you must exchange them." << endl;
+        this->getHand()->exchange();
+        
+        while(hand->getCardsInHand().size() > 5) {
+        cout << "\n\n ****** You didn't exchange enough cards, you still have more than 5 cards in your hand. You need to exchange your cards. ******" << endl;
         this->getHand()->exchange();
         armyHand = this->getHand()->getNumberOfArmiesToPlace();
 		armyAdd += armyHand;
+        }
 	}
 	else {
 		cout << "Do you want to exchange your cards for extra reinforcement ? (y/n)" << endl;

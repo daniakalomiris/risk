@@ -182,7 +182,7 @@ int Map::controlContinent(vector<Country*> country) {
 	int numContinent = 0;
 	for (int i = 0; i < continents.size(); i++) { //look continent by continent 
 		for (int j = 0; j < countries.size(); j++) {// once in the continent, look at all the countries
-			for (int k = 0; k < country.size(); k++) {// loop through the input of countries 
+			for (int k = 0; k < country.size(); k++) {// loop through the input of countries
 				if (countries.at(j) == country.at(k)) { // if the country from the list is in that continent, than increment the counter
 					countryinContinent += 1;
 					break; //exit because you do not need to keep looping, a country will not show up twice in the vector and go to the next country from the input
