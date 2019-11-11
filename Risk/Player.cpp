@@ -457,7 +457,7 @@ void Player::fortify() {
     
     cout << "\n\n~~~~~ Fortification Phase ~~~~~" << endl;
     
-    cout << "Player " << getName() << ", do you want to fortify? (Press Y to fortify or anything else to end fortify phase)" << endl;
+    cout << "\nPlayer " << getName() << ", do you want to fortify? (Press Y to fortify or anything else to end fortify phase)" << endl;
     string attack;
     cin >> attack;
     
