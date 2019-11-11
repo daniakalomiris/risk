@@ -230,7 +230,7 @@ void GameEngine::createPlayers() {
         cin >> playerName;
         
         //creates a player with name, dice, and hand
-        Player* player = new Player(playerName);
+        Player* player = new Player(playerName, getMap());
         player->setName(playerName);
         
         //sets the player
