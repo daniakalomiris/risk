@@ -230,6 +230,7 @@ bool Continent::continentOwnByAPlayer() {
     //get the id of the country owner.
     int countryOwner = getCountriesOfContinent().at(0)->getCountryOwnerId();
     
+    //check if the id of the first country in the continent is the same for the other countries in the continent
     for(int i = 0; i <getCountriesOfContinent().size(); i++) {
         if(countryOwner != getCountriesOfContinent().at(i)->getCountryOwnerId()) {
             return false;
