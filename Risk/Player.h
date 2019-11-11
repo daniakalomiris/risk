@@ -10,8 +10,9 @@ class Player {
 	public:
 		Player(); // default constructor
 		~Player();
-        Player(const Player&);
+        Player(const Player&); //copy constructor
 		Player(std::string name); //constructor which takes a name
+        Player(std::string name, Map* map); //constructor which takes a name and a map
 
 		//returns id of player that is generated during player object creation
 		int getID();
@@ -23,8 +24,7 @@ class Player {
 		Dice* getDice();
 		Hand* getHand();
 
-        int getNumOfArmiesAdd();
-
+   
         std::vector<Country* > getThisPlayerCountries();
         void setThisPlayerCountry(Country* country);
 
@@ -39,18 +39,23 @@ class Player {
 
         Map* getMap();
         void setMap(Map* map);
+    
+        void setThisPlayerContinents(Continent* continent);
+        std::vector<Continent* > getThisPlayerContinents();
+        bool checkControlContinents();
+    
 	private:
 		Dice* dice;
 		Hand* hand;
 		Deck* deck;
-		//Map map;
 		std::string name;
 		std::string answer;
 		std::unique_ptr<int> id;
 		static int counter;
         std::vector<Country*> countries;
-        int armyAdd;
+        std:: vector<Continent*> thisPlayerContinents;
         std::unique_ptr<int> numOfArmiesAtStartUpPhase;
+        
 
 		Player* defender;
         Map* map;

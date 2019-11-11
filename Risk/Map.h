@@ -29,9 +29,6 @@ public:
 
 	void getOwnerCountries(int playerId); //returns vector of owner countries
 
-    //********************** PART added by Loujain **********************
-	int controlContinent(std::vector<Country*> country);
-
 private:
 	std::vector<Continent*> continents;
     std::vector<Country*> countries;
@@ -63,6 +60,10 @@ public:
     void setNumberOfArmies(int numberOfArmies); //sets the number of armies
     int getNumberOfArmies(); // number of armies on a continent
     bool continentOwnByAPlayer();
+    
+    void setOwnerId(int playerId);
+    int getOwnerId();
+
 private:
 	//declare variables
 	std::unique_ptr<std::string> continentName;
@@ -70,6 +71,9 @@ private:
 	std::vector<Continent*> adjacentContinents;
     std::unique_ptr<int> numberOfArmies;
 	static int continentCounter;
+    
+    //if the continent is own by a player, this is the playerId
+    std::unique_ptr<int> ownerId;
 };
 
 class Country {
