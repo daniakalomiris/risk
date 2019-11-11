@@ -457,7 +457,13 @@ void Player::fortify() {
     
     cout << "\n\n~~~~~ Fortification Phase ~~~~~" << endl;
     
-    cout << "This is your country, its number of armies and its adjacent countries" << endl;
+    cout << "Player " << getName() << ", do you want to fortify? (Press Y to fortify or anything else to end fortify phase)" << endl;
+    string attack;
+    cin >> attack;
+    
+    if(attack.compare("Y") == 0) {
+    
+    cout << "\nThis is your countries, their number of armies and their adjacent countries" << endl;
     
     for(int i = 0 ; i < getThisPlayerCountries().size(); i++) {
         cout << getThisPlayerCountries().at(i)->getCountryName() << " " << getThisPlayerCountries().at(i)->getNumberOfArmies();
@@ -646,5 +652,5 @@ void Player::fortify() {
         cout << nameTargetCountry << " has now " << this->getThisPlayerCountries().at(indexOfTargetCountry)->getNumberOfArmies() << " armies"  << endl;
         
     }
-    
+    }
 }
