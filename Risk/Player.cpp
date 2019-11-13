@@ -5,49 +5,53 @@
 #include <memory>
 using namespace std;
 
-//player constructor
+//Default Constructor
+Player::Player() {
+	this->dice = new Dice();
+	this->hand = new Hand(counter);
+	counter++;
+	id = make_unique<int>(counter); //id of player generated
+	numOfArmiesAtStartUpPhase = make_unique<int>(0);
+}
+
+//player Constructor with name
 Player::Player(string name) {
     this->dice = new Dice();
     this->hand = new Hand(counter);
     this->setName(name);
     counter++;
-    
-    //sets the id to the counter of the player
-    id = make_unique<int>(counter);
-    
+    id = make_unique<int>(counter); //sets the id to the counter of the player
 }
 
-
-//player constructor
+//player constructor with parameters
 Player::Player(string name, Map* map) {
     this->dice = new Dice();
     this->hand = new Hand(counter);
     this->setName(name);
     counter++;
-    
-    //sets the map to the map passed in the constructor
-    this->map = map;
-    //sets the id to the counter of the player
-    id = make_unique<int>(counter);
-    
+	id = make_unique<int>(counter);//sets the id to the counter of the player
+    this->map = map;//sets the map to the map passed in the constructor
 }
-
-Player::Player() {
-    this->dice = new Dice();
-    this->hand = new Hand(counter);
-    counter++;
-    id = make_unique<int>(counter); //id of player generated
-    numOfArmiesAtStartUpPhase = make_unique<int>(0);
-}
-
 
 //copy constructor
-Player::Player(const Player& player) {
-    this->dice = player.dice;
-    this->hand = player.hand;
-    this->name = player.name;
-}
+/*
+Player::Player(const Player& orig) {
+    dice = new Dice(*orig.dice);
+	hand = new Hand(*orig.hand);
+    this-> setName(*orig.name);
+	counter = *orig.counter;
+	id = *orig.id;
+	map = new Map(*orig.map);
+} */
 
+//Equal operator method
+Player& Player::operator=(const Player& orig) {
+	dice = orig.dice;
+	hand = orig.hand;
+	name = orig.name;
+	return *this;
+}
+//Destructor
 Player::~Player() {
     delete hand;
     delete dice;
@@ -55,7 +59,6 @@ Player::~Player() {
 
 //id counter starts at 0
 int Player::counter = 0;
-
 
 //Gets name of player
 string Player::getName() {
@@ -67,10 +70,10 @@ int Player::getID() {
     return *id;
 }
 
+//Getters
 Hand* Player::getHand() {
     return hand;
 }
-
 
 Dice* Player::getDice() {
     return dice;
@@ -84,12 +87,6 @@ void Player::setNumOfArmiesAtStartUpPhase(int num) {
     numOfArmiesAtStartUpPhase.reset(new int(num));
 }
 
-
-//Setters
-void Player::setName(string name) {
-    this->name = name;
-}
-
 vector<Country*> Player::getThisPlayerCountries() {
     return countries;
 }
@@ -98,11 +95,28 @@ vector<Continent*> Player:: getThisPlayerContinents() {
     return thisPlayerContinents;
 }
 
+Map* Player::getMap() {
+	return map;
+}
+//Setters
+void Player::setName(string name) {
+	this->name = name;
+}
+
 void Player:: setThisPlayerContinents(Continent *continent) {
     thisPlayerContinents.push_back(continent);
 }
 
-bool Player:: checkControlContinents() {
+void Player::setThisPlayerCountry(Country* country) {
+	countries.push_back(country);
+}
+
+void Player::setMap(Map* map) {
+	this->map = map;
+}
+
+
+bool Player:: checkControlContinents() { //method to verify if player owns a continent for reinforce phase
     bool ownContinents = false;
     
     //check each continents
@@ -126,19 +140,6 @@ bool Player:: checkControlContinents() {
     }
     return ownContinents;
 }
-
-void Player::setThisPlayerCountry(Country* country) {
-    countries.push_back(country);
-}
-
-void Player::setMap(Map* map) {
-    this->map = map;
-}
-
-Map* Player::getMap() {
-    return map;
-}
-
 
 //reinforce phase
 void Player::reinforce() {
