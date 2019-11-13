@@ -145,36 +145,13 @@ bool Map::countryHasContinent() {
 
 bool Map::isValidMap() {
     
-//	if (isContinentSubgraph() && isCountrySubgraph() && isCountryInOneContinent() && isNotEmptyContinent() && countryHasContinent()) {
-//		cout << "Map is valid." << endl;
-//		return true;
-//	}
+	if (isContinentSubgraph() && isCountrySubgraph() && isCountryInOneContinent() && isNotEmptyContinent() && countryHasContinent()) {
+		cout << "Map is valid." << endl;
+		return true;
+	}
     
-    if (isCountrySubgraph() && isCountryInOneContinent() && isNotEmptyContinent() && countryHasContinent()) {
-        cout << "Map is valid." << endl;
-        return true;
-    }
 	return false;
 }
-
-//void Map::displayAdjacentContinents() {
-//	for (int i = 0; i < continents.size(); i++) { 
-//		cout << continents.at(i)->getContinentName() << " has these adjacent continents: " << endl;
-//		for (int j = 0; j < continents.at(i)->getAdjacentContinents().size(); i++) {
-//			cout << continents.at(i)->getAdjacentContinents().at(j)->getContinentName() << endl;
-//		}
-//	}
-//}
-
-//void Map::displayAdjacentCountries() {
-//	for (int i = 0; i < countries.size(); i++) { 
-//		cout << countries.at(i)->getCountryName() << " has these adjacent countries: " << endl;
-//		for (int j = 0; j < countries.at(i)->getAdjacentCountries().size(); i++) {
-//			cout << countries.at(i)->getAdjacentCountries().at(j)->getCountryName() << endl;
-//		}
-//	}
-//}
-
 
 //continent constructor
 Continent::Continent() {
