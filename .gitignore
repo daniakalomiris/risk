@@ -1,3 +1,6 @@
+# User-specific files
+*.suo
+
 # Prerequisites
 *.d
 
@@ -32,5 +35,14 @@
 *.out
 *.app
 
-# Log Files
+# Files built by Visual Studio
+*.idb
+*.ilk
 *.log
+*.pdb
+*.tlog
+
+# Visual C++ cache files
+ipch/
+*.VC.db
+
