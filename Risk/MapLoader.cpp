@@ -9,11 +9,7 @@ using namespace std;
 
 MapLoader::MapLoader() {
     map = new Map();
-    
-    //clear vectors when creating a new map
-    //    continents_info.clear();
-    //    countries_info.clear();
-    //    borders_info.clear();
+
 }
 
 MapLoader:: ~MapLoader() {
@@ -259,8 +255,6 @@ void MapLoader::createMap() {
     //check if the map created is valid or not
     map->isValidMap();
 }
-
-
 
 Map* MapLoader::getMap() {
     return map;
