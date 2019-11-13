@@ -35,7 +35,7 @@ public:
     //destructor
     ~MapLoaderConquest();
     
-    void readConquestMapFile();
+    void readConquestMapFile(std::string fileName);
     void createConquestMap();
     void displayConquestMap();
     Map* getMap();
@@ -51,17 +51,17 @@ public:
 };
 
 
-class adapterMap: public MapLoader {
+class AdapterMap: public MapLoader {
     
     public:
     //constructor with parameter
-    adapterMap(MapLoaderConquest* conquestMap);
+    AdapterMap(MapLoaderConquest* conquestMap);
     
     //default constructor
-    adapterMap();
+    AdapterMap();
     
     //destructor
-    ~adapterMap();
+    ~AdapterMap();
     
     void readMapFile(std::string fileName);
     void createMap();

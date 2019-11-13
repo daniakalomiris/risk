@@ -6,6 +6,7 @@
 #include <sstream>
 using namespace std;
 
+//******************* Implementation for the MapLoader Class *******************
 
 MapLoader::MapLoader() {
     map = new Map();
@@ -303,4 +304,73 @@ void MapLoader::displayMap() {
     
     
     
+}
+
+
+
+//******************* Implementation for the MapLoaderConquest Class *******************
+
+//default constructor
+MapLoaderConquest::MapLoaderConquest() {
+    map = new Map();
+}
+
+//destructor
+MapLoaderConquest:: ~MapLoaderConquest() {
+    delete map;
+}
+
+//read a conquest map file
+void MapLoaderConquest::readConquestMapFile(string fileName) {
+    
+}
+
+//create the conquest map
+void MapLoaderConquest::createConquestMap() {
+    
+}
+
+//get the map created
+Map* MapLoaderConquest:: getMap() {
+    return map;
+}
+
+//display the conquest map
+void MapLoaderConquest:: displayConquestMap() {
+    
+}
+
+
+//******************* Implementation for the adapterMap Class *******************
+
+//default constructor
+AdapterMap:: AdapterMap() {
+    
+}
+
+//constructor with 1 parameter
+AdapterMap:: AdapterMap(MapLoaderConquest* conquestMap) {
+    conquestMaploader = conquestMap;
+}
+
+//destructor
+AdapterMap:: ~AdapterMap() {
+    
+}
+
+//override function in Maploader to call be able to call function in MapLoaderConquest
+void AdapterMap::readMapFile(string fileName) {
+    conquestMaploader->readConquestMapFile(fileName);
+}
+
+void AdapterMap::createMap() {
+    conquestMaploader->createConquestMap();
+}
+
+void AdapterMap::displayMap() {
+    conquestMaploader->displayConquestMap();
+}
+
+Map* AdapterMap::getMap() {
+   return conquestMaploader->getMap();
 }
