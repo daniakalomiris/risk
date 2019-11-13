@@ -143,7 +143,7 @@ Map* Player::getMap() {
 //reinforce phase
 void Player::reinforce() {
     
-    cout << "\n\n~~~~~ Reinforcement Phase ~~~~~\n" << endl;
+    cout << "\n~~~~~ Reinforcement Phase ~~~~~\n" << endl;
     int armyAdd = 0; //for the total number of armies to add
     int ownedCountries = 0;
     int ownedContinent = 0; //for the number of armies to add due to continent control
@@ -259,7 +259,7 @@ void Player::attack() {
     Country* countryToAttack;
     vector<int> attackerDiceValues, defenderDiceValues;
     
-    cout << "\n\n~~~~~ Attack Phase ~~~~~\n" << endl;
+    cout << "\n~~~~~ Attack Phase ~~~~~\n" << endl;
     
     cout << "Player " << this->getID() << ", do you want to attack? (Press Y to attack or anything else to end attack phase)\n" << endl;
     cin >> playerAttack;
@@ -280,7 +280,7 @@ void Player::attack() {
                 cout << "Please enter a valid country number." << endl;
                 cin >> selectAttackFrom;
             }
-            if (getThisPlayerCountries().at(selectAttackFrom - 1)->getNumberOfArmies() < 2) {
+            else if (getThisPlayerCountries().at(selectAttackFrom - 1)->getNumberOfArmies() < 2) {
                 cout << "Please select a country with at least 2 armies placed on it." << endl;
                 cin >> selectAttackFrom;
             }
@@ -295,7 +295,7 @@ void Player::attack() {
         for (unsigned int i = 0; i < attackFrom->getAdjacentCountries().size(); i++) {
             cout << "Country " << i + 1 << ": " << attackFrom->getAdjacentCountries().at(i)->getCountryName() << "\tBelongs to: Player " << attackFrom->getAdjacentCountries().at(i)->getCountryOwnerId() << endl;
         }
-        
+
         cout << "Which one of this country's neighbors would you like to attack?. The country you select must belong to another player. Please enter the country's number.\n" << endl;
         cin >> selectCountryToAttack;
         
@@ -306,7 +306,7 @@ void Player::attack() {
                 cout << "Please enter a valid country number." << endl;
                 cin >> selectCountryToAttack;
             }
-            if (attackFrom->getAdjacentCountries().at(selectCountryToAttack - 1)->getCountryOwnerId() == this->getID()) {
+            else if (attackFrom->getAdjacentCountries().at(selectCountryToAttack - 1)->getCountryOwnerId() == this->getID()) {
                 cout << "Please select a country that is owned by another player." << endl;
                 cin >> selectCountryToAttack;
             }
@@ -359,6 +359,7 @@ void Player::attack() {
         for (int i = 0; i < attackerRoll; i++) {
             attackerDiceValues.push_back(dice->getValuesRolled().at(i));
         }
+		dice->clearDiceRolled();
         
         // roll defender's dice
         cout << "~ Defender is rolling ~" << endl;
@@ -368,6 +369,7 @@ void Player::attack() {
         for (int i = 0; i < defenderRoll; i++) {
             defenderDiceValues.push_back(dice->getValuesRolled().at(i));
         }
+		dice->clearDiceRolled();
         
         // determine how many comparisons we do depending on number of dice both players rolled
         if (attackerRoll < defenderRoll) {
@@ -455,7 +457,7 @@ void Player::fortify() {
     int indexOfSourceCountry = 0;
     int indexOfTargetCountry = 0;
     
-    cout << "\n\n~~~~~ Fortification Phase ~~~~~" << endl;
+    cout << "\n~~~~~ Fortification Phase ~~~~~" << endl;
     
     cout << "\nPlayer " << getName() << ", do you want to fortify? (Press Y to fortify or anything else to end fortify phase)" << endl;
     string attack;

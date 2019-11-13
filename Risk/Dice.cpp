@@ -20,8 +20,8 @@ Dice::~Dice() {
 }
 
 // Player selects how many dice to roll
-void Dice::setDiceToRoll(int diceToRoll) {
-    numOfDice.reset(new int(diceToRoll));
+void Dice::setDiceToRoll(int numOfDice) {
+    this->numOfDice = make_unique<int>(numOfDice);
 }
 
 // Generates random dice values (1 to 6) for each dice rolled
@@ -90,3 +90,8 @@ void Dice::keepTracks() {
 std::vector<int> Dice:: getValuesRolled() {
     return valuesRolled;
 }
+
+void Dice::clearDiceRolled() {
+	valuesRolled.clear();
+}
+
