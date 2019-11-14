@@ -1,9 +1,20 @@
 #pragma once
 #include <list>
-#include "Observer.h"
 using namespace std;
 
-class Observer;
+
+class Observer {
+
+public:
+
+	~Observer();
+	virtual void Update() = 0;
+
+protected:
+
+	Observer();
+
+};
 
 class Subject {
 public:
@@ -17,6 +28,6 @@ public:
 
 private:
 
-	list<Observer*> *observers;
+	list<Observer*>* observers;
 
 };
