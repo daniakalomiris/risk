@@ -18,6 +18,14 @@ MapLoader::MapLoader() {
 MapLoader:: ~MapLoader() {
     delete map;
 }
+
+//copy constructor
+MapLoader:: MapLoader(const MapLoader &orig){
+    this->continents_info = orig.continents_info;
+    this->countries_info = orig.countries_info;
+    this->borders_info = orig.borders_info;
+}
+
 void MapLoader::readMapFile(string fileName) {
     
     
@@ -313,17 +321,23 @@ void MapLoader::displayMap() {
 //******************* Implementation for the MapLoaderConquest Class *******************
 
 //default constructor
-MapLoaderConquest::MapLoaderConquest() {
+ConquestMapLoader::ConquestMapLoader() {
     map = new Map();
 }
 
 //destructor
-MapLoaderConquest:: ~MapLoaderConquest() {
+ConquestMapLoader:: ~ConquestMapLoader() {
     delete map;
 }
 
+//copy constructor
+ConquestMapLoader:: ConquestMapLoader(const ConquestMapLoader &orig) {
+    this->continents_info = orig.continents_info;
+    this->territories_info = orig.territories_info;
+}
+
 //read a conquest map file
-void MapLoaderConquest::readConquestMapFile(string fileName) {
+void ConquestMapLoader::readConquestMapFile(string fileName) {
     
     //create mapFile stream
     ifstream mapFile;
@@ -440,21 +454,13 @@ void MapLoaderConquest::readConquestMapFile(string fileName) {
         exit(1);
     }
     
-    
-//    for(int i =0; i <continents_info.size(); i++) {
-//        cout << *continents_info.at(i) << endl;
-//    }
-//
-//    for(int i =0; i <territories_info.size(); i++) {
-//        cout << i << " " << *territories_info.at(i) << endl;
-//    }
-    
+    //close the file
     mapFile.close();
     
 }
 
 //create the conquest map
-void MapLoaderConquest::createConquestMap() {
+void ConquestMapLoader::createConquestMap() {
     
     
     //create continents
@@ -641,12 +647,12 @@ void MapLoaderConquest::createConquestMap() {
 }
 
 //get the map created
-Map* MapLoaderConquest:: getMap() {
+Map* ConquestMapLoader:: getMap() {
     return map;
 }
 
 //display the conquest map
-void MapLoaderConquest:: displayConquestMap() {
+void ConquestMapLoader:: displayConquestMap() {
     cout << "\nThese are the map's continents and their armies: " << endl;
     
     
@@ -693,33 +699,48 @@ void MapLoaderConquest:: displayConquestMap() {
 //******************* Implementation for the adapterMap Class *******************
 
 //default constructor
-AdapterMap:: AdapterMap() {
+AdapterConquestMaploader:: AdapterConquestMaploader() {
     
 }
 
 //constructor with 1 parameter
-AdapterMap:: AdapterMap(MapLoaderConquest* conquestMap) {
+AdapterConquestMaploader:: AdapterConquestMaploader(ConquestMapLoader* conquestMap) {
     conquestMaploader = conquestMap;
 }
 
 //destructor
-AdapterMap:: ~AdapterMap() {
-    
+AdapterConquestMaploader:: ~AdapterConquestMaploader() {
+    delete conquestMaploader;
 }
 
-//override function in Maploader to call be able to call function in MapLoaderConquest
-void AdapterMap::readMapFile(string fileName) {
+//copy construstor
+AdapterConquestMaploader:: AdapterConquestMaploader(const AdapterConquestMaploader &orig) {
+    this->conquestMaploader = orig.conquestMaploader;
+}
+
+//overloading assignment operator
+const AdapterConquestMaploader& AdapterConquestMaploader:: operator=(const AdapterConquestMaploader &a) {
+    if(&a !=this) {
+        delete conquestMaploader;
+        ConquestMapLoader* conquestMaploader = a.conquestMaploader;
+        conquestMaploader = new ConquestMapLoader(*conquestMaploader);
+    }
+    return *this;
+}
+
+//override function in Maploader to be able to call function in MapLoaderConquest
+void AdapterConquestMaploader::readMapFile(string fileName) {
     conquestMaploader->readConquestMapFile(fileName);
 }
 
-void AdapterMap::createMap() {
+void AdapterConquestMaploader::createMap() {
     conquestMaploader->createConquestMap();
 }
 
-void AdapterMap::displayMap() {
+void AdapterConquestMaploader::displayMap() {
     conquestMaploader->displayConquestMap();
 }
 
-Map* AdapterMap::getMap() {
+Map* AdapterConquestMaploader::getMap() {
     return conquestMaploader->getMap();
 }

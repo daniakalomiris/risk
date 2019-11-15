@@ -11,35 +11,44 @@ public:
     //destructor
     ~MapLoader();
     
+    //copy constructor
+    MapLoader(const MapLoader &orig);
+    
 	void readMapFile(std::string fileName);
     void createMap();
     void displayMap();
 	Map* getMap();
+    
+    const MapLoader& operator=(const MapLoader& m);
+    
 private:
     Map* map;
     
     //vectors of information from map file
     std::vector<std::string> continents_info;
     std::vector<std::string> countries_info;
-    std::vector<std::string> borders_info;
-    
+    std::vector<std::string> borders_info;    
 };
 
 
-class MapLoaderConquest {
+class ConquestMapLoader {
     
 public:
     //constructor
-    MapLoaderConquest();
+    ConquestMapLoader();
     
     //destructor
-    ~MapLoaderConquest();
+    ~ConquestMapLoader();
+    
+    //copy constructor
+    ConquestMapLoader(const ConquestMapLoader &orig);
     
     void readConquestMapFile(std::string fileName);
     void createConquestMap();
     void displayConquestMap();
     Map* getMap();
-
+    
+    const ConquestMapLoader& operator=(const ConquestMapLoader& c);
     private:
     Map* map;
     
@@ -51,17 +60,22 @@ public:
 };
 
 
-class AdapterMap: public MapLoader {
+class AdapterConquestMaploader: public MapLoader {
     
     public:
     //constructor with parameter
-    AdapterMap(MapLoaderConquest* conquestMap);
+    AdapterConquestMaploader(ConquestMapLoader* conquestMap);
     
     //default constructor
-    AdapterMap();
+    AdapterConquestMaploader();
     
     //destructor
-    ~AdapterMap();
+    ~AdapterConquestMaploader();
+    
+    //copy constructor
+    AdapterConquestMaploader(const AdapterConquestMaploader &orig);
+    
+    const AdapterConquestMaploader &operator=(const AdapterConquestMaploader &a);
     
     void readMapFile(std::string fileName);
     void createMap();
@@ -69,8 +83,7 @@ class AdapterMap: public MapLoader {
     Map* getMap();
     
 private:
-    Map* map;
-    MapLoaderConquest* conquestMaploader;
+    ConquestMapLoader* conquestMaploader;
 
 
 };
