@@ -230,6 +230,9 @@ void Player::reinforce() {
         cout << "Do you want to exchange your cards for extra reinforcement ? (y/n)" << endl;
         cin >> answer;
 
+
+		// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		// user will decide
 		// A and B will say yes
 		 
@@ -262,13 +265,32 @@ void Player::reinforce() {
         int country;
         cout << "\nPlease enter the number of the country you would like to reinforce" << endl;
         cin >> country;
+
+		// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// user will decide
+		// A will select country with most armies on it (pass Player inside selectCountryToReinforce, then loop through all of getThisPlayerCountries and chose the one with MOSt getNumberOfArmies)
+		// B will select country with least countries on it (pass Player inside selectCountryToReinforce, then loop through all of getThisPlayerCountries and chose the one with LEAST getNumberOfArmies)
+
+
         int numArmies;
         cout << "\nEnter the number of armies you would like to place on this country" << endl;
         cin >> numArmies;
+
+		// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// user will decide
+		// A puts all of armyAdd onto that country
+		// B puts all of armyAdd onto that country
         
         while(numArmies <= 0 || numArmies > armyAdd) {
             cout << "Please enter a valid number of armies to place on this country" << endl;
             cin >> numArmies;
+
+			// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// user will decide
+		// 
         }
         
         //increment the number of armies on the chosen country
