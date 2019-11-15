@@ -3,18 +3,18 @@
 #include "Player.h"
 using namespace std;
 
-int main(void) {	
+int main() {
 	//Create a player to be the subject
-	Player *player = new Player();
-	
+	Player* player = new Player();
+
 	//Create RObs that will be connected to the player
 	RObs* robs = new RObs(player);
 	//Create AObs that will be connected to the player
 	AObs* aobs = new AObs(player);
 	//Create FObs that will be connected to the player
 	FObs* fobs = new FObs(player);
-	
+
 	player->reinforce();
-	player->attack();
-	player->fortify();
+	//player->attack();
+	//player->fortify();
 }
