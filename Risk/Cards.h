@@ -12,7 +12,8 @@ class Cards {
 public:
 	Cards();
 	Cards(int typeNum, int worth);
-    Cards(const Cards&);
+    Cards(const Cards& orig); //copy constructor
+	Cards& operator=(const Cards &orig); //assignment operator
 	~Cards();
 
 	//type of card 
@@ -68,6 +69,8 @@ private:
 class Hand {
 public:
 	Hand();
+	Hand(const Hand& orig);
+	Hand& operator=(const Hand& orig);
 	Hand(int id);
 	~Hand();
     

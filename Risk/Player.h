@@ -2,24 +2,27 @@
 #include "Dice.h"
 #include "Cards.h"
 #include "Map.h"
+#include "GameObservers.h"
 #include <string>
 #include <vector>
 #include <memory> //for pointer class
 
-class Player {
+class Player : public Subject {
 	public:
 		Player(); // default constructor
 		~Player();
         Player(const Player&); //copy constructor
 		Player(std::string name); //constructor which takes a name
         Player(std::string name, Map* map); //constructor which takes a name and a map
-
+		Player& operator=(const Player& orig); //equaloperator 
 		//returns id of player that is generated during player object creation
 		int getID();
 
 		//set and get player's name
 		void setName(std::string name);
 		std::string getName();
+
+		
 
 		Dice* getDice();
 		Hand* getHand();
@@ -43,6 +46,14 @@ class Player {
         void setThisPlayerContinents(Continent* continent);
         std::vector<Continent* > getThisPlayerContinents();
         bool checkControlContinents();
+
+		//getters and setters for reinforce method
+		int getNumArmy1();
+		int getNumArmy2();
+		int getNumArmy3();
+		void setNumArmy1(int i);
+		void setNumArmy2(int i);
+		void setNumArmy3(int i);
     
 	private:
 		Dice* dice;
@@ -55,9 +66,13 @@ class Player {
         std::vector<Country*> countries;
         std:: vector<Continent*> thisPlayerContinents;
         std::unique_ptr<int> numOfArmiesAtStartUpPhase;
-        
+    
 
 		Player* defender;
         Map* map;
 
+		//variables for getters and setter player
+		int numArmy1;
+		int numArmy2;
+		int numArmy3;
 };

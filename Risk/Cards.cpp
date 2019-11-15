@@ -5,41 +5,53 @@
 #include <vector>
 #include <time.h>
 #include <string>
-
-
 using namespace std;
+
+// ------------ CARDS CLASS --------
+//default constructor
+Cards::Cards() {
+
+};
 
 //constructor with parameters
 Cards::Cards(int typeNum, int worth) {
     this->typeNum = make_unique<int>(typeNum);
     this->worth = make_unique<int>(worth);
     setType(typeNum);
-    
 };
 
-//default constructor
-Cards::Cards() {
-    
-};
-
-// copy constructor
-//Cards::Cards(const Cards & cards) {
-//    cout << "Copy constructor called" << endl;
-//    this->typeNum = make_unique<int>(cards.typeNum);
-//    this->worth = make_unique<int>(cards.worth);
+//// copy constructor
+//Cards::Cards(const Cards& orig) {
+//    this->typeNum = make_unique<int>(*orig.typeNum);
+//    this->worth = make_unique<int>(*orig.worth);
+//	setType(*orig.typeNum);
+//}
+//
+////asignment operator 
+//Cards& Cards:: operator=(const Cards& orig) {
+//	this->typeNum = make_unique<int>(orig.typeNum);
+//	this->worth = make_unique<int>(orig.worth);
+//	return *this; 
 //}
 
 Cards::~Cards() {
     
 }
 
+//Getters Cards
+//gets the type of the card
+std::string Cards::getType() {
+	return *type;
+}
+
+int Cards::getWorth() {
+	return *worth;
+}
+
+//Setters Cards
 void Cards::setWorth(int worth) {
     this->worth = make_unique<int>(worth);
 }
-int Cards::getWorth() {
-    return *worth;
-}
-
 
 //sets the type of the card
 void Cards::setType(int typeNum) {
@@ -54,16 +66,14 @@ void Cards::setType(int typeNum) {
     }
 }
 
-//gets the type of the card
-std::string Cards::getType() {
-    return *type;
-}
+//----------------- DECK CLASS -------------
 
+//Default Constructor 
 Deck::Deck() {
     
 }
 
-//constructor of the deck
+//Constructor of the deck with parameters
 Deck::Deck(Map* map) {
     
     cout << "\nInitializing Deck" << endl;
@@ -133,10 +143,12 @@ Deck::Deck(Map* map) {
     }
 }
 
+//Destructor
 Deck::~Deck() {
     
 }
 
+//Getters Deck
 //returns number of cards in the deck
 int Deck::getNumOfCardsInDeck() {
     return *numOfCardsInDeck;
@@ -147,6 +159,7 @@ vector<Cards*> Deck::getCardsInDeck() {
     return cardsInDeck;
 }
 
+//Setter for Deck
 //adds card object to deck
 void Deck::setCardInDeck(Cards* card) {
     //cout << "Adding card to deck." << endl;
@@ -178,6 +191,36 @@ void Deck::draw(Hand* hand, string playerName) {
         *numOfCardsInDeck = *numOfCardsInDeck - 1;
         hand->setCardInHand(cardDrawn);
     }
+}
+
+// --------------- HAND CLASS -------------- 
+
+//Default Constructor Hands
+Hand::Hand() {
+
+}
+
+// Takes player's id
+Hand::Hand(int id) {
+	this->id = id;
+	numOfArmiesToPlace = make_unique<int>(0);
+
+}
+
+////Copy Constructor
+//Hand::Hand(const Hand& orig) {
+//	id = *orig.id;
+//	numOfArmiesToPlace = *orig.numOfArmiesToPlace;
+//}
+////Assignment Operator
+//Hand& Hand::operator=(const Hand& orig) {
+//	id = orig.id;
+//	numOfArmiesToPlace = orig.numOfArmiesToPlace;
+//	return *this;
+//}
+
+Hand::~Hand() {
+
 }
 
 void Hand::removeCard(int i) {
@@ -454,34 +497,21 @@ void Hand:: deleteNumberOfArmies(int number) {
     *numOfArmiesToPlace = *numOfArmiesToPlace - number;
 }
 
-Hand::Hand() {
-    
-}
-
-// Takes player's id
-Hand::Hand(int id) {
-    this->id = id;
-    numOfArmiesToPlace = make_unique<int>(0);
-    
-}
-
-Hand::~Hand() {
-    
-}
-
 int Hand:: numArmiesExchanged = 0;
 int* Hand:: exchangeCount = new int(0);
-void Hand:: setCardInHand(Cards* card) {
-    cardsInHand.push_back(card);
-}
 
+
+//Getters and Setters
 vector<Cards*> Hand:: getCardsInHand() {
     return cardsInHand;
 }
 
-
 int Hand:: getNumberOfArmiesToPlace() {
     return *numOfArmiesToPlace;
+}
+
+void Hand::setCardInHand(Cards* card) {
+	cardsInHand.push_back(card);
 }
 
 void Hand:: setNumberOfArmiesToPlace(int num) {

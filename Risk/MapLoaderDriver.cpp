@@ -3,7 +3,6 @@
 #include "Map.h"
 using namespace std;
 
-//
 //int main(){
 //	string mapName;
 //	MapLoader myMapLoader;
@@ -15,5 +14,3 @@ using namespace std;
 //    myMapLoader.displayMap();
 //	cout << "End file" << endl;
 //}
-//
-
