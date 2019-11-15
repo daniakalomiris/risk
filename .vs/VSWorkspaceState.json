@@ -1,9 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Risk",
-    "\\Risk\\maps"
+    "\\Risk"
   ],
-  "SelectedNode": "\\Risk\\PlayerDriver.cpp",
+  "SelectedNode": "\\Risk\\Cards.h",
   "PreviewInSolutionExplorer": false
 }

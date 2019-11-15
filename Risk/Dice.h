@@ -8,12 +8,13 @@
 class Dice {
 
     public:
-
         //constructor
         Dice();
+
         ~Dice();
+
         //function to ask to how many dice the player wants to roll
-        void setDiceToRoll(int diceToRoll);
+        void setDiceToRoll(int numOfDice);
 
         //function to roll the dice
         void rollDice();
@@ -23,17 +24,18 @@ class Dice {
         
         //function to get the values rolled
         std::vector<int> getValuesRolled();
+
+		void clearDiceRolled();
     
     private:
-    // Smart pointer to number of dice that will be rolled
-    std::unique_ptr<int> numOfDice;
+		// Smart pointer to number of dice that will be rolled
+		std::unique_ptr<int> numOfDice;
 
-     //arrays that tracks the different values
-    int valuesTracker[6];
+		 //arrays that tracks the different values
+		int valuesTracker[6];
 
-    //number of time the dice were rolled
-    std::unique_ptr<int> timesRolled;
+		//number of time the dice were rolled
+		std::unique_ptr<int> timesRolled;
     
-    std::vector<int> valuesRolled;
-
+		std::vector<int> valuesRolled;
 };

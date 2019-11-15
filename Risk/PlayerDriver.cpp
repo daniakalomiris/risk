@@ -11,11 +11,11 @@ void part6();
 
 //main method that can call each driver for each part
 //uncomment the part you want to test
-//int main() {
-//    part4();
-//    //part5();
-//    // part6();
-//}
+int main() {
+    // part4();
+    part5();
+    // part6();
+}
 
 //driver for part4: reinforce of assignment2
 void part4() {

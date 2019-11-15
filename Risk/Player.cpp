@@ -106,7 +106,7 @@ bool Player:: checkControlContinents() {
     bool ownContinents = false;
     
     //check each continents
-    for(int i = 0; i <this->map->getContinents().size(); i++) {
+    for(unsigned int i = 0; i <this->map->getContinents().size(); i++) {
         
         //if the continent is own by a player
         if(this->map->getContinents().at(i)->continentOwnByAPlayer()) {
@@ -143,7 +143,7 @@ Map* Player::getMap() {
 //reinforce phase
 void Player::reinforce() {
     
-    cout << "\n\n~~~~~ Reinforcement Phase ~~~~~\n" << endl;
+    cout << "\n~~~~~ Reinforcement Phase ~~~~~\n" << endl;
     int armyAdd = 0; //for the total number of armies to add
     int ownedCountries = 0;
     int ownedContinent = 0; //for the number of armies to add due to continent control
@@ -169,7 +169,7 @@ void Player::reinforce() {
     if(checkControlContinents()) {
         
         //for each continent owns, we increment the number of armies to add
-        for(int i=0; i < getThisPlayerContinents().size(); i++) {
+        for(unsigned int i=0; i < getThisPlayerContinents().size(); i++) {
             ownedContinent = ownedContinent + getThisPlayerContinents().at(i)->getNumberOfArmies();
         }
     }
@@ -220,7 +220,7 @@ void Player::reinforce() {
         
         cout << "\nThese are your countries and their number of armies" << endl;
         
-        for(int i = 0 ; i< getThisPlayerCountries().size(); i++) {
+        for(unsigned int i = 0 ; i< getThisPlayerCountries().size(); i++) {
             cout << i+1 << ": " << getThisPlayerCountries().at(i)->getCountryName() << " " << getThisPlayerCountries().at(i)->getNumberOfArmies() << endl;
         }
         int country;
@@ -259,7 +259,7 @@ void Player::attack() {
     Country* countryToAttack;
     vector<int> attackerDiceValues, defenderDiceValues;
     
-    cout << "\n\n~~~~~ Attack Phase ~~~~~\n" << endl;
+    cout << "\n~~~~~ Attack Phase ~~~~~\n" << endl;
     
     cout << "Player " << this->getID() << ", do you want to attack? (Press Y to attack or anything else to end attack phase)\n" << endl;
     cin >> playerAttack;
@@ -280,7 +280,7 @@ void Player::attack() {
                 cout << "Please enter a valid country number." << endl;
                 cin >> selectAttackFrom;
             }
-            if (getThisPlayerCountries().at(selectAttackFrom - 1)->getNumberOfArmies() < 2) {
+            else if (getThisPlayerCountries().at(selectAttackFrom - 1)->getNumberOfArmies() < 2) {
                 cout << "Please select a country with at least 2 armies placed on it." << endl;
                 cin >> selectAttackFrom;
             }
@@ -295,7 +295,7 @@ void Player::attack() {
         for (unsigned int i = 0; i < attackFrom->getAdjacentCountries().size(); i++) {
             cout << "Country " << i + 1 << ": " << attackFrom->getAdjacentCountries().at(i)->getCountryName() << "\tBelongs to: Player " << attackFrom->getAdjacentCountries().at(i)->getCountryOwnerId() << endl;
         }
-        
+
         cout << "Which one of this country's neighbors would you like to attack?. The country you select must belong to another player. Please enter the country's number.\n" << endl;
         cin >> selectCountryToAttack;
         
@@ -306,7 +306,7 @@ void Player::attack() {
                 cout << "Please enter a valid country number." << endl;
                 cin >> selectCountryToAttack;
             }
-            if (attackFrom->getAdjacentCountries().at(selectCountryToAttack - 1)->getCountryOwnerId() == this->getID()) {
+            else if (attackFrom->getAdjacentCountries().at(selectCountryToAttack - 1)->getCountryOwnerId() == this->getID()) {
                 cout << "Please select a country that is owned by another player." << endl;
                 cin >> selectCountryToAttack;
             }
@@ -359,6 +359,7 @@ void Player::attack() {
         for (int i = 0; i < attackerRoll; i++) {
             attackerDiceValues.push_back(dice->getValuesRolled().at(i));
         }
+		dice->clearDiceRolled();
         
         // roll defender's dice
         cout << "~ Defender is rolling ~" << endl;
@@ -368,6 +369,7 @@ void Player::attack() {
         for (int i = 0; i < defenderRoll; i++) {
             defenderDiceValues.push_back(dice->getValuesRolled().at(i));
         }
+		dice->clearDiceRolled();
         
         // determine how many comparisons we do depending on number of dice both players rolled
         if (attackerRoll < defenderRoll) {
@@ -455,7 +457,7 @@ void Player::fortify() {
     int indexOfSourceCountry = 0;
     int indexOfTargetCountry = 0;
     
-    cout << "\n\n~~~~~ Fortification Phase ~~~~~" << endl;
+    cout << "\n~~~~~ Fortification Phase ~~~~~" << endl;
     
     cout << "\nPlayer " << getName() << ", do you want to fortify? (Press Y to fortify or anything else to end fortify phase)" << endl;
     string attack;
@@ -465,11 +467,11 @@ void Player::fortify() {
     
     cout << "\nThis is your countries, their number of armies and their adjacent countries" << endl;
     
-    for(int i = 0 ; i < getThisPlayerCountries().size(); i++) {
+    for(unsigned int i = 0 ; i < getThisPlayerCountries().size(); i++) {
         cout << getThisPlayerCountries().at(i)->getCountryName() << " " << getThisPlayerCountries().at(i)->getNumberOfArmies();
         
         cout << " (";
-        for(int j =0; j < getThisPlayerCountries().at(i)->getAdjacentCountries().size(); j++) {
+        for(unsigned int j =0; j < getThisPlayerCountries().at(i)->getAdjacentCountries().size(); j++) {
             cout << getThisPlayerCountries().at(i)->getAdjacentCountries().at(j)->getCountryName() << " ";
         }
         cout << ") " << endl;
@@ -478,13 +480,13 @@ void Player::fortify() {
     
     //check if there are countries adjacent to each other, if not, the player can't fortify
     string nameCountry;
-    for(int i =0; i< this->getThisPlayerCountries().size(); i++) {
+    for(unsigned int i =0; i< this->getThisPlayerCountries().size(); i++) {
         
-        for(int j = 0; j < this->getThisPlayerCountries().size(); j++) {
+        for(unsigned int j = 0; j < this->getThisPlayerCountries().size(); j++) {
             
             nameCountry = getThisPlayerCountries().at(i)->getCountryName();
             
-            for(int k = 0; k < this->getThisPlayerCountries().at(j)->getAdjacentCountries().size(); k++ ) {
+            for(unsigned int k = 0; k < this->getThisPlayerCountries().at(j)->getAdjacentCountries().size(); k++ ) {
                 
                 if(nameCountry.compare( this->getThisPlayerCountries().at(j)->getAdjacentCountries().at(k)->getCountryName() ) == 0) {
                     neighbourCountries = true;
@@ -508,7 +510,7 @@ void Player::fortify() {
         
         
         //check if the player owns the source country
-        for(int i = 0; i < this->getThisPlayerCountries().size(); i++) {
+        for(unsigned int i = 0; i < this->getThisPlayerCountries().size(); i++) {
             if( nameSourceCountry.compare(this->getThisPlayerCountries().at(i)->getCountryName()) == 0) {
                 isSourceCountryValid = true;
                 indexOfSourceCountry = i;
@@ -516,9 +518,9 @@ void Player::fortify() {
         }
         
         //check if the country chosen has neighbours in the countries of the player
-        for(int i = 0; i < this->getThisPlayerCountries().size(); i++) {
+        for(unsigned int i = 0; i < this->getThisPlayerCountries().size(); i++) {
             
-            for(int j = 0; j < this->getThisPlayerCountries().at(indexOfSourceCountry)->getAdjacentCountries().size(); j++) {
+            for(unsigned int j = 0; j < this->getThisPlayerCountries().at(indexOfSourceCountry)->getAdjacentCountries().size(); j++) {
                 
                 //compare the adjacent countries of the source countries with the list of countries own by the player
                 if((getThisPlayerCountries().at(indexOfSourceCountry)->getAdjacentCountries().at(j)->getCountryName()).compare(getThisPlayerCountries().at(i)->getCountryName()) == 0 ) {
@@ -537,7 +539,7 @@ void Player::fortify() {
             
             
             //check if the player owns the source country
-            for(int i = 0; i < this->getThisPlayerCountries().size(); i++) {
+            for(unsigned int i = 0; i < this->getThisPlayerCountries().size(); i++) {
                 if( nameSourceCountry.compare(this->getThisPlayerCountries().at(i)->getCountryName()) == 0) {
                     isSourceCountryValid = true;
                     indexOfSourceCountry = i;
@@ -545,10 +547,10 @@ void Player::fortify() {
             }
             
             //check if the country chosen has neighbours in the countries of the player
-            for(int i = 0; i < this->getThisPlayerCountries().size(); i++) {
+            for(unsigned int i = 0; i < this->getThisPlayerCountries().size(); i++) {
                 
                 
-                for(int j = 0; j < this->getThisPlayerCountries().at(indexOfSourceCountry)->getAdjacentCountries().size(); j++) {
+                for(unsigned int j = 0; j < this->getThisPlayerCountries().at(indexOfSourceCountry)->getAdjacentCountries().size(); j++) {
                     
                     
                     //compare the adjacent countries of the source countries with the list of countries own by the player
@@ -595,7 +597,7 @@ void Player::fortify() {
         cin >> nameTargetCountry;
         
         //check if the player owns the target country
-        for(int i = 0; i < this->getThisPlayerCountries().size(); i++) {
+        for(unsigned int i = 0; i < this->getThisPlayerCountries().size(); i++) {
             if(nameTargetCountry.compare(this->getThisPlayerCountries().at(i)->getCountryName()) == 0) {
                 isTargetCountryValid = true;
                 indexOfTargetCountry = i;
@@ -604,7 +606,7 @@ void Player::fortify() {
         
         
         //check if the target country is a neighboring country of the source country
-        for(int i =0; i< this->getThisPlayerCountries().at(indexOfSourceCountry)->getAdjacentCountries().size(); i++) {
+        for(unsigned int i =0; i< this->getThisPlayerCountries().at(indexOfSourceCountry)->getAdjacentCountries().size(); i++) {
             if(nameTargetCountry.compare(this->getThisPlayerCountries().at(indexOfSourceCountry)->getAdjacentCountries().at(i)->getCountryName()) == 0) {
                 isTargetCountryNeighbour =true;
                 // cout << "The country is a neighbour" << endl;
@@ -619,7 +621,7 @@ void Player::fortify() {
             cin >> nameTargetCountry;
             
             //check if the player owns the target country
-            for(int i = 0; i < this->getThisPlayerCountries().size(); i++) {
+            for(unsigned int i = 0; i < this->getThisPlayerCountries().size(); i++) {
                 if(nameTargetCountry.compare(this->getThisPlayerCountries().at(i)->getCountryName()) == 0) {
                     isTargetCountryValid = true;
                     indexOfTargetCountry = i;
@@ -628,7 +630,7 @@ void Player::fortify() {
             
             
             //check if the country is a neighboring country of the source country
-            for(int i =0; i< this->getThisPlayerCountries().at(indexOfSourceCountry)->getAdjacentCountries().size(); i++) {
+            for(unsigned int i =0; i< this->getThisPlayerCountries().at(indexOfSourceCountry)->getAdjacentCountries().size(); i++) {
                 if(nameTargetCountry.compare(this->getThisPlayerCountries().at(indexOfSourceCountry)->getAdjacentCountries().at(i)->getCountryName()) == 0) {
                     isTargetCountryNeighbour =true;
                 }
