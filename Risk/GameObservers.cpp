@@ -107,5 +107,5 @@ void FObs::Update() {
 	display();
 }
 void FObs::display() {
-
+	
 }

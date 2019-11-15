@@ -14,4 +14,7 @@ int main(void) {
 	//Create FObs that will be connected to the player
 	FObs* fobs = new FObs(player);
 	
+	player->reinforce();
+	player->attack();
+	player->fortify();
 }
