@@ -2,6 +2,7 @@
 #include "Dice.h"
 #include "Cards.h"
 #include "Map.h"
+#include "PlayerStrategies.h"
 #include <string>
 #include <vector>
 #include <memory> //for pointer class
@@ -43,6 +44,11 @@ class Player {
         void setThisPlayerContinents(Continent* continent);
         std::vector<Continent* > getThisPlayerContinents();
         bool checkControlContinents();
+
+		void setStrategy(Strategy* strategy);
+		Strategy* getStrategy();
+
+		void selectTurnStrategy();
     
 	private:
 		Dice* dice;
@@ -55,9 +61,8 @@ class Player {
         std::vector<Country*> countries;
         std:: vector<Continent*> thisPlayerContinents;
         std::unique_ptr<int> numOfArmiesAtStartUpPhase;
-        
-
+       
 		Player* defender;
         Map* map;
-
+		Strategy* strategy;
 };

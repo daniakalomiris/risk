@@ -139,10 +139,42 @@ Map* Player::getMap() {
     return map;
 }
 
+void Player::setStrategy(Strategy* strategy) {
+	this->strategy = strategy;
+}
+
+Strategy* Player::getStrategy() {
+	return strategy;
+}
+
+void Player::selectTurnStrategy() {
+	int strategy;
+	cout << "Which strategy would you like to use? Please enter the number of the strategy to make your choice." << endl;
+	cout << "(1) User Strategy" << endl;
+	cout << "(2) Aggressive Strategy" << endl;
+	cout << "(3) Benevolent Strategy" << endl;
+	cin >> strategy;
+
+	while (strategy < 0 || strategy > 3) {
+		cout << "Please select a valid strategy from the list of strategies." << endl;
+	}
+
+	switch (strategy) {
+		case 1:
+			setStrategy(new User(this));
+		case 2:
+			setStrategy(new Aggressive(this));
+		case 3:
+			setStrategy(new Benevolent(this));
+	 }
+}
 
 //reinforce phase
 void Player::reinforce() {
-    
+	
+    // at the beginning of every turn, ask player what strategy they want to use
+	selectTurnStrategy();
+
     cout << "\n~~~~~ Reinforcement Phase ~~~~~\n" << endl;
     int armyAdd = 0; //for the total number of armies to add
     int ownedCountries = 0;
@@ -197,6 +229,10 @@ void Player::reinforce() {
     else {
         cout << "Do you want to exchange your cards for extra reinforcement ? (y/n)" << endl;
         cin >> answer;
+
+		// user will decide
+		// A and B will say yes
+		 
         
         if (answer == "y") {
             this->getHand()->exchange();
@@ -258,6 +294,9 @@ void Player::attack() {
     Country* attackFrom;
     Country* countryToAttack;
     vector<int> attackerDiceValues, defenderDiceValues;
+
+	// at the beginning of every turn, ask player what strategy they want to use
+	selectTurnStrategy();
     
     cout << "\n~~~~~ Attack Phase ~~~~~\n" << endl;
     
@@ -456,6 +495,9 @@ void Player::fortify() {
     int numOfArmies = 0;
     int indexOfSourceCountry = 0;
     int indexOfTargetCountry = 0;
+
+	// at the beginning of every turn, ask player what strategy they want to use
+	selectTurnStrategy();
     
     cout << "\n~~~~~ Fortification Phase ~~~~~" << endl;
     
