@@ -1,6 +1,6 @@
 #pragma once
 #include <list>
-#include "player.h"
+#include "Player.h"
 using namespace std;
 
 
@@ -42,7 +42,7 @@ public:
 	RObs();
 	RObs(Player* s);
 	~RObs();
-	void update();
+	void Update();
 	void display();
 
 private:
@@ -56,7 +56,7 @@ public:
 	AObs();
 	AObs(Player* s);
 	~AObs();
-	void update();
+	void Update();
 	void display();
 
 private:
@@ -69,7 +69,7 @@ public:
 	FObs();
 	FObs(Player* s);
 	~FObs();
-	void update();
+	void Update();
 	void display();
 
 private:

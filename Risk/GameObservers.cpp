@@ -1,6 +1,6 @@
 #pragma once
 #include "GameObservers.h"
-#include "player.h"
+#include "Player.h"
 #include <iostream>
 using namespace std;
 //-------------- OBSERVER CLASS ----------------
@@ -56,7 +56,7 @@ RObs::~RObs() {
 	subject->Detach(this);
 }
 
-void RObs::update() {
+void RObs::Update() {
 	//This methid is called by Notify from Subject when a state from Player changes
 	display();
 }
@@ -80,7 +80,7 @@ AObs::~AObs() {
 	subject->Detach(this);
 }
 
-void AObs::update() {
+void AObs::Update() {
 	//This methid is called by Notify from Subject when a state from Player changes
 	display();
 }
@@ -102,7 +102,7 @@ FObs::~FObs() {
 	//When a player is destroyed, it must detache itself from it 
 	subject->Detach(this);
 }
-void FObs::update() {
+void FObs::Update() {
 	//This methid is called by Notify from Subject when a state from Player changes
 	display();
 }
