@@ -715,7 +715,10 @@ AdapterConquestMaploader:: ~AdapterConquestMaploader() {
 
 //copy construstor
 AdapterConquestMaploader:: AdapterConquestMaploader(const AdapterConquestMaploader &orig) {
-    this->conquestMaploader = orig.conquestMaploader;
+    this->conquestMaploader = new ConquestMapLoader();
+    
+    *conquestMaploader = *orig.conquestMaploader;
+    
 }
 
 //overloading assignment operator
