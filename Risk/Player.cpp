@@ -99,6 +99,20 @@ vector<Continent*> Player:: getThisPlayerContinents() {
 Map* Player::getMap() {
 	return map;
 }
+
+int Player::getNumArmy1(){ //getter for reinforce method : army to add according to contries control
+	return numArmy1;
+}
+
+int Player::getNumArmy2() {//getter for reinforce method : army to add according to continent control
+	return numArmy2;
+}
+
+
+int Player::getNumArmy3() { //getter for reinforce method : army to add according to cards control
+	return numArmy3;
+}
+
 //Setters
 void Player::setName(string name) {
 	this->name = name;
@@ -116,6 +130,16 @@ void Player::setMap(Map* map) {
 	this->map = map;
 }
 
+void Player::setNumArmy1(int i) { //setter for reinforce method : army to add according to contries control
+	numArmy1 = i;
+}
+
+void Player::setNumArmy2(int i) { //setter for reinforce method : army to add according to continent control
+	numArmy2 = i;
+}
+void Player::setNumArmy3(int i) {  //setter for reinforce method : army to add according to cards control
+	numArmy3 = i;
+}
 
 bool Player:: checkControlContinents() { //method to verify if player owns a continent for reinforce phase
     bool ownContinents = false;
@@ -144,6 +168,9 @@ bool Player:: checkControlContinents() { //method to verify if player owns a con
 
 //reinforce phase
 void Player::reinforce() {
+	setNumArmy1(0);
+	setNumArmy2(0);
+	setNumArmy3(0);
     
     cout << "\n\n~~~~~ Reinforcement Phase ~~~~~\n" << endl;
     int armyAdd = 0; //for the total number of armies to add
@@ -212,7 +239,9 @@ void Player::reinforce() {
 		
 
     }
-    
+	setNumArmy1(ownedCountries);
+	setNumArmy2(ownedContinent);
+	setNumArmy3(armyHand);
     
     //Conclusion
     cout << "\nNumber of armies added by exchanging cards is " << armyHand << "." << endl;
