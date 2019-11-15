@@ -722,8 +722,8 @@ AdapterConquestMaploader:: AdapterConquestMaploader(const AdapterConquestMapload
 const AdapterConquestMaploader& AdapterConquestMaploader:: operator=(const AdapterConquestMaploader &a) {
     if(&a !=this) {
         delete conquestMaploader;
-        ConquestMapLoader* conquestMaploader = a.conquestMaploader;
-        conquestMaploader = new ConquestMapLoader(*conquestMaploader);
+        AdapterConquestMaploader* tempAdapter = new AdapterConquestMaploader(a);
+        this->conquestMaploader = tempAdapter->conquestMaploader;
     }
     return *this;
 }
