@@ -2,11 +2,12 @@
 #include "Dice.h"
 #include "Cards.h"
 #include "Map.h"
+#include "GameObservers.h"
 #include <string>
 #include <vector>
 #include <memory> //for pointer class
 
-class Player {
+class Player : public Subject {
 	public:
 		Player(); // default constructor
 		~Player();

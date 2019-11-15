@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include "Player.h"
 #include <vector>
@@ -33,24 +34,24 @@ Player::Player(string name, Map* map) {
     this->map = map;//sets the map to the map passed in the constructor
 }
 
-//copy constructor
-/*
-Player::Player(const Player& orig) {
-    dice = new Dice(*orig.dice);
-	hand = new Hand(*orig.hand);
-    this-> setName(*orig.name);
-	counter = *orig.counter;
-	id = *orig.id;
-	map = new Map(*orig.map);
-} */
+////copy constructor
+//Player::Player(const Player& orig) {
+//    dice = new Dice(*orig.dice);
+//	hand = new Hand(*orig.hand);
+//    this-> setName(*orig.name);
+//	counter = *orig.counter;
+//	id = *orig.id;
+//	map = new Map(*orig.map);
+//} 
+//
+////Equal operator method
+//Player& Player::operator=(const Player& orig) {
+//	dice = orig.dice;
+//	hand = orig.hand;
+//	name = orig.name;
+//	return *this;
+//}
 
-//Equal operator method
-Player& Player::operator=(const Player& orig) {
-	dice = orig.dice;
-	hand = orig.hand;
-	name = orig.name;
-	return *this;
-}
 //Destructor
 Player::~Player() {
     delete hand;
@@ -207,7 +208,9 @@ void Player::reinforce() {
         else {
             cout << "No cards are exchanged." << endl;
         }
-        
+
+		
+
     }
     
     
@@ -249,7 +252,7 @@ void Player::reinforce() {
     }
     
     cout << "\n\n~~~~~ End of the reinforce phase for player " << this->getName() << " ~~~~~" << endl;
-    
+	Notify();
 }
 
 // attack method
@@ -435,6 +438,7 @@ void Player::attack() {
     };
     
     cout << "Player " << this->getID() << "'s attack phase is over." << endl;
+	Notify();
 }
 
 //fortify method
@@ -654,4 +658,5 @@ void Player::fortify() {
         
     }
     }
+	Notify();
 }
