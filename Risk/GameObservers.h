@@ -1,8 +1,8 @@
 #pragma once
 #include <list>
-#include "Player.h"
 using namespace std;
 
+class Player;
 
 class Observer {
 

@@ -1,9 +1,7 @@
-#pragma once
+#include "Player.h"
 #include "GameObservers.h"
 #include <iostream>
 using namespace std;
-
-class Player;
 
 //-------------- OBSERVER CLASS ----------------
 Observer::Observer() {
