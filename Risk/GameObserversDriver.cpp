@@ -37,7 +37,6 @@ int main() {
 	//player->attack();
 	//player->fortify();
 
-	theGame->mainGameLoop();
 	delete theGame;
 	theGame = NULL;
 }
