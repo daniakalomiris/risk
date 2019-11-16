@@ -4,24 +4,14 @@
 using namespace std;
 
 // constructor and destructor for Strategy class
-Strategy::Strategy(Player* player) {
-	this->player = player;
+Strategy::Strategy() {
  }
 
 Strategy::~Strategy() {
-	delete player;
 }
 
 // copy constructor (deep copy)
 Strategy::Strategy(const Strategy &orig) {
-	if (orig.player) {
-		player = new Player();
-		player->setMap(orig.player->getMap());
-		player->setName(orig.player->getName());
-	}
-	else {
-		player = NULL;
-	} 
 }
 
 // overloading assignment operator
@@ -29,57 +19,25 @@ const Strategy& Strategy::operator=(const Strategy &s) {
 	if (this == &s) {
 		return *this;
 	}
-
-	delete player;
-
-	if (s.player) {
-		player = new Player();
-		player->setMap(s.player->getMap());
-		player->setName(s.player->getName());
-	}
-	else {
-		player = NULL;
-	}
 }
 
 // constructor and destructor for ConcreteStrategy for human player
-User::User(Player* player) : Strategy(player) {
-	this->player = player;
+User::User() {
 }
 
 User::~User() {
-	delete player;
 }
 
 // copy constructor (deep copy)
-User::User(const User& orig) : Strategy(orig) {
-	if (orig.player) {
-		player = new Player();
-		player->setMap(orig.player->getMap());
-		player->setName(orig.player->getName());
-	}
-	else {
-		player = NULL;
-	}
+User::User(const User& orig) : Strategy() {
 }
 
 // overloading assignment operator
-//const User& User::operator=(const User& u) {
-//	if (this == &u) {
-//		return *this;
-//	}
-//
-//	delete player;
-//
-//	if (u.player) {
-//		player = new Player();
-//		player->setMap(u.player->getMap());
-//		player->setName(u.player->getName());
-//	}
-//	else {
-//		player = NULL;
-//	}
-//}
+const User& User::operator=(const User& u) {
+	if (this == &u) {
+		return *this;
+	}
+}
 
 // all user inputs are chosen by the player
 string User::extraReinforcement() {
@@ -88,19 +46,19 @@ string User::extraReinforcement() {
 	return input;
 }
 
-int User::countryToReinforce() {
+int User::countryToReinforce(Player* player) {
 	int input;
 	cin >> input;
 	return input;
 }
 
-int User::armiesToPlace() {
+int User::armiesToPlace(Player* player) {
 	int input;
 	cin >> input;
 	return input;
 }
 
-string User::chooseAttack() {
+string User::chooseAttack(Player* player) {
 	string input;
 	cin >> input;
 	return input;
@@ -108,43 +66,22 @@ string User::chooseAttack() {
 
 
 // constructor and destructor for ConcreteStrategy for aggressive computer player
-Aggressive::Aggressive(Player* player) : Strategy(player) {
-	this->player = player;
+Aggressive::Aggressive() {
 }
 
 Aggressive::~Aggressive() {
-	delete player;
 }
 
 // copy constructor (deep copy)
 Aggressive::Aggressive(const Aggressive& orig) : Strategy(orig) {
-	if (orig.player) {
-		player = new Player();
-		player->setMap(orig.player->getMap());
-		player->setName(orig.player->getName());
-	}
-	else {
-		player = NULL;
-	}
 }
 
 // overloading assignment operator
-//const Aggressive& Aggressive::operator=(const Aggressive& a) {
-//	if (this == &a) {
-//		return *this;
-//	}
-//
-//	delete player;
-//
-//	if (a.player) {
-//		player = new Player();
-//		player->setMap(a.player->getMap());
-//		player->setName(a.player->getName());
-//	}
-//	else {
-//		player = NULL;
-//	}
-//}
+const Aggressive& Aggressive::operator=(const Aggressive& a) {
+	if (this == &a) {
+		return *this;
+	}
+}
 
 // aggressive player will always exchange again
 string Aggressive::extraReinforcement() {
@@ -152,7 +89,7 @@ string Aggressive::extraReinforcement() {
 }
 
 // aggressive playyer will select country with most armies on it
-int Aggressive::countryToReinforce() {
+int Aggressive::countryToReinforce(Player* player) {
 	
 	// set max country to be first index in the list of player's countries
 	int max = 0;
@@ -167,48 +104,27 @@ int Aggressive::countryToReinforce() {
 }
 
 // aggressive player will put all of armies that can be added to their chosen country
-int Aggressive::armiesToPlace() {
+int Aggressive::armiesToPlace(Player* player) {
 	return player->getNumOfArmiesForReinforcement();
 }
 
 // constructor and destructor for ConcreteStrategy for benevolent computer player
-Benevolent::Benevolent(Player* player) : Strategy(player) {
-	this->player = player;
+Benevolent::Benevolent() {
 }
 
 Benevolent::~Benevolent() {
-	delete player;
 }
 
 // copy constructor (deep copy)
 Benevolent::Benevolent(const Benevolent& orig) : Strategy(orig) {
-	if (orig.player) {
-		player = new Player();
-		player->setMap(orig.player->getMap());
-		player->setName(orig.player->getName());
-	}
-	else {
-		player = NULL;
-	}
 }
 
 // overloading assignment operator
-//const Benevolent& Benevolent::operator=(const Benevolent& b) {
-//	if (this == &b) {
-//		return *this;
-//	}
-//
-//	delete player;
-//
-//	if (b.player) {
-//		player = new Player();
-//		player->setMap(b.player->getMap());
-//		player->setName(b.player->getName());
-//	}
-//	else {
-//		player = NULL;
-//	}
-//}
+const Benevolent& Benevolent::operator=(const Benevolent& b) {
+	if (this == &b) {
+		return *this;
+	}
+}
 
 // benevolent computer player will always exchange again
 string Benevolent::extraReinforcement() {
@@ -216,7 +132,7 @@ string Benevolent::extraReinforcement() {
 }
 
 // benevolent playyer will select country with least armies on it
-int Benevolent::countryToReinforce() {
+int Benevolent::countryToReinforce(Player* player) {
 
 	// set min country to be first index in the list of player's countries
 	int min = 0;
@@ -231,6 +147,6 @@ int Benevolent::countryToReinforce() {
 }
 
 // benevolent player will put all of armies that can be added to their chosen country
-int Benevolent::armiesToPlace() {
+int Benevolent::armiesToPlace(Player* player) {
 	return player->getNumOfArmiesForReinforcement();
 }

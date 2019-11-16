@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Player.h"
+#include "PlayerStrategies.h"
 #include <vector>
 #include <string>
 #include <memory>
@@ -10,6 +11,7 @@ Player::Player(string name) {
     this->dice = new Dice();
     this->hand = new Hand(counter);
     this->setName(name);
+	this->strategy = NULL;
     counter++;
     
     //sets the id to the counter of the player
@@ -23,6 +25,7 @@ Player::Player(string name, Map* map) {
     this->dice = new Dice();
     this->hand = new Hand(counter);
     this->setName(name);
+	this->strategy = NULL;
     counter++;
     
     //sets the map to the map passed in the constructor
@@ -35,6 +38,7 @@ Player::Player(string name, Map* map) {
 Player::Player() {
     this->dice = new Dice();
     this->hand = new Hand(counter);
+	this->strategy = NULL;
     counter++;
     id = make_unique<int>(counter); //id of player generated
     numOfArmiesAtStartUpPhase = make_unique<int>(0);
@@ -156,34 +160,20 @@ Strategy* Player::getStrategy() {
 	return strategy;
 }
 
-void Player::selectTurnStrategy() {
-	int strategy;
-	cout << "Which strategy would you like to use? Please enter the number of the strategy to make your choice." << endl;
-	cout << "(1) User Strategy" << endl;
-	cout << "(2) Aggressive Strategy" << endl;
-	cout << "(3) Benevolent Strategy" << endl;
-	cin >> strategy;
-
-	while (strategy < 0 || strategy > 3) {
-		cout << "Please select a valid strategy from the list of strategies." << endl;
-	}
-
-	switch (strategy) {
-		case 1:
-			setStrategy(new User(this));
-		case 2:
-			setStrategy(new Aggressive(this));
-		case 3:
-			setStrategy(new Benevolent(this));
-	 }
+string Player::executeExtraReinforcement() {
+	return strategy->extraReinforcement();
 }
 
+int Player::executeCountryToReinforce() {
+	return strategy->countryToReinforce(this);
+}
+
+int Player::executeArmiesToPlace() {
+	return strategy->armiesToPlace(this);
+}
+ 
 //reinforce phase
 void Player::reinforce() {
-
-	// at the beginning of every turn, ask player what strategy they want to use
-	selectTurnStrategy();
-
 	cout << "\n~~~~~ Reinforcement Phase ~~~~~\n" << endl;
 	numOfArmiesForReinforcement = 0; //for the total number of armies to add
 	int ownedCountries = 0;
@@ -238,7 +228,7 @@ void Player::reinforce() {
 		cout << "Do you want to exchange your cards for extra reinforcement ? (y/n)" << endl;
 
 		// returns response for this strategy
-		answer = strategy->extraReinforcement();
+		answer = executeExtraReinforcement();
 
 		if (answer == "y") {
 			this->getHand()->exchange();
@@ -269,20 +259,20 @@ void Player::reinforce() {
 		cout << "\nPlease enter the number of the country you would like to reinforce" << endl;
 
 		// returns response for this strategy
-		country = strategy->countryToReinforce();
+		country = executeCountryToReinforce();
 
 		int numArmies;
 		cout << "\nEnter the number of armies you would like to place on this country" << endl;
 
 		// returns response for this strategy
-		numArmies = strategy->armiesToPlace();
+		numArmies = executeArmiesToPlace();
 
 		while (numArmies <= 0 || numArmies > numOfArmiesForReinforcement) {
 			cout << "Please enter a valid number of armies to place on this country" << endl;
 			cin >> numArmies;
 
 			// returns response for this strategy
-			numArmies = strategy->armiesToPlace(); // aggressive and benevolent players can't have an invalid input because armyAdd will always be <= armyAdd
+			numArmies = executeArmiesToPlace(); // aggressive and benevolent players can't have an invalid input because armyAdd will always be <= armyAdd
 		}
 
 		//increment the number of armies on the chosen country
@@ -308,9 +298,6 @@ void Player::attack() {
     Country* attackFrom;
     Country* countryToAttack;
     vector<int> attackerDiceValues, defenderDiceValues;
-
-	// at the beginning of every turn, ask player what strategy they want to use
-	selectTurnStrategy();
     
     cout << "\n~~~~~ Attack Phase ~~~~~\n" << endl;
     
@@ -510,9 +497,6 @@ void Player::fortify() {
     int numOfArmies = 0;
     int indexOfSourceCountry = 0;
     int indexOfTargetCountry = 0;
-
-	// at the beginning of every turn, ask player what strategy they want to use
-	selectTurnStrategy();
     
     cout << "\n~~~~~ Fortification Phase ~~~~~" << endl;
     

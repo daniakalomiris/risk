@@ -7,7 +7,6 @@
 #include <memory> //for pointer class
 
 class Strategy;
-class User;
 
 class Player {
 	public:
@@ -53,8 +52,11 @@ class Player {
 		void setStrategy(Strategy* strategy);
 		Strategy* getStrategy();
 
-		void selectTurnStrategy();
-    
+		/* methods that execute a different strategy depending on what strategy was chosen */
+		std::string executeExtraReinforcement();
+		int executeCountryToReinforce();
+		int executeArmiesToPlace();
+
 	private:
 		Dice* dice;
 		Hand* hand;
@@ -69,6 +71,8 @@ class Player {
 		int numOfArmiesForReinforcement;
        
 		Player* defender;
-        Map* map;
+        Map* map; 
+
+		// declare Strategy class
 		Strategy* strategy;
 };
