@@ -24,7 +24,21 @@ MapLoader:: MapLoader(const MapLoader &orig){
     this->continents_info = orig.continents_info;
     this->countries_info = orig.countries_info;
     this->borders_info = orig.borders_info;
+    Map* newMap = new Map();
+    this->map = newMap;
 }
+
+//assignment operator
+const MapLoader& MapLoader:: operator=(const MapLoader& m){
+    if(&m !=this) {
+        delete map;
+        Map* newMap = new Map();
+        this->map = newMap;
+    }
+    
+    return *this;
+}
+
 
 void MapLoader::readMapFile(string fileName) {
     
@@ -334,6 +348,19 @@ ConquestMapLoader:: ~ConquestMapLoader() {
 ConquestMapLoader:: ConquestMapLoader(const ConquestMapLoader &orig) {
     this->continents_info = orig.continents_info;
     this->territories_info = orig.territories_info;
+    Map* newMap = new Map();
+    this->map = newMap;
+}
+
+//assignment operator
+const ConquestMapLoader& ConquestMapLoader::operator=(const ConquestMapLoader& c) {
+    if(&c !=this) {
+           delete map;
+           Map* newMap = new Map();
+           this->map = newMap;
+       }
+       
+       return *this;
 }
 
 //read a conquest map file
@@ -426,6 +453,9 @@ void ConquestMapLoader::readConquestMapFile(string fileName) {
                 territories_info.erase(territories_info.begin() + i);
             }
         }
+        else if(temp.length() == 0) {
+                  territories_info.erase(territories_info.begin() + i);
+              }
     }
     
     
@@ -445,6 +475,9 @@ void ConquestMapLoader::readConquestMapFile(string fileName) {
             if(isspace(empty)) {
                 continents_info.erase(continents_info.begin() + i);
             }
+        }
+        else if(temp.length() == 0) {
+             continents_info.erase(continents_info.begin() + i);
         }
     }
     
@@ -496,6 +529,7 @@ void ConquestMapLoader::createConquestMap() {
     
     //sets the data from the map file to the continent object
     continent->setContinentName(temp[0]);
+
     continent->setNumberOfArmies(stoi (temp[1]));
 
     

@@ -75,7 +75,7 @@ class AdapterConquestMaploader: public MapLoader {
     //copy constructor
     AdapterConquestMaploader(const AdapterConquestMaploader &orig);
     
-    const AdapterConquestMaploader &operator=(const AdapterConquestMaploader &a);
+ const AdapterConquestMaploader &operator=(const AdapterConquestMaploader &a);
     
     void readMapFile(std::string fileName);
     void createMap();
