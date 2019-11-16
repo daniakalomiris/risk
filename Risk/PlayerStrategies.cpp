@@ -113,6 +113,11 @@ string User::countryToFortify(Player* player) {
 	return input;
 }
 
+// human players choose when to exchange
+bool User::exchangeAutom() {
+	return false;
+}
+
 // constructor and destructor for ConcreteStrategy for aggressive computer player
 Aggressive::Aggressive() {
 }
@@ -239,6 +244,11 @@ string Aggressive::countryToFortify(Player* player) {
 	return player->getThisPlayerCountries().at(max)->getCountryName(); // returning the country number with the most armies
 }
 
+// computer players always exchange
+bool Aggressive::exchangeAutom() {
+	return true;
+}
+
 // constructor and destructor for ConcreteStrategy for benevolent computer player
 Benevolent::Benevolent() {
 }
@@ -339,4 +349,9 @@ string Benevolent::countryToFortify(Player* player) {
 	}
 
 	return player->getThisPlayerCountries().at(min)->getCountryName(); // returning the country number with the most armies
+}
+
+// computer players always exchange
+bool Benevolent::exchangeAutom() {
+	return true;
 }

@@ -68,6 +68,8 @@ class Player {
 		int executeArmiesToFortify(int sourceCountryArmies);
 		std::string executeCountryToFortify();
 
+		bool executeExchangeAutom();
+
 	private:
 		Dice* dice;
 		Hand* hand;

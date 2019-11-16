@@ -244,7 +244,3 @@ void selectStrategy() {
 			player->setStrategy(benevolent);
 	}*/
 }
-
-void setUpGame() {
-
-}

@@ -141,8 +141,8 @@ bool Player:: checkControlContinents() {
 }
 
 void Player::setThisPlayerCountry(Country* country) {
-    countries.push_back(country);
-}
+	countries.push_back(country);
+} 
 
 void Player::setMap(Map* map) {
     this->map = map;
@@ -207,6 +207,10 @@ int Player::executeArmiesToFortify(int sourceCountryArmies) {
 string Player::executeCountryToFortify() {
 	return strategy->countryToFortify(this);
 }
+
+bool Player::executeExchangeAutom() {
+	return strategy->exchangeAutom();
+}
  
 //reinforce phase
 void Player::reinforce() {
@@ -248,13 +252,18 @@ void Player::reinforce() {
 	if (hand->getCardsInHand().size() > 5) {
 
 		cout << "\nSince there is more than 5 cards in your hand, you must exchange them." << endl;
+
+		this->getHand()->setAutom(executeExchangeAutom()); // assign strategy to exchange method
 		this->getHand()->exchange();
+
 		armyHand = this->getHand()->getNumberOfArmiesToPlace();
 		numOfArmiesForReinforcement += armyHand;
 
 		//if the size of the hand is greater than 5 cards, keep asking the player to exchange cards
 		while (hand->getCardsInHand().size() > 5) {
 			cout << "\n\n ****** You didn't exchange enough cards, you still have more than 5 cards in your hand. You need to exchange your cards. ******" << endl;
+			
+			this->getHand()->setAutom(executeExchangeAutom()); // assign strategy to exchange method
 			this->getHand()->exchange();
 			armyHand = this->getHand()->getNumberOfArmiesToPlace();
 			numOfArmiesForReinforcement += armyHand;
@@ -267,6 +276,7 @@ void Player::reinforce() {
 		answer = executeExtraReinforcement();
 
 		if (answer == "y") {
+			this->getHand()->setAutom(executeExchangeAutom()); // assign strategy to exchange method
 			this->getHand()->exchange();
 			armyHand += hand->getNumberOfArmiesToPlace();
 			numOfArmiesForReinforcement += armyHand;
