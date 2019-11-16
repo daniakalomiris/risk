@@ -2,7 +2,7 @@
 #include <list>
 using namespace std;
 
-class Player;
+class GameEngine;
 
 class Observer {
 
@@ -33,20 +33,20 @@ private:
 
 };
 
-//Concrete subject is the player class, please go see player.h
+//Concrete subject is the GameEngine class, please go see GameEngine.h
 
 //Concrete observer for reinforce phase 
 class RObs : public Observer {
 
 public:
 	RObs();
-	RObs(Player* s);
+	RObs(GameEngine* s);
 	~RObs();
 	void Update();
 	void display();
 
 private:
-	Player* subject;
+	GameEngine* subject;
 };
 
 //Concrete observer for attack phase 
@@ -54,24 +54,24 @@ class AObs : public Observer {
 
 public:
 	AObs();
-	AObs(Player* s);
+	AObs(GameEngine* s);
 	~AObs();
 	void Update();
 	void display();
 
 private:
-	Player* subject;
+	GameEngine* subject;
 };
 
 //Concrete observer for fortify phase 
 class FObs : public Observer {
 public:
 	FObs();
-	FObs(Player* s);
+	FObs(GameEngine* s);
 	~FObs();
 	void Update();
 	void display();
 
 private:
-	Player* subject;
+	GameEngine* subject;
 };

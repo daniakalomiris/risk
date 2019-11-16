@@ -281,7 +281,7 @@ void Player::reinforce() {
     }
     
     cout << "\n\n~~~~~ End of the reinforce phase for player " << this->getName() << " ~~~~~" << endl;
-	Notify();
+	
 }
 
 // attack method
@@ -469,7 +469,7 @@ void Player::attack() {
     };
     
     cout << "Player " << this->getID() << "'s attack phase is over." << endl;
-	Notify();
+
 }
 
 //fortify method
@@ -689,5 +689,5 @@ void Player::fortify() {
         
     }
     }
-	Notify();
+
 }

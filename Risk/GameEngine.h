@@ -5,7 +5,8 @@
 #include "Map.h"
 #include "MapLoader.h"
 #include "Cards.h"
-class GameEngine {
+#include "GameObservers.h"
+class GameEngine: public Subject{
     
 private:
     std::unique_ptr<int> numberOfPlayers;

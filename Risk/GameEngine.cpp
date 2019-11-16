@@ -5,9 +5,7 @@
 #include "time.h"
 #include <random>
 #include <chrono>
-//using std::cout;
-//using std::endl;
-//using std::cin;
+
 using namespace std;
 
 //maximum and minimum number of players that can play the game
@@ -418,8 +416,11 @@ void GameEngine:: mainGameLoop() {
             
             //make the player reinforce, attack and fortify
             this->getAllPlayers().at(i)->reinforce();
+			Notify();
             this->getAllPlayers().at(i)->attack();
+			Notify();
             this->getAllPlayers().at(i)->fortify();
+			Notify();
             
             
             //check if a player owns all the countries

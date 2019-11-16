@@ -1,4 +1,4 @@
-#include "Player.h"
+#include "GameEngine.h"
 #include "GameObservers.h"
 #include <iostream>
 using namespace std;
@@ -9,6 +9,7 @@ Observer::Observer() {
 
 Observer::~Observer() {
 }
+
 // ------------------ SUBJECT CLASS -----------
 Subject::Subject() {
 	observers = new list<Observer*>;
@@ -35,7 +36,7 @@ void Subject::Notify() {
 
 
 // ------------- Concrete Subject ------------
-//  The concrete Subjet is actually the Player class, slight modifications were done to notify the observers
+//  The concrete Subjet is actually the GameEngine class, slight modifications were done to notify the observers
 
 
 
@@ -44,19 +45,19 @@ void Subject::Notify() {
 RObs::RObs() {
 }
 
-RObs::RObs(Player* s) {
-	//When object is instantiated, it attaches itself to a player
+RObs::RObs(GameEngine* s) {
+	//When object is instantiated, it attaches itself to a GameEngine
 	subject = s;
 	subject->Attach(this);
 }
 
 RObs::~RObs() {
-	//When a player is destroyed, it must detache itself from it 
+	//When a GameEngine is destroyed, it must detache itself from it 
 	subject->Detach(this);
 }
 
 void RObs::Update() {
-	//This methid is called by Notify from Subject when a state from Player changes
+	//This methid is called by Notify from Subject when a state from GameEngine changes
 	display();
 }
 
@@ -78,19 +79,19 @@ void RObs::display() {
 AObs::AObs() {
 }
 
-AObs::AObs(Player* s) {
-	//When object is instantiated, it attaches itself to a player
+AObs::AObs(GameEngine* s) {
+	//When object is instantiated, it attaches itself to a GameEngine
 	subject = s;
 	subject->Attach(this);
 }
 
 AObs::~AObs() {
-	//When a player is destroyed, it must detache itself from it 
+	//When a GameEngine is destroyed, it must detache itself from it 
 	subject->Detach(this);
 }
 
 void AObs::Update() {
-	//This methid is called by Notify from Subject when a state from Player changes
+	//This methid is called by Notify from Subject when a state from GameEngine changes
 	display();
 }
 
@@ -103,17 +104,17 @@ void AObs::display() {
 FObs::FObs() {
 }
 
-FObs::FObs(Player* s) {
-	//When object is instantiated, it attaches itself to a player
+FObs::FObs(GameEngine* s) {
+	//When object is instantiated, it attaches itself to a GameEngine
 	subject = s;
 	subject->Attach(this);
 }
 FObs::~FObs() {
-	//When a player is destroyed, it must detache itself from it 
+	//When a GameEngine is destroyed, it must detache itself from it 
 	subject->Detach(this);
 }
 void FObs::Update() {
-	//This methid is called by Notify from Subject when a state from Player changes
+	//This methid is called by Notify from Subject when a state from GameEngine changes
 	display();
 }
 void FObs::display() {

@@ -6,13 +6,14 @@ using namespace std;
 
 int main() {
 
+	//create a new GameEngine
 	GameEngine* theGame = new GameEngine();
 	theGame->createMap();
 	theGame->askNumberOfPlayers();
 	theGame->createPlayers();
 	theGame->assignCountriesToPlayers();
 	theGame->displayCountriesOfPlayers();
-
+	 
 
 	//assign 5 armies to all countries of each player, just for testing
 	for (int i = 0; i < theGame->getAllPlayers().size(); i++) {
@@ -23,19 +24,15 @@ int main() {
 		}
 	}
 
-	//Create a player to be the subject
-	Player* player = new Player();
-
-	//Create RObs that will be connected to the player
-	RObs* robs = new RObs(player);
-	//Create AObs that will be connected to the player
-	AObs* aobs = new AObs(player);
-	//Create FObs that will be connected to the player
-	FObs* fobs = new FObs(player);
-
-	player->reinforce();
-	//player->attack();
-	//player->fortify();
+	//Create RObs that will be connected to the GameEngine
+	RObs* robs = new RObs(theGame);
+	//Create AObs that will be connected to the GameEngine
+	AObs* aobs = new AObs(theGame);
+	//Create FObs that will be connected to the GameEngine
+	FObs* fobs = new FObs(theGame);
+	
+	theGame->mainGameLoop();
+	
 
 	delete theGame;
 	theGame = NULL;
