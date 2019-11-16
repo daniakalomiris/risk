@@ -24,8 +24,8 @@ MapLoader:: MapLoader(const MapLoader &orig){
     this->continents_info = orig.continents_info;
     this->countries_info = orig.countries_info;
     this->borders_info = orig.borders_info;
-    Map* newMap = new Map();
-    this->map = newMap;
+    this->map = new Map();
+    *map = *orig.map;
 }
 
 //assignment operator
@@ -348,8 +348,8 @@ ConquestMapLoader:: ~ConquestMapLoader() {
 ConquestMapLoader:: ConquestMapLoader(const ConquestMapLoader &orig) {
     this->continents_info = orig.continents_info;
     this->territories_info = orig.territories_info;
-    Map* newMap = new Map();
-    this->map = newMap;
+      this->map = new Map();
+      *map = *orig.map;
 }
 
 //assignment operator
