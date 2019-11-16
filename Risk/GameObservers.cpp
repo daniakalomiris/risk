@@ -1,6 +1,7 @@
 #include "GameEngine.h"
 #include "GameObservers.h"
 #include <iostream>
+#include <string>
 using namespace std;
 
 //-------------- OBSERVER CLASS ----------------
@@ -12,24 +13,24 @@ Observer::~Observer() {
 
 // ------------------ SUBJECT CLASS -----------
 Subject::Subject() {
-	observers = new list<Observer*>;
+    observers = new list<Observer*>;
 }
 Subject::~Subject() {
-	delete observers;
+    delete observers;
 }
 void Subject::Attach(Observer* o) {
-	observers->push_back(o);
+    observers->push_back(o);
 }
 
 void Subject::Detach(Observer* o) {
-	observers->remove(o);
+    observers->remove(o);
 }
 void Subject::Notify() {
-	list<Observer*>::iterator i = observers->begin();
+    list<Observer*>::iterator i = observers->begin();
 
-	for (; i != observers->end(); ++i) {
-		(*i)->Update();
-	}
+    for (; i != observers->end(); ++i) {
+        (*i)->Update();
+    }
 }
 
 
@@ -41,84 +42,70 @@ void Subject::Notify() {
 
 
 //-------------- CONCRETE OBSERVERS ----------
-//---------------------Concrete observer for reinforce phase 
-RObs::RObs() {
+//---------------------Concrete observer for PlayerDominationView observer
+PlayerDominationView::PlayerDominationView(){
+    
+}
+PlayerDominationView::PlayerDominationView(GameEngine* s) {
+    //When object is instantiated, it attaches itself to a GameEngine
+    subject = s;
+    subject->Attach(this);
 }
 
-RObs::RObs(GameEngine* s) {
-	//When object is instantiated, it attaches itself to a GameEngine
-	subject = s;
-	subject->Attach(this);
+PlayerDominationView::~PlayerDominationView() {
+    //When a GameEngine is destroyed, it must detache itself from it
+    subject->Detach(this);
 }
 
-RObs::~RObs() {
-	//When a GameEngine is destroyed, it must detache itself from it 
-	subject->Detach(this);
+void PlayerDominationView::Update() {
+    //This methid is called by Notify from Subject when a state from GameEngine changes
+    display();
 }
 
-void RObs::Update() {
-	//This methid is called by Notify from Subject when a state from GameEngine changes
-	display();
-}
-
-void RObs::display() {
-	int id = subject->getID();
-	int numArmy3 = subject->getNumArmy3();
-	int numArmy1 = subject->getNumArmy1();
-	int numArmy2 = subject->getNumArmy2();
-	int armyAdd = numArmy1 + numArmy2 + numArmy3;
-	cout << "Player " << id << ": Reinfore Phase." << endl;
-	cout << "Number of armies for controlled countries: " << numArmy1 << endl;
-	cout << "Number of armies for controlled continents: " << numArmy2 << endl;
-	cout << "Number of armies added by exchanging cards is " << numArmy3 << "." << endl;
-	cout << "In total, " << armyAdd << " armies can be added for reinforcement." << endl;
-
-}
-
-//---------------------Concrete observer for attack phase 
-AObs::AObs() {
-}
-
-AObs::AObs(GameEngine* s) {
-	//When object is instantiated, it attaches itself to a GameEngine
-	subject = s;
-	subject->Attach(this);
-}
-
-AObs::~AObs() {
-	//When a GameEngine is destroyed, it must detache itself from it 
-	subject->Detach(this);
-}
-
-void AObs::Update() {
-	//This methid is called by Notify from Subject when a state from GameEngine changes
-	display();
-}
-
-void AObs::display() {
-	int id = subject->getID();
-	cout << "Player " << id << ": Attack Phase." << endl;
-}
-
-//---------------------Concrete observer for fortify phase 
-FObs::FObs() {
-}
-
-FObs::FObs(GameEngine* s) {
-	//When object is instantiated, it attaches itself to a GameEngine
-	subject = s;
-	subject->Attach(this);
-}
-FObs::~FObs() {
-	//When a GameEngine is destroyed, it must detache itself from it 
-	subject->Detach(this);
-}
-void FObs::Update() {
-	//This methid is called by Notify from Subject when a state from GameEngine changes
-	display();
-}
-void FObs::display() {
-	int id = subject->getID();
-	cout << "Player " << id << ": Fortify Phase." << endl;
+void PlayerDominationView::display() {
+    
+    //total number of players
+    int numPlayers = subject->getNumberOfPlayers();
+    
+//    //vector of all player names
+//    vector<string> playerNames;
+//
+//    //vector of number of countries owned by each player
+//    vector<int> countriesPlayers;
+    
+   //total number of countries
+    int numOfCountries = subject->getMap()->getCountries().size();
+    
+    //dislpays table
+    cout << "Player Name \t Countries owned\t % of wordl owned" << endl;
+    
+    //iterates through all players
+    for(int i=0; i<numPlayers; i++){
+        
+        //players names
+        string playerName = subject->getAllPlayers().at(i)->getName();
+       
+        //number of countries per player
+        int playerNumCountries = subject->getAllPlayers().at(i)->getThisPlayerCountries().size();
+        
+        //percentage of world owned per player
+        double percentageOwned = (playerNumCountries/numOfCountries)*100;
+        
+        //output data of each player
+        cout << playerName <<"\t" << playerNumCountries << "\t" <<  percentageOwned << endl;
+        
+//        //push names and countries
+//        playerNames.push_back(playerName);
+//        countriesPlayers.push_back(playerNumCountries);
+        
+        
+    }
+    
+   
+    
+    
 
 }
+
+
+
