@@ -1,6 +1,4 @@
-#ifndef PLAYER_H
-#define PLAYER_H
-
+#pragma once
 #include "Dice.h"
 #include "Cards.h"
 #include "Map.h" 
@@ -72,5 +70,3 @@ class Player {
         Map* map;
 		Strategy* strategy;
 };
-
-#endif

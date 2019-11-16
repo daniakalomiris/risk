@@ -1,15 +1,13 @@
-#ifndef PLAYERSTRATEGIES_H
-#define PLAYERSTRATEGIES_H
-
-#include "Player.h"
+#pragma once
 #include <string>
 #include <memory>
 
-class Strategy;
+class Player; 
 
 class Human;
 class Aggressive;
 class Benevolent;
+
 
 class Strategy {
 	public:
@@ -81,7 +79,5 @@ class Benevolent : public Strategy {
 	private:
 		Player* player;
 };
-
-#endif
 
 

@@ -1,6 +1,6 @@
 //Driver class to test the player object
 #include <iostream>
-
+#include "Player.h"
 #include "Map.h"
 using namespace std;
 
