@@ -147,7 +147,7 @@ int Aggressive::countryToReinforce(Player* player) {
 	// set max country to be first index in the list of player's countries
 	int max = 0;
 
-	for (int i = 1; i < player->getThisPlayerCountries().size(); i++) {
+	for (unsigned int i = 1; i < player->getThisPlayerCountries().size(); i++) {
 		if (player->getThisPlayerCountries().at(i)->getNumberOfArmies() > player->getThisPlayerCountries().at(max)->getNumberOfArmies()) {
 			max = i; // assigning the index of the vector
 		}
@@ -171,7 +171,7 @@ int Aggressive::attackFrom(Player* player) {
 	// set max country to be first index in the list of player's countries
 	int max = 0;
 
-	for (int i = 1; i < player->getThisPlayerCountries().size(); i++) {
+	for (unsigned int i = 1; i < player->getThisPlayerCountries().size(); i++) {
 		if (player->getThisPlayerCountries().at(i)->getNumberOfArmies() > player->getThisPlayerCountries().at(max)->getNumberOfArmies()) {
 			max = i; // assigning the index of the vector
 		}
@@ -215,7 +215,7 @@ string Aggressive::countryToFortifyFrom(Player* player) {
 	// set min country to be first index in the list of player's countries
 	int min = 0;
 
-	for (int i = 0; i < player->getThisPlayerCountries().size(); i++) {
+	for (unsigned int i = 0; i < player->getThisPlayerCountries().size(); i++) {
 		if (player->getThisPlayerCountries().at(min)->getNumberOfArmies() > player->getThisPlayerCountries().at(i)->getNumberOfArmies()) {
 			min = i; // assigning the index of the vector
 		}
@@ -235,7 +235,7 @@ string Aggressive::countryToFortify(Player* player) {
 	// set max country to be first index in the list of player's countries
 	int max = 0;
 
-	for (int i = 1; i < player->getThisPlayerCountries().size(); i++) {
+	for (unsigned int i = 1; i < player->getThisPlayerCountries().size(); i++) {
 		if (player->getThisPlayerCountries().at(i)->getNumberOfArmies() > player->getThisPlayerCountries().at(max)->getNumberOfArmies()) {
 			max = i; // assigning the index of the vector
 		}
@@ -278,7 +278,7 @@ int Benevolent::countryToReinforce(Player* player) {
 	// set min country to be first index in the list of player's countries
 	int min = 0;
 
-	for (int i = 0; i < player->getThisPlayerCountries().size(); i++) {
+	for (unsigned int i = 0; i < player->getThisPlayerCountries().size(); i++) {
 		if (player->getThisPlayerCountries().at(min)->getNumberOfArmies() > player->getThisPlayerCountries().at(i)->getNumberOfArmies()) {
 			min = i; // assigning the index of the vector
 		}
@@ -323,7 +323,7 @@ string Benevolent::countryToFortifyFrom(Player* player) {
 	// set max country to be first index in the list of player's countries
 	int max = 0;
 
-	for (int i = 1; i < player->getThisPlayerCountries().size(); i++) {
+	for (unsigned int i = 1; i < player->getThisPlayerCountries().size(); i++) {
 		if (player->getThisPlayerCountries().at(i)->getNumberOfArmies() > player->getThisPlayerCountries().at(max)->getNumberOfArmies()) {
 			max = i; // assigning the index of the vector
 		}
@@ -342,7 +342,7 @@ string Benevolent::countryToFortify(Player* player) {
 	// set min country to be first index in the list of player's countries
 	int min = 0;
 
-	for (int i = 0; i < player->getThisPlayerCountries().size(); i++) {
+	for (unsigned int i = 0; i < player->getThisPlayerCountries().size(); i++) {
 		if (player->getThisPlayerCountries().at(min)->getNumberOfArmies() > player->getThisPlayerCountries().at(i)->getNumberOfArmies()) {
 			min = i; // assigning the index of the vector
 		}

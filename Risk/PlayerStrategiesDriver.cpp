@@ -172,17 +172,17 @@ int main() {
 	player2->getHand()->setCardInHand(card3);
 
 	/* reinforcement phase with Strategy pattern */
-	cout << "Reinforcement Phase" << endl;
+	cout << "\n--- Reinforcement Phase ---" << endl;
 	selectStrategy(player); // player can choose which strategy to use before each play
 	player->reinforce();  
 
 	/* attack phase with Strategy pattern */
-	cout << "Attack Phase" << endl;
+	cout << "\n--- Attack Phase ---" << endl;
 	selectStrategy(player); // player can choose which strategy to use before each play
 	player->attack();
 
 	/* fortification phase with Strategy pattern */
-	cout << "Fortification Phase" << endl;
+	cout << "\n--- Fortification Phase ---" << endl;
 	selectStrategy(player); // player can choose which strategy to use before each play
 	player->fortify();
 

@@ -12,7 +12,7 @@ class Strategy {
 		Strategy();
 		~Strategy();
 		Strategy(const Strategy& orig);
-		const Strategy& operator=(const Strategy& s);
+		// const Strategy& operator=(const Strategy& s);
 
 		/* methods for reinforcement phase */
 		virtual std::string extraReinforcement() = 0;
@@ -66,7 +66,7 @@ class Aggressive : public Strategy {
 		Aggressive();
 		~Aggressive();
 		Aggressive(const Aggressive& orig);
-		const Aggressive& operator=(const Aggressive& a);
+		// const Aggressive& operator=(const Aggressive& a);
 
 		std::string extraReinforcement();
 		int countryToReinforce(Player* player);
@@ -91,7 +91,7 @@ class Benevolent : public Strategy {
 		Benevolent();
 		~Benevolent();
 		Benevolent(const Benevolent& orig);
-		const Benevolent& operator=(const Benevolent& u);
+		// const Benevolent& operator=(const Benevolent& u);
 
 		std::string extraReinforcement();
 		int countryToReinforce(Player* player);
