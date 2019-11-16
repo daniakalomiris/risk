@@ -1,5 +1,6 @@
 #include <iostream>
 #include "PlayerStrategies.h"
+#include "time.h"
 
 using namespace std;
 
@@ -64,6 +65,29 @@ string User::chooseAttack(Player* player) {
 	return input;
 }
 
+int User::attackFrom(Player* player) {
+	int input;
+	cin >> input;
+	return input;
+}
+
+int User::countryToAttack(Country* attackFrom) {
+	int input;
+	cin >> input;
+	return input;
+}
+
+int User::attackerRoll() {
+	int input;
+	cin >> input;
+	return input;
+}
+
+int User::armiesToMove(int armiesCanMove) {
+	int input;
+	cin >> input;
+	return input;
+}
 
 // constructor and destructor for ConcreteStrategy for aggressive computer player
 Aggressive::Aggressive() {
@@ -108,6 +132,50 @@ int Aggressive::armiesToPlace(Player* player) {
 	return player->getNumOfArmiesForReinforcement();
 }
 
+// aggressive player always attacks
+string Aggressive::chooseAttack(Player* player) {
+	return "Y";
+}
+
+// aggressive player attacks from country with most armies on it
+int Aggressive::attackFrom(Player* player) {
+	// set max country to be first index in the list of player's countries
+	int max = 0;
+
+	for (int i = 1; i < player->getThisPlayerCountries().size(); i++) {
+		if (player->getThisPlayerCountries().at(i)->getNumberOfArmies() > player->getThisPlayerCountries().at(max)->getNumberOfArmies()) {
+			max = i; // assigning the index of the vector
+		}
+	}
+
+	return max + 1; // returning the country number with the most armies
+}
+
+// aggressive player will attack random country from list of neighbors
+int Aggressive::countryToAttack(Country* attackFrom) {
+	
+	// reset the random value
+	srand(time(NULL));
+
+	// generates random number from 1 to the number of adjacent countries
+	return (rand() % (attackFrom->getAdjacentCountries().size()) + 1);
+}
+
+// aggressive player will roll a random number of dice
+int Aggressive::attackerRoll() {
+
+	// reset the random value
+	srand(time(NULL));
+
+	// generates random number from 1 to 3 (attack phase is in charge of verifying if 3 is not valid)
+	return (rand() % 3 + 1); 
+}
+
+// aggressive player moves all armies that they can move
+int Aggressive::armiesToMove(int armiesCanMove) {
+	return armiesCanMove;
+}
+
 // constructor and destructor for ConcreteStrategy for benevolent computer player
 Benevolent::Benevolent() {
 }
@@ -149,4 +217,25 @@ int Benevolent::countryToReinforce(Player* player) {
 // benevolent player will put all of armies that can be added to their chosen country
 int Benevolent::armiesToPlace(Player* player) {
 	return player->getNumOfArmiesForReinforcement();
+}
+
+// benevolent player never attacks (will always return n or 0)
+string Benevolent::chooseAttack(Player* player) {
+	return "n";
+}
+
+int Benevolent::attackFrom(Player* player) {
+	return 0;
+}
+
+int Benevolent::countryToAttack(Country* attackFrom) {
+	return 0;
+}
+
+int Benevolent::attackerRoll() {
+	return 0;
+}
+
+int Benevolent::armiesToMove(int armiesCanMove) {
+	return 0;
 }

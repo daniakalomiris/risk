@@ -21,6 +21,10 @@ class Strategy {
 		
 		/* methods for attack phase */
 		virtual std::string chooseAttack(Player* player) = 0;
+		virtual int attackFrom(Player* player) = 0;
+		virtual int countryToAttack(Country* attackFrom) = 0;
+		virtual int attackerRoll() = 0;
+		virtual int armiesToMove(int armiesCanMove) = 0;
 };
 
 class User : public Strategy {
@@ -35,6 +39,10 @@ class User : public Strategy {
 		int armiesToPlace(Player* player);
 
 		std::string chooseAttack(Player* player);
+		int attackFrom(Player* player);
+		int countryToAttack(Country* attackFrom);
+		int attackerRoll();
+		int armiesToMove(int armiesCanMove);
 };
 
 class Aggressive : public Strategy {
@@ -49,6 +57,10 @@ class Aggressive : public Strategy {
 		int armiesToPlace(Player* player);
 
 		std::string chooseAttack(Player* player);
+		int attackFrom(Player* player);
+		int countryToAttack(Country* attackFrom);
+		int attackerRoll();
+		int armiesToMove(int armiesCanMove);
 };
 
 class Benevolent : public Strategy {
@@ -63,6 +75,10 @@ class Benevolent : public Strategy {
 		int armiesToPlace(Player* player);
 
 		std::string chooseAttack(Player* player);
+		int attackFrom(Player* player);
+		int countryToAttack(Country* attackFrom);
+		int attackerRoll();
+		int armiesToMove(int armiesCanMove);
 };
 
 

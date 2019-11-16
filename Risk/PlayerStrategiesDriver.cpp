@@ -19,6 +19,7 @@ int main() {
 		cout << "Please select a valid strategy from the list of strategies." << endl;
 	}
 
+	/*
 	User* user = new User();
 	Aggressive* aggressive = new Aggressive();
 	Benevolent* benevolent = new Benevolent();
@@ -30,6 +31,6 @@ int main() {
 			player->setStrategy(aggressive);
 		case 3:
 			player->setStrategy(benevolent);
-	}
+	}*/
 
 }
