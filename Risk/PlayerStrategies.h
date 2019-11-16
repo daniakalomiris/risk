@@ -1,8 +1,7 @@
 #pragma once
 #include <string>
 #include <memory>
-
-class Player; 
+#include "Player.h"
 
 class Human;
 class Aggressive;

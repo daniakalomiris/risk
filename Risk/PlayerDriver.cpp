@@ -1,7 +1,7 @@
 //Driver class to test the player object
 #include <iostream>
 #include "Player.h"
-#include "Map.h"
+//#include "Map.h"
 using namespace std;
 
 //declares function that will be the drivers for part4, part5 and part 6 of assignment 2

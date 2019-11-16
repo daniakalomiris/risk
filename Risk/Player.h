@@ -1,11 +1,13 @@
 #pragma once
 #include "Dice.h"
 #include "Cards.h"
-#include "Map.h" 
-#include "PlayerStrategies.h"
+#include "Map.h"
 #include <string>
 #include <vector>
 #include <memory> //for pointer class
+
+class Strategy;
+class User;
 
 class Player {
 	public:
