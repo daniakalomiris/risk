@@ -94,12 +94,14 @@ void PlayerDominationView::display() {
         double percentageOwned = static_cast<double>(playerNumCountries)/numOfCountries*100;
         
         //output data of each player
-        cout << playerName <<"\t\t\t" << playerNumCountries << "\t\t\t" <<  percentageOwned << endl;
+        cout << playerName <<"\t\t\t" << playerNumCountries << "\t\t\t" <<  percentageOwned <<"%"<< endl;
         
 //        //push names and countries
 //        playerNames.push_back(playerName);
 //        countriesPlayers.push_back(playerNumCountries);
-        
+        if(subject->getAllPlayers().at(i)->getThisPlayerCountries().size() == subject->getMap()->getCountries().size()){
+            cout << "Congratulations! " << subject->getAllPlayers().at(i) << " has 100% of the countries!" <<endl;
+        }
         
     }
     

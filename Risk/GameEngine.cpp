@@ -236,6 +236,7 @@ void GameEngine::createPlayers() {
         setPlayer(player);
         
     }
+    Notify(); //displays when players are created even if they do not have countries yet
 }
 
 //adds players to vector of players
@@ -327,6 +328,7 @@ void GameEngine::displayCountriesOfPlayers() {
             cout << j+1 << " " << allPlayers.at(i)->getThisPlayerCountries().at(j)->getCountryName() << endl;
         }
     }
+    Notify();
 }
 
 //creates a map based on the choice of the user
@@ -427,6 +429,7 @@ void GameEngine:: mainGameLoop() {
             //check if a player owns all the countries
             if(this->getAllPlayers().at(i)->getThisPlayerCountries().size() == this->map->getCountries().size()) {
                 this->setEndGame(true);
+                Notify();
             }
             
             
