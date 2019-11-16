@@ -84,6 +84,15 @@ void Player::setNumOfArmiesAtStartUpPhase(int num) {
     numOfArmiesAtStartUpPhase.reset(new int(num));
 }
 
+int Player::getNumOfArmiesForReinforcement() {
+	return numOfArmiesForReinforcement;
+}
+
+void Player::setNumOfArmiesForReinforcement(int num) {
+	numOfArmiesForReinforcement = num;
+}
+
+
 
 //Setters
 void Player::setName(string name) {
@@ -176,7 +185,7 @@ void Player::reinforce() {
 	selectTurnStrategy();
 
     cout << "\n~~~~~ Reinforcement Phase ~~~~~\n" << endl;
-    int armyAdd = 0; //for the total number of armies to add
+	numOfArmiesForReinforcement = 0; //for the total number of armies to add
     int ownedCountries = 0;
     int ownedContinent = 0; //for the number of armies to add due to continent control
     int armyHand = 0;// for the number of armies to add due to exchanged cards
@@ -186,15 +195,15 @@ void Player::reinforce() {
     // add a minimum of 3 armies if less than 9 countries
     if ((getThisPlayerCountries().size()/3) < 3) {
         ownedCountries = 3;
-        armyAdd += ownedCountries;
+		numOfArmiesForReinforcement += ownedCountries;
     }
     
     // divide number of countries by 3 for number of armies to add
     else {
         ownedCountries += (getThisPlayerCountries().size())/ 3;
-        armyAdd += ownedCountries;
+		numOfArmiesForReinforcement += ownedCountries;
     }
-    cout << "The number of armies added by the number of controled countries is " << armyAdd << "." << endl;
+    cout << "The number of armies added by the number of controled countries is " << numOfArmiesForReinforcement << "." << endl;
     
     
     //check if the player owns continents
@@ -207,7 +216,7 @@ void Player::reinforce() {
     }
 
     cout << "The number of armies added by the number of controlled continents is " << ownedContinent << "." << endl;
-    armyAdd += ownedContinent;
+	numOfArmiesForReinforcement += ownedContinent;
     
     // cards may be exchanged or forced exchange (if more than 5) for armies for reinforcement
     if (hand->getCardsInHand().size() > 5) {
@@ -215,14 +224,14 @@ void Player::reinforce() {
         cout << "\nSince there is more than 5 cards in your hand, you must exchange them." << endl;
         this->getHand()->exchange();
         armyHand = this->getHand()->getNumberOfArmiesToPlace();
-        armyAdd += armyHand;
+		numOfArmiesForReinforcement += armyHand;
         
         //if the size of the hand is greater than 5 cards, keep asking the player to exchange cards
         while(hand->getCardsInHand().size() > 5) {
             cout << "\n\n ****** You didn't exchange enough cards, you still have more than 5 cards in your hand. You need to exchange your cards. ******" << endl;
             this->getHand()->exchange();
             armyHand = this->getHand()->getNumberOfArmiesToPlace();
-            armyAdd += armyHand;
+			numOfArmiesForReinforcement += armyHand;
         }
     }
     else {
@@ -234,7 +243,7 @@ void Player::reinforce() {
         if (answer == "y") {
             this->getHand()->exchange();
             armyHand+= hand->getNumberOfArmiesToPlace();
-            armyAdd += armyHand;
+			numOfArmiesForReinforcement += armyHand;
         }
         else {
             cout << "No cards are exchanged." << endl;
@@ -247,9 +256,9 @@ void Player::reinforce() {
     cout << "\nNumber of armies added by exchanging cards is " << armyHand << "." << endl;
     cout << "Number of armies for controlled countries: " << ownedCountries << endl;
     cout << "Number of armies for controlled continents: " << ownedContinent  << endl;
-    cout << "In total, " << armyAdd << " armies can be added for reinforcement." << endl;
+    cout << "In total, " << numOfArmiesForReinforcement << " armies can be added for reinforcement." << endl;
     
-    while(armyAdd !=0 ) {
+    while(numOfArmiesForReinforcement !=0 ) {
         
         cout << "\nThese are your countries and their number of armies" << endl;
         
@@ -258,34 +267,22 @@ void Player::reinforce() {
         }
         int country;
         cout << "\nPlease enter the number of the country you would like to reinforce" << endl;
-        cin >> country;
-		
-
-		// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		// user will decide
-		// A will select country with most armies on it (pass Player inside selectCountryToReinforce, then loop through all of getThisPlayerCountries and chose the one with MOSt getNumberOfArmies)
-		// B will select country with least countries on it (pass Player inside selectCountryToReinforce, then loop through all of getThisPlayerCountries and chose the one with LEAST getNumberOfArmies)
-
+        
+		// returns response for this strategy
+		country = strategy->countryToReinforce();
 
         int numArmies;
         cout << "\nEnter the number of armies you would like to place on this country" << endl;
-        cin >> numArmies;
-
-		// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		// user will decide
-		// A puts all of armyAdd onto that country
-		// B puts all of armyAdd onto that country
         
-        while(numArmies <= 0 || numArmies > armyAdd) {
+		// returns response for this strategy
+		numArmies = strategy->armiesToPlace();
+
+        while(numArmies <= 0 || numArmies > numOfArmiesForReinforcement) {
             cout << "Please enter a valid number of armies to place on this country" << endl;
             cin >> numArmies;
 
-			// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		// user will decide
-		// A and B can't have an invalid input because armyAdd will always be <= armyAdd
+			// returns response for this strategy
+			numArmies = strategy->armiesToPlace(); // aggressive and benevolent players can't have an invalid input because armyAdd will always be <= armyAdd
         }
         
         //increment the number of armies on the chosen country
@@ -293,10 +290,10 @@ void Player::reinforce() {
         getThisPlayerCountries().at(country-1)->setNumberOfArmies(newNumArmies);
         
         //decrement the number of army to add
-        armyAdd = armyAdd - numArmies;
+		numOfArmiesForReinforcement = numOfArmiesForReinforcement - numArmies;
         
         cout << "The country " << getThisPlayerCountries().at(country-1)->getCountryName() << " has now " << getThisPlayerCountries().at(country-1)->getNumberOfArmies() << " armies" << endl;
-        cout << "You still have " << armyAdd << " armies to place" << endl;
+        cout << "You still have " << numOfArmiesForReinforcement << " armies to place" << endl;
         
     }
     

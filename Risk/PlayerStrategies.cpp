@@ -82,12 +82,24 @@ const User& User::operator=(const User& u) {
 }
 
 // all user inputs are chosen by the player
-
 string User::extraReinforcement() {
 	string input;
 	cin >> input;
 	return input;
 }
+
+int User::countryToReinforce() {
+	int input;
+	cin >> input;
+	return input;
+}
+
+int User::armiesToPlace() {
+	int input;
+	cin >> input;
+	return input;
+}
+
 
 // constructor and destructor for ConcreteStrategy for aggressive computer player
 Aggressive::Aggressive(Player* player) : Strategy(player) {
@@ -128,9 +140,29 @@ const Aggressive& Aggressive::operator=(const Aggressive& a) {
 	}
 }
 
-// aggressive computer player will always exchange again
+// aggressive player will always exchange again
 string Aggressive::extraReinforcement() {
 	return "y";
+}
+
+// aggressive playyer will select country with most armies on it
+int Aggressive::countryToReinforce() {
+	
+	// set max country to be first index in the list of player's countries
+	int max = 0;
+
+	for (int i = 1; i < player->getThisPlayerCountries().size(); i++) {
+		if (player->getThisPlayerCountries().at(i)->getNumberOfArmies() > player->getThisPlayerCountries().at(max)->getNumberOfArmies()) {
+			max = i; // assigning the index of the vector
+		}
+	}
+
+	return max + 1; // returning the country number with the most armies
+}
+
+// aggressive player will put all of armies that can be added to their chosen country
+int Aggressive::armiesToPlace() {
+	return player->getNumOfArmiesForReinforcement();
 }
 
 // constructor and destructor for ConcreteStrategy for benevolent computer player
@@ -175,4 +207,24 @@ const Benevolent& Benevolent::operator=(const Benevolent& b) {
 // benevolent computer player will always exchange again
 string Benevolent::extraReinforcement() {
 	return "y";
+}
+
+// benevolent playyer will select country with least armies on it
+int Benevolent::countryToReinforce() {
+
+	// set min country to be first index in the list of player's countries
+	int min = 0;
+
+	for (int i = 0; i < player->getThisPlayerCountries().size(); i++) {
+		if (player->getThisPlayerCountries().at(min)->getNumberOfArmies() > player->getThisPlayerCountries().at(i)->getNumberOfArmies()) {
+			min = i; // assigning the index of the vector
+		}
+	}
+
+	return min + 1; // returning the country number with the least armies
+}
+
+// benevolent player will put all of armies that can be added to their chosen country
+int Aggressive::armiesToPlace() {
+	return player->getNumOfArmiesForReinforcement();
 }

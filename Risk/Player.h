@@ -33,6 +33,9 @@ class Player {
         int getNumOfArmiesAtStartUpPhase();
         void setNumOfArmiesAtStartUpPhase(int num);
 
+		int getNumOfArmiesForReinforcement();
+		void setNumOfArmiesForReinforcement(int num);
+
 		//attack, fortify, reinforce methods
 		void attack();
 		void fortify();
@@ -61,6 +64,7 @@ class Player {
         std::vector<Country*> countries;
         std:: vector<Continent*> thisPlayerContinents;
         std::unique_ptr<int> numOfArmiesAtStartUpPhase;
+		int numOfArmiesForReinforcement;
        
 		Player* defender;
         Map* map;

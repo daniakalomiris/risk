@@ -16,6 +16,7 @@ class Strategy {
 
 		virtual string extraReinforcement() = 0;
 		virtual int countryToReinforce() = 0;
+		virtual int armiesToPlace() = 0;
 
 	private:
 		Player* player;
@@ -30,6 +31,7 @@ class User : public Strategy {
 
 		std::string extraReinforcement();
 		int countryToReinforce();
+		int armiesToPlace();
 
 	private:
 		Player* player;
@@ -45,6 +47,7 @@ class Aggressive : public Strategy {
 
 		std::string extraReinforcement();
 		int countryToReinforce();
+		int armiesToPlace();
 
 	private:
 		Player* player;
@@ -59,6 +62,7 @@ class Benevolent : public Strategy {
 
 		std::string extraReinforcement();
 		int countryToReinforce();
+		int armiesToPlace();
 
 	private:
 		Player* player;
