@@ -205,8 +205,7 @@ void Player::reinforce() {
             ownedContinent = ownedContinent + getThisPlayerContinents().at(i)->getNumberOfArmies();
         }
     }
-    
-    
+
     cout << "The number of armies added by the number of controlled continents is " << ownedContinent << "." << endl;
     armyAdd += ownedContinent;
     
@@ -228,15 +227,10 @@ void Player::reinforce() {
     }
     else {
         cout << "Do you want to exchange your cards for extra reinforcement ? (y/n)" << endl;
-        cin >> answer;
-
-
-		// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		// user will decide
-		// A and B will say yes
-		 
-        
+		
+		// returns response for this strategy
+		answer = strategy->extraReinforcement();
+     
         if (answer == "y") {
             this->getHand()->exchange();
             armyHand+= hand->getNumberOfArmiesToPlace();
@@ -265,6 +259,7 @@ void Player::reinforce() {
         int country;
         cout << "\nPlease enter the number of the country you would like to reinforce" << endl;
         cin >> country;
+		
 
 		// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -290,7 +285,7 @@ void Player::reinforce() {
 			// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		// user will decide
-		// 
+		// A and B can't have an invalid input because armyAdd will always be <= armyAdd
         }
         
         //increment the number of armies on the chosen country
