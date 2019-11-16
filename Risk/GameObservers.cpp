@@ -62,16 +62,16 @@ void RObs::Update() {
 }
 
 void RObs::display() {
-	int id = subject->getID();
-	int numArmy3 = subject->getNumArmy3();
-	int numArmy1 = subject->getNumArmy1();
-	int numArmy2 = subject->getNumArmy2();
-	int armyAdd = numArmy1 + numArmy2 + numArmy3;
-	cout << "Player " << id << ": Reinfore Phase." << endl;
-	cout << "Number of armies for controlled countries: " << numArmy1 << endl;
-	cout << "Number of armies for controlled continents: " << numArmy2 << endl;
-	cout << "Number of armies added by exchanging cards is " << numArmy3 << "." << endl;
-	cout << "In total, " << armyAdd << " armies can be added for reinforcement." << endl;
+	//int id = subject->getID();
+	//int numArmy3 = subject->getNumArmy3();
+	//int numArmy1 = subject->getNumArmy1();
+	//int numArmy2 = subject->getNumArmy2();
+	//int armyAdd = numArmy1 + numArmy2 + numArmy3;
+	//cout << "Player " << id << ": Reinfore Phase." << endl;
+	//cout << "Number of armies for controlled countries: " << numArmy1 << endl;
+	//cout << "Number of armies for controlled continents: " << numArmy2 << endl;
+	//cout << "Number of armies added by exchanging cards is " << numArmy3 << "." << endl;
+	//cout << "In total, " << armyAdd << " armies can be added for reinforcement." << endl;
 
 }
 
@@ -96,8 +96,8 @@ void AObs::Update() {
 }
 
 void AObs::display() {
-	int id = subject->getID();
-	cout << "Player " << id << ": Attack Phase." << endl;
+	//int id = subject->getID();
+	//cout << "Player " << id << ": Attack Phase." << endl;
 }
 
 //---------------------Concrete observer for fortify phase 
@@ -118,7 +118,7 @@ void FObs::Update() {
 	display();
 }
 void FObs::display() {
-	int id = subject->getID();
-	cout << "Player " << id << ": Fortify Phase." << endl;
+	/*int id = subject->getID();
+	cout << "Player " << id << ": Fortify Phase." << endl;*/
 
 }
