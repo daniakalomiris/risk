@@ -1,7 +1,9 @@
-#pragma once
+#ifndef PLAYER_H
+#define PLAYER_H
+
 #include "Dice.h"
 #include "Cards.h"
-#include "Map.h"
+#include "Map.h" 
 #include "PlayerStrategies.h"
 #include <string>
 #include <vector>
@@ -70,3 +72,5 @@ class Player {
         Map* map;
 		Strategy* strategy;
 };
+
+#endif

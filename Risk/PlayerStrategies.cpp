@@ -100,6 +100,12 @@ int User::armiesToPlace() {
 	return input;
 }
 
+string User::chooseAttack() {
+	string input;
+	cin >> input;
+	return input;
+}
+
 
 // constructor and destructor for ConcreteStrategy for aggressive computer player
 Aggressive::Aggressive(Player* player) : Strategy(player) {
@@ -225,6 +231,6 @@ int Benevolent::countryToReinforce() {
 }
 
 // benevolent player will put all of armies that can be added to their chosen country
-int Aggressive::armiesToPlace() {
+int Benevolent::armiesToPlace() {
 	return player->getNumOfArmiesForReinforcement();
 }

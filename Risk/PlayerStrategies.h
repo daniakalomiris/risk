@@ -1,7 +1,11 @@
-#pragma once
+#ifndef PLAYERSTRATEGIES_H
+#define PLAYERSTRATEGIES_H
+
 #include "Player.h"
 #include <string>
 #include <memory>
+
+class Strategy;
 
 class Human;
 class Aggressive;
@@ -14,9 +18,13 @@ class Strategy {
 		Strategy(const Strategy& orig);
 		const Strategy& operator=(const Strategy& s);
 
-		virtual string extraReinforcement() = 0;
+		/* methods for reinforcement phase */
+		virtual std::string extraReinforcement() = 0;
 		virtual int countryToReinforce() = 0;
 		virtual int armiesToPlace() = 0;
+		
+		/* methods for attack phase */
+		virtual std::string chooseAttack() = 0;
 
 	private:
 		Player* player;
@@ -32,6 +40,8 @@ class User : public Strategy {
 		std::string extraReinforcement();
 		int countryToReinforce();
 		int armiesToPlace();
+
+		std::string chooseAttack();
 
 	private:
 		Player* player;
@@ -49,6 +59,8 @@ class Aggressive : public Strategy {
 		int countryToReinforce();
 		int armiesToPlace();
 
+		std::string chooseAttack();
+
 	private:
 		Player* player;
 };
@@ -64,10 +76,12 @@ class Benevolent : public Strategy {
 		int countryToReinforce();
 		int armiesToPlace();
 
+		std::string chooseAttack();
+
 	private:
 		Player* player;
 };
 
-
+#endif
 
 
