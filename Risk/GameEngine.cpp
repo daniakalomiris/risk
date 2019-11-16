@@ -314,6 +314,7 @@ void GameEngine::assignCountriesToPlayers() {
             countriesAlreadyAssigned.push_back(randomCountry);
         }
     }
+    Notify(); //Notify PlayerDomination when countries are initially assigned to players to display original stats
     
 }
 
