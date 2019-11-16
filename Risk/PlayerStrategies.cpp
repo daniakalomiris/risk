@@ -64,22 +64,22 @@ User::User(const User& orig) : Strategy(orig) {
 }
 
 // overloading assignment operator
-const User& User::operator=(const User& u) {
-	if (this == &u) {
-		return *this;
-	}
-
-	delete player;
-
-	if (u.player) {
-		player = new Player();
-		player->setMap(u.player->getMap());
-		player->setName(u.player->getName());
-	}
-	else {
-		player = NULL;
-	}
-}
+//const User& User::operator=(const User& u) {
+//	if (this == &u) {
+//		return *this;
+//	}
+//
+//	delete player;
+//
+//	if (u.player) {
+//		player = new Player();
+//		player->setMap(u.player->getMap());
+//		player->setName(u.player->getName());
+//	}
+//	else {
+//		player = NULL;
+//	}
+//}
 
 // all user inputs are chosen by the player
 string User::extraReinforcement() {
@@ -129,22 +129,22 @@ Aggressive::Aggressive(const Aggressive& orig) : Strategy(orig) {
 }
 
 // overloading assignment operator
-const Aggressive& Aggressive::operator=(const Aggressive& a) {
-	if (this == &a) {
-		return *this;
-	}
-
-	delete player;
-
-	if (a.player) {
-		player = new Player();
-		player->setMap(a.player->getMap());
-		player->setName(a.player->getName());
-	}
-	else {
-		player = NULL;
-	}
-}
+//const Aggressive& Aggressive::operator=(const Aggressive& a) {
+//	if (this == &a) {
+//		return *this;
+//	}
+//
+//	delete player;
+//
+//	if (a.player) {
+//		player = new Player();
+//		player->setMap(a.player->getMap());
+//		player->setName(a.player->getName());
+//	}
+//	else {
+//		player = NULL;
+//	}
+//}
 
 // aggressive player will always exchange again
 string Aggressive::extraReinforcement() {
@@ -193,22 +193,22 @@ Benevolent::Benevolent(const Benevolent& orig) : Strategy(orig) {
 }
 
 // overloading assignment operator
-const Benevolent& Benevolent::operator=(const Benevolent& b) {
-	if (this == &b) {
-		return *this;
-	}
-
-	delete player;
-
-	if (b.player) {
-		player = new Player();
-		player->setMap(b.player->getMap());
-		player->setName(b.player->getName());
-	}
-	else {
-		player = NULL;
-	}
-}
+//const Benevolent& Benevolent::operator=(const Benevolent& b) {
+//	if (this == &b) {
+//		return *this;
+//	}
+//
+//	delete player;
+//
+//	if (b.player) {
+//		player = new Player();
+//		player->setMap(b.player->getMap());
+//		player->setName(b.player->getName());
+//	}
+//	else {
+//		player = NULL;
+//	}
+//}
 
 // benevolent computer player will always exchange again
 string Benevolent::extraReinforcement() {
