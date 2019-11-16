@@ -4,7 +4,7 @@
 using namespace std;
 
 // declare method for the start of each play
-void selectStrategy();
+void selectStrategy(Player* player);
 
 int main() {
 
@@ -173,17 +173,17 @@ int main() {
 
 	/* reinforcement phase with Strategy pattern */
 	cout << "Reinforcement Phase" << endl;
-	selectStrategy(); // player can choose which strategy to use before each play
+	selectStrategy(player); // player can choose which strategy to use before each play
 	player->reinforce();  
 
 	/* attack phase with Strategy pattern */
 	cout << "Attack Phase" << endl;
-	selectStrategy(); // player can choose which strategy to use before each play
+	selectStrategy(player); // player can choose which strategy to use before each play
 	player->attack();
 
 	/* fortification phase with Strategy pattern */
 	cout << "Fortification Phase" << endl;
-	selectStrategy(); // player can choose which strategy to use before each play
+	selectStrategy(player); // player can choose which strategy to use before each play
 	player->fortify();
 
 	delete player;
@@ -217,7 +217,7 @@ int main() {
 }
 
 // asks user which strategy to use
-void selectStrategy() { 
+void selectStrategy(Player* player) {
 
 	int strategy;
 	cout << "Which strategy would you like to use for this play? Please enter the number of the strategy to make your choice." << endl;
@@ -230,7 +230,7 @@ void selectStrategy() {
 		cout << "Please select a valid strategy from the list of strategies." << endl;
 	}
 
-	/*
+	
 	User* user = new User();
 	Aggressive* aggressive = new Aggressive();
 	Benevolent* benevolent = new Benevolent();
@@ -242,5 +242,5 @@ void selectStrategy() {
 			player->setStrategy(aggressive);
 		case 3:
 			player->setStrategy(benevolent);
-	}*/
+	}
 }
