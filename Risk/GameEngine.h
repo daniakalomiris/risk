@@ -34,6 +34,7 @@ public:
     void setPlayerOrder();
     void setPlayer(Player* player);
     Map* getMap();
+    void setMap(Map* map);
     std::vector <Player*> getAllPlayers();
     Deck* getDeck();
     

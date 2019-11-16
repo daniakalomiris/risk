@@ -29,7 +29,7 @@ class Player{
    
         std::vector<Country* > getThisPlayerCountries();
         void setThisPlayerCountry(Country* country);
-
+         void deleteThisPlayerCountry(Country* country);
 
         int getNumOfArmiesAtStartUpPhase();
         void setNumOfArmiesAtStartUpPhase(int num);
@@ -43,6 +43,8 @@ class Player{
         void setMap(Map* map);
     
         void setThisPlayerContinents(Continent* continent);
+       
+        
         std::vector<Continent* > getThisPlayerContinents();
         bool checkControlContinents();
 

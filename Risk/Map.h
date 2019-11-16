@@ -9,6 +9,7 @@
 class Continent;
 class Country;
 
+
 class Map {
 public:
 	Map();

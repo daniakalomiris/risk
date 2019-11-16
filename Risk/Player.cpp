@@ -122,6 +122,28 @@ void Player:: setThisPlayerContinents(Continent *continent) {
     thisPlayerContinents.push_back(continent);
 }
 
+void Player:: deleteThisPlayerCountry(Country *country) {
+    int indexOfCountryToDelete =0;
+    
+    cout << "Country to erase " << country->getCountryName() << endl;
+    for(int i = countries.size()-1; i >=0; i--) {
+        
+        //check which continent we want to delete and set the index
+        if(country->getCountryName().compare(countries.at(i)->getCountryName()) ==0) {
+            indexOfCountryToDelete = i;
+            
+            
+            cout << "Index of country" <<  indexOfCountryToDelete << endl;
+        }
+        
+    }
+    
+    //delete the continent on that index
+    countries.erase(countries.begin() + indexOfCountryToDelete);
+    
+    
+}
+
 void Player::setThisPlayerCountry(Country* country) {
 	countries.push_back(country);
 }
@@ -326,7 +348,7 @@ void Player::attack() {
         
         cout << "These are the country's neighbors you can attack and the owners of them:" << endl;
         for (unsigned int i = 0; i < attackFrom->getAdjacentCountries().size(); i++) {
-            cout << "Country " << i + 1 << ": " << attackFrom->getAdjacentCountries().at(i)->getCountryName() << "\tBelongs to: Player " << attackFrom->getAdjacentCountries().at(i)->getCountryOwnerId() << endl;
+            cout << "Country " << i + 1 << ": " << attackFrom->getAdjacentCountries().at(i)->getCountryName() << "\t(" <<attackFrom->getAdjacentCountries().at(i)->getNumberOfArmies() << " armies)" << "\tBelongs to: Player " << attackFrom->getAdjacentCountries().at(i)->getCountryOwnerId() << endl;
         }
 
         cout << "Which one of this country's neighbors would you like to attack?. The country you select must belong to another player. Please enter the country's number.\n" << endl;
@@ -351,7 +373,8 @@ void Player::attack() {
         cout << "You will be attacking " << countryToAttack->getCountryName() << " which belongs to Player " << countryToAttack->getCountryOwnerId() << ".\n" << endl;
         
         // attacker chooses number of dice to roll
-        attackerMaxNumOfDice = countryToAttack->getNumberOfArmies() - 1;
+        attackerMaxNumOfDice = attackFrom->getNumberOfArmies() - 1;
+               
         if (attackerMaxNumOfDice > 3) {
             attackerMaxNumOfDice = 3;
         }
@@ -389,7 +412,9 @@ void Player::attack() {
         dice->setDiceToRoll(attackerRoll);
         dice->rollDice();
         cout << "\n" << endl;
+   
         for (int i = 0; i < attackerRoll; i++) {
+         
             attackerDiceValues.push_back(dice->getValuesRolled().at(i));
         }
 		dice->clearDiceRolled();
@@ -399,8 +424,10 @@ void Player::attack() {
         dice->setDiceToRoll(defenderRoll);
         dice->rollDice();
         cout << "\n" << endl;
+        
+    
         for (int i = 0; i < defenderRoll; i++) {
-            defenderDiceValues.push_back(dice->getValuesRolled().at(i));
+            defenderDiceValues.push_back(dice->getValuesRolled().at(i)); //error
         }
 		dice->clearDiceRolled();
         
@@ -412,9 +439,12 @@ void Player::attack() {
             numOfPairs = defenderRoll;
         }
         
+        cout << "num of pair" << numOfPairs << endl;
+        cout << defenderDiceValues.at(0) << endl;
         // compare pairs of dice
         for (int i = 0; i < numOfPairs; i++) {
             cout << "~ Pair of dice comparison #" << (i + 1) << " ~\n" << endl;
+                      
             cout << "Attacker rolled a " << attackerDiceValues.at(i) << " and Defender rolled a " << defenderDiceValues.at(i) << ".\n" << endl;
             if (attackerDiceValues.at(i) == defenderDiceValues.at(i)) {
                 cout << "Attacker's next highest dice and Defender's next highest dice are the same. Attacker lost this battle.\n" << endl;
@@ -440,7 +470,7 @@ void Player::attack() {
                     // assign attacked country to attacker
                     countryToAttack->setCountryOwnerId(this->getID());
                     this->setThisPlayerCountry(countryToAttack);
-                    
+                                                           
                     // attacker moves number of armies to attacked country
                     cout << "Attacker (Player " << this->getID() << "), please select the number armies you want to move to " << countryToAttack->getCountryName() << " from " << attackFrom->getCountryName() << "." << endl;
                     cout << "You may move between 1 to " << attackFrom->getNumberOfArmies() - 1 << " armies." << endl;

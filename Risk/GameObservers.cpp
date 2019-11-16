@@ -77,8 +77,9 @@ void PlayerDominationView::display() {
     int numOfCountries = subject->getMap()->getCountries().size();
     
     //dislpays table
-    cout << "Player Name \t Countries owned\t % of wordl owned" << endl;
     cout << "There are a total of " << numOfCountries << " countries" << endl;
+    cout << "Player Name \t Countries owned\t % of wordl owned" << endl;
+  
     
     //iterates through all players
     for(int i=0; i<numPlayers; i++){
@@ -89,6 +90,11 @@ void PlayerDominationView::display() {
        
         //number of countries per player
         int playerNumCountries = subject->getAllPlayers().at(i)->getThisPlayerCountries().size();
+        
+        //if the player doesn't own countries, don't show him
+        if(playerNumCountries == 0) {
+            continue;
+        }
         
         //percentage of world owned per player
         double percentageOwned = static_cast<double>(playerNumCountries)/numOfCountries*100;

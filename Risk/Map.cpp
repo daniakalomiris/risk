@@ -259,7 +259,9 @@ int Country::getCountryOwnerId() {
 }
 
 void Country::setCountryOwnerId(int countryOwnerId) {
+    
 	this->countryOwnerId.reset(new int(countryOwnerId));
+    
 }
 
 int Country::getNumberOfArmies() {

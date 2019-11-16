@@ -66,6 +66,10 @@ Map* GameEngine:: getMap() {
     return map;
 }
 
+void GameEngine::setMap(Map *newMap) {
+    this->map = new Map();
+    *map = *newMap;
+}
 bool GameEngine::getEndGame() {
     return *endGame;
 }
@@ -322,7 +326,7 @@ void GameEngine::assignCountriesToPlayers() {
 //displays countries of a player
 void GameEngine::displayCountriesOfPlayers() {
     for (int i = 0; i < allPlayers.size(); i++) {
-        cout << "\n\nPlayer " << allPlayers.at(i)->getName() << " countries: " << endl;
+        cout << "\n\nPlayer " << allPlayers.at(i)->getName() << "(ID: "<< allPlayers.at(i)->getID() << ") countries: " << endl;
         
         for (int j = 0; j < allPlayers.at(i)->getThisPlayerCountries().size(); j++) {
             cout << j+1 << " " << allPlayers.at(i)->getThisPlayerCountries().at(j)->getCountryName() << endl;
@@ -407,20 +411,72 @@ void GameEngine:: mainGameLoop() {
     bool allCountriesOwnByPlayer = false;
     int indexOfWinningPlayer = 0;
     
+    
+  
+    
+    
     cout << "\n\n****** Main Game Loop *******" << endl;
     
     //while the game is still playing
     while (getEndGame() == false) {
         
+        //vector of the country owner id before the attack
+          vector<int> OldCountryOwnerId;
+        
         for(int i = 0; i< this->getNumberOfPlayers(); i++) {
             
+            //if the player doesn't own any countries, skip his turn
+            if(this->getAllPlayers().at(i)->getThisPlayerCountries().size() ==0) {
+                continue;
+            }
+            
             //display which player is playing
-            cout << "\n\n************** Player " <<  i+1 << ": " << this->getAllPlayers().at(i)->getName() << "'s turn **************\n" << endl;
+            cout << "\n\n************** Player " << this->getAllPlayers().at(i)->getName() << "'s turn **************\n" << endl;
             
             //make the player reinforce, attack and fortify
             this->getAllPlayers().at(i)->reinforce();
 			Notify();
+            
+            
+            //get the countryOwnerId for all countries before the attack
+            for(int j=0; j < map->getCountries().size(); j++) {
+                OldCountryOwnerId.push_back(map->getCountries().at(j)->getCountryOwnerId());
+            }
+            
             this->getAllPlayers().at(i)->attack();
+            
+            //compare the old owner ID with the new owner Id if a player won a country
+            
+            for(int j = 0; j < map->getCountries().size(); j++) {
+                
+                int indexPlayerLostCountry;
+                
+                //if the owner id has changed delete the country from the old owner player
+                if(OldCountryOwnerId.at(j) != map->getCountries().at(j)->getCountryOwnerId()) {
+                    cout << "the country that the player wins " << map->getCountries().at(j)->getCountryName() << endl;
+                    cout << "ID of the player who lost a country " << OldCountryOwnerId.at(j) << endl;
+                    
+                    
+                    
+                    //get the index of player that lost a country
+                    for(int k=0; k< getAllPlayers().size(); k++) {
+                        
+                        if(OldCountryOwnerId.at(j) == getAllPlayers().at(k)->getID()) {
+                            indexPlayerLostCountry = k;
+                        }
+                        
+                        
+                    }
+                    cout << "index of player what lost a country" << indexPlayerLostCountry << endl;
+                    this->getAllPlayers().at(indexPlayerLostCountry)->deleteThisPlayerCountry(map->getCountries().at(j));
+                }
+            }
+            
+            //reset the countryownerid
+            OldCountryOwnerId.clear();
+            
+            
+            
 			Notify();
             this->getAllPlayers().at(i)->fortify();
 			Notify();

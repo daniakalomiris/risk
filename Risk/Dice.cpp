@@ -59,6 +59,7 @@ void Dice::rollDice() {
     // Display the values for each dice rolled
     if (*numOfDice == 1) {
         cout << "This is the result of your die: " << diceContainer[0] << endl;
+        valuesRolled.push_back(diceContainer[0]);
     }
     else {
         cout << "These are the results of your dice: " << endl;
