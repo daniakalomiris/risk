@@ -11,8 +11,8 @@ class Strategy {
 	public:
 		Strategy(Player* player);
 		~Strategy();
-		Strategy(const Strategy &orig);
-		const Strategy& operator=(const Strategy &s);
+		Strategy(const Strategy& orig);
+		const Strategy& operator=(const Strategy& s);
 
 		virtual string extraReinforcement() = 0;
 		virtual int countryToReinforce() = 0;
@@ -25,6 +25,8 @@ class User : public Strategy {
 	public:
 		User(Player* player);
 		~User();
+		User(const User& orig);
+		const User& operator=(const User& u);
 
 		std::string extraReinforcement();
 		int countryToReinforce();
@@ -38,6 +40,8 @@ class Aggressive : public Strategy {
 	public:
 		Aggressive(Player* player);
 		~Aggressive();
+		Aggressive(const Aggressive& orig);
+		const Aggressive& operator=(const Aggressive& a);
 
 		std::string extraReinforcement();
 		int countryToReinforce();
@@ -50,6 +54,8 @@ class Benevolent : public Strategy {
 	public:
 		Benevolent(Player* player);
 		~Benevolent();
+		Benevolent(const Benevolent& orig);
+		const Benevolent& operator=(const Benevolent& u);
 
 		std::string extraReinforcement();
 		int countryToReinforce();
