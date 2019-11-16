@@ -63,6 +63,11 @@ class Player {
 		int executeAttackerRoll();
 		int executeArmiesToMove(int armiesCanMove);
 
+		std::string executeChooseFortify();
+		std::string executeCountryToFortifyFrom();
+		int executeArmiesToFortify(int sourceCountryArmies);
+		std::string executeCountryToFortify();
+
 	private:
 		Dice* dice;
 		Hand* hand;

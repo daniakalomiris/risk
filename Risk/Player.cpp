@@ -173,7 +173,7 @@ int Player::executeArmiesToPlace() {
 }
 
 string Player::executeChooseAttack() {
-	return strategy->chooseAttack(this);
+	return strategy->chooseAttack();
 }
 
 int Player::executeAttackFrom() {
@@ -190,6 +190,22 @@ int Player::executeAttackerRoll() {
 
 int Player::executeArmiesToMove(int armiesCanMove) {
 	return strategy->armiesToMove(armiesCanMove);
+}
+
+string Player::executeChooseFortify() {
+	return strategy->chooseFortify();
+}
+
+string Player::executeCountryToFortifyFrom() {
+	return strategy->countryToFortifyFrom(this);
+}
+
+int Player::executeArmiesToFortify(int sourceCountryArmies) {
+	return strategy->armiesToFortify(sourceCountryArmies);
+}
+
+string Player::executeCountryToFortify() {
+	return strategy->countryToFortify(this);
 }
  
 //reinforce phase
@@ -544,7 +560,9 @@ void Player::fortify() {
     
     cout << "\nPlayer " << getName() << ", do you want to fortify? (Press Y to fortify or anything else to end fortify phase)" << endl;
     string attack;
-    cin >> attack;
+
+	// returns response for this strategy
+	attack = executeChooseFortify();
     
     if(attack.compare("Y") == 0) {
     
@@ -588,9 +606,9 @@ void Player::fortify() {
         
         //Prompts the user for the source country
         cout << "\nPlease write the name of the chosen source country \n(capitalize the first letter)" << endl;
-        
-        cin >> nameSourceCountry;
-        
+
+		// returns response for this strategy
+		nameSourceCountry = executeCountryToFortifyFrom();
         
         //check if the player owns the source country
         for(unsigned int i = 0; i < this->getThisPlayerCountries().size(); i++) {
@@ -618,7 +636,8 @@ void Player::fortify() {
             cout << "\nThe source country you choose is not own by you or doesn't exists or doesn't have adjacent countries your own \nPlease choose a new source country" << endl;
             cout << "Please write the name of the chosen source country \n(capitalize the first letter)" << endl;
             
-            cin >> nameSourceCountry;
+			// returns response for this strategy
+			nameSourceCountry = executeCountryToFortifyFrom();
             
             
             //check if the player owns the source country
@@ -649,8 +668,11 @@ void Player::fortify() {
         
         
         cout << "Please enter the number of armies you would like to move" << endl;
-        cin >> numOfArmies;
-        
+
+		// returns response for this strategy
+		numOfArmies = executeArmiesToFortify(this->getThisPlayerCountries().at(indexOfSourceCountry)->getNumberOfArmies());
+
+		
         //check if the number of armies entered is valid
         if(numOfArmies < 1 || numOfArmies > this->getThisPlayerCountries().at(indexOfSourceCountry)->getNumberOfArmies() -1 ) {
             isNumOfArmiesValid = false;
@@ -664,6 +686,9 @@ void Player::fortify() {
             cout << "Enter the number of armies you would like to move" << endl;
             
             cin >> numOfArmies;
+
+			// returns response for this strategy
+			numOfArmies = executeArmiesToFortify(this->getThisPlayerCountries().at(indexOfSourceCountry)->getNumberOfArmies());
             
             //if number of armies enter is not in the range, set isNumberArmiesValid to false
             if(numOfArmies < 1 || numOfArmies > this->getThisPlayerCountries().at(indexOfSourceCountry)->getNumberOfArmies() -1 ) {
@@ -677,7 +702,9 @@ void Player::fortify() {
         
         //Prompts the user for a target country
         cout << "Please write the name of the chosen target country \n(capitalize the first letter)" << endl;
-        cin >> nameTargetCountry;
+
+		// returns response for this strategy
+		nameTargetCountry = executeCountryToFortify();
         
         //check if the player owns the target country
         for(unsigned int i = 0; i < this->getThisPlayerCountries().size(); i++) {
@@ -701,7 +728,9 @@ void Player::fortify() {
         while(isTargetCountryValid == false || isTargetCountryNeighbour == false) {
             cout << "\nThe target country you choose is not own by you or doesn't exists or is not a neighbour of the source country \nPlease choose a valid country" << endl;
             cout << "Enter the name of a valid chosen target country" << endl;
-            cin >> nameTargetCountry;
+            
+			// returns response for this strategy
+			nameTargetCountry = executeCountryToFortify();
             
             //check if the player owns the target country
             for(unsigned int i = 0; i < this->getThisPlayerCountries().size(); i++) {

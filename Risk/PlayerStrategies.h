@@ -20,11 +20,17 @@ class Strategy {
 		virtual int armiesToPlace(Player* player) = 0;
 		
 		/* methods for attack phase */
-		virtual std::string chooseAttack(Player* player) = 0;
+		virtual std::string chooseAttack() = 0;
 		virtual int attackFrom(Player* player) = 0;
 		virtual int countryToAttack(Country* attackFrom) = 0;
 		virtual int attackerRoll() = 0;
 		virtual int armiesToMove(int armiesCanMove) = 0;
+
+		/* methods for fortify phase */
+		virtual std::string chooseFortify() = 0;
+		virtual std::string countryToFortifyFrom(Player* player) = 0;
+		virtual int armiesToFortify(int sourceCounrtyArmies) = 0;
+		virtual std::string countryToFortify(Player* player) = 0;
 };
 
 class User : public Strategy {
@@ -38,11 +44,16 @@ class User : public Strategy {
 		int countryToReinforce(Player* player);
 		int armiesToPlace(Player* player);
 
-		std::string chooseAttack(Player* player);
+		std::string chooseAttack();
 		int attackFrom(Player* player);
 		int countryToAttack(Country* attackFrom);
 		int attackerRoll();
 		int armiesToMove(int armiesCanMove);
+
+		std::string chooseFortify();
+		std::string countryToFortifyFrom(Player* player);
+		int armiesToFortify(int sourceCounrtyArmies);
+		std::string countryToFortify(Player* player);
 };
 
 class Aggressive : public Strategy {
@@ -56,11 +67,16 @@ class Aggressive : public Strategy {
 		int countryToReinforce(Player* player);
 		int armiesToPlace(Player* player);
 
-		std::string chooseAttack(Player* player);
+		std::string chooseAttack();
 		int attackFrom(Player* player);
 		int countryToAttack(Country* attackFrom);
 		int attackerRoll();
 		int armiesToMove(int armiesCanMove);
+
+		std::string chooseFortify();
+		std::string countryToFortifyFrom(Player* player);
+		int armiesToFortify(int sourceCounrtyArmies);
+		std::string countryToFortify(Player* player);
 };
 
 class Benevolent : public Strategy {
@@ -74,11 +90,16 @@ class Benevolent : public Strategy {
 		int countryToReinforce(Player* player);
 		int armiesToPlace(Player* player);
 
-		std::string chooseAttack(Player* player);
+		std::string chooseAttack();
 		int attackFrom(Player* player);
 		int countryToAttack(Country* attackFrom);
 		int attackerRoll();
 		int armiesToMove(int armiesCanMove);
+
+		std::string chooseFortify();
+		std::string countryToFortifyFrom(Player* player);
+		int armiesToFortify(int sourceCounrtyArmies);
+		std::string countryToFortify(Player* player);
 };
 
 

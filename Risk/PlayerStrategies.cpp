@@ -59,7 +59,7 @@ int User::armiesToPlace(Player* player) {
 	return input;
 }
 
-string User::chooseAttack(Player* player) {
+string User::chooseAttack() {
 	string input;
 	cin >> input;
 	return input;
@@ -85,6 +85,30 @@ int User::attackerRoll() {
 
 int User::armiesToMove(int armiesCanMove) {
 	int input;
+	cin >> input;
+	return input;
+}
+
+string User::chooseFortify() {
+	string input;
+	cin >> input;
+	return input;
+}
+
+string User::countryToFortifyFrom(Player* player) {
+	string input;
+	cin >> input;
+	return input;
+}
+
+int User::armiesToFortify(int sourceCountryArmies) {
+	int input;
+	cin >> input;
+	return input;
+}
+
+string User::countryToFortify(Player* player) {
+	string input;
 	cin >> input;
 	return input;
 }
@@ -133,7 +157,7 @@ int Aggressive::armiesToPlace(Player* player) {
 }
 
 // aggressive player always attacks
-string Aggressive::chooseAttack(Player* player) {
+string Aggressive::chooseAttack() {
 	return "Y";
 }
 
@@ -174,6 +198,45 @@ int Aggressive::attackerRoll() {
 // aggressive player moves all armies that they can move
 int Aggressive::armiesToMove(int armiesCanMove) {
 	return armiesCanMove;
+}
+
+// aggressive player will fortify
+string Aggressive::chooseFortify() {
+	return "Y";
+}
+
+// aggressive player will fortify from country with least armies on it
+string Aggressive::countryToFortifyFrom(Player* player) {
+	// set min country to be first index in the list of player's countries
+	int min = 0;
+
+	for (int i = 0; i < player->getThisPlayerCountries().size(); i++) {
+		if (player->getThisPlayerCountries().at(min)->getNumberOfArmies() > player->getThisPlayerCountries().at(i)->getNumberOfArmies()) {
+			min = i; // assigning the index of the vector
+		}
+	}
+
+	return player->getThisPlayerCountries().at(min)->getCountryName(); // returning the country number with the most armies
+}
+
+// aggressive player moves all armies from source country to target country
+int Aggressive::armiesToFortify(int sourceCountryArmies) {
+	return sourceCountryArmies;
+
+}
+
+// aggressive player will fortify country with most armies on it
+string Aggressive::countryToFortify(Player* player) {
+	// set max country to be first index in the list of player's countries
+	int max = 0;
+
+	for (int i = 1; i < player->getThisPlayerCountries().size(); i++) {
+		if (player->getThisPlayerCountries().at(i)->getNumberOfArmies() > player->getThisPlayerCountries().at(max)->getNumberOfArmies()) {
+			max = i; // assigning the index of the vector
+		}
+	}
+
+	return player->getThisPlayerCountries().at(max)->getCountryName(); // returning the country number with the most armies
 }
 
 // constructor and destructor for ConcreteStrategy for benevolent computer player
@@ -220,7 +283,7 @@ int Benevolent::armiesToPlace(Player* player) {
 }
 
 // benevolent player never attacks (will always return n or 0)
-string Benevolent::chooseAttack(Player* player) {
+string Benevolent::chooseAttack() {
 	return "n";
 }
 
@@ -238,4 +301,42 @@ int Benevolent::attackerRoll() {
 
 int Benevolent::armiesToMove(int armiesCanMove) {
 	return 0;
+}
+
+// benevolent player will fortify
+string Benevolent::chooseFortify() {
+	return "Y";
+}
+
+// benevolent player will fortify from country with most armies on it
+string Benevolent::countryToFortifyFrom(Player* player) {
+	// set max country to be first index in the list of player's countries
+	int max = 0;
+
+	for (int i = 1; i < player->getThisPlayerCountries().size(); i++) {
+		if (player->getThisPlayerCountries().at(i)->getNumberOfArmies() > player->getThisPlayerCountries().at(max)->getNumberOfArmies()) {
+			max = i; // assigning the index of the vector
+		}
+	}
+
+	return player->getThisPlayerCountries().at(max)->getCountryName(); // returning the country number with the most armies
+}
+
+// benevolent player moves all armies from source country to target country
+int Benevolent::armiesToFortify(int sourceCountryArmies) {
+	return sourceCountryArmies;
+}
+
+// benevolent player will fortify country with least armies on it
+string Benevolent::countryToFortify(Player* player) {
+	// set min country to be first index in the list of player's countries
+	int min = 0;
+
+	for (int i = 0; i < player->getThisPlayerCountries().size(); i++) {
+		if (player->getThisPlayerCountries().at(min)->getNumberOfArmies() > player->getThisPlayerCountries().at(i)->getNumberOfArmies()) {
+			min = i; // assigning the index of the vector
+		}
+	}
+
+	return player->getThisPlayerCountries().at(min)->getCountryName(); // returning the country number with the most armies
 }
