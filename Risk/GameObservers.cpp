@@ -78,21 +78,23 @@ void PlayerDominationView::display() {
     
     //dislpays table
     cout << "Player Name \t Countries owned\t % of wordl owned" << endl;
+    cout << "There are a total of " << numOfCountries << " countries" << endl;
     
     //iterates through all players
     for(int i=0; i<numPlayers; i++){
         
         //players names
         string playerName = subject->getAllPlayers().at(i)->getName();
+    
        
         //number of countries per player
         int playerNumCountries = subject->getAllPlayers().at(i)->getThisPlayerCountries().size();
         
         //percentage of world owned per player
-        double percentageOwned = (playerNumCountries/numOfCountries)*100;
+        double percentageOwned = static_cast<double>(playerNumCountries)/numOfCountries*100;
         
         //output data of each player
-        cout << playerName <<"\t" << playerNumCountries << "\t" <<  percentageOwned << endl;
+        cout << playerName <<"\t\t\t" << playerNumCountries << "\t\t\t" <<  percentageOwned << endl;
         
 //        //push names and countries
 //        playerNames.push_back(playerName);
