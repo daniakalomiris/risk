@@ -453,8 +453,10 @@ void GameEngine:: mainGameLoop() {
                 
                 //if the owner id has changed delete the country from the old owner player
                 if(OldCountryOwnerId.at(j) != map->getCountries().at(j)->getCountryOwnerId()) {
-                    cout << "the country that the player wins " << map->getCountries().at(j)->getCountryName() << endl;
-                    cout << "ID of the player who lost a country " << OldCountryOwnerId.at(j) << endl;
+                    
+                    //code for debug, i will erase it before submitting
+                   // cout << "the country that the player wins " << map->getCountries().at(j)->getCountryName() << endl;
+                   // cout << "ID of the player who lost a country " << OldCountryOwnerId.at(j) << endl;
                     
                     
                     
@@ -467,16 +469,16 @@ void GameEngine:: mainGameLoop() {
                         
                         
                     }
-                    cout << "index of player what lost a country" << indexPlayerLostCountry << endl;
+                    //code for debug, i will erase it before submitting
+                   // cout << "index of player what lost a country" << indexPlayerLostCountry << endl;
                     this->getAllPlayers().at(indexPlayerLostCountry)->deleteThisPlayerCountry(map->getCountries().at(j));
                 }
             }
             
-            //reset the countryownerid
+            //reset the countryOwnerId
             OldCountryOwnerId.clear();
             
-            
-            
+                        
 			Notify();
             this->getAllPlayers().at(i)->fortify();
 			Notify();

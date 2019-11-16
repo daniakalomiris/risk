@@ -125,7 +125,7 @@ void Player:: setThisPlayerContinents(Continent *continent) {
 void Player:: deleteThisPlayerCountry(Country *country) {
     int indexOfCountryToDelete =0;
     
-    cout << "Country to erase " << country->getCountryName() << endl;
+   
     for(int i = countries.size()-1; i >=0; i--) {
         
         //check which continent we want to delete and set the index
@@ -133,7 +133,7 @@ void Player:: deleteThisPlayerCountry(Country *country) {
             indexOfCountryToDelete = i;
             
             
-            cout << "Index of country" <<  indexOfCountryToDelete << endl;
+            
         }
         
     }
