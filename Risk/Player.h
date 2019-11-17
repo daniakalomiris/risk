@@ -35,7 +35,7 @@ class Player{
 
 		//attack, fortify, reinforce methods
 		//attack returns DefenderID
-		int attack();
+		void attack();
 		void fortify();
         void reinforce();
 
@@ -57,7 +57,7 @@ class Player{
 		std::string getAttackerCountry();
 		std::string getDefenderCountry();
 		void setAttackerCountry(std::string attackerCountry);
-		void setDefenderCOuntry(std::string defenderCountry);
+		void setDefenderCountry(std::string defenderCountry);
 		int getStartA();
 		void setStartA(int startA);
 		int getStartD();
@@ -98,7 +98,8 @@ class Player{
 		int numArmy1;
 		int numArmy2;
 		int numArmy3;
-		//variable for atack 
+    
+		//variable for attack
 		std::string attackerCountry;
 		std::string defenderCountry;
 		int startA;
@@ -106,6 +107,7 @@ class Player{
 		int endA;
 		int endD;
 		int defenderId;
+    
 		//variable for fortify
 		std::string fortifySourceCountry;
 		std::string fortifyTargetCountry;

@@ -202,7 +202,7 @@ void Player::setAttackerCountry(std::string attackerCountry) {
 	this->attackerCountry = attackerCountry;
 
 }
-void Player::setDefenderCOuntry(std::string defenderCountry) {
+void Player::setDefenderCountry(std::string defenderCountry) {
 	this->defenderCountry = defenderCountry;
 }
 //for the number of armies A= attacker , D=Deffender
@@ -366,7 +366,7 @@ void Player::reinforce() {
 }
 
 // attack method
-int Player::attack(){
+void Player::attack(){
     string playerAttack;
     int selectAttackFrom, selectCountryToAttack, attackerMaxNumOfDice, defenderMaxNumOfDice, attackerRoll, defenderRoll, numOfPairs, numOfArmiesToMove;
     Country* attackFrom;
@@ -434,11 +434,11 @@ int Player::attack(){
         
         cout << "You will be attacking " << countryToAttack->getCountryName() << " which belongs to Player " << countryToAttack->getCountryOwnerId() << ".\n" << endl;
         
-		setDefenderCOuntry(countryToAttack->getCountryName()); // setting for the obs method 
+		setDefenderCountry(countryToAttack->getCountryName()); // setting for the obs method
 		setStartD(countryToAttack->getNumberOfArmies());
 
         // attacker chooses number of dice to roll
-        attackerMaxNumOfDice = countryToAttack->getNumberOfArmies() - 1;
+        attackerMaxNumOfDice = attackFrom->getNumberOfArmies() - 1;
         if (attackerMaxNumOfDice > 3) {
             attackerMaxNumOfDice = 3;
         }
@@ -463,8 +463,9 @@ int Player::attack(){
         cout << "Defender (Player " << countryToAttack->getCountryOwnerId() << "), please select the number of dice to roll. You may only roll 1 to " << defenderMaxNumOfDice << " dice." << endl;
         cin >> defenderRoll;
 
+        
 		setDefenderId(countryToAttack->getCountryOwnerId()); //for observer
-
+        
         // check if player selects a valid number of dice
         while (defenderRoll < 1 || defenderRoll > defenderMaxNumOfDice) {
             cout << "Defender (Player " << countryToAttack->getCountryOwnerId() << "), please select a valid number of dice to roll. You may only roll 1 to " << defenderMaxNumOfDice << " dice." << endl;
@@ -509,18 +510,27 @@ int Player::attack(){
                 cout << "Attacker's next highest dice and Defender's next highest dice are the same. Attacker lost this battle.\n" << endl;
                 cout << "Attacker (Player " << this->getID() << "), you have lost 1 army in " << attackFrom->getCountryName() << ".\n" << endl;
                 attackFrom->setNumberOfArmies(attackFrom->getNumberOfArmies() - 1); // attacker loses one army from their country
+                
+                setEndA(attackFrom->getNumberOfArmies());  //set For Observer
+                setEndD(countryToAttack->getNumberOfArmies());
             }
             else if (defenderDiceValues.at(i) > attackerDiceValues.at(i)) {
                 cout << "Attacker's next highest dice is lower than Defender's next highest dice. Attacker lost this battle.\n" << endl;
                 
                 cout << "Attacker (Player " << this->getID() << "), you have lost 1 army in " << attackFrom->getCountryName() << ".\n" << endl;
                 attackFrom->setNumberOfArmies(attackFrom->getNumberOfArmies() - 1); // attacker loses one army from their country
+                
+                setEndA(attackFrom->getNumberOfArmies());  //set For Observer
+                setEndD(countryToAttack->getNumberOfArmies());
             }
             else if (attackerDiceValues.at(i) > defenderDiceValues.at(i)) {
                 cout << "Defender's next highest dice is lower than Defender's next highest dice. Defender lost this battle.\n" << endl;
                 cout << "Defender (Player " << countryToAttack->getCountryOwnerId() << "), you have lost 1 army in " << countryToAttack->getCountryName() << ".\n" << endl;
                 countryToAttack->setNumberOfArmies(countryToAttack->getNumberOfArmies() - 1); // defender looses one army from their country
                 
+                setEndA(attackFrom->getNumberOfArmies());  //set For Observer
+                setEndD(countryToAttack->getNumberOfArmies());
+               
                 // check if defender has been defeated (no more armies left)
                 if (countryToAttack->getNumberOfArmies() == 0) {
                     cout << "Defender (Player " << countryToAttack->getCountryOwnerId() << "), you have lost all armies in " << countryToAttack->getCountryName() << "." << endl;
@@ -545,11 +555,14 @@ int Player::attack(){
                     
                     cout << "Attacker (Player " << this->getID() << "), you have decided to move " << numOfArmiesToMove << " armies to " << countryToAttack->getCountryName() << "." << endl;
                     cout << countryToAttack->getCountryName() << " now has " << numOfArmiesToMove << " armies." << endl;
+                    
+                   
                 }
-
-				setEndA(attackFrom->getNumberOfArmies());  //set For Observer
-				setEndD(countryToAttack->getNumberOfArmies()); 
+               
+				 
             }
+            
+            
         }
         
         // clear dice vectors at the end of each attack
@@ -561,7 +574,7 @@ int Player::attack(){
     };
     
     cout << "Player " << this->getID() << "'s attack phase is over." << endl;
-	return defenderId;
+	
 }
 
 //fortify method
