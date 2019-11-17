@@ -2,6 +2,7 @@
 #include "GameObservers.h"
 #include "GameEngine.h"
 #include "Player.h"
+
 using namespace std;
 
 //Function that will act like drivers for part2 and part3 of assignment 3
@@ -12,8 +13,8 @@ void A3part3();
 //uncomment the driver you want to test
 int main() {
     
-    A3part2();
-   // A3part3();
+   // A3part2();
+    A3part3();
 }
 
 

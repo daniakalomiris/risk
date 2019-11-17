@@ -109,7 +109,7 @@ class Player {
 				std::string executeChooseFortify();
 				std::string executeCountryToFortifyFrom();
 				int executeArmiesToFortify(int sourceCountryArmies);
-				std::string executeCountryToFortify();
+				std::string executeCountryToFortify(Country* country);
 
 				bool executeExchangeAutom();
     private:

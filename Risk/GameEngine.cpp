@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include "GameEngine.h"
+#include "PlayerStrategies.h"
 #include "time.h"
 #include <random>
 #include <chrono>
@@ -418,7 +419,7 @@ void GameEngine:: mainGameLoop() {
 
     bool allCountriesOwnByPlayer = false;
     int indexOfWinningPlayer = 0;
-
+     User* user = new User();
 
     cout << "\n\n****** Main Game Loop *******" << endl;
 
@@ -444,6 +445,8 @@ void GameEngine:: mainGameLoop() {
             setPhase(1);
             Notify();
             //make the player reinforce, attack and fortify
+           
+            this->getAllPlayers().at(i)->setStrategy(user);
             this->getAllPlayers().at(i)->reinforce();
             Notify();
             

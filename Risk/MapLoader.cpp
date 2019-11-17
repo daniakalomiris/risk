@@ -28,6 +28,7 @@ MapLoader:: MapLoader(const MapLoader &orig){
     *map = *orig.map;
 }
 
+
 //assignment operator
 const MapLoader& MapLoader:: operator=(const MapLoader& m){
     if(&m !=this) {

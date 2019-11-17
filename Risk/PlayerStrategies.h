@@ -30,7 +30,7 @@ class Strategy {
 		virtual std::string chooseFortify() = 0;
 		virtual std::string countryToFortifyFrom(Player* player) = 0;
 		virtual int armiesToFortify(int sourceCounrtyArmies) = 0;
-		virtual std::string countryToFortify(Player* player) = 0;
+		virtual std::string countryToFortify(Player* player, Country* country) = 0;
 
 		// determines how exchange is handled for each strategy
 		virtual bool exchangeAutom() = 0;
@@ -56,7 +56,7 @@ class User : public Strategy {
 		std::string chooseFortify();
 		std::string countryToFortifyFrom(Player* player);
 		int armiesToFortify(int sourceCounrtyArmies);
-		std::string countryToFortify(Player* player);
+		std::string countryToFortify(Player* player, Country *);
 
 		bool exchangeAutom();
 };
@@ -81,7 +81,7 @@ class Aggressive : public Strategy {
 		std::string chooseFortify();
 		std::string countryToFortifyFrom(Player* player);
 		int armiesToFortify(int sourceCounrtyArmies);
-		std::string countryToFortify(Player* player);
+		std::string countryToFortify(Player* player, Country *);
 
 		bool exchangeAutom();
 };
@@ -106,7 +106,7 @@ class Benevolent : public Strategy {
 		std::string chooseFortify();
 		std::string countryToFortifyFrom(Player* player);
 		int armiesToFortify(int sourceCounrtyArmies);
-		std::string countryToFortify(Player* player);
+		std::string countryToFortify(Player* player, Country* country);
 
 		bool exchangeAutom();
 };
