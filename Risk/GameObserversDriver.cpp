@@ -133,7 +133,7 @@ continent3 = NULL;
 country1 = NULL;
 country2 = NULL;
 country3 = NULL;
-countr4 = NULL;
+country4 = NULL;
 country5 = NULL;
 country6 = NULL;
 
