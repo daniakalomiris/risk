@@ -1,0 +1,91 @@
+[Map]
+author=Andy Gray
+warn=yes
+image=North America No Independence.bmp
+wrap=no
+scroll=horizontal
+
+[Continents]
+Mexico=5
+Oregon=3
+California=3
+Canada=5
+United States=7
+Florida=3
+Texas=5
+Louisiana=7
+
+[Territories]
+Baja California,230,468,Mexico,San Diego,Sonora
+Sonora,306,459,Mexico,Baja California,Arizpe,El Paso,Chihuahua,San Diego
+Chihuahua,397,502,Mexico,Sonora,San Antonio,El Paso
+Nevada,218,270,Mexico,Columbia,Idaho,Utah,Arizpe,Alta California
+Utah,296,287,Mexico,Idaho,Cheyenne,Amarillo,Arizpe,Nevada
+Arizpe,284,359,Mexico,Alta California,Nevada,Utah,Amarillo,El Paso,Sonora,San Diego,Los Angeles
+
+Puget,210,134,Oregon,British Columbia,Idaho,Columbia,Vancouver
+Columbia,188,184,Oregon,Puget,Idaho,Nevada,Alta California
+Idaho,259,207,Oregon,Montana,Cheyenne,Utah,Nevada,Columbia,Puget,Alberta
+British Columbia,229,95,Oregon,Alberta,Puget,Vancouver
+Vancouver,162,87,Oregon,British Columbia,Puget
+
+Alta California,158,233,California,Columbia,Nevada,Arizpe,Los Angeles,San Francisco
+San Francisco,145,261,California,Alta California,Los Angeles
+Los Angeles,196,342,California,San Diego,Arizpe,Alta California,San Francisco
+San Diego,216,371,California,Baja California,Sonora,Arizpe,Los Angeles
+
+Alberta,292,101,Canada,Saskatchewan,Montana,British Columbia,Idaho
+Saskatchewan,375,105,Canada,Manitoba,Dakota,Montana,Alberta
+Manitoba,447,117,Canada,Ontario,Dakota,Saskatchewan,Wisconsin
+Ontario,610,119,Canada,Quebec,New York,Ohio,Michigan,Wisconsin,Manitoba
+Quebec,711,123,Canada,New Brunswick,Maine,New Hampshire,Vermont,New York,Ontario
+New Brunswick,809,121,Canada,Maine,Quebec
+
+Kentucky,626,314,United States,Illinois,Indiana,Ohio,Virginia,Tennessee,Missouri
+Maryland,719,270,United States,Pennsylvania,Delaware,Virginia
+Delaware,741,277,United States,Pennsylvania,New Jersey,Maryland
+Virginia,692,301,United States,Maryland,North Carolina,Tennessee,Kentucky,Ohio,Pennsylvania
+Tennessee,609,346,United States,Kentucky,Virginia,North Carolina,Georgia,Alabama,Mississippi,Arkansas,Missouri
+North Carolina,710,337,United States,Virginia,South Carolina,Georgia,Tennessee
+Mississippi,570,397,United States,Tennessee,Alabama,New Orleans,Arkansas,Mobile
+Alabama,607,396,United States,Tennessee,Georgia,Mississippi,Mobile,Sawanee
+Georgia,654,393,United States,Tennessee,North Carolina,South Carolina,Alabama,Sawanee,Augustine
+South Carolina,689,371,United States,North Carolina,Georgia
+Wisconsin,547,200,United States,Michigan,Illinois,Iowa,Minnesota,Dakota,Ontario,Manitoba
+Michigan,613,228,United States,Ontario,Ohio,Indiana,Wisconsin
+Illinois,565,277,United States,Wisconsin,Indiana,Kentucky,Missouri,Iowa
+Indiana,604,282,United States,Michigan,Ohio,Kentucky,Illinois
+Ohio,644,272,United States,Michigan,Ontario,Pennsylvania,Kentucky,Indiana,Virginia
+Pennsylvania,704,249,United States,New York,New Jersey,Delaware,Maryland,Virginia,Ohio
+New Jersey,745,257,United States,New York,Delaware,Pennsylvania
+New York,730,207,United States,Quebec,Vermont,Massachusetts,Connecticut,New Jersey,Pennsylvania,Ontario
+Connecticut,761,223,United States,Massachusetts,Rhode Island,New York
+Rhode Island,775,222,United States,Massachusetts,Connecticut
+Massachusetts,772,207,United States,Vermont,New Hampshire,Rhode Island,Connecticut,New York
+Vermont,751,179,United States,Quebec,New Hampshire,Massachusetts,New York
+New Hampshire,767,191,United States,Quebec,Maine,Massachusetts,Vermont
+Maine,785,152,United States,Quebec,New Brunswick,New Hampshire
+
+Mobile,583,437,Florida,New Orleans,Mississippi,Alabama,Sawanee
+Sawanee,638,436,Florida,Mobile,Alabama,Georgia,Augustine,Tampa
+Tampa,682,465,Florida,Augustine,Sawanee
+Augustine,701,474,Florida,Georgia,Sawanee,Tampa,Miami
+Miami,709,501,Florida,Augustine
+
+Amarillo,388,341,Texas,Cheyenne,Kansas,Rouga,El Paso,Arizpe,Utah
+El Paso,385,407,Texas,Amarillo,Rouga,Dallas,San Antonio,Chihuahua,Sonora,Arizpe
+Dallas,468,410,Texas,Rouga,Houston,San Antonio,El Paso,Arkansas,New Orleans
+Houston,494,444,Texas,New Orleans,San Antonio,Dallas
+San Antonio,445,466,Texas,Chihuahua,El Paso,Dallas,Houston
+
+Dakota,440,162,Louisiana,Saskatchewan,Manitoba,Wisconsin,Minnesota,Montana
+Minnesota,453,210,Louisiana,Dakota,Wisconsin,Iowa,Nebraska,Cheyenne,Montana
+Nebraska,438,259,Louisiana,Minnesota,Iowa,Missouri,Kansas,Cheyenne
+Kansas,458,311,Louisiana,Nebraska,Missouri,Rouga,Amarillo,Cheyenne
+Rouga,467,359,Louisiana,Kansas,Missouri,Arkansas,Dallas,El Paso,Amarillo
+Iowa,510,252,Louisiana,Wisconsin,Illinois,Missouri,Nebraska,Minnesota
+Missouri,526,318,Louisiana,Iowa,Illinois,Kentucky,Tennessee,Arkansas,Rouga,Kansas,Nebraska
+Arkansas,527,368,Louisiana,Missouri,Tennessee,Mississippi,New Orleans,Dallas,Rouga
+New Orleans,531,441,Louisiana,Arkansas,Mississippi,Mobile,Houston,Dallas
+Montana,329,163,Louisiana,Alberta,Saskatchewan,Minnesota,Dakota,Cheyenne,Idaho
+Cheyenne,351,231,Louisiana,Montana,Minnesota,Nebraska,Kansas,Utah,Idaho,Amarillo
