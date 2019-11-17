@@ -62,24 +62,22 @@ void PlayerDominationView::Update() {
     display();
 }
 
+//displays relevant information whenever specific states of the observable change
 void PlayerDominationView::display() {
     
     //total number of players
     int numPlayers = subject->getNumberOfPlayers();
     
-//    //vector of all player names
-//    vector<string> playerNames;
-//
-//    //vector of number of countries owned by each player
-//    vector<int> countriesPlayers;
     
    //total number of countries
     int numOfCountries = subject->getMap()->getCountries().size();
     
     //dislpays table
     cout << "There are a total of " << numOfCountries << " countries" << endl;
-    cout << "Player Name \t Countries owned\t % of wordl owned" << endl;
-  
+	cout << "=========================================================" << endl;
+	cout << "                    PLAYER STATS" << endl;
+	cout << "=========================================================" << endl;
+
     
     //iterates through all players
     for(int i=0; i<numPlayers; i++){
@@ -100,13 +98,16 @@ void PlayerDominationView::display() {
         double percentageOwned = static_cast<double>(playerNumCountries)/numOfCountries*100;
         
         //output data of each player
-        cout << playerName <<"\t\t\t" << playerNumCountries << "\t\t\t" <<  percentageOwned <<"%"<< endl;
-        
-//        //push names and countries
-//        playerNames.push_back(playerName);
-//        countriesPlayers.push_back(playerNumCountries);
+		cout << "PLAYER " << playerName; 
+		cout << "---------------------------------------------------------" << endl; 
+		cout << "COUNTRIES OWNED: " << playerNumCountries << endl;
+		cout << "PERCENTAGE OF COUNTRIES OWNED: " << percentageOwned << "%" << endl; 
+		cout << endl; 
+
+
+        //Checks if a player has all countries 
         if(subject->getAllPlayers().at(i)->getThisPlayerCountries().size() == subject->getMap()->getCountries().size()){
-            cout << "Congratulations! " << subject->getAllPlayers().at(i) << " has 100% of the countries!" <<endl;
+            cout << "Congratulations!!! " << subject->getAllPlayers().at(i) << " has 100% of the countries!" <<endl;
         }
         
     }
