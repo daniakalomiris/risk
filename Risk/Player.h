@@ -43,7 +43,7 @@ class Player{
         void setMap(Map* map);
     
         void setThisPlayerContinents(Continent* continent);
-       
+        void deleteThisPlayerContinent(Continent* continent);
         
         std::vector<Continent* > getThisPlayerContinents();
         bool checkControlContinents();

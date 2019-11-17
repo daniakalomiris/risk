@@ -122,6 +122,30 @@ void Player:: setThisPlayerContinents(Continent *continent) {
     thisPlayerContinents.push_back(continent);
 }
 
+
+
+void Player:: deleteThisPlayerContinent(Continent *continent) {
+    int indexOfContinentToDelete =0;
+    
+   
+    for(int i = thisPlayerContinents.size()-1; i >=0; i--) {
+        
+        //check which continent we want to delete and set the index
+        if(continent->getContinentName().compare(thisPlayerContinents.at(i)->getContinentName()) ==0) {
+            indexOfContinentToDelete = i;
+            
+            
+            
+        }
+        
+    }
+    
+    //delete the continent on that index
+    thisPlayerContinents.erase(thisPlayerContinents.begin() + indexOfContinentToDelete);
+    
+    
+}
+
 void Player:: deleteThisPlayerCountry(Country *country) {
     int indexOfCountryToDelete =0;
     
@@ -569,8 +593,10 @@ void Player::fortify() {
         
         //Prompts the user for the source country
         cout << "\nPlease write the name of the chosen source country \n(capitalize the first letter)" << endl;
-        
-        cin >> nameSourceCountry;
+        cin.ignore();
+      
+        getline(cin, nameSourceCountry);
+        //cin >> nameSourceCountry;
         
         
         //check if the player owns the source country
@@ -658,13 +684,17 @@ void Player::fortify() {
         
         //Prompts the user for a target country
         cout << "Please write the name of the chosen target country \n(capitalize the first letter)" << endl;
-        cin >> nameTargetCountry;
+       
+        cin.ignore();
+        getline(cin, nameTargetCountry);
+     
         
         //check if the player owns the target country
         for(unsigned int i = 0; i < this->getThisPlayerCountries().size(); i++) {
             if(nameTargetCountry.compare(this->getThisPlayerCountries().at(i)->getCountryName()) == 0) {
                 isTargetCountryValid = true;
                 indexOfTargetCountry = i;
+                
             }
         }
         
@@ -673,7 +703,7 @@ void Player::fortify() {
         for(unsigned int i =0; i< this->getThisPlayerCountries().at(indexOfSourceCountry)->getAdjacentCountries().size(); i++) {
             if(nameTargetCountry.compare(this->getThisPlayerCountries().at(indexOfSourceCountry)->getAdjacentCountries().at(i)->getCountryName()) == 0) {
                 isTargetCountryNeighbour =true;
-                // cout << "The country is a neighbour" << endl;
+                 
             }
             
         }

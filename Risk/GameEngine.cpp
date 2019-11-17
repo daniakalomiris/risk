@@ -412,16 +412,13 @@ void GameEngine:: mainGameLoop() {
     int indexOfWinningPlayer = 0;
     
     
-  
-    
-    
     cout << "\n\n****** Main Game Loop *******" << endl;
     
     //while the game is still playing
     while (getEndGame() == false) {
         
         //vector of the country owner id before the attack
-          vector<int> OldCountryOwnerId;
+        vector<int> OldCountryOwnerId;
         
         for(int i = 0; i< this->getNumberOfPlayers(); i++) {
             
@@ -435,7 +432,7 @@ void GameEngine:: mainGameLoop() {
             
             //make the player reinforce, attack and fortify
             this->getAllPlayers().at(i)->reinforce();
-			Notify();
+            Notify();
             
             
             //get the countryOwnerId for all countries before the attack
@@ -446,17 +443,12 @@ void GameEngine:: mainGameLoop() {
             this->getAllPlayers().at(i)->attack();
             
             //compare the old owner ID with the new owner Id if a player won a country
-            
             for(int j = 0; j < map->getCountries().size(); j++) {
                 
                 int indexPlayerLostCountry;
                 
                 //if the owner id has changed delete the country from the old owner player
                 if(OldCountryOwnerId.at(j) != map->getCountries().at(j)->getCountryOwnerId()) {
-                    
-                    //code for debug, i will erase it before submitting
-                   // cout << "the country that the player wins " << map->getCountries().at(j)->getCountryName() << endl;
-                   // cout << "ID of the player who lost a country " << OldCountryOwnerId.at(j) << endl;
                     
                     
                     
@@ -466,22 +458,22 @@ void GameEngine:: mainGameLoop() {
                         if(OldCountryOwnerId.at(j) == getAllPlayers().at(k)->getID()) {
                             indexPlayerLostCountry = k;
                         }
-                        
-                        
                     }
-                    //code for debug, i will erase it before submitting
-                   // cout << "index of player what lost a country" << indexPlayerLostCountry << endl;
+                    
                     this->getAllPlayers().at(indexPlayerLostCountry)->deleteThisPlayerCountry(map->getCountries().at(j));
                 }
             }
             
+            //check if a player owns a continent
+            this->getAllPlayers().at(i)->checkControlContinents();
+            
             //reset the countryOwnerId
             OldCountryOwnerId.clear();
             
-                        
-			Notify();
+            
+            Notify();
             this->getAllPlayers().at(i)->fortify();
-			Notify();
+            Notify();
             
             
             //check if a player owns all the countries

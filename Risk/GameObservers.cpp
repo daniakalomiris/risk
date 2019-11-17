@@ -107,7 +107,7 @@ void PlayerDominationView::display() {
 
         //Checks if a player has all countries 
         if(subject->getAllPlayers().at(i)->getThisPlayerCountries().size() == subject->getMap()->getCountries().size()){
-            cout << "Congratulations!!! " << subject->getAllPlayers().at(i) << " has 100% of the countries!" <<endl;
+            cout << "Congratulations!!! " << subject->getAllPlayers().at(i)->getName() << " has 100% of the countries!" <<endl;
         }
         
     }
