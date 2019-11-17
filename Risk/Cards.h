@@ -24,6 +24,10 @@ public:
 	int getWorth();
 	void setWorth(int worth);
 
+	
+
+
+
 
 private:
 	// //Type of card 0 -> infrantry, 1 -> artillery, 2 -> cavalry
@@ -84,6 +88,9 @@ public:
     void setNumberOfArmiesToPlace(int num);
     void addNumberOfArmies(int num);
     void deleteNumberOfArmies(int num);
+	void setAutom(bool autom);
+	bool getAutom();
+
 
 private:
 	int id;
@@ -95,4 +102,7 @@ private:
     
     // number of armies the player needs to place on the map when his turn starts
     std::unique_ptr<int> numOfArmiesToPlace;
+
+	// determines exchange (false if user, true if computer player)
+	bool autom;
 };

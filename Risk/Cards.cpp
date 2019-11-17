@@ -227,6 +227,14 @@ void Hand::removeCard(int i) {
     this->cardsInHand.erase(cardsInHand.begin() + i);
 }
 
+void Hand::setAutom(bool autom) {
+	this->autom = autom;
+}
+
+bool Hand::getAutom() {
+	return autom;
+}
+
 //method to exchange cards
 void Hand::exchange() {
     
@@ -262,7 +270,7 @@ void Hand::exchange() {
         cavalryExchanged =0;
         
         //check the amount of cards of each type
-        for (int i = 0; i < this->getCardsInHand().size(); i++) {
+        for (unsigned int i = 0; i < this->getCardsInHand().size(); i++) {
             
             if (( this->getCardsInHand().at(i)->getType()).compare("Infantry") == 0) { //checks if of type of infantry
                 infantry++;
@@ -278,7 +286,7 @@ void Hand::exchange() {
         
         //Prints the card in the hand of the player
         cout << "\n\nThese are the cards in your hand and their types" << endl;
-        for (int i = 0; i < this->getCardsInHand().size(); i++) {
+        for (unsigned int i = 0; i < this->getCardsInHand().size(); i++) {
             cout << "Type of card " << i+1 << " is: " << this->getCardsInHand().at(i)->getType() << endl;
         }
         
@@ -290,7 +298,13 @@ void Hand::exchange() {
             if(infantry >=3) {
                 cout << "You have at least a set of 3 infantry cards, do you want to exchange it? (y/n)" << endl;
                 string answer;
-                cin >> answer;
+
+				if (autom) { 
+					answer = "y"; // computer players always exchange
+				}
+				else {
+					cin >> answer;
+				}
                 
                 if(answer.compare("y") == 0) {
                     exchangeInfantry = true;
@@ -306,7 +320,13 @@ void Hand::exchange() {
             else if(cavalry >=3) {
                 cout << "You have at least a set of 3 cavalry cards, do you want to exchange it? (y/n)" << endl;
                 string answer;
-                cin >> answer;
+
+				if (autom) {
+					answer = "y"; // computer players always exchange
+				}
+				else {
+					cin >> answer;
+				}
                 
                 if(answer.compare("y") == 0) {
                     exchangeCavalry = true;
@@ -323,7 +343,13 @@ void Hand::exchange() {
             else if(artillery >=3) {
                 cout << "You have at least a set of 3 artillery cards, do you want to exchange it? (y/n)" << endl;
                 string answer;
-                cin >> answer;
+
+				if (autom) {
+					answer = "y"; // computer players always exchange
+				}
+				else {
+					cin >> answer;
+				}
                 
                 if(answer.compare("y") == 0) {
                     exchangeArtillery = true;
@@ -339,7 +365,13 @@ void Hand::exchange() {
         else if(infantry >= 1 && artillery >= 1 && cavalry >= 1) {
             cout << "You have at least a set of 1 card of each type, do you want to exchange the it? (y/n)" << endl;
             string answer;
-            cin >> answer;
+
+			if (autom) {
+				answer = "y"; // computer players always exchange
+			}
+			else {
+				cin >> answer;
+			}
             
             if(answer.compare("y") == 0) {
                 exchangeOneOfEach = true;
@@ -361,7 +393,7 @@ void Hand::exchange() {
         if (exchangeInfantry) {
             
             while(infantryExchanged < 3) {
-                for (int i = 0; i < this->getCardsInHand().size(); i++) { // remove 3 infantry cards from hand
+                for (unsigned int i = 0; i < this->getCardsInHand().size(); i++) { // remove 3 infantry cards from hand
                     
                     if ((this->getCardsInHand().at(i)->getType()).compare("Infantry") == 0) {
                         
@@ -467,7 +499,13 @@ void Hand::exchange() {
         if(infantry >=3 || artillery >=3 || cavalry >=3) {
             cout << "You can exchange more cards. Do you want to do it? (y/n)" << endl;
             string answer;
-            cin >> answer;
+
+			if (autom) {
+				answer = "y"; // computer players always exchange
+			}
+			else {
+				cin >> answer;
+			}
             
             if(answer.compare("y") != 0) {
                 exchangeAgain= false;
@@ -478,7 +516,13 @@ void Hand::exchange() {
         else if(infantry == 1 && artillery == 1 && cavalry == 1) {
             cout << "You can exchange more cards. Do you want to do it? (y/n)" << endl;
             string answer;
-            cin >> answer;
+
+			if (autom) {
+				answer = "y"; // computer players always exchange
+			}
+			else {
+				cin >> answer;
+			}
             
             if(answer.compare("y") != 0) {
                 exchangeAgain= false;

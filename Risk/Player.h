@@ -6,15 +6,17 @@
 #include <vector>
 #include <memory> //for pointer class
 
-class Player{
+class Strategy;
+
+class Player {
 	public:
 		Player(); // default constructor
 		~Player();
         Player(const Player&); //copy constructor
 		Player(std::string name); //constructor which takes a name
         Player(std::string name, Map* map); //constructor which takes a name and a map
-		Player& operator=(const Player& orig); //equaloperator 
-		
+		Player& operator=(const Player& orig); //equaloperator
+
         //returns id of player that is generated during player object creation
 		int getID();
 
@@ -22,17 +24,20 @@ class Player{
 		void setName(std::string name);
 		std::string getName();
 
-		
+
 		Dice* getDice();
 		Hand* getHand();
 
-   
+
         std::vector<Country* > getThisPlayerCountries();
         void setThisPlayerCountry(Country* country);
          void deleteThisPlayerCountry(Country* country);
 
         int getNumOfArmiesAtStartUpPhase();
         void setNumOfArmiesAtStartUpPhase(int num);
+
+		int getNumOfArmiesForReinforcement();
+		void setNumOfArmiesForReinforcement(int num);
 
 		//attack, fortify, reinforce methods
 		void attack();
@@ -41,10 +46,10 @@ class Player{
 
         Map* getMap();
         void setMap(Map* map);
-    
+
         void setThisPlayerContinents(Continent* continent);
         void deleteThisPlayerContinent(Continent* continent);
-        
+
         std::vector<Continent* > getThisPlayerContinents();
         bool checkControlContinents();
 
@@ -55,7 +60,7 @@ class Player{
 		void setNumArmy1(int i);
 		void setNumArmy2(int i);
 		void setNumArmy3(int i);
-    
+
 		//getters and setters for attack method
 		std::string getAttackerCountry();
 		std::string getDefenderCountry();
@@ -82,12 +87,31 @@ class Player{
 		void setSourceArmy(int SourceArmy);
 		int getTargetArmy();
 		void setTargetArmy(int targetArmy);
-        
-    
+
+
         //setter and getter for the bool phaseStart
         bool getPhaseStart();
         void setPhaseStart(bool start);
-	
+				void setStrategy(Strategy* strategy);
+				Strategy* getStrategy();
+
+				/* methods that execute a different strategy depending on what strategy was chosen */
+				std::string executeExtraReinforcement();
+				int executeCountryToReinforce();
+				int executeArmiesToPlace();
+
+				std::string executeChooseAttack();
+				int executeAttackFrom();
+				int executeCountryToAttack(Country* country);
+				int executeAttackerRoll();
+				int executeArmiesToMove(int armiesCanMove);
+
+				std::string executeChooseFortify();
+				std::string executeCountryToFortifyFrom();
+				int executeArmiesToFortify(int sourceCountryArmies);
+				std::string executeCountryToFortify();
+
+				bool executeExchangeAutom();
     private:
 		Dice* dice;
 		Hand* hand;
@@ -98,22 +122,22 @@ class Player{
         std::vector<Country*> countries;
         std:: vector<Continent*> thisPlayerContinents;
         std::unique_ptr<int> numOfArmiesAtStartUpPhase;
-    
+		int numOfArmiesForReinforcement;
 
 		Player* defender;
         Map* map;
 
 		//variables for getters and setter player
-        
+
         //boolean that tells you if a phase has start
         std::unique_ptr<bool> phaseStart;
-    
-    
+
+
         //variable for reinforce
 		std::unique_ptr<int> numArmy1;
 		std::unique_ptr<int>  numArmy2;
 		std::unique_ptr<int>  numArmy3;
-    
+
 		//variable for attack
 		std::string attackerCountry;
 		std::string defenderCountry;
@@ -128,5 +152,6 @@ class Player{
 		std::string fortifyTargetCountry;
 		int sourceArmy;
 		int targetArmy;
-		
+		Strategy* strategy;
+
 };
