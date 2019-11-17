@@ -400,7 +400,7 @@ void GameEngine::createMap() {
     }
 
     //calls methods from maploader to open the file selected, create it, and display it
-    maploader->readMapFile("maps/" + mapFile+ ".map");
+    maploader->readMapFile("maps/domination/" + mapFile+ ".map");
     maploader->createMap();
     maploader->displayMap();
 
@@ -430,7 +430,6 @@ void GameEngine:: mainGameLoop() {
 
         for(int i = 0; i< this->getNumberOfPlayers(); i++) {
 
-//PART3-----------------------------------------------
             //if the player doesn't own any countries, skip his turn
             if(this->getAllPlayers().at(i)->getThisPlayerCountries().size() ==0) {
                 continue;
@@ -438,17 +437,26 @@ void GameEngine:: mainGameLoop() {
 
             //display which player is playing
             cout << "\n\n************** Player " << this->getAllPlayers().at(i)->getName() << "'s turn **************\n" << endl;
-
+            
+            
+            currentPlayerIndex = i;
+            //make the player reinforce, attack and fortify
+            setPhase(1);
+            Notify();
             //make the player reinforce, attack and fortify
             this->getAllPlayers().at(i)->reinforce();
             Notify();
-
+            
+            //make the phaseStart back to false, so we don't display data that we didn't enter yet
+            this->getAllPlayers().at(i)->setPhaseStart(false);
 
             //get the countryOwnerId for all countries before the attack
             for(int j=0; j < map->getCountries().size(); j++) {
                 OldCountryOwnerId.push_back(map->getCountries().at(j)->getCountryOwnerId());
             }
             
+            setPhase(2);
+            Notify();
             this->getAllPlayers().at(i)->attack();
 
             //compare the old owner ID with the new owner Id if a player won a country
@@ -479,40 +487,19 @@ void GameEngine:: mainGameLoop() {
             //reset the countryOwnerId
             OldCountryOwnerId.clear();
 
-
+           
+            Notify();
+            //make the phaseStart back to false, so we don't display data that we didn't enter yet
+            this->getAllPlayers().at(i)->setPhaseStart(false);
+            
+              setPhase(3);
             Notify();
             this->getAllPlayers().at(i)->fortify();
+          
             Notify();
-//PART3-----------------------------------------------
-
-//PART2-----------------------------------------------
-            //display which player is playing
-            cout << "\n\n************** Player " <<  i+1 << ": " << this->getAllPlayers().at(i)->getName() << "'s turn **************\n" << endl;
-
-            currentPlayerIndex = i;
-			//make the player reinforce, attack and fortify
-            setPhase(1);
-          //  Notify();
-            this->getAllPlayers().at(i)->reinforce();
-
-			Notify();
-
-            //currentDefenderIndex = this->getAllPlayers().at(i)->getDefenderId();
-            this->getAllPlayers().at(i)->attack();
-            setPhase(2);
-			Notify();
-
-            this->getAllPlayers().at(i)->fortify();
-			setPhase(3);
-			Notify();
-//PART2-----------------------------------------------
-
-
-            //check if a player owns all the countries
-            if(this->getAllPlayers().at(i)->getThisPlayerCountries().size() == this->map->getCountries().size()) {
-                this->setEndGame(true);
-                Notify();
-            }
+            //make the phaseStart back to false, so we don't display data that we didn't enter yet
+            this->getAllPlayers().at(i)->setPhaseStart(false);
+           
 
 
         }

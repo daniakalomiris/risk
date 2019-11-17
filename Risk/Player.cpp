@@ -13,6 +13,7 @@ Player::Player() {
 	counter++;
 	id = make_unique<int>(counter); //id of player generated
 	numOfArmiesAtStartUpPhase = make_unique<int>(0);
+    phaseStart = make_unique<bool>(false);
 }
 
 //player Constructor with name
@@ -22,6 +23,7 @@ Player::Player(string name) {
     this->setName(name);
     counter++;
     id = make_unique<int>(counter); //sets the id to the counter of the player
+    phaseStart = make_unique<bool>(false);
 }
 
 //player constructor with parameters
@@ -32,6 +34,7 @@ Player::Player(string name, Map* map) {
     counter++;
 	id = make_unique<int>(counter);//sets the id to the counter of the player
     this->map = map;//sets the map to the map passed in the constructor
+    phaseStart = make_unique<bool>(false);
 }
 
 ////copy constructor
@@ -157,6 +160,15 @@ int Player::getTargetArmy() {
 //Setters
 void Player::setName(string name) {
 	this->name = name;
+}
+
+
+void Player::setPhaseStart(bool start) {
+    this->phaseStart.reset(new bool(start));
+}
+
+bool Player::getPhaseStart() {
+    return *phaseStart;
 }
 
 void Player:: setThisPlayerContinents(Continent *continent) {
@@ -298,7 +310,8 @@ void Player::reinforce() {
 	setNumArmy1(0);
 	setNumArmy2(0);
 	setNumArmy3(0);
-
+    
+    this->setPhaseStart(false);
     cout << "\n~~~~~ Reinforcement Phase ~~~~~\n" << endl;
     int armyAdd = 0; //for the total number of armies to add
     int ownedCountries = 0;
@@ -408,7 +421,7 @@ void Player::reinforce() {
     }
 
     cout << "\n\n~~~~~ End of the reinforce phase for player " << this->getName() << " ~~~~~" << endl;
-
+     this->setPhaseStart(true); //we start the phase
 }
 
 // attack method
@@ -425,6 +438,10 @@ void Player::attack(){
     cin >> playerAttack;
 
     while (playerAttack == "Y") {
+        
+        //we start the phase
+        this->setPhaseStart(true);
+
         cout << "These are the countries you own and the number of armies placed on them:" << endl;
         for (unsigned int i = 0; i < getThisPlayerCountries().size(); i++) {
             cout << "Country " << i + 1 << ": " << getThisPlayerCountries().at(i)->getCountryName() << " \tNumber of Armies: " << getThisPlayerCountries().at(i)->getNumberOfArmies() << endl;
@@ -656,7 +673,7 @@ void Player::fortify() {
     cin >> attack;
 
     if(attack.compare("Y") == 0) {
-
+         this->setPhaseStart(true); //we start the phase
     cout << "\nThis is your countries, their number of armies and their adjacent countries" << endl;
 
     for(unsigned int i = 0 ; i < getThisPlayerCountries().size(); i++) {

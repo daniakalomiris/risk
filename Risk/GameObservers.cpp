@@ -25,6 +25,8 @@ void Subject::Attach(Observer* o) {
 void Subject::Detach(Observer* o) {
     observers->remove(o);
 }
+
+//notify function
 void Subject::Notify() {
     list<Observer*>::iterator i = observers->begin();
 
@@ -43,7 +45,7 @@ void Subject::Notify() {
 
 //-------------- CONCRETE OBSERVERS ----------
 
-//---------------------Concrete observer for PlayerDominationView observer
+//---------------------Concrete observer for Game Statistics Observer
 PlayerDominationView::PlayerDominationView(){
 
 }
@@ -74,7 +76,7 @@ void PlayerDominationView::display() {
     int numOfCountries = subject->getMap()->getCountries().size();
 
     //dislpays table
-    cout << "There are a total of " << numOfCountries << " countries" << endl;
+    cout << "\n\nThere are a total of " << numOfCountries << " countries" << endl;
 	cout << "=========================================================" << endl;
 	cout << "                    PLAYER STATS" << endl;
 	cout << "=========================================================" << endl;
@@ -113,21 +115,12 @@ void PlayerDominationView::display() {
 
     }
 
-
-
-
-
 }
 
 
 
 
-
-
-
-
-
-//---------------------Concrete observer for reinforce phase
+//---------------------Concrete observer for Phase Observer
 PhaseObs::PhaseObs() {
 }
 
@@ -163,18 +156,25 @@ void PhaseObs::display() {
 		int numArmy2 = subject->getAllPlayers().at(i)->getNumArmy2();
 		int numArmy3 = subject->getAllPlayers().at(i)->getNumArmy3();
 		int armyAdd = numArmy1 + numArmy2 + numArmy3;
-		cout << "--------------------------------------------------------------" << endl;
+		cout << "\n\n--------------------------------------------------------------" << endl;
 		cout << "Player " << id << ", " << playerName << ": Reinfore Phase." << endl;
+        
+        //display the info if the phase has started
+        if(subject->getAllPlayers().at(i)->getPhaseStart()) {
 		cout << "Number of armies for controlled countries: " << numArmy1 << endl;
 		cout << "Number of armies for controlled continents: " << numArmy2 << endl;
 		cout << "Number of armies added by exchanging cards is " << numArmy3 << "." << endl;
 		cout << "In total, " << armyAdd << " armies were added for reinforcement." << endl;
 		cout << "--------------------------------------------------------------" << endl;
+        }
 	}
 	if (phase == phaseA) {
-		cout << "--------------------------------------------------------------" << endl;
+		cout << "\n\n--------------------------------------------------------------" << endl;
 		cout << "Player " << id << ", " << playerName << ": Attack Phase." << endl;
-		cout << "Player " << id << " is the attacker and  Player " << subject->getAllPlayers().at(i)->getDefenderId() << " is the defender." << endl;
+		
+        //display the info if the phase has started
+        if(subject->getAllPlayers().at(i)->getPhaseStart()) {
+        cout << "Player " << id << " is the attacker and  Player " << subject->getAllPlayers().at(i)->getDefenderId() << " is the defender." << endl;
 		cout << "The Attacker used " << subject->getAllPlayers().at(i)->getStartA()<<  " army/ies from " << subject->getAllPlayers().at(i)->getAttackerCountry() << " to attack." << endl;
 		cout << "The Defender had " << subject->getAllPlayers().at(i)->getStartD() << " army/ies on " << subject->getAllPlayers().at(i)->getDefenderCountry() << "." << endl;
 		cout << "At the end of the attack:" << endl;
@@ -182,15 +182,19 @@ void PhaseObs::display() {
 		cout << "The Defender now has " << subject->getAllPlayers().at(i)->getEndD() << " army/ies on " << subject->getAllPlayers().at(i)->getDefenderCountry() << "." << endl;
 		cout << "--------------------------------------------------------------" << endl;
 	}
+    }
 
 	if (phase == phaseF) {
-		cout << "--------------------------------------------------------------" << endl;
+		cout << "\n\n--------------------------------------------------------------" << endl;
 		cout << "Player " << id << ", " << playerName << ": Fortify Phase." << endl;
+        
+        //display the info if the phase has started
+        if(subject->getAllPlayers().at(i)->getPhaseStart()) {
 		cout << subject->getAllPlayers().at(i)->getFortifySourceCountry() << " has now " << subject->getAllPlayers().at(i)->getSourceArmy() << " armies" << endl;
 		cout << subject->getAllPlayers().at(i)->getFortifyTargetCountry() << " has now " << subject->getAllPlayers().at(i)->getTargetArmy() << " armies" << endl;
 		cout << "--------------------------------------------------------------" << endl;
 	}
-
+    }
 
 
 }

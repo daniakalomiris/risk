@@ -14,7 +14,8 @@ class Player{
 		Player(std::string name); //constructor which takes a name
         Player(std::string name, Map* map); //constructor which takes a name and a map
 		Player& operator=(const Player& orig); //equaloperator 
-		//returns id of player that is generated during player object creation
+		
+        //returns id of player that is generated during player object creation
 		int getID();
 
 		//set and get player's name
@@ -34,7 +35,6 @@ class Player{
         void setNumOfArmiesAtStartUpPhase(int num);
 
 		//attack, fortify, reinforce methods
-		//attack returns DefenderID
 		void attack();
 		void fortify();
         void reinforce();
@@ -55,7 +55,8 @@ class Player{
 		void setNumArmy1(int i);
 		void setNumArmy2(int i);
 		void setNumArmy3(int i);
-		//getters and setters for attack methid 
+    
+		//getters and setters for attack method
 		std::string getAttackerCountry();
 		std::string getDefenderCountry();
 		void setAttackerCountry(std::string attackerCountry);
@@ -70,7 +71,8 @@ class Player{
 		void setEndD(int endD);
 		int getDefenderId();
 		void setDefenderId(int defenderId);
-		//set and getters for fortify method
+    
+		//setters and getters for fortify method
 		std::string getFortifySourceCountry();
 		void setFortifySourceCountry(std::string fortifySourceCountry);
 		std::string getFortifyTargetCountry();
@@ -79,13 +81,17 @@ class Player{
 		void setSourceArmy(int SourceArmy);
 		int getTargetArmy();
 		void setTargetArmy(int targetArmy);
+        
     
-	private:
+        //setter and getter for the bool phaseStart
+        bool getPhaseStart();
+        void setPhaseStart(bool start);
+	
+    private:
 		Dice* dice;
 		Hand* hand;
 		Deck* deck;
 		std::string name;
-		std::string answer;
 		std::unique_ptr<int> id;
 		static int counter;
         std::vector<Country*> countries;
@@ -97,6 +103,12 @@ class Player{
         Map* map;
 
 		//variables for getters and setter player
+        
+        //boolean that tells you if a phase has start
+        std::unique_ptr<bool> phaseStart;
+    
+    
+        //variable for reinforce
 		int numArmy1;
 		int numArmy2;
 		int numArmy3;
