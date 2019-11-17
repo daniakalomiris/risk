@@ -41,7 +41,7 @@ class User : public Strategy {
 		User();
 		~User();
 		User(const User& orig);
-		const User& operator=(const User& u);
+		// const User& operator=(const User& u);
 
 		std::string extraReinforcement();
 		int countryToReinforce(Player* player);
