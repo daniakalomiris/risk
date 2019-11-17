@@ -24,8 +24,8 @@ int main() {
 		}
 	}
 
-	//Create RObs that will be connected to the GameEngine
-	RObs* robs = new RObs(theGame);
+	//Create PhaseObs that will be connected to the GameEngine
+	PhaseObs* phaseObs = new PhaseObs(theGame);
 
 	theGame->mainGameLoop();
 	

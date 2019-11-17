@@ -42,26 +42,26 @@ void Subject::Notify() {
 
 //-------------- CONCRETE OBSERVERS ----------
 //---------------------Concrete observer for reinforce phase 
-RObs::RObs() {
+PhaseObs::PhaseObs() {
 }
 
-RObs::RObs(GameEngine* s) {
+PhaseObs::PhaseObs(GameEngine* s) {
 	//When object is instantiated, it attaches itself to a GameEngine
 	subject = s;
 	subject->Attach(this);
 }
 
-RObs::~RObs() {
+PhaseObs::~PhaseObs() {
 	//When a GameEngine is destroyed, it must detache itself from it 
 	subject->Detach(this);
 }
 
-void RObs::Update() {
+void PhaseObs::Update() {
 	//This methid is called by Notify from Subject when a state from GameEngine changes
 	display();
 }
 
-void RObs::display() {
+void PhaseObs::display() {
 
 	int numPlayers = subject->getNumberOfPlayers();
 	
@@ -96,52 +96,4 @@ void RObs::display() {
 		
 
 	}
-}
-
-//---------------------Concrete observer for attack phase 
-AObs::AObs() {
-}
-
-AObs::AObs(GameEngine* s) {
-	//When object is instantiated, it attaches itself to a GameEngine
-	subject = s;
-	subject->Attach(this);
-}
-
-AObs::~AObs() {
-	//When a GameEngine is destroyed, it must detache itself from it 
-	subject->Detach(this);
-}
-
-void AObs::Update() {
-	//This methid is called by Notify from Subject when a state from GameEngine changes
-	display();
-}
-
-void AObs::display() {
-	//int id = subject->getID();
-	//cout << "Player " << id << ": Attack Phase." << endl;
-}
-
-//---------------------Concrete observer for fortify phase 
-FObs::FObs() {
-}
-
-FObs::FObs(GameEngine* s) {
-	//When object is instantiated, it attaches itself to a GameEngine
-	subject = s;
-	subject->Attach(this);
-}
-FObs::~FObs() {
-	//When a GameEngine is destroyed, it must detache itself from it 
-	subject->Detach(this);
-}
-void FObs::Update() {
-	//This methid is called by Notify from Subject when a state from GameEngine changes
-	display();
-}
-void FObs::display() {
-	/*int id = subject->getID();
-	cout << "Player " << id << ": Fortify Phase." << endl;*/
-
 }
