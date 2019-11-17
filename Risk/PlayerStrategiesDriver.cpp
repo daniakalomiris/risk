@@ -242,5 +242,7 @@ void selectStrategy(Player* player) {
 			player->setStrategy(aggressive);
 		case 3:
 			player->setStrategy(benevolent);
+		default:
+			break;
 	}
 }

@@ -157,59 +157,59 @@ void Player::setStrategy(Strategy* strategy) {
 }
 
 Strategy* Player::getStrategy() {
-	return strategy;
+	return this->strategy;
 }
 
 string Player::executeExtraReinforcement() {
-	return strategy->extraReinforcement();
+	return this->strategy->extraReinforcement();
 }
 
 int Player::executeCountryToReinforce() {
-	return strategy->countryToReinforce(this);
+	return this->strategy->countryToReinforce(this);
 }
 
 int Player::executeArmiesToPlace() {
-	return strategy->armiesToPlace(this);
+	return this->strategy->armiesToPlace(this);
 }
 
 string Player::executeChooseAttack() {
-	return strategy->chooseAttack();
+	return this->strategy->chooseAttack();
 }
 
 int Player::executeAttackFrom() {
-	return strategy->attackFrom(this);
+	return this->strategy->attackFrom(this);
 }
 
 int Player::executeCountryToAttack(Country* attackFrom) {
-	return strategy->countryToAttack(attackFrom);
+	return this->strategy->countryToAttack(attackFrom);
 }
 
 int Player::executeAttackerRoll() {
-	return strategy->attackerRoll();
+	return this->strategy->attackerRoll();
 }
 
 int Player::executeArmiesToMove(int armiesCanMove) {
-	return strategy->armiesToMove(armiesCanMove);
+	return this->strategy->armiesToMove(armiesCanMove);
 }
 
 string Player::executeChooseFortify() {
-	return strategy->chooseFortify();
+	return this->strategy->chooseFortify();
 }
 
 string Player::executeCountryToFortifyFrom() {
-	return strategy->countryToFortifyFrom(this);
+	return this->strategy->countryToFortifyFrom(this);
 }
 
 int Player::executeArmiesToFortify(int sourceCountryArmies) {
-	return strategy->armiesToFortify(sourceCountryArmies);
+	return this->strategy->armiesToFortify(sourceCountryArmies);
 }
 
 string Player::executeCountryToFortify() {
-	return strategy->countryToFortify(this);
+	return this->strategy->countryToFortify(this);
 }
 
 bool Player::executeExchangeAutom() {
-	return strategy->exchangeAutom();
+	return this->strategy->exchangeAutom();
 }
  
 //reinforce phase
