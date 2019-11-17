@@ -11,7 +11,7 @@ using namespace std;
 //maximum and minimum number of players that can play the game
 const int MIN_PLAYERS = 2;
 const int MAX_PLAYERS = 6;
-
+std::string phase; 
 
 //constructor
 GameEngine:: GameEngine() {
@@ -72,6 +72,14 @@ bool GameEngine::getEndGame() {
 
 void GameEngine::setEndGame(bool value) {
     *endGame = value;
+}
+
+// phase == 1 is for reinforce, phase == 2 is for attack, phase == 3 is for fortify
+void GameEngine::setPhase(int phase) {
+	this->phase = make_unique<int>(phase);
+}
+int GameEngine::getPhase() {
+	return *phase;
 }
 
 //sets the number of armies per player depending of the number of players
@@ -415,10 +423,13 @@ void GameEngine:: mainGameLoop() {
             cout << "\n\n************** Player " <<  i+1 << ": " << this->getAllPlayers().at(i)->getName() << "'s turn **************\n" << endl;
             
             //make the player reinforce, attack and fortify
+			setPhase(1);
             this->getAllPlayers().at(i)->reinforce();
 			Notify();
+			setPhase(2);
             this->getAllPlayers().at(i)->attack();
 			Notify();
+			setPhase(3);
             this->getAllPlayers().at(i)->fortify();
 			Notify();
             

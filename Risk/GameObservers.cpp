@@ -62,17 +62,40 @@ void RObs::Update() {
 }
 
 void RObs::display() {
-	//int id = subject->getID();
-	//int numArmy3 = subject->getNumArmy3();
-	//int numArmy1 = subject->getNumArmy1();
-	//int numArmy2 = subject->getNumArmy2();
-	//int armyAdd = numArmy1 + numArmy2 + numArmy3;
-	//cout << "Player " << id << ": Reinfore Phase." << endl;
-	//cout << "Number of armies for controlled countries: " << numArmy1 << endl;
-	//cout << "Number of armies for controlled continents: " << numArmy2 << endl;
-	//cout << "Number of armies added by exchanging cards is " << numArmy3 << "." << endl;
-	//cout << "In total, " << armyAdd << " armies can be added for reinforcement." << endl;
 
+	int numPlayers = subject->getNumberOfPlayers();
+	
+	int phaseR = 1;
+	int phaseA = 2;
+	int phaseF = 3;
+
+	for (int i = 0; i <numPlayers; i++) {
+		int phase = subject->getPhase();
+		string playerName = subject->getAllPlayers().at(i)->getName();
+		int id = subject->getAllPlayers().at(i)->getID();
+		if (phase == phaseR) {
+			int numArmy1 = subject->getAllPlayers().at(i)->getNumArmy1();
+			int numArmy2 = subject->getAllPlayers().at(i)->getNumArmy2();
+			int numArmy3 = subject->getAllPlayers().at(i)->getNumArmy3();
+			int armyAdd = numArmy1 + numArmy2 + numArmy3;
+			cout << "Player " << id << ", " << playerName << ": Reinfore Phase." << endl;
+			cout << "Number of armies for controlled countries: " << numArmy1 << endl;
+			cout << "Number of armies for controlled continents: " << numArmy2 << endl;
+			cout << "Number of armies added by exchanging cards is " << numArmy3 << "." << endl;
+			cout << "In total, " << armyAdd << " armies were added for reinforcement." << endl;
+		}
+		if (phase == phaseA) {
+			cout << "Player " << id << ", " << playerName << ": Attack Phase." << endl;
+			//cout << "Player " << id << "attacked" << subject->getAllPlayers().at(i)->
+			
+		}
+
+		if (phase == phaseF) {
+			cout << "Player " << id << ", " << playerName << ": Fortify Phase." << endl;
+		}
+		
+
+	}
 }
 
 //---------------------Concrete observer for attack phase 

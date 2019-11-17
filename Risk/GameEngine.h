@@ -10,6 +10,7 @@ class GameEngine: public Subject{
     
 private:
     std::unique_ptr<int> numberOfPlayers;
+	std::unique_ptr<int> phase;
     std::vector <Player*> allPlayers;
     Map* map;
     MapLoader* maploader;
@@ -30,9 +31,11 @@ public:
     int getNumberOfArmiesPerPlayer();
     void setArmiesToCountries();
     bool getEndGame();
+	int getPhase();
     void setEndGame(bool value);
     void setPlayerOrder();
     void setPlayer(Player* player);
+	void setPhase(int phase);
     Map* getMap();
     std::vector <Player*> getAllPlayers();
     Deck* getDeck();

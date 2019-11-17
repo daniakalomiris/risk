@@ -26,11 +26,7 @@ int main() {
 
 	//Create RObs that will be connected to the GameEngine
 	RObs* robs = new RObs(theGame);
-	//Create AObs that will be connected to the GameEngine
-	AObs* aobs = new AObs(theGame);
-	//Create FObs that will be connected to the GameEngine
-	FObs* fobs = new FObs(theGame);
-	
+
 	theGame->mainGameLoop();
 	
 
