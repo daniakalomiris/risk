@@ -80,7 +80,7 @@ using namespace std;
 //    country5->setContinentOfCountry(continent3);
 //    country6->setContinentOfCountry(continent3);
 //    
-//	//creating continents and maps 
+//	//creating continents and maps
 //    map->setContinent(continent1);
 //    map->setContinent(continent2);
 //    map->setContinent(continent3);
@@ -113,7 +113,7 @@ using namespace std;
 //    
 //    theGame->mainGameLoop();
 //     
-////deallocating pointers 
+////deallocating pointers
 //delete theGame;
 //delete map;
 //delete continent1;
@@ -121,10 +121,10 @@ using namespace std;
 //delete continent3;
 //delete country1;
 //delete country2;
-//delete country3; 
+//delete country3;
 //delete country4;
 //delete country5;
-//delete country6; 
+//delete country6;
 //
 //
 //theGame = NULL;
