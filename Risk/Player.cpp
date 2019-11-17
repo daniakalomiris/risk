@@ -347,7 +347,7 @@ void Player::reinforce() {
 // attack method
 void Player::attack() {
     string playerAttack;
-    int selectAttackFrom, selectCountryToAttack, attackerMaxNumOfDice, defenderMaxNumOfDice, attackerRoll, defenderRoll, numOfPairs, numOfArmiesToMove;
+    unsigned int selectAttackFrom, selectCountryToAttack, attackerMaxNumOfDice, defenderMaxNumOfDice, attackerRoll, defenderRoll, numOfPairs, numOfArmiesToMove;
     Country* attackFrom;
     Country* countryToAttack;
     vector<int> attackerDiceValues, defenderDiceValues;
@@ -407,7 +407,7 @@ void Player::attack() {
 
         cout << "Which one of this country's neighbors would you like to attack?. The country you select must belong to another player. Please enter the country's number.\n" << endl;
        
-		// returns response for this strateg
+		// returns response for this strategy
 		selectCountryToAttack = executeCountryToAttack(attackFrom);
 
 		cout << "You entered: " << selectCountryToAttack << endl;
@@ -418,7 +418,7 @@ void Player::attack() {
             if (selectCountryToAttack <= 0 || selectCountryToAttack > attackFrom->getAdjacentCountries().size()) {
                 cout << "Please enter a valid country number." << endl;
 
-				// returns response for this strateg
+				// returns response for this strategy
 				selectCountryToAttack = executeCountryToAttack(attackFrom);
 
 				cout << "You entered: " << selectCountryToAttack << endl;
@@ -426,7 +426,7 @@ void Player::attack() {
             else if (attackFrom->getAdjacentCountries().at(selectCountryToAttack - 1)->getCountryOwnerId() == this->getID()) {
                 cout << "Please select a country that is owned by another player." << endl;
 
-				// returns response for this strateg
+				// returns response for this strategy
 				selectCountryToAttack = executeCountryToAttack(attackFrom);
 
 				cout << "You entered: " << selectCountryToAttack << endl;
@@ -443,10 +443,13 @@ void Player::attack() {
         if (attackerMaxNumOfDice > 3) {
             attackerMaxNumOfDice = 3;
         }
+		else if (attackerMaxNumOfDice < 1) {
+			attackerMaxNumOfDice = 1;
+		}
         
         cout << "Attacker (Player " << this->getID() << "), please select the number of dice to roll. You may only roll 1 to " << attackerMaxNumOfDice << " dice." << endl;
         
-		// returns response for this strateg
+		// returns response for this strategy
 		attackerRoll = executeAttackerRoll();
 
 		cout << "You entered: " << attackerRoll << endl;
@@ -455,7 +458,7 @@ void Player::attack() {
         while (attackerRoll < 1 || attackerRoll > attackerMaxNumOfDice) {
             cout << "Attacker (Player " << this->getID() << "), please select a valid number of dice to roll. You may only roll 1 to " << attackerMaxNumOfDice << " dice." << endl;
 			
-			// returns response for this strateg
+			// returns response for this strategy
 			attackerRoll = executeAttackerRoll();
 
 			cout << "You entered: " << attackerRoll << endl;
@@ -541,7 +544,7 @@ void Player::attack() {
                     cout << "Attacker (Player " << this->getID() << "), please select the number armies you want to move to " << countryToAttack->getCountryName() << " from " << attackFrom->getCountryName() << "." << endl;
                     cout << "You may move between 1 to " << attackFrom->getNumberOfArmies() - 1 << " armies." << endl;
 
-					// returns response for this strateg
+					// returns response for this strategy
 					numOfArmiesToMove = executeArmiesToMove(attackFrom->getNumberOfArmies() - 1);
 
 					cout << "You entered: " << numOfArmiesToMove << endl;
@@ -551,7 +554,7 @@ void Player::attack() {
                         cout << "Attacker (Player " << this->getID() << "), please select a valid number of armies to move from " << attackFrom->getCountryName() << ". You may move between 1 to " << attackFrom->getNumberOfArmies() - 1 << " armies." << endl;
                         cin >> numOfArmiesToMove;
 
-						// returns response for this strateg
+						// returns response for this strategy
 						numOfArmiesToMove = executeArmiesToMove(attackFrom->getNumberOfArmies() - 1);
 
 						cout << "You entered: " << numOfArmiesToMove << endl;
@@ -604,6 +607,8 @@ void Player::fortify() {
 
 	// returns response for this strategy
 	attack = executeChooseFortify();
+
+	cout << "You entered: " << attack << endl;
     
     if(attack.compare("Y") == 0) {
     
@@ -725,8 +730,6 @@ void Player::fortify() {
             cout << numOfArmies << endl;
             cout << "\nThe number of armies you enter is not valid.\nPlease enter a value in the range of [1 to (number of armies in the source country -1)]" << endl;
             cout << "Enter the number of armies you would like to move" << endl;
-            
-            cin >> numOfArmies;
 
 			// returns response for this strategy
 			numOfArmies = executeArmiesToFortify(this->getThisPlayerCountries().at(indexOfSourceCountry)->getNumberOfArmies());
@@ -806,6 +809,9 @@ void Player::fortify() {
         cout << nameSourceCountry << " has now " << this->getThisPlayerCountries().at(indexOfSourceCountry)->getNumberOfArmies() << " armies"  << endl;
         cout << nameTargetCountry << " has now " << this->getThisPlayerCountries().at(indexOfTargetCountry)->getNumberOfArmies() << " armies"  << endl;
         
+		}
     }
-    }
+	else {
+		cout << "The fortification phase has ended." << endl;
+	}
 }

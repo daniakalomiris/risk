@@ -187,6 +187,8 @@ int Aggressive::countryToAttack(Country* attackFrom) {
 	srand(time(NULL));
 
 	// generates random number from 1 to the number of adjacent countries
+	// note that the random function will continuously try a number until it eventually returns a valid one verified by the attack phase
+	// thus is may appear as though the computer player is in an infinite loop but this is not the case (it will stop at a number after many tries)
 	return (rand() % (attackFrom->getAdjacentCountries().size()) + 1);
 }
 
@@ -197,6 +199,8 @@ int Aggressive::attackerRoll() {
 	srand(time(NULL));
 
 	// generates random number from 1 to 3 (attack phase is in charge of verifying if 3 is not valid)
+	// note that the random function will continuously try a number until it eventually returns a valid one verified by the attack phase
+	// thus is may appear as though the computer player is in an infinite loop but this is not the case (it will stop at a number after many tries)
 	return (rand() % 3 + 1); 
 }
 

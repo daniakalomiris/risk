@@ -172,18 +172,21 @@ int main() {
 	player2->getHand()->setCardInHand(card3);
 
 	/* reinforcement phase with Strategy pattern */
-	cout << "\n--- Reinforcement Phase ---" << endl;
+	cout << "\nThis is the reinforcement phase of the turn." << endl;
 	selectStrategy(player); // player can choose which strategy to use before each play
+
 	player->reinforce();  
 
 	/* attack phase with Strategy pattern */
-	cout << "\n--- Attack Phase ---" << endl;
+	cout << "\nThis is the attack phase of the turn." << endl;
 	selectStrategy(player); // player can choose which strategy to use before each play
+
 	player->attack();
 
 	/* fortification phase with Strategy pattern */
-	cout << "\n--- Fortification Phase ---" << endl;
+	cout << "\nThis is the fortification phase of the turn." << endl;
 	selectStrategy(player); // player can choose which strategy to use before each play
+
 	player->fortify();
 
 	delete player;
@@ -229,7 +232,6 @@ void selectStrategy(Player* player) {
 	while (strategy < 0 || strategy > 3) {
 		cout << "Please select a valid strategy from the list of strategies." << endl;
 	}
-
 	
 	User* user = new User();
 	Aggressive* aggressive = new Aggressive();
@@ -237,11 +239,17 @@ void selectStrategy(Player* player) {
 
 	switch (strategy) {
 		case 1:
+			cout << "You will play this phase as a User." << endl;
 			player->setStrategy(user);
+			break;
 		case 2:
+			cout << "You will play this phase as an Aggressive computer player." << endl;
 			player->setStrategy(aggressive);
+			break;
 		case 3:
+			cout << "You will play this phase as a Benevolent computer player." << endl;
 			player->setStrategy(benevolent);
+			break;
 		default:
 			break;
 	}
