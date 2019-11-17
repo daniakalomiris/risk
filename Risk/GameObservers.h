@@ -35,6 +35,7 @@ private:
 
 //Concrete subject is the GameEngine class, please go see GameEngine.h
 
+
 //Concrete observer for reinforce phase
 class PlayerDominationView : public Observer {
 
@@ -50,3 +51,17 @@ private:
 };
 
 
+
+//Concrete observer for reinforce phase
+class PhaseObs : public Observer {
+
+public:
+	PhaseObs();
+	PhaseObs(GameEngine* s);
+	~PhaseObs();
+	void Update();
+	void display();
+
+private:
+	GameEngine* subject;
+};

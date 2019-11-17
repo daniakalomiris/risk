@@ -5,35 +5,36 @@
 using namespace std;
 
 
+
 //THIS IS THE DRIVER FOR PART 3 OF ASSIGNMENT 3
 //int main() {
 //
 //	//create a new GameEngine
 //	GameEngine* theGame = new GameEngine();
 //	//theGame->createMap();
-//    
+//
 //    //create own fictive for testing the driver
 //    Map* map = new Map();
-//    
+//
 //	//creates new continent objects
 //    Continent* continent1 = new Continent();
 //    Continent* continent2 = new Continent();
 //    Continent* continent3 = new Continent();
-//    
+//
 //    continent1->setContinentName("North America");
 //    continent2->setContinentName("Central America");
 //    continent3->setContinentName("South America");
-//    
+//
 //	//set number of armies per continent
 //    continent1->setNumberOfArmies(10);
 //    continent2->setNumberOfArmies(7);
 //    continent3->setNumberOfArmies(9);
-//    
+//
 //
 //    continent1->setAdjacentContinents(continent2);
 //    continent2->setAdjacentContinents(continent1);
 //    continent2->setAdjacentContinents(continent3);
-//        
+//
 //    //creating countries
 //    Country* country1 = new Country();
 //    Country* country2 = new Country();
@@ -41,14 +42,14 @@ using namespace std;
 //    Country* country4 = new Country();
 //    Country* country5 = new Country();
 //    Country* country6 = new Country();
-//        
+//
 //    country1->setCountryName("Canada");
 //    country2->setCountryName("USA");
 //    country3->setCountryName("Panama");
 //    country4->setCountryName("Costa Rica");
 //    country5->setCountryName("Peru");
 //    country6->setCountryName("Brazil");
-//    
+//
 //	//setting adjacent countries
 //    country1->setAdjacentCountries(country2);
 //    country1->setAdjacentCountries(country6);
@@ -62,8 +63,8 @@ using namespace std;
 //    country5->setAdjacentCountries(country6);
 //    country6->setAdjacentCountries(country5);
 //      country6->setAdjacentCountries(country1);
-//    
-//    
+//
+//
 //	//setting countries to continents
 //    continent1->setCountriesOfContinent(country1);
 //    continent1->setCountriesOfContinent(country2);
@@ -71,7 +72,7 @@ using namespace std;
 //    continent2->setCountriesOfContinent(country4);
 //    continent3->setCountriesOfContinent(country5);
 //    continent3->setCountriesOfContinent(country6);
-//    
+//
 //	//setting continents to countries
 //    country1->setContinentOfCountry(continent1);
 //    country2->setContinentOfCountry(continent1);
@@ -79,7 +80,7 @@ using namespace std;
 //    country4->setContinentOfCountry(continent2);
 //    country5->setContinentOfCountry(continent3);
 //    country6->setContinentOfCountry(continent3);
-//    
+//
 //	//creating continents and maps
 //    map->setContinent(continent1);
 //    map->setContinent(continent2);
@@ -90,15 +91,15 @@ using namespace std;
 //    map->setCountry(country4);
 //    map->setCountry(country5);
 //    map->setCountry(country6);
-//    
+//
 //	//passing the created map, countries, players to the concrete subject (game engine)
 //    theGame->setMap(map);
 //	theGame->askNumberOfPlayers();
 //	theGame->createPlayers();
 //	theGame->assignCountriesToPlayers();
 //	theGame->displayCountriesOfPlayers();
-//	 
-//    
+//
+//
 //	//assign 1 army to all countries of each player, just for testing
 //	for (int i = 0; i < theGame->getAllPlayers().size(); i++) {
 //
@@ -110,9 +111,9 @@ using namespace std;
 //
 //	//passing concrete subject to observer
 //    PlayerDominationView* pdv = new PlayerDominationView(theGame);
-//    
+//
 //    theGame->mainGameLoop();
-//     
+//
 ////deallocating pointers
 //delete theGame;
 //delete map;
@@ -140,3 +141,32 @@ using namespace std;
 //country6 = NULL;
 //
 //}
+
+
+	//create a new GameEngine
+	GameEngine* theGame = new GameEngine();
+	theGame->createMap();
+	theGame->askNumberOfPlayers();
+	theGame->createPlayers();
+	theGame->assignCountriesToPlayers();
+	theGame->displayCountriesOfPlayers();
+
+
+	//assign 5 armies to all countries of each player, just for testing
+	for (int i = 0; i < theGame->getAllPlayers().size(); i++) {
+
+		for (int j = 0; j < theGame->getAllPlayers().at(i)->getThisPlayerCountries().size(); j++) {
+			theGame->getAllPlayers().at(i)->getThisPlayerCountries().at(j)->setNumberOfArmies(5);
+
+		}
+	}
+
+	//Create PhaseObs that will be connected to the GameEngine
+	PhaseObs* phaseObs = new PhaseObs(theGame);
+
+	theGame->mainGameLoop();
+
+
+	delete theGame;
+	theGame = NULL;
+}

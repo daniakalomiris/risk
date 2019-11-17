@@ -6,10 +6,14 @@
 #include "MapLoader.h"
 #include "Cards.h"
 #include "GameObservers.h"
+
+
+
 class GameEngine: public Subject{
     
 private:
     std::unique_ptr<int> numberOfPlayers;
+	std::unique_ptr<int> phase;
     std::vector <Player*> allPlayers;
     Map* map;
     MapLoader* maploader;
@@ -21,7 +25,8 @@ public:
     
     GameEngine(); //constructor
     ~GameEngine();
-    
+	int currentPlayerIndex;
+	int currentDefenderIndex;
     
     //getter and setter methods
     int getNumberOfPlayers();
@@ -30,9 +35,11 @@ public:
     int getNumberOfArmiesPerPlayer();
     void setArmiesToCountries();
     bool getEndGame();
+	int getPhase();
     void setEndGame(bool value);
     void setPlayerOrder();
     void setPlayer(Player* player);
+	void setPhase(int phase);
     Map* getMap();
     void setMap(Map* map);
     std::vector <Player*> getAllPlayers();
