@@ -99,7 +99,7 @@ vector<Continent*> Player:: getThisPlayerContinents() {
 Map* Player::getMap() {
 	return map;
 }
-
+//getters for reinforce 
 int Player::getNumArmy1(){ //getter for reinforce method : army to add according to contries control
 	return numArmy1;
 }
@@ -113,6 +113,20 @@ int Player::getNumArmy3() { //getter for reinforce method : army to add accordin
 	return numArmy3;
 }
 
+//getter for fortify 
+std::string Player::getFortifySourceCountry() {
+	return fortifySourceCountry;
+}
+std::string Player::getFortifyTargetCountry() {
+	return fortifyTargetCountry;
+}
+
+int Player::getSourceArmy() {
+	return  sourceArmy;
+}
+int Player::getTargetArmy() {
+	return targetArmy;
+}
 //Setters
 void Player::setName(string name) {
 	this->name = name;
@@ -141,6 +155,20 @@ void Player::setNumArmy3(int i) {  //setter for reinforce method : army to add a
 	numArmy3 = i;
 }
 
+//Setters for fortify method 
+void Player::setFortifySourceCountry(std::string fortifySourceCountry) { //to set the source country name of fortify
+	this->fortifySourceCountry = fortifySourceCountry;
+}
+void Player::setFortifyTargetCountry(std::string fortifyTargetCountry) {//to set the target country name of fortify
+	this->fortifyTargetCountry = fortifyTargetCountry;
+}
+
+void Player::setSourceArmy(int sourceArmy) { // to set source army number of fortify 
+	this->sourceArmy = sourceArmy;
+}
+void Player::setTargetArmy(int targetArmy) {// to set target army number of fortify 
+	this->targetArmy = targetArmy;
+}
 bool Player:: checkControlContinents() { //method to verify if player owns a continent for reinforce phase
     bool ownContinents = false;
     
@@ -481,7 +509,7 @@ void Player::fortify() {
     bool isTargetCountryValid = false;
     bool isTargetCountryNeighbour = false;
     bool isNumOfArmiesValid = true;
-    
+	
     //tells if the source countries has a neighbour that the user own
     bool neighbourCountries = false;
     
@@ -677,11 +705,17 @@ void Player::fortify() {
         int numberOfArmiesSourceCountry = this->getThisPlayerCountries().at(indexOfSourceCountry)->getNumberOfArmies();
         this->getThisPlayerCountries().at(indexOfSourceCountry)->setNumberOfArmies(numberOfArmiesSourceCountry - numOfArmies);
         
+	
         //set the new number of armies for the target country
         int numberOfArmiesTargetCountry = this->getThisPlayerCountries().at(indexOfTargetCountry)->getNumberOfArmies();
         this->getThisPlayerCountries().at(indexOfTargetCountry)->setNumberOfArmies(numberOfArmiesTargetCountry + numOfArmies);
         
-        
+		setFortifySourceCountry(nameSourceCountry);
+		setFortifyTargetCountry(nameTargetCountry);
+		int sourceArmy = this->getThisPlayerCountries().at(indexOfSourceCountry)->getNumberOfArmies();
+		int targetArmy = this->getThisPlayerCountries().at(indexOfTargetCountry)->getNumberOfArmies();
+		setSourceArmy(sourceArmy);
+		setTargetArmy(targetArmy);
         //Display the new number of armies for source country and target country
         cout << "The player fortified succesfully the country: " << nameTargetCountry  << endl;
         cout << nameSourceCountry << " has now " << this->getThisPlayerCountries().at(indexOfSourceCountry)->getNumberOfArmies() << " armies"  << endl;

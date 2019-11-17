@@ -78,20 +78,27 @@ void PhaseObs::display() {
 			int numArmy2 = subject->getAllPlayers().at(i)->getNumArmy2();
 			int numArmy3 = subject->getAllPlayers().at(i)->getNumArmy3();
 			int armyAdd = numArmy1 + numArmy2 + numArmy3;
+			cout << "--------------------------------------------------------------" << endl;
 			cout << "Player " << id << ", " << playerName << ": Reinfore Phase." << endl;
 			cout << "Number of armies for controlled countries: " << numArmy1 << endl;
 			cout << "Number of armies for controlled continents: " << numArmy2 << endl;
 			cout << "Number of armies added by exchanging cards is " << numArmy3 << "." << endl;
 			cout << "In total, " << armyAdd << " armies were added for reinforcement." << endl;
+			cout << "--------------------------------------------------------------" << endl;
 		}
 		if (phase == phaseA) {
+			cout << "--------------------------------------------------------------" << endl;
 			cout << "Player " << id << ", " << playerName << ": Attack Phase." << endl;
 			//cout << "Player " << id << "attacked" << subject->getAllPlayers().at(i)->
-			
+			cout << "--------------------------------------------------------------" << endl;
 		}
 
 		if (phase == phaseF) {
+			cout << "--------------------------------------------------------------" << endl;
 			cout << "Player " << id << ", " << playerName << ": Fortify Phase." << endl;
+			cout << subject->getAllPlayers().at(i)->getFortifySourceCountry() << " has now " << subject->getAllPlayers().at(i)-> getSourceArmy() << " armies" << endl;
+			cout << subject->getAllPlayers().at(i)->getFortifyTargetCountry() << " has now " << subject->getAllPlayers().at(i)->getTargetArmy() << " armies" << endl;
+			cout << "--------------------------------------------------------------" << endl;
 		}
 		
 

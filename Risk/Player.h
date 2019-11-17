@@ -22,7 +22,6 @@ class Player{
 		std::string getName();
 
 		
-
 		Dice* getDice();
 		Hand* getHand();
 
@@ -53,6 +52,16 @@ class Player{
 		void setNumArmy1(int i);
 		void setNumArmy2(int i);
 		void setNumArmy3(int i);
+
+		//set and getters for fortify method
+		std::string getFortifySourceCountry();
+		void setFortifySourceCountry(std::string fortifySourceCountry);
+		std::string getFortifyTargetCountry();
+		void setFortifyTargetCountry(std::string fortifyTargetCountry);
+		int getSourceArmy();
+		void setSourceArmy(int SourceArmy);
+		int getTargetArmy();
+		void setTargetArmy(int targetArmy);
     
 	private:
 		Dice* dice;
@@ -74,4 +83,9 @@ class Player{
 		int numArmy1;
 		int numArmy2;
 		int numArmy3;
+		//variable for fortify
+		std::string fortifySourceCountry;
+		std::string fortifyTargetCountry;
+		int sourceArmy;
+		int targetArmy;
 };
