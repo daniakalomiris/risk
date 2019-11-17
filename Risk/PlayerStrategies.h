@@ -18,7 +18,7 @@ class Strategy {
 		virtual std::string extraReinforcement() = 0;
 		virtual int countryToReinforce(Player* player) = 0;
 		virtual int armiesToPlace(Player* player) = 0;
-		
+
 		/* methods for attack phase */
 		virtual std::string chooseAttack() = 0;
 		virtual int attackFrom(Player* player) = 0;
@@ -110,5 +110,3 @@ class Benevolent : public Strategy {
 
 		bool exchangeAutom();
 };
-
-

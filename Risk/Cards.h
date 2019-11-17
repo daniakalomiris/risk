@@ -16,7 +16,7 @@ public:
 	Cards& operator=(const Cards &orig); //assignment operator
 	~Cards();
 
-	//type of card 
+	//type of card
     std::string getType();
 	void setType(int typeNum);
 
@@ -24,7 +24,8 @@ public:
 	int getWorth();
 	void setWorth(int worth);
 
-	
+
+
 
 
 
@@ -77,10 +78,10 @@ public:
 	Hand& operator=(const Hand& orig);
 	Hand(int id);
 	~Hand();
-    
+
     //exchange cards in hand in returns of armies
     void exchange();
-    
+
     void removeCard(int index);
     void setCardInHand(Cards* card);
     std::vector<Cards*> getCardsInHand();
@@ -88,18 +89,18 @@ public:
     void setNumberOfArmiesToPlace(int num);
     void addNumberOfArmies(int num);
     void deleteNumberOfArmies(int num);
-	void setAutom(bool autom);
-	bool getAutom();
+		void setAutom(bool autom);
+		bool getAutom();
 
 
 private:
 	int id;
-    
+
     //number of armies a player will get from an exchange of set of cards
 	static int numArmiesExchanged ;
 	static int* exchangeCount; // number of exchanges player has done
     std::vector<Cards*> cardsInHand;
-    
+
     // number of armies the player needs to place on the map when his turn starts
     std::unique_ptr<int> numOfArmiesToPlace;
 

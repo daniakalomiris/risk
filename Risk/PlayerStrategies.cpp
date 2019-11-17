@@ -97,7 +97,8 @@ string User::chooseFortify() {
 
 string User::countryToFortifyFrom(Player* player) {
 	string input;
-	cin >> input;
+	cin.ignore();
+	getline(cin, input);
 	return input;
 }
 
@@ -109,7 +110,8 @@ int User::armiesToFortify(int sourceCountryArmies) {
 
 string User::countryToFortify(Player* player) {
 	string input;
-	cin >> input;
+	cin.ignore();
+	getline(cin, input);
 	return input;
 }
 
@@ -143,7 +145,7 @@ string Aggressive::extraReinforcement() {
 
 // aggressive playyer will select country with most armies on it
 int Aggressive::countryToReinforce(Player* player) {
-	
+
 	// set max country to be first index in the list of player's countries
 	int max = 0;
 
@@ -182,7 +184,7 @@ int Aggressive::attackFrom(Player* player) {
 
 // aggressive player will attack random country from list of neighbors
 int Aggressive::countryToAttack(Country* attackFrom) {
-	
+
 	// reset the random value
 	srand(time(NULL));
 
@@ -201,7 +203,7 @@ int Aggressive::attackerRoll() {
 	// generates random number from 1 to 3 (attack phase is in charge of verifying if 3 is not valid)
 	// note that the random function will continuously try a number until it eventually returns a valid one verified by the attack phase
 	// thus is may appear as though the computer player is in an infinite loop but this is not the case (it will stop at a number after many tries)
-	return (rand() % 3 + 1); 
+	return (rand() % 3 + 1);
 }
 
 // aggressive player moves all armies that they can move
