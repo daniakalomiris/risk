@@ -6,6 +6,9 @@
 #include "MapLoader.h"
 #include "Cards.h"
 #include "GameObservers.h"
+
+
+
 class GameEngine: public Subject{
     
 private:
@@ -22,7 +25,8 @@ public:
     
     GameEngine(); //constructor
     ~GameEngine();
-    
+	int currentPlayerIndex;
+	int currentDefenderIndex;
     
     //getter and setter methods
     int getNumberOfPlayers();

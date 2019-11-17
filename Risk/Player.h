@@ -34,7 +34,8 @@ class Player{
         void setNumOfArmiesAtStartUpPhase(int num);
 
 		//attack, fortify, reinforce methods
-		void attack();
+		//attack returns DefenderID
+		int attack();
 		void fortify();
         void reinforce();
 
@@ -52,7 +53,21 @@ class Player{
 		void setNumArmy1(int i);
 		void setNumArmy2(int i);
 		void setNumArmy3(int i);
-
+		//getters and setters for attack methid 
+		std::string getAttackerCountry();
+		std::string getDefenderCountry();
+		void setAttackerCountry(std::string attackerCountry);
+		void setDefenderCOuntry(std::string defenderCountry);
+		int getStartA();
+		void setStartA(int startA);
+		int getStartD();
+		void setStartD(int startD);
+		int getEndA();
+		void setEndA(int endA);
+		int getEndD();
+		void setEndD(int endD);
+		int getDefenderId();
+		void setDefenderId(int defenderId);
 		//set and getters for fortify method
 		std::string getFortifySourceCountry();
 		void setFortifySourceCountry(std::string fortifySourceCountry);
@@ -83,9 +98,18 @@ class Player{
 		int numArmy1;
 		int numArmy2;
 		int numArmy3;
+		//variable for atack 
+		std::string attackerCountry;
+		std::string defenderCountry;
+		int startA;
+		int startD;
+		int endA;
+		int endD;
+		int defenderId;
 		//variable for fortify
 		std::string fortifySourceCountry;
 		std::string fortifyTargetCountry;
 		int sourceArmy;
 		int targetArmy;
+		
 };

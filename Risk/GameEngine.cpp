@@ -421,16 +421,19 @@ void GameEngine:: mainGameLoop() {
             
             //display which player is playing
             cout << "\n\n************** Player " <<  i+1 << ": " << this->getAllPlayers().at(i)->getName() << "'s turn **************\n" << endl;
-            
-            //make the player reinforce, attack and fortify
-			setPhase(1);
+			currentPlayerIndex = i;
+			//make the player reinforce, attack and fortify
+			
             this->getAllPlayers().at(i)->reinforce();
+			setPhase(1);
 			Notify();
+
+            currentDefenderIndex = this->getAllPlayers().at(i)->attack();
 			setPhase(2);
-            this->getAllPlayers().at(i)->attack();
 			Notify();
-			setPhase(3);
+			
             this->getAllPlayers().at(i)->fortify();
+			setPhase(3);
 			Notify();
             
             

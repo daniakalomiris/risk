@@ -113,6 +113,33 @@ int Player::getNumArmy3() { //getter for reinforce method : army to add accordin
 	return numArmy3;
 }
 
+// Getters for Attack 
+std::string Player::getAttackerCountry() {
+	return attackerCountry;
+}
+std::string Player::getDefenderCountry() {
+	return defenderCountry;
+}
+//for the number of armies A= attacker , D=Deffender
+int Player::getStartA(){
+	return startA;
+}
+int  Player::getStartD(){
+	return startD;
+}
+
+int  Player::getEndA(){
+	return endA;
+}
+
+int  Player::getEndD(){
+	return endD;
+}
+
+int Player::getDefenderId() {
+	return defenderId;
+}
+
 //getter for fortify 
 std::string Player::getFortifySourceCountry() {
 	return fortifySourceCountry;
@@ -169,6 +196,32 @@ void Player::setSourceArmy(int sourceArmy) { // to set source army number of for
 void Player::setTargetArmy(int targetArmy) {// to set target army number of fortify 
 	this->targetArmy = targetArmy;
 }
+
+//Setters for attack method
+void Player::setAttackerCountry(std::string attackerCountry) {
+	this->attackerCountry = attackerCountry;
+
+}
+void Player::setDefenderCOuntry(std::string defenderCountry) {
+	this->defenderCountry = defenderCountry;
+}
+//for the number of armies A= attacker , D=Deffender
+void  Player::setStartA(int startA) {
+	this->startA = startA;
+}
+void  Player::setStartD(int startD) {
+	this->startD = startD;
+}
+void  Player::setEndA(int endA) {
+	this->endA = endA;
+}
+void  Player::setEndD(int endD) {
+	this->endD = endD;
+}
+void Player::setDefenderId(int defenderId) {
+	this->defenderId = defenderId;
+}
+//Other methods 
 bool Player:: checkControlContinents() { //method to verify if player owns a continent for reinforce phase
     bool ownContinents = false;
     
@@ -313,7 +366,7 @@ void Player::reinforce() {
 }
 
 // attack method
-void Player::attack() {
+int Player::attack(){
     string playerAttack;
     int selectAttackFrom, selectCountryToAttack, attackerMaxNumOfDice, defenderMaxNumOfDice, attackerRoll, defenderRoll, numOfPairs, numOfArmiesToMove;
     Country* attackFrom;
@@ -351,7 +404,10 @@ void Player::attack() {
         attackFrom = getThisPlayerCountries().at(selectAttackFrom - 1);
         
         cout << "You will be attacking from " << attackFrom->getCountryName() << " with " << attackFrom->getNumberOfArmies() << " armies.\n" << endl;
-        
+		
+		setAttackerCountry(attackFrom->getCountryName()); //setting for obs method
+		setStartA(attackFrom->getNumberOfArmies());
+
         cout << "These are the country's neighbors you can attack and the owners of them:" << endl;
         for (unsigned int i = 0; i < attackFrom->getAdjacentCountries().size(); i++) {
             cout << "Country " << i + 1 << ": " << attackFrom->getAdjacentCountries().at(i)->getCountryName() << "\tBelongs to: Player " << attackFrom->getAdjacentCountries().at(i)->getCountryOwnerId() << endl;
@@ -378,6 +434,9 @@ void Player::attack() {
         
         cout << "You will be attacking " << countryToAttack->getCountryName() << " which belongs to Player " << countryToAttack->getCountryOwnerId() << ".\n" << endl;
         
+		setDefenderCOuntry(countryToAttack->getCountryName()); // setting for the obs method 
+		setStartD(countryToAttack->getNumberOfArmies());
+
         // attacker chooses number of dice to roll
         attackerMaxNumOfDice = countryToAttack->getNumberOfArmies() - 1;
         if (attackerMaxNumOfDice > 3) {
@@ -403,7 +462,9 @@ void Player::attack() {
         
         cout << "Defender (Player " << countryToAttack->getCountryOwnerId() << "), please select the number of dice to roll. You may only roll 1 to " << defenderMaxNumOfDice << " dice." << endl;
         cin >> defenderRoll;
-        
+
+		setDefenderId(countryToAttack->getCountryOwnerId()); //for observer
+
         // check if player selects a valid number of dice
         while (defenderRoll < 1 || defenderRoll > defenderMaxNumOfDice) {
             cout << "Defender (Player " << countryToAttack->getCountryOwnerId() << "), please select a valid number of dice to roll. You may only roll 1 to " << defenderMaxNumOfDice << " dice." << endl;
@@ -485,6 +546,9 @@ void Player::attack() {
                     cout << "Attacker (Player " << this->getID() << "), you have decided to move " << numOfArmiesToMove << " armies to " << countryToAttack->getCountryName() << "." << endl;
                     cout << countryToAttack->getCountryName() << " now has " << numOfArmiesToMove << " armies." << endl;
                 }
+
+				setEndA(attackFrom->getNumberOfArmies());  //set For Observer
+				setEndD(countryToAttack->getNumberOfArmies()); 
             }
         }
         
@@ -497,7 +561,7 @@ void Player::attack() {
     };
     
     cout << "Player " << this->getID() << "'s attack phase is over." << endl;
-
+	return defenderId;
 }
 
 //fortify method
