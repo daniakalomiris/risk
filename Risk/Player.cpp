@@ -98,22 +98,29 @@ vector<Country*> Player::getThisPlayerCountries() {
 vector<Continent*> Player:: getThisPlayerContinents() {
     return thisPlayerContinents;
 }
+int Player:: getNumAttack() {
+    return *numAttack;
+}
+
+void Player:: setNumAttack(int num) {
+    numAttack.reset(new int(num));
+}
 
 Map* Player::getMap() {
 	return map;
 }
 //getters for reinforce
 int Player::getNumArmy1(){ //getter for reinforce method : army to add according to contries control
-	return numArmy1;
+	return *numArmy1;
 }
 
 int Player::getNumArmy2() {//getter for reinforce method : army to add according to continent control
-	return numArmy2;
+	return *numArmy2;
 }
 
 
 int Player::getNumArmy3() { //getter for reinforce method : army to add according to cards control
-	return numArmy3;
+	return *numArmy3;
 }
 
 // Getters for Attack
@@ -230,14 +237,14 @@ void Player::setMap(Map* map) {
 }
 
 void Player::setNumArmy1(int i) { //setter for reinforce method : army to add according to contries control
-	numArmy1 = i;
+    numArmy1.reset(new int(i));
 }
 
 void Player::setNumArmy2(int i) { //setter for reinforce method : army to add according to continent control
-	numArmy2 = i;
+	numArmy2.reset(new int(i));
 }
 void Player::setNumArmy3(int i) {  //setter for reinforce method : army to add according to cards control
-	numArmy3 = i;
+	numArmy3.reset(new int(i));
 }
 
 //Setters for fortify method
@@ -436,9 +443,10 @@ void Player::attack(){
 
     cout << "Player " << this->getID() << ", do you want to attack? (Press Y to attack or anything else to end attack phase)\n" << endl;
     cin >> playerAttack;
-
+    setNumAttack(0);
     while (playerAttack == "Y") {
         
+         setNumAttack(getNumAttack()+1);
         //we start the phase
         this->setPhaseStart(true);
 

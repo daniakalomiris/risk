@@ -152,15 +152,16 @@ void PhaseObs::display() {
 	string playerName = subject->getAllPlayers().at(i)->getName();
 	int id = subject->getAllPlayers().at(i)->getID();
 	if (phase == phaseR) {
-		int numArmy1 = subject->getAllPlayers().at(i)->getNumArmy1();
-		int numArmy2 = subject->getAllPlayers().at(i)->getNumArmy2();
-		int numArmy3 = subject->getAllPlayers().at(i)->getNumArmy3();
-		int armyAdd = numArmy1 + numArmy2 + numArmy3;
+		
 		cout << "\n\n--------------------------------------------------------------" << endl;
 		cout << "Player " << id << ", " << playerName << ": Reinfore Phase." << endl;
         
         //display the info if the phase has started
         if(subject->getAllPlayers().at(i)->getPhaseStart()) {
+            int numArmy1 = subject->getAllPlayers().at(i)->getNumArmy1();
+            int numArmy2 = subject->getAllPlayers().at(i)->getNumArmy2();
+            int numArmy3 = subject->getAllPlayers().at(i)->getNumArmy3();
+            int armyAdd = numArmy1 + numArmy2 + numArmy3;
 		cout << "Number of armies for controlled countries: " << numArmy1 << endl;
 		cout << "Number of armies for controlled continents: " << numArmy2 << endl;
 		cout << "Number of armies added by exchanging cards is " << numArmy3 << "." << endl;
@@ -175,9 +176,11 @@ void PhaseObs::display() {
         //display the info if the phase has started
         if(subject->getAllPlayers().at(i)->getPhaseStart()) {
         cout << "Player " << id << " is the attacker and  Player " << subject->getAllPlayers().at(i)->getDefenderId() << " is the defender." << endl;
+            cout << "Player " << id << " attacked " << subject->getAllPlayers().at(i)->getNumAttack() << " times" <<endl;
+            cout << "At the start of the last attack: " << endl;
 		cout << "The Attacker used " << subject->getAllPlayers().at(i)->getStartA()<<  " army/ies from " << subject->getAllPlayers().at(i)->getAttackerCountry() << " to attack." << endl;
 		cout << "The Defender had " << subject->getAllPlayers().at(i)->getStartD() << " army/ies on " << subject->getAllPlayers().at(i)->getDefenderCountry() << "." << endl;
-		cout << "At the end of the attack:" << endl;
+		cout << "At the end of the last attack:" << endl;
 		cout << "The Attacker now has " << subject->getAllPlayers().at(i)->getEndA()<< " army/ies from " << subject->getAllPlayers().at(i)->getAttackerCountry() << " to attack." << endl;
 		cout << "The Defender now has " << subject->getAllPlayers().at(i)->getEndD() << " army/ies on " << subject->getAllPlayers().at(i)->getDefenderCountry() << "." << endl;
 		cout << "--------------------------------------------------------------" << endl;
