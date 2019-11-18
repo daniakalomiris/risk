@@ -349,19 +349,19 @@ ConquestMapLoader:: ~ConquestMapLoader() {
 ConquestMapLoader:: ConquestMapLoader(const ConquestMapLoader &orig) {
     this->continents_info = orig.continents_info;
     this->territories_info = orig.territories_info;
-      this->map = new Map();
-      *map = *orig.map;
+    this->map = new Map();
+    *map = *orig.map;
 }
 
 //assignment operator
 const ConquestMapLoader& ConquestMapLoader::operator=(const ConquestMapLoader& c) {
     if(&c !=this) {
-           delete map;
-           Map* newMap = new Map();
-           this->map = newMap;
-       }
-       
-       return *this;
+        delete map;
+        Map* newMap = new Map();
+        this->map = newMap;
+    }
+    
+    return *this;
 }
 
 //read a conquest map file
@@ -455,8 +455,8 @@ void ConquestMapLoader::readConquestMapFile(string fileName) {
             }
         }
         else if(temp.length() == 0) {
-                  territories_info.erase(territories_info.begin() + i);
-              }
+            territories_info.erase(territories_info.begin() + i);
+        }
     }
     
     
@@ -478,7 +478,7 @@ void ConquestMapLoader::readConquestMapFile(string fileName) {
             }
         }
         else if(temp.length() == 0) {
-             continents_info.erase(continents_info.begin() + i);
+            continents_info.erase(continents_info.begin() + i);
         }
     }
     
@@ -498,43 +498,43 @@ void ConquestMapLoader::createConquestMap() {
     
     
     //create continents
-     for(int i = 0; i< continents_info.size(); i++) {
-    
-    
-    //temp string array to store a continent info
-    string temp[2];
-    
-    //create a continent and push it to map
-    Continent* continent = new Continent();
-    map->setContinent(continent);
-    
-    //put each line of the continents_info vector into a string
-    string line_info = *continents_info[i];
-    
-    //create a stringstream to separate each elements on the line
-    stringstream elements_line(line_info);
-    
-    //will contains the important data on the line
-    string data;
-    
-    //keeptrack of the index of the temp array string
-    int indexTemp = 0;
-    
-    //separate the line in two string, don't care about the = sign
-    while(getline(elements_line, data, '=')) {
+    for(int i = 0; i< continents_info.size(); i++) {
         
-        //put the data in the temp array string
-        temp[indexTemp] = data;
-        indexTemp++;
+        
+        //temp string array to store a continent info
+        string temp[2];
+        
+        //create a continent and push it to map
+        Continent* continent = new Continent();
+        map->setContinent(continent);
+        
+        //put each line of the continents_info vector into a string
+        string line_info = *continents_info[i];
+        
+        //create a stringstream to separate each elements on the line
+        stringstream elements_line(line_info);
+        
+        //will contains the important data on the line
+        string data;
+        
+        //keeptrack of the index of the temp array string
+        int indexTemp = 0;
+        
+        //separate the line in two string, don't care about the = sign
+        while(getline(elements_line, data, '=')) {
+            
+            //put the data in the temp array string
+            temp[indexTemp] = data;
+            indexTemp++;
+        }
+        
+        //sets the data from the map file to the continent object
+        continent->setContinentName(temp[0]);
+        
+        continent->setNumberOfArmies(stoi (temp[1]));
+        
+        
     }
-    
-    //sets the data from the map file to the continent object
-    continent->setContinentName(temp[0]);
-
-    continent->setNumberOfArmies(stoi (temp[1]));
-
-    
-}
     
     //create territories
     for(int i = 0; i< territories_info.size(); i++) {
@@ -581,7 +581,7 @@ void ConquestMapLoader::createConquestMap() {
             }
             
         }
-       
+        
         //set the country to the map
         map->setCountry(country);
         
@@ -589,48 +589,48 @@ void ConquestMapLoader::createConquestMap() {
     
     //create adjacent territories
     for(int i = 0; i< territories_info.size(); i++) {
-   
-    //temporary vector containing all the data of each territory
-    vector<string> tempTerritoriesInfo;
-    
-    //put each line of the territories_info vector into a string
-    string line_info = *territories_info[i];
-    
-    //create a stringstream to separate each elements on the line
-    stringstream elements_line(line_info);
-    
-    //will contains the important data on the line
-    string data;
-    
-    
-    //separate the line in different string, use the coma as a delimiter
-    while(getline(elements_line, data, ',')) {
         
-        //remove the ascii 13 at the end of a line, without removing the name won't compare
-        data.erase(remove(data.begin(), data.end(), 13), data.end());
+        //temporary vector containing all the data of each territory
+        vector<string> tempTerritoriesInfo;
         
-        // put the data in the temp array string
-        tempTerritoriesInfo.push_back(data);
-    }
-    
-   
+        //put each line of the territories_info vector into a string
+        string line_info = *territories_info[i];
+        
+        //create a stringstream to separate each elements on the line
+        stringstream elements_line(line_info);
+        
+        //will contains the important data on the line
+        string data;
+        
+        
+        //separate the line in different string, use the coma as a delimiter
+        while(getline(elements_line, data, ',')) {
+            
+            //remove the ascii 13 at the end of a line, without removing the name won't compare
+            data.erase(remove(data.begin(), data.end(), 13), data.end());
+            
+            // put the data in the temp array string
+            tempTerritoriesInfo.push_back(data);
+        }
+        
+        
         
         //loop throught the names of the adjacent countries in the tempTerritoriesInfo vector
         for(int j=4; j < tempTerritoriesInfo.size(); j++) {
-           
+            
             string countryName = tempTerritoriesInfo.at(j);
             
-           // cout << countryName << endl;
+            // cout << countryName << endl;
             //not working with the length are not the same. there is an extra whitespace in the last element of the list
             //loop in the countries of the map to get the country with the right name
             for(int k = 0; k < map->getCountries().size(); k++) {
                 
-             
+                
                 //if we have the found the country with the righ name
                 if(countryName.compare(map->getCountries().at(k)->getCountryName()) == 0) {
-                 
+                    
                     //set that country as an adjacent country
-                   map->getCountries().at(i)->setAdjacentCountries(map->getCountries().at(k));
+                    map->getCountries().at(i)->setAdjacentCountries(map->getCountries().at(k));
                     break;
                 }
                 
@@ -638,47 +638,47 @@ void ConquestMapLoader::createConquestMap() {
             
             
         }
-       
-    }
         
+    }
+    
     
     //creates adjacent continents
     //loop through all countries in the map
-     for(int i = 0; i < map->getCountries().size(); i++) {
-         
-         //for each countries, loop through its adjacent countries
-         for(int j = 0; j < map->getCountries().at(i)->getAdjacentCountries().size(); j++) {
-             
-             //name of the continent of the country
-             string continentName = map->getCountries().at(i)->getContinentOfCountry()->getContinentName();
-             
-             //compare the continent of the country and the continent of the adjacent countries
-             //if it is not the same, set new adjacent continents
-             if( (continentName.compare(map->getCountries().at(i)->getAdjacentCountries().at(j)->getContinentOfCountry()->getContinentName())) != 0) {
-                 
-                 //vector of adjacent continents of the current continent of the country
-                 vector<Continent*> currentContinentOfCountry =  map->getCountries().at(i)->getContinentOfCountry()->getAdjacentContinents();
-                 
-                 vector<Continent*>::iterator it1 = find(currentContinentOfCountry.begin(), currentContinentOfCountry.end(), map->getCountries().at(i)->getAdjacentCountries().at(j)->getContinentOfCountry());
-                 
-                 // Check if continent has not been added already, if not add them as an adjacent continent
-                 if (it1 == currentContinentOfCountry.end()) {
-                     
-                     map->getCountries().at(i)->getContinentOfCountry()->setAdjacentContinents(map->getCountries().at(i)->getAdjacentCountries().at(j)->getContinentOfCountry());
-                     
-                 }
-                 
-             }
-             
-         }
-         
-     }
+    for(int i = 0; i < map->getCountries().size(); i++) {
         
-               
-        //check if the map created is valid or not
-        map->isValidMap();
+        //for each countries, loop through its adjacent countries
+        for(int j = 0; j < map->getCountries().at(i)->getAdjacentCountries().size(); j++) {
+            
+            //name of the continent of the country
+            string continentName = map->getCountries().at(i)->getContinentOfCountry()->getContinentName();
+            
+            //compare the continent of the country and the continent of the adjacent countries
+            //if it is not the same, set new adjacent continents
+            if( (continentName.compare(map->getCountries().at(i)->getAdjacentCountries().at(j)->getContinentOfCountry()->getContinentName())) != 0) {
+                
+                //vector of adjacent continents of the current continent of the country
+                vector<Continent*> currentContinentOfCountry =  map->getCountries().at(i)->getContinentOfCountry()->getAdjacentContinents();
+                
+                vector<Continent*>::iterator it1 = find(currentContinentOfCountry.begin(), currentContinentOfCountry.end(), map->getCountries().at(i)->getAdjacentCountries().at(j)->getContinentOfCountry());
+                
+                // Check if continent has not been added already, if not add them as an adjacent continent
+                if (it1 == currentContinentOfCountry.end()) {
+                    
+                    map->getCountries().at(i)->getContinentOfCountry()->setAdjacentContinents(map->getCountries().at(i)->getAdjacentCountries().at(j)->getContinentOfCountry());
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
     
-
+    
+    //check if the map created is valid or not
+    map->isValidMap();
+    
+    
 }
 
 //get the map created

@@ -6,7 +6,7 @@ class MapLoader {
 public:
     
     //constructor
-	MapLoader();
+    MapLoader();
     
     //destructor
     ~MapLoader();
@@ -14,10 +14,10 @@ public:
     //copy constructor
     MapLoader(const MapLoader &orig);
     
-	void readMapFile(std::string fileName);
+    void readMapFile(std::string fileName);
     void createMap();
     void displayMap();
-	Map* getMap();
+    Map* getMap();
     
     const MapLoader& operator=(const MapLoader& m);
     
@@ -27,7 +27,7 @@ private:
     //vectors of information from map file
     std::vector<std::string> continents_info;
     std::vector<std::string> countries_info;
-    std::vector<std::string> borders_info;    
+    std::vector<std::string> borders_info;
 };
 
 
@@ -49,7 +49,7 @@ public:
     Map* getMap();
     
     const ConquestMapLoader& operator=(const ConquestMapLoader& c);
-    private:
+private:
     Map* map;
     
     //vectors of information from conquest map file
@@ -62,7 +62,7 @@ public:
 
 class AdapterConquestMaploader: public MapLoader {
     
-    public:
+public:
     //constructor with parameter
     AdapterConquestMaploader(ConquestMapLoader* conquestMap);
     
@@ -75,7 +75,7 @@ class AdapterConquestMaploader: public MapLoader {
     //copy constructor
     AdapterConquestMaploader(const AdapterConquestMaploader &orig);
     
- const AdapterConquestMaploader &operator=(const AdapterConquestMaploader &a);
+    const AdapterConquestMaploader &operator=(const AdapterConquestMaploader &a);
     
     void readMapFile(std::string fileName);
     void createMap();
@@ -84,6 +84,6 @@ class AdapterConquestMaploader: public MapLoader {
     
 private:
     ConquestMapLoader* conquestMaploader;
-
-
+    
+    
 };

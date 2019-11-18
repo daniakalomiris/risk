@@ -1,5 +1,4 @@
 #include "Map.h"
-
 #include<iostream>
 #include <queue>
 #include <memory>
