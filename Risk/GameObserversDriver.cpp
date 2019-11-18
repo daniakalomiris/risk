@@ -59,7 +59,7 @@ void A3part3() {
 	GameEngine* theGame = new GameEngine();
 	//theGame->createMap();
 
-    //create own fictive for testing the driver
+    //create own fictive map for testing the driver
     Map* map = new Map();
 
 	//creates new continent objects
