@@ -20,6 +20,15 @@ GameEngine:: GameEngine() {
     endGame = make_unique<bool>(false);
 }
 
+
+//copy constructor -J
+GameEngine::GameEngine(const GameEngine& orig) {
+
+	this->maploader = new MapLoader();
+	*maploader = *orig.maploader;
+	this->endGame = make_unique<bool>(false);
+
+}
 //destructor
 GameEngine:: ~GameEngine() {
     delete maploader;

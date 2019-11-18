@@ -24,6 +24,7 @@ private:
 public:
     
     GameEngine(); //constructor
+	GameEngine(const GameEngine& orig); //copy constructor
     ~GameEngine();
 	int currentPlayerIndex;
 	int currentDefenderIndex;

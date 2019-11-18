@@ -27,6 +27,20 @@ Player::Player(string name) {
     phaseStart = make_unique<bool>(false);
 }
 
+//copy constructor
+Player::Player(const Player& orig) {
+	this->dice = new Dice();
+	*dice = *orig.dice;
+	this->hand = new Hand(counter);
+	*hand = *orig.hand;
+	this->setName(orig.name);
+	this->strategy = orig.strategy;
+	orig.counter++;
+	this->id = make_unique<int>(orig.counter);
+	this->phaseStart = make_unique<bool>(false);
+
+}
+
 //player constructor with parameters
 Player::Player(string name, Map* map) {
     this->dice = new Dice();

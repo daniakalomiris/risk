@@ -20,6 +20,15 @@ Cards::Cards(int typeNum, int worth) {
     setType(typeNum);
 };
 
+
+//copy constructor
+Cards::Cards(const Cards& orig) {
+	this->typeNum = make_unique<int>(orig.typeNum);
+	this->worth = make_unique<int>(orig.worth);
+	setType(*orig.typeNum);
+}
+
+
 //// copy constructor
 //Cards::Cards(const Cards& orig) {
 //    this->typeNum = make_unique<int>(*orig.typeNum);
@@ -205,6 +214,12 @@ Hand::Hand(int id) {
     this->id = id;
     numOfArmiesToPlace = make_unique<int>(0);
     
+}
+
+//copy constructor
+Hand::Hand(const Hand& orig) {
+	this->id = orig.id;
+	this->numOfArmiesToPlace = make_unique<int>(orig);
 }
 
 ////Copy Constructor
