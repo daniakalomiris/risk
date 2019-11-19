@@ -13,6 +13,9 @@ public:
     
     ~Dice();
     
+    Dice(const Dice& orig); // copy constructor
+    const Dice& operator=(const Dice& d); // overloading assignment operator
+    
     //function to ask to how many dice the player wants to roll
     void setDiceToRoll(int numOfDice);
     

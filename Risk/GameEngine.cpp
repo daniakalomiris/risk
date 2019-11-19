@@ -21,7 +21,7 @@ GameEngine:: GameEngine() {
 }
 
 
-//copy constructor -J
+//copy constructor
 GameEngine::GameEngine(const GameEngine& orig) {
 
 	this->maploader = new MapLoader();

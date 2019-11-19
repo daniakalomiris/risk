@@ -40,7 +40,7 @@ Player::Player(const Player& orig) {
 	this->phaseStart = make_unique<bool>(false);
 
 }
-
+ 
 //player constructor with parameters
 Player::Player(string name, Map* map) {
     this->dice = new Dice();
@@ -53,15 +53,7 @@ Player::Player(string name, Map* map) {
     phaseStart = make_unique<bool>(false);
 }
 
-////copy constructor
-//Player::Player(const Player& orig) {
-//    dice = new Dice(*orig.dice);
-//	hand = new Hand(*orig.hand);
-//    this-> setName(*orig.name);
-//	counter = *orig.counter;
-//	id = *orig.id;
-//	map = new Map(*orig.map);
-//}
+
 //
 ////Equal operator method
 //Player& Player::operator=(const Player& orig) {

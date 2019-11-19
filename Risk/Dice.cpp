@@ -19,6 +19,15 @@ Dice::~Dice() {
     
 }
 
+// copy constructor (deep copy)
+Dice::Dice(const Dice& orig) {
+}
+
+const Dice::Dice& operator=(const Dice& d) {
+    return *this;
+}
+
+
 // Player selects how many dice to roll
 void Dice::setDiceToRoll(int numOfDice) {
     this->numOfDice = make_unique<int>(numOfDice);

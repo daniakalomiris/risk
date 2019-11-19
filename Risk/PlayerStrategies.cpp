@@ -11,10 +11,6 @@ Strategy::Strategy() {
 Strategy::~Strategy() {
 }
 
-// copy constructor (deep copy)
-Strategy::Strategy(const Strategy &orig) {
-}
-
 // overloading assignment operator
 /*const Strategy& Strategy::operator=(const Strategy &s) {
  if (this == &s) {

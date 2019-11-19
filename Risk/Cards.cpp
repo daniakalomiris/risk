@@ -29,13 +29,6 @@ Cards::Cards(const Cards& orig) {
 }
 
 
-//// copy constructor
-//Cards::Cards(const Cards& orig) {
-//    this->typeNum = make_unique<int>(*orig.typeNum);
-//    this->worth = make_unique<int>(*orig.worth);
-//	setType(*orig.typeNum);
-//}
-//
 ////asignment operator 
 //Cards& Cards:: operator=(const Cards& orig) {
 //	this->typeNum = make_unique<int>(orig.typeNum);
