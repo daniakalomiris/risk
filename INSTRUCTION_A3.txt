@@ -1,0 +1,28 @@
+******* This is an instruction booklet to run all the drivers for assignment 3 *******
+
+
+******* Part 1 *******
+1.Go in file PlayerStrategies.cpp
+2.Uncomment the main method (make sure it is the only method uncommented)
+3.Run the code
+
+******* Part2 *******
+1.Go in file GameObserversDriver
+2.Uncomment the main method
+3.Run the method A3part2() in the main (make sure to only run this method)
+
+******* Part3 *******
+1.Go in file GameObserversDriver
+2.Uncomment the main method
+3.Run the method A3part3() in the main (make sure to only run this method)
+
+******* Part4 *******
+1.Go in file MapLoaderDriver
+2.Uncomment the main method
+3.Run the code
+4.To enter the name of the chosen map: write the name exactly like the file name without the extension.map
+
+NOTE
+In the folder maps, there are two subfolders
+put the domination map files into the domination folder
+put the conquest map files into the conquest map file

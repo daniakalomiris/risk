@@ -1,7 +1,7 @@
 //Driver class to test the player object
 #include <iostream>
 #include "Player.h"
-#include "Map.h"
+//#include "Map.h"
 using namespace std;
 
 //declares function that will be the drivers for part4, part5 and part 6 of assignment 2
@@ -11,11 +11,11 @@ void part6();
 
 //main method that can call each driver for each part
 //uncomment the part you want to test
-int main() {
-    // part4();
-    part5();
-    // part6();
-}
+//int main() {
+//    // part4();
+//    // part5();
+//    // part6();
+//}
 
 //driver for part4: reinforce of assignment2
 void part4() {
@@ -61,8 +61,8 @@ void part4() {
     country10->setNumberOfArmies(6);
     country11->setNumberOfArmies(5);
     country12->setNumberOfArmies(9);
-   
-
+    
+    
     
     map->setCountry(country1);
     map->setCountry(country2);
@@ -123,7 +123,7 @@ void part4() {
     country5->setCountryOwnerId(player->getID());
     country6->setCountryOwnerId(player2->getID());
     country7->setCountryOwnerId(player2->getID());
-        
+    
     country8->setCountryOwnerId(player2->getID());
     country9->setCountryOwnerId(player->getID());
     country10->setCountryOwnerId(player->getID());
@@ -143,8 +143,8 @@ void part4() {
     player->setThisPlayerCountry(country10);
     player2->setThisPlayerCountry(country11);
     player->setThisPlayerCountry(country12);
-
-        
+    
+    
     //new deck based on number of countries in map (size of deck should be 3)
     Deck* deck = new Deck(map);
     
@@ -159,7 +159,7 @@ void part4() {
     deck->draw(player2->getHand(), player2->getName());
     deck->draw(player2->getHand(), player2->getName());
     deck->draw(player2->getHand(), player2->getName());
-
+    
     
     cout << "\n\nPlayer 1 " << player->getName() << " turn " << endl;
     
@@ -176,7 +176,7 @@ void part4() {
     
     player->reinforce();
     
-
+    
     cout << "\n\nPlayer 2 " << player2->getName() << " turns" << endl;
     cout << "\nCards in hand of player 2 : " << endl;
     
@@ -190,7 +190,7 @@ void part4() {
     }
     
     player2->reinforce();
-   
+    
     delete player;
     player = NULL;
     delete map;

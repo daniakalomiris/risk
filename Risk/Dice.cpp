@@ -4,20 +4,48 @@
 
 using namespace std;
 
- Dice:: Dice() {
-
-     //initializes the array that tracks the rolled values with zeros
-   for(int i = 0; i <6; i++) {
+Dice:: Dice() {
+    
+    //initializes the array that tracks the rolled values with zeros
+    for(int i = 0; i <6; i++) {
         valuesTracker[i] = 0;
     }
-
+    
     //intializes the number of time the dice have been rolled
     timesRolled.reset(new int(0));
 }
 
 Dice::~Dice() {
-   
+    
 }
+
+// copy constructor (deep copy)
+Dice::Dice(const Dice& orig) {
+    this->numOfDice = make_unique<int>(*orig.numOfDice);
+    this->timesRolled = make_unique<int>(*orig.timesRolled);
+    
+    //initializes the array that tracks the rolled values with zeros
+      for(int i = 0; i <6; i++) {
+          this->valuesTracker[i] = orig.valuesTracker[i];
+      }
+
+}
+
+//assignment operators
+const Dice& Dice:: operator=(const Dice &d) {
+    if(&d !=this) {
+        this->numOfDice = make_unique<int>(*d.numOfDice);
+        this->timesRolled = make_unique<int>(*d.timesRolled);
+        
+        //initializes the array that tracks the rolled values with zeros
+          for(int i = 0; i <6; i++) {
+              this->valuesTracker[i] = d.valuesTracker[i];
+          }
+    }
+    
+    return *this;
+}
+
 
 // Player selects how many dice to roll
 void Dice::setDiceToRoll(int numOfDice) {
@@ -26,13 +54,13 @@ void Dice::setDiceToRoll(int numOfDice) {
 
 // Generates random dice values (1 to 6) for each dice rolled
 void Dice::rollDice() {
-
+    
     // Initialize container
     int diceContainer[3];
-
+    
     // Resets the random
     srand(time(NULL));
-
+    
     // Generates numbers between 1 and 6 and stores them in an array
     for(int i = 0; i < *numOfDice; i++) {
         int temp = rand()% 6+1;
@@ -44,7 +72,7 @@ void Dice::rollDice() {
         //increments the number of dice rolled
         (*timesRolled)++;
     }
-
+    
     //Sorts the array diceContainer
     for(int i = 0; i < *numOfDice; i++) {
         for(int j = i+1; j < *numOfDice; j++) {
@@ -55,10 +83,11 @@ void Dice::rollDice() {
             }
         }
     }
-
+    
     // Display the values for each dice rolled
     if (*numOfDice == 1) {
         cout << "This is the result of your die: " << diceContainer[0] << endl;
+        valuesRolled.push_back(diceContainer[0]);
     }
     else {
         cout << "These are the results of your dice: " << endl;
@@ -68,22 +97,22 @@ void Dice::rollDice() {
             //push the values in the vector valuesRolled
             valuesRolled.push_back(diceContainer[i]);
         }
-         
+        
     }
-	cout << " " << endl;
+    cout << " " << endl;
     
 }
 
 void Dice::keepTracks() {
-
+    
     //Diplays percentage of each values rolled up to now
     cout << "\nPercentage of all values rolled up to now" << endl;
     for(int i = 0 ; i< 6; i++) {
-    double percentage = ((double)valuesTracker[i]/(double)*timesRolled) * 100;
-    cout << (i+1) << ": " << percentage << "%" << endl;
-
-}
-        cout << "Total number of times you rolled a die: " << *timesRolled << "\n" << endl;
+        double percentage = ((double)valuesTracker[i]/(double)*timesRolled) * 100;
+        cout << (i+1) << ": " << percentage << "%" << endl;
+        
+    }
+    cout << "Total number of times you rolled a die: " << *timesRolled << "\n" << endl;
 }
 
 
@@ -92,6 +121,6 @@ std::vector<int> Dice:: getValuesRolled() {
 }
 
 void Dice::clearDiceRolled() {
-	valuesRolled.clear();
+    valuesRolled.clear();
 }
 

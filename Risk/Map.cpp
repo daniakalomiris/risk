@@ -1,5 +1,4 @@
 #include "Map.h"
-
 #include<iostream>
 #include <queue>
 #include <memory>
@@ -259,7 +258,9 @@ int Country::getCountryOwnerId() {
 }
 
 void Country::setCountryOwnerId(int countryOwnerId) {
+    
 	this->countryOwnerId.reset(new int(countryOwnerId));
+    
 }
 
 int Country::getNumberOfArmies() {

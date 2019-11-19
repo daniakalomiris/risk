@@ -2,23 +2,46 @@
 #include <iostream>
 #include <string>
 #include "GameEngine.h"
+#include "PlayerStrategies.h"
 #include "time.h"
 #include <random>
-//using std::cout;
-//using std::endl;
-//using std::cin;
+#include <chrono>
+
 using namespace std;
 
 //maximum and minimum number of players that can play the game
 const int MIN_PLAYERS = 2;
 const int MAX_PLAYERS = 6;
-
+std::string phase;
 
 //constructor
 GameEngine:: GameEngine() {
     maploader = new MapLoader();
     endGame = make_unique<bool>(false);
 }
+
+
+//copy constructor
+GameEngine::GameEngine(const GameEngine& orig) {
+
+	this->maploader = new MapLoader();
+	*maploader = *orig.maploader;
+	this->endGame = make_unique<bool>(false);
+
+}
+
+//assignment operator
+const GameEngine& GameEngine::operator=(const GameEngine& g){
+    
+    if(&g != this) {
+        this->maploader = new MapLoader();
+        *maploader = *g.maploader;
+        this->endGame = make_unique<bool>(false);
+    }
+    
+    return *this;
+}
+
 
 //destructor
 GameEngine:: ~GameEngine() {
@@ -67,12 +90,24 @@ Map* GameEngine:: getMap() {
     return map;
 }
 
+void GameEngine::setMap(Map *newMap) {
+    this->map = new Map();
+    *map = *newMap;
+}
 bool GameEngine::getEndGame() {
     return *endGame;
 }
 
 void GameEngine::setEndGame(bool value) {
     *endGame = value;
+}
+
+// phase == 1 is for reinforce, phase == 2 is for attack, phase == 3 is for fortify
+void GameEngine::setPhase(int phase) {
+    this->phase = make_unique<int>(phase);
+}
+int GameEngine::getPhase() {
+    return *phase;
 }
 
 //sets the number of armies per player depending of the number of players
@@ -237,6 +272,7 @@ void GameEngine::createPlayers() {
         setPlayer(player);
         
     }
+    Notify(); //displays when players are created even if they do not have countries yet
 }
 
 //adds players to vector of players
@@ -315,18 +351,20 @@ void GameEngine::assignCountriesToPlayers() {
             countriesAlreadyAssigned.push_back(randomCountry);
         }
     }
+    Notify(); //Notify PlayerDomination when countries are initially assigned to players to display original stats
     
 }
 
 //displays countries of a player
 void GameEngine::displayCountriesOfPlayers() {
     for (int i = 0; i < allPlayers.size(); i++) {
-        cout << "\n\nPlayer " << allPlayers.at(i)->getName() << " countries: " << endl;
+        cout << "\n\nPlayer " << allPlayers.at(i)->getName() << "(ID: "<< allPlayers.at(i)->getID() << ") countries: " << endl;
         
         for (int j = 0; j < allPlayers.at(i)->getThisPlayerCountries().size(); j++) {
             cout << j+1 << " " << allPlayers.at(i)->getThisPlayerCountries().at(j)->getCountryName() << endl;
         }
     }
+    Notify();
 }
 
 //creates a map based on the choice of the user
@@ -386,7 +424,7 @@ void GameEngine::createMap() {
     }
     
     //calls methods from maploader to open the file selected, create it, and display it
-    maploader->readMapFile("maps/" + mapFile+ ".map");
+    maploader->readMapFile("maps/domination/" + mapFile+ ".map");
     maploader->createMap();
     maploader->displayMap();
     
@@ -404,27 +442,90 @@ void GameEngine:: mainGameLoop() {
     
     bool allCountriesOwnByPlayer = false;
     int indexOfWinningPlayer = 0;
+    User* user = new User();
     
     cout << "\n\n****** Main Game Loop *******" << endl;
     
     //while the game is still playing
     while (getEndGame() == false) {
         
+        //vector of the country owner id before the attack
+        vector<int> OldCountryOwnerId;
+        
         for(int i = 0; i< this->getNumberOfPlayers(); i++) {
             
-            //display which player is playing
-            cout << "\n\n************** Player " <<  i+1 << ": " << this->getAllPlayers().at(i)->getName() << "'s turn **************\n" << endl;
+            //if the player doesn't own any countries, skip his turn
+            if(this->getAllPlayers().at(i)->getThisPlayerCountries().size() ==0) {
+                continue;
+            }
             
+            //display which player is playing
+            cout << "\n\n************** Player " << this->getAllPlayers().at(i)->getName() << "'s turn **************\n" << endl;
+            
+            
+            currentPlayerIndex = i;
             //make the player reinforce, attack and fortify
+            setPhase(1);
+            Notify();
+            //make the player reinforce, attack and fortify
+            
+            this->getAllPlayers().at(i)->setStrategy(user);
             this->getAllPlayers().at(i)->reinforce();
+            Notify();
+            
+            //make the phaseStart back to false, so we don't display data that we didn't enter yet
+            this->getAllPlayers().at(i)->setPhaseStart(false);
+            
+            //get the countryOwnerId for all countries before the attack
+            for(int j=0; j < map->getCountries().size(); j++) {
+                OldCountryOwnerId.push_back(map->getCountries().at(j)->getCountryOwnerId());
+            }
+            
+            setPhase(2);
+            Notify();
             this->getAllPlayers().at(i)->attack();
+            
+            //compare the old owner ID with the new owner Id if a player won a country
+            for(int j = 0; j < map->getCountries().size(); j++) {
+                
+                int indexPlayerLostCountry;
+                
+                //if the owner id has changed delete the country from the old owner player
+                if(OldCountryOwnerId.at(j) != map->getCountries().at(j)->getCountryOwnerId()) {
+                    
+                    
+                    
+                    //get the index of player that lost a country
+                    for(int k=0; k< getAllPlayers().size(); k++) {
+                        
+                        if(OldCountryOwnerId.at(j) == getAllPlayers().at(k)->getID()) {
+                            indexPlayerLostCountry = k;
+                        }
+                    }
+                    
+                    this->getAllPlayers().at(indexPlayerLostCountry)->deleteThisPlayerCountry(map->getCountries().at(j));
+                }
+            }
+            
+            //check if a player owns a continent
+            this->getAllPlayers().at(i)->checkControlContinents();
+            
+            //reset the countryOwnerId
+            OldCountryOwnerId.clear();
+            
+            
+            Notify();
+            //make the phaseStart back to false, so we don't display data that we didn't enter yet
+            this->getAllPlayers().at(i)->setPhaseStart(false);
+            
+            setPhase(3);
+            Notify();
             this->getAllPlayers().at(i)->fortify();
             
+            Notify();
+            //make the phaseStart back to false, so we don't display data that we didn't enter yet
+            this->getAllPlayers().at(i)->setPhaseStart(false);
             
-            //check if a player owns all the countries
-            if(this->getAllPlayers().at(i)->getThisPlayerCountries().size() == this->map->getCountries().size()) {
-                this->setEndGame(true);
-            }
             
             
         }

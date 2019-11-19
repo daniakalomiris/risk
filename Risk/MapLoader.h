@@ -6,15 +6,21 @@ class MapLoader {
 public:
     
     //constructor
-	MapLoader();
+    MapLoader();
     
     //destructor
     ~MapLoader();
     
-	void readMapFile(std::string fileName);
+    //copy constructor
+    MapLoader(const MapLoader &orig);
+    
+    void readMapFile(std::string fileName);
     void createMap();
     void displayMap();
-	Map* getMap();
+    Map* getMap();
+    
+    const MapLoader& operator=(const MapLoader& m);
+    
 private:
     Map* map;
     
@@ -22,25 +28,28 @@ private:
     std::vector<std::string> continents_info;
     std::vector<std::string> countries_info;
     std::vector<std::string> borders_info;
-    
 };
 
 
-class MapLoaderConquest {
+class ConquestMapLoader {
     
 public:
     //constructor
-    MapLoaderConquest();
+    ConquestMapLoader();
     
     //destructor
-    ~MapLoaderConquest();
+    ~ConquestMapLoader();
     
-    void readConquestMapFile();
+    //copy constructor
+    ConquestMapLoader(const ConquestMapLoader &orig);
+    
+    void readConquestMapFile(std::string fileName);
     void createConquestMap();
     void displayConquestMap();
     Map* getMap();
-
-    private:
+    
+    const ConquestMapLoader& operator=(const ConquestMapLoader& c);
+private:
     Map* map;
     
     //vectors of information from conquest map file
@@ -51,17 +60,22 @@ public:
 };
 
 
-class adapterMap: public MapLoader {
+class AdapterConquestMaploader: public MapLoader {
     
-    public:
+public:
     //constructor with parameter
-    adapterMap(MapLoaderConquest* conquestMap);
+    AdapterConquestMaploader(ConquestMapLoader* conquestMap);
     
     //default constructor
-    adapterMap();
+    AdapterConquestMaploader();
     
     //destructor
-    ~adapterMap();
+    ~AdapterConquestMaploader();
+    
+    //copy constructor
+    AdapterConquestMaploader(const AdapterConquestMaploader &orig);
+    
+    const AdapterConquestMaploader &operator=(const AdapterConquestMaploader &a);
     
     void readMapFile(std::string fileName);
     void createMap();
@@ -69,8 +83,7 @@ class adapterMap: public MapLoader {
     Map* getMap();
     
 private:
-    Map* map;
-    MapLoaderConquest* conquestMaploader;
-
-
+    ConquestMapLoader* conquestMaploader;
+    
+    
 };
