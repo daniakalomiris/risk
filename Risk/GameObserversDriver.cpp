@@ -13,8 +13,8 @@ void A3part3();
 //uncomment the driver you want to test
 int main() {
     
-    //A3part2();
-    A3part3();
+    A3part2();
+    //A3part3();
 }
 
 

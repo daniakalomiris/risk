@@ -12,11 +12,10 @@ class Player {
 public:
     Player(); // default constructor
     ~Player();
-    Player(const Player&); //copy constructor
+    Player(const Player& orig); //copy constructor
     Player(std::string name); //constructor which takes a name
     Player(std::string name, Map* map); //constructor which takes a name and a map
-    Player& operator=(const Player& orig); //equaloperator
-    
+        
     //returns id of player that is generated during player object creation
     int getID();
     

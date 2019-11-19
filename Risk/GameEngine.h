@@ -25,6 +25,8 @@ public:
     
     GameEngine(); //constructor
 	GameEngine(const GameEngine& orig); //copy constructor
+
+    const GameEngine& operator=(const GameEngine& g);
     ~GameEngine();
 	int currentPlayerIndex;
 	int currentDefenderIndex;

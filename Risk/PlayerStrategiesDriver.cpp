@@ -175,7 +175,7 @@ void selectStrategy(Player* player);
 //	cout << "\nThis is the reinforcement phase of the turn." << endl;
 //	selectStrategy(player); // player can choose which strategy to use before each play
 //
-//	player->reinforce();  
+//	player->reinforce();
 //
 //	/* attack phase with Strategy pattern */
 //	cout << "\nThis is the attack phase of the turn." << endl;

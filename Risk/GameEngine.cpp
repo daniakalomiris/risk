@@ -29,6 +29,19 @@ GameEngine::GameEngine(const GameEngine& orig) {
 	this->endGame = make_unique<bool>(false);
 
 }
+
+const GameEngine& GameEngine::operator=(const GameEngine& g){
+    
+    if(&g != this) {
+        this->maploader = new MapLoader();
+        *maploader = *g.maploader;
+        this->endGame = make_unique<bool>(false);
+    }
+    
+    return *this;
+}
+
+
 //destructor
 GameEngine:: ~GameEngine() {
     delete maploader;
