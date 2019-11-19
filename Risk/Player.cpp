@@ -36,7 +36,7 @@ Player::Player(const Player& orig) {
 	this->setName(orig.name);
 	this->strategy = orig.strategy;
 	orig.counter++;
-	this->id = make_unique<int>(orig.counter);
+	this->id = make_unique<int>(*orig.id);
 	this->phaseStart = make_unique<bool>(false);
 
 }
@@ -53,15 +53,6 @@ Player::Player(string name, Map* map) {
     phaseStart = make_unique<bool>(false);
 }
 
-
-//
-////Equal operator method
-//Player& Player::operator=(const Player& orig) {
-//	dice = orig.dice;
-//	hand = orig.hand;
-//	name = orig.name;
-//	return *this;
-//}
 
 //Destructor
 Player::~Player() {

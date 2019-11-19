@@ -23,18 +23,12 @@ Cards::Cards(int typeNum, int worth) {
 
 //copy constructor
 Cards::Cards(const Cards& orig) {
-	this->typeNum = make_unique<int>(orig.typeNum);
-	this->worth = make_unique<int>(orig.worth);
+	this->typeNum = make_unique<int>(*orig.typeNum);
+	this->worth = make_unique<int>(*orig.worth);
 	setType(*orig.typeNum);
 }
 
 
-////asignment operator 
-//Cards& Cards:: operator=(const Cards& orig) {
-//	this->typeNum = make_unique<int>(orig.typeNum);
-//	this->worth = make_unique<int>(orig.worth);
-//	return *this; 
-//}
 
 Cards::~Cards() {
     
@@ -212,20 +206,17 @@ Hand::Hand(int id) {
 //copy constructor
 Hand::Hand(const Hand& orig) {
 	this->id = orig.id;
-	this->numOfArmiesToPlace = make_unique<int>(orig);
+	this->numOfArmiesToPlace = make_unique<int>(*orig.numOfArmiesToPlace);
 }
 
-////Copy Constructor
-//Hand::Hand(const Hand& orig) {
-//	id = *orig.id;
-//	numOfArmiesToPlace = *orig.numOfArmiesToPlace;
-//}
-////Assignment Operator
-//Hand& Hand::operator=(const Hand& orig) {
-//	id = orig.id;
-//	numOfArmiesToPlace = orig.numOfArmiesToPlace;
-//	return *this;
-//}
+//assignment operators
+const Hand& Hand:: operator=(const Hand& h){
+    if(&h !=this) {
+        this->id = h.id;
+        this->numOfArmiesToPlace = make_unique<int>(*h.numOfArmiesToPlace);
+    }
+    return *this;
+}
 
 Hand::~Hand() {
     

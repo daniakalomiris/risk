@@ -33,8 +33,8 @@ MapLoader:: MapLoader(const MapLoader &orig){
 const MapLoader& MapLoader:: operator=(const MapLoader& m){
     if(&m !=this) {
         delete map;
-        Map* newMap = new Map();
-        this->map = newMap;
+       this->map = new Map();
+       *map = *m.map;
     }
     
     return *this;

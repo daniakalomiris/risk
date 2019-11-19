@@ -11,12 +11,6 @@ Strategy::Strategy() {
 Strategy::~Strategy() {
 }
 
-// overloading assignment operator
-/*const Strategy& Strategy::operator=(const Strategy &s) {
- if (this == &s) {
- return *this;
- }
- }*/
 
 // constructor and destructor for ConcreteStrategy for human player
 User::User() {
@@ -25,16 +19,6 @@ User::User() {
 User::~User() {
 }
 
-// copy constructor (deep copy)
-User::User(const User& orig) : Strategy() {
-}
-
-// overloading assignment operator
-/*const User& User::operator=(const User& u) {
- if (this == &u) {
- return *this;
- }
- }*/
 
 // all user inputs are chosen by the player
 string User::extraReinforcement() {
@@ -123,16 +107,6 @@ Aggressive::Aggressive() {
 Aggressive::~Aggressive() {
 }
 
-// copy constructor (deep copy)
-Aggressive::Aggressive(const Aggressive& orig) : Strategy(orig) {
-}
-
-// overloading assignment operator
-/*const Aggressive& Aggressive::operator=(const Aggressive& a) {
- if (this == &a) {
- return *this;
- }
- }*/
 
 // aggressive player will always exchange again
 string Aggressive::extraReinforcement() {
@@ -309,16 +283,6 @@ Benevolent::Benevolent() {
 Benevolent::~Benevolent() {
 }
 
-// copy constructor (deep copy)
-Benevolent::Benevolent(const Benevolent& orig) : Strategy(orig) {
-}
-
-// overloading assignment operator
-/*const Benevolent& Benevolent::operator=(const Benevolent& b) {
- if (this == &b) {
- return *this;
- }
- }*/
 
 // benevolent computer player will always exchange again
 string Benevolent::extraReinforcement() {
