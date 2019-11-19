@@ -30,6 +30,7 @@ GameEngine::GameEngine(const GameEngine& orig) {
 
 }
 
+//assignment operator
 const GameEngine& GameEngine::operator=(const GameEngine& g){
     
     if(&g != this) {
