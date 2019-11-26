@@ -11,11 +11,11 @@ void A3part3();
 
 //call the driver for part2 or part3
 //uncomment the driver you want to test
-int main() {
-    
-    A3part2();
-    //A3part3();
-}
+//int main() {
+//    
+//    A3part2();
+//    //A3part3();
+//}
 
 
 //THIS IS THE DRIVER FOR PART 2 OF ASSIGNMENT 3

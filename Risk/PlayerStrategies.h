@@ -6,6 +6,8 @@
 class User;
 class Aggressive;
 class Benevolent;
+class Random;
+class Cheater;
 
 class Strategy {
 public:
@@ -101,4 +103,50 @@ public:
     std::string countryToFortify(Player* player, Country* country);
     
     bool exchangeAutom();
+};
+
+class Random : public Strategy {
+public:
+	Random();
+	~Random();
+
+	std::string extraReinforcement();
+	int countryToReinforce(Player* player);
+	int armiesToPlace(Player* player);
+
+	std::string chooseAttack();
+	int attackFrom(Player* player);
+	int countryToAttack(Country* attackFrom);
+	int attackerRoll();
+	int armiesToMove(int armiesCanMove);
+
+	std::string chooseFortify();
+	std::string countryToFortifyFrom(Player* player);
+	int armiesToFortify(int sourceCounrtyArmies);
+	std::string countryToFortify(Player* player, Country* country);
+
+	bool exchangeAutom();
+};
+
+class Cheater : public Strategy {
+public:
+	Cheater();
+	~Cheater();
+
+	std::string extraReinforcement();
+	int countryToReinforce(Player* player);
+	int armiesToPlace(Player* player);
+
+	std::string chooseAttack();
+	int attackFrom(Player* player);
+	int countryToAttack(Country* attackFrom);
+	int attackerRoll();
+	int armiesToMove(int armiesCanMove);
+
+	std::string chooseFortify();
+	std::string countryToFortifyFrom(Player* player);
+	int armiesToFortify(int sourceCounrtyArmies);
+	std::string countryToFortify(Player* player, Country* country);
+
+	bool exchangeAutom();
 };
