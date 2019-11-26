@@ -47,4 +47,4 @@ ipch/
 *.VC.db
 .vs/
 CppProperties.json
-Debug/
+Risk/Debug/
