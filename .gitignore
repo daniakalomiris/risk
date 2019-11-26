@@ -45,4 +45,5 @@
 # Visual C++ cache files
 ipch/
 *.VC.db
-
+.vs/
+CppProperties.json
