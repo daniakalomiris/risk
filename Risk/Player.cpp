@@ -10,6 +10,7 @@ using namespace std;
 Player::Player() {
     this->dice = new Dice();
     this->hand = new Hand(counter);
+	this->strategy = NULL;
     counter++;
     id = make_unique<int>(counter); //id of player generated
     numOfArmiesAtStartUpPhase = make_unique<int>(0);
@@ -320,6 +321,7 @@ bool Player:: checkControlContinents() { //method to verify if player owns a con
 }
 
 void Player::setStrategy(Strategy* strategy) {
+	delete this->strategy;
     this->strategy = strategy;
 }
 
