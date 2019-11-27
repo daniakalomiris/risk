@@ -173,9 +173,11 @@ void GameEngine::setArmiesToCountries() {
     
     
     cout << "each country has 1 army now" << endl;
-    
+    srand(time(NULL)); // reset randomize
+   
     //while we are done placing armies
     while(done == false) {
+         
         
         //players can place remainder of armies on country of their choice
         for (int i = 0; i < allPlayers.size(); i++) {
@@ -197,9 +199,17 @@ void GameEngine::setArmiesToCountries() {
             cout << "You have " << allPlayers.at(i)->getNumOfArmiesAtStartUpPhase() << " armies left to place" << endl;
             cout << "Enter the name of the country you would like to place one army" << endl;
             
+            //use this if we the user chose it himself
+            //cin >> countryChosen;
             
-            cin >> countryChosen;
+            //pick randomly a country to put armies on
+           
+            int temp = rand() % (allPlayers.at(i)->getThisPlayerCountries().size());
             
+            //assign the country name of the random chosen country to the countryChosen string varialbe.
+            countryChosen = allPlayers.at(i)->getThisPlayerCountries().at(temp)->getCountryName();
+            
+            cout << "You chose the country " << countryChosen << endl;
             
             //check if the country enter is valid
             for(int j = 0; j < allPlayers.at(i)->getThisPlayerCountries().size(); j++ ) {
