@@ -161,7 +161,7 @@ int Aggressive::countryToAttack(Country* attackFrom) {
     // generates random number from 1 to the number of adjacent countries
     // note that the random function will continuously try a number until it eventually returns a valid one verified by the attack phase
     // thus is may appear as though the computer player is in an infinite loop but this is not the case (it will stop at a number after many tries)
-    return (rand() % (attackFrom->getAdjacentCountries().size()) + 1);
+    return (rand() % (attackFrom->getAdjacentCountries().size() + 1));
 }
 
 // aggressive player will roll a random number of dice
@@ -421,3 +421,100 @@ string Benevolent::countryToFortify(Player* player, Country* country) {
 bool Benevolent::exchangeAutom() {
     return true;
 }
+
+Random::Random() {
+}
+
+Random::~Random() {
+}
+
+// random player will randomly choose to exchange again 
+string Random::extraReinforcement() {
+	srand(time(NULL));
+	string choices[] = { "y", "n" };
+	return choices[rand() % 2];
+}
+
+// random player will randomly select one of their countries
+int Random::countryToReinforce(Player* player) {
+	srand(time(NULL));
+	return (rand() % (player->getThisPlayerCountries().size() + 1));
+}
+
+// random player will place a random number of armies
+int Random::armiesToPlace(Player* player) {
+	srand(time(NULL));
+	return (rand() % player->getNumOfArmiesForReinforcement());
+}
+
+// random player always attacks
+string Random::chooseAttack() {
+	return "Y";
+}
+
+// random player will randomly select one of their countries
+int Random::attackFrom(Player* player) {
+	srand(time(NULL));
+	return (rand() % (player->getThisPlayerCountries().size() + 1));
+}
+
+// random player will attack random country from list of neighbors
+int Random::countryToAttack(Country* attackFrom) {
+	srand(time(NULL));
+	return (rand() % (attackFrom->getAdjacentCountries().size() + 1));
+}
+
+// random player will roll a random number of dice
+int Random::attackerRoll() {
+	srand(time(NULL));
+	return (rand() % 3 + 1);
+}
+
+// random player will move a random number of armies
+int Random::armiesToMove(int armiesCanMove) {
+	srand(time(NULL));
+	return (rand() % armiesCanMove);
+}
+
+// random player will fortify
+string Random::chooseFortify() {
+	return "Y";
+}
+
+// random player will randomly select one of their countries 
+string Random::countryToFortifyFrom(Player* player) {
+	srand(time(NULL));
+	return player->getThisPlayerCountries().at(rand() % player->getThisPlayerCountries().size())->getCountryName();
+}
+
+// random player moves a random number of armies
+int Random::armiesToFortify(int sourceCountryArmies) {
+	srand(time(NULL));
+	return (rand() % sourceCountryArmies);
+}
+
+// random player will randomly select one of the source country's neighbors 
+string Random::countryToFortify(Player* player, Country* country) {
+	srand(time(NULL));
+	return country->getAdjacentCountries().at(rand() % country->getAdjacentCountries().size())->getCountryName();
+}
+
+// computer players always exchange
+bool Random::exchangeAutom() {
+	return true;
+} 
+
+
+//
+//
+//
+//Cheater::Cheater() {
+//}
+//
+//Cheater::~Cheater() {
+//}
+//
+//// computer players always exchange
+//bool Cheater::exchangeAutom() {
+//	return true;
+//}

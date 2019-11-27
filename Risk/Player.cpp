@@ -321,7 +321,6 @@ bool Player:: checkControlContinents() { //method to verify if player owns a con
 }
 
 void Player::setStrategy(Strategy* strategy) {
-	delete this->strategy;
     this->strategy = strategy;
 }
 

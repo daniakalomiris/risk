@@ -1,6 +1,5 @@
 #include <iostream>
 #include "PlayerStrategies.h"
-
 using namespace std;
 
 // declare method for the start of each play
@@ -217,6 +216,7 @@ int main() {
 	country11 = NULL;
 	delete deck;
 	deck = NULL;
+
 }
 
 // asks user which strategy to use
@@ -239,7 +239,7 @@ void selectStrategy(Player* player) {
 	Aggressive* aggressive = new Aggressive();
 	Benevolent* benevolent = new Benevolent();
 	Random* random = new Random();
-	Cheater* cheater = new Cheater();
+	//Cheater* cheater = new Cheater();
 
 	switch (strategy) {
 		case 1:
@@ -260,7 +260,7 @@ void selectStrategy(Player* player) {
 			break;
 		case 5:
 			cout << "You will play this phase as a Cheater computer player." << endl;
-			player->setStrategy(cheater);
+			//player->setStrategy(cheater);
 			break;
 		default:
 			break;
