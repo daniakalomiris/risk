@@ -24,9 +24,9 @@ GameEngine:: GameEngine() {
 //copy constructor
 GameEngine::GameEngine(const GameEngine& orig) {
 
-	this->maploader = new MapLoader();
-	*maploader = *orig.maploader;
-	this->endGame = make_unique<bool>(false);
+    this->maploader = new MapLoader();
+    *maploader = *orig.maploader;
+    this->endGame = make_unique<bool>(false);
 
 }
 
@@ -173,9 +173,11 @@ void GameEngine::setArmiesToCountries() {
     
     
     cout << "each country has 1 army now" << endl;
-    
+    srand(time(NULL)); // reset randomize
+   
     //while we are done placing armies
     while(done == false) {
+         
         
         //players can place remainder of armies on country of their choice
         for (int i = 0; i < allPlayers.size(); i++) {
@@ -197,9 +199,17 @@ void GameEngine::setArmiesToCountries() {
             cout << "You have " << allPlayers.at(i)->getNumOfArmiesAtStartUpPhase() << " armies left to place" << endl;
             cout << "Enter the name of the country you would like to place one army" << endl;
             
+            //use this if we the user chose it himself
+            //cin >> countryChosen;
             
-            cin >> countryChosen;
+            //pick randomly a country to put armies on
+           
+            int temp = rand() % (allPlayers.at(i)->getThisPlayerCountries().size());
             
+            //assign the country name of the random chosen country to the countryChosen string varialbe.
+            countryChosen = allPlayers.at(i)->getThisPlayerCountries().at(temp)->getCountryName();
+            
+            cout << "You chose the country " << countryChosen << endl;
             
             //check if the country enter is valid
             for(int j = 0; j < allPlayers.at(i)->getThisPlayerCountries().size(); j++ ) {
@@ -554,3 +564,131 @@ void GameEngine:: mainGameLoop() {
     
     cout << "\n\n **************Player " << indexOfWinningPlayer +1 << " wins the game **************\n End of the game" << endl;
 }
+
+
+
+//**********Implementation for Tournament class**********
+
+Tournament::Tournament() {
+    
+}
+
+Tournament::Tournament(const Tournament& orig) {
+    this->numMaps = make_unique<int>(*orig.numMaps);
+    this->numGames = make_unique<int>(*orig.numGames);
+    this->numTurns = make_unique<int>(*orig.numTurns);
+    this->numComps = make_unique<int>(*orig.numComps);
+    
+    this->games = orig.games;
+}
+
+Tournament:: ~Tournament() {
+    
+}
+
+//displays the menu that prompts the user for information to set up the tournament
+void Tournament::tournamentSettings(){
+    
+    int numComps; //number of computers to partake in the tournament
+    int numMaps; //number of maps to play on
+    int numGames; //number of games per map
+    int numTurns; //number of turns per player
+    
+    //sets number of maps based on user input.
+    cout << "Please enter the number of maps to play on (1 to 5): " << endl;
+    cin >> numMaps;
+    while(numMaps<1 || numMaps > 5){
+        cout << "Invalid entry. Please enter a number between 1 and 5." << endl;
+        cin >> numMaps;
+    }
+    
+    cout << "There will games on " << numMaps << " maps." << endl;
+    
+    this->setNumMaps(numMaps);
+    
+    
+    
+    
+//    //sets number of players based on input
+//    cout << "Please enter the number of computer players that will participate in the tournament (2 to 4): " << endl;
+//    cin >> numComps;
+//
+//    while(numComps<2 || numComps > 4){
+//        cout << "Invalid entry. Please enter a number between 2 and 4." << endl;
+//        cin >> numComps;
+//    }
+//
+//    cout << "There will be " << numComps << " computer players" << endl;
+//    //set the number of computer players
+//    this->setNumComps(numComps);
+//
+    
+    
+    
+    //sets number of games per map
+    cout << "Please enter the number of maps to play on (1 to 5): " << endl;
+       cin >> numMaps;
+       while(numMaps<1 || numMaps > 5){
+           cout << "Invalid entry. Please enter a number between 1 and 5." << endl;
+           cin >> numMaps;
+       }
+       
+       cout << "There will games on " << numMaps << " maps." << endl;
+       
+       this->setNumMaps(numMaps);
+       
+       
+    
+    
+    
+       //sets number of games based on input
+       cout << "Please enter the number of games per map (1 to 5): " << endl;
+       cin >> numGames;
+       
+       while(numGames<1 || numGames > 5){
+           cout << "Invalid entry. Please enter a number between 1 and 5." << endl;
+           cin >> numGames;
+       }
+       
+       cout << "There will be " << numGames << " games per map" << endl;
+       //set the number of computer players
+       this->setNumGames(numGames);
+    
+    
+    
+    
+    
+}
+
+
+int Tournament::getNumMaps() {
+    return *numMaps;
+}
+
+void Tournament::setNumMaps(int num){
+    this->numMaps.reset(new int(num));
+}
+
+int Tournament::getNumGames() {
+    return *numGames;
+}
+
+void Tournament::setNumGames(int num) {
+    this->numGames.reset(new int(num));
+}
+
+int Tournament::getNumTurns() {
+    return *numTurns;
+}
+
+void Tournament::setNumTurns(int num) {
+    this->numTurns.reset(new int(num));
+}
+
+int Tournament::getNumComps(){
+    return *numComps;
+}
+//
+//void Tournament::setNumComps(<#int num#>){
+//    this->numComps.reset(new int(num));
+//}
