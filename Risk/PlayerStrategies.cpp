@@ -490,7 +490,7 @@ string Random::countryToFortifyFrom(Player* player) {
 // random player moves a random number of armies
 int Random::armiesToFortify(int sourceCountryArmies) {
 	srand(time(NULL));
-	return (rand() % sourceCountryArmies);
+	return (rand() % sourceCountryArmies + 1);
 }
 
 // random player will randomly select one of the source country's neighbors 

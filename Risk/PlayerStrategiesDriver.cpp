@@ -233,6 +233,7 @@ void selectStrategy(Player* player) {
 
 	while (strategy < 0 || strategy > 5) {
 		cout << "Please select a valid strategy from the list of strategies." << endl;
+		cin >> strategy;
 	}
 	
 	User* user = new User();

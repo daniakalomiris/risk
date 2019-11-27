@@ -693,7 +693,7 @@ void Player::attack(){
         dice->rollDice();
         cout << "\n" << endl;
         
-        for (int i = 0; i < attackerRoll; i++) {
+        for (unsigned int i = 0; i < attackerRoll; i++) {
             
             attackerDiceValues.push_back(dice->getValuesRolled().at(i));
         }
@@ -706,7 +706,7 @@ void Player::attack(){
         cout << "\n" << endl;
         
         
-        for (int i = 0; i < defenderRoll; i++) {
+        for (unsigned int i = 0; i < defenderRoll; i++) {
             defenderDiceValues.push_back(dice->getValuesRolled().at(i)); //error
         }
         dice->clearDiceRolled();
@@ -719,10 +719,10 @@ void Player::attack(){
             numOfPairs = defenderRoll;
         }
         
-        cout << "num of pair" << numOfPairs << endl;
+        cout << "Number fo dice pairs to compare: " << numOfPairs << endl;
         cout << defenderDiceValues.at(0) << endl;
         // compare pairs of dice
-        for (int i = 0; i < numOfPairs; i++) {
+        for (unsigned int i = 0; i < numOfPairs; i++) {
             cout << "~ Pair of dice comparison #" << (i + 1) << " ~\n" << endl;
             
             cout << "Attacker rolled a " << attackerDiceValues.at(i) << " and Defender rolled a " << defenderDiceValues.at(i) << ".\n" << endl;
