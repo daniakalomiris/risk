@@ -564,3 +564,47 @@ void GameEngine:: mainGameLoop() {
     
     cout << "\n\n **************Player " << indexOfWinningPlayer +1 << " wins the game **************\n End of the game" << endl;
 }
+
+
+
+//**********Implementation for Tournament class**********
+
+Tournament::Tournament() {
+    
+}
+
+Tournament::Tournament(const Tournament& orig) {
+    this->numMaps = make_unique<int>(*orig.numMaps);
+    this->numGames = make_unique<int>(*orig.numGames);
+    this->numTurns = make_unique<int>(*orig.numGames);
+    
+    this->games = orig.games;
+}
+
+Tournament:: ~Tournament() {
+    
+}
+
+int Tournament::getNumMaps() {
+    return *numMaps;
+}
+
+void Tournament::setNumMaps(int num){
+    this->numMaps.reset(new int(num));
+}
+
+int Tournament::getNumGames() {
+    return *numGames;
+}
+
+void Tournament::setNumGames(int num) {
+    this->numGames.reset(new int(num));
+}
+
+int Tournament::getNumTurns() {
+    return *numTurns;
+}
+
+void Tournament::setNumTurns(int num) {
+    this->numTurns.reset(new int(num));
+}

@@ -8,7 +8,6 @@
 #include "GameObservers.h"
 
 
-
 class GameEngine: public Subject{
     
 private:
@@ -55,6 +54,35 @@ public:
     void assignCountriesToPlayers();
     void displayCountriesOfPlayers();
     void mainGameLoop();
+    
+    
+};
+
+class Tournament {
+public:
+    Tournament();
+    Tournament(const Tournament& orig); //copy constructor
+    //const Tournament& operator=(const Tournament& t); //assignment operator
+    ~Tournament();
+    
+    void tournamentSettings(); //display menu to prompts the user for tournament settings
+    void createGames(); //create the different games according to user input
+    
+    int getNumMaps();
+    void setNumMaps(int num);
+    
+    int getNumGames();
+    void setNumGames(int num);
+    
+    int getNumTurns();
+    void setNumTurns(int num);
+    
+private:
+    unique_ptr<int> numMaps;
+    unique_ptr<int> numGames;
+    unique_ptr<int> numTurns;
+    std::vector<GameEngine> games; //vector of gameEngines objects
+    
     
     
 };
