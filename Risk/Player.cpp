@@ -1046,7 +1046,8 @@ void Player::fortify() {
             cout << "The player fortified succesfully the country: " << nameTargetCountry  << endl;
             cout << nameSourceCountry << " has now " << this->getThisPlayerCountries().at(indexOfSourceCountry)->getNumberOfArmies() << " armies"  << endl;
             cout << nameTargetCountry << " has now " << this->getThisPlayerCountries().at(indexOfTargetCountry)->getNumberOfArmies() << " armies"  << endl;
-            
+
+			cout << "The fortification phase has ended." << endl;
         }
     }
     else {

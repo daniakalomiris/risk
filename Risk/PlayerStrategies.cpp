@@ -161,7 +161,7 @@ int Aggressive::countryToAttack(Country* attackFrom) {
     // generates random number from 1 to the number of adjacent countries
     // note that the random function will continuously try a number until it eventually returns a valid one verified by the attack phase
     // thus is may appear as though the computer player is in an infinite loop but this is not the case (it will stop at a number after many tries)
-    return (rand() % (attackFrom->getAdjacentCountries().size() + 1));
+    return (rand() % attackFrom->getAdjacentCountries().size() + 1);
 }
 
 // aggressive player will roll a random number of dice
@@ -438,13 +438,13 @@ string Random::extraReinforcement() {
 // random player will randomly select one of their countries
 int Random::countryToReinforce(Player* player) {
 	srand(time(NULL));
-	return (rand() % (player->getThisPlayerCountries().size() + 1));
+	return (rand() % player->getThisPlayerCountries().size() + 1);
 }
 
 // random player will place a random number of armies
 int Random::armiesToPlace(Player* player) {
 	srand(time(NULL));
-	return (rand() % player->getNumOfArmiesForReinforcement());
+	return (rand() % player->getNumOfArmiesForReinforcement() + 1);
 }
 
 // random player always attacks
@@ -455,13 +455,13 @@ string Random::chooseAttack() {
 // random player will randomly select one of their countries
 int Random::attackFrom(Player* player) {
 	srand(time(NULL));
-	return (rand() % (player->getThisPlayerCountries().size() + 1));
+	return (rand() % player->getThisPlayerCountries().size() + 1);
 }
 
 // random player will attack random country from list of neighbors
 int Random::countryToAttack(Country* attackFrom) {
 	srand(time(NULL));
-	return (rand() % (attackFrom->getAdjacentCountries().size() + 1));
+	return (rand() % attackFrom->getAdjacentCountries().size() + 1);
 }
 
 // random player will roll a random number of dice

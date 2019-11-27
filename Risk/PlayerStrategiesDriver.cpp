@@ -231,7 +231,7 @@ void selectStrategy(Player* player) {
 	cout << "(5) Cheater Strategy" << endl;
 	cin >> strategy;
 
-	while (strategy < 0 || strategy > 3) {
+	while (strategy < 0 || strategy > 5) {
 		cout << "Please select a valid strategy from the list of strategies." << endl;
 	}
 	
