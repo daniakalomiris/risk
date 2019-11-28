@@ -67,7 +67,9 @@ public:
     ~Tournament();
     
     void tournamentSettings(); //display menu to prompts the user for tournament settings
+    void mapSelection();//selecting the different maps to play on
     void createGames(); //create the different games according to user input
+    
     
     int getNumMaps();
     void setNumMaps(int num);
@@ -80,6 +82,9 @@ public:
     
     int getNumComps();
     void setNumComps(int num);
+    
+    vector<Map*> getTournamentMaps();
+    void setTournamentMaps(Map* map);
 
 private:
     unique_ptr<int> numMaps;
@@ -88,6 +93,7 @@ private:
     unique_ptr<int> numTurns;
     std::vector<GameEngine> games; //vector of gameEngines objects
     std::vector<Player*> allCompPlayers; //vector of computers
+    std::vector<Map*> tournamentMaps; //vector of all maps of tournament
     
     
     

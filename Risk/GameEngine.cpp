@@ -6,6 +6,7 @@
 #include "time.h"
 #include <random>
 #include <chrono>
+#include <algorithm>
 
 using namespace std;
 
@@ -588,8 +589,74 @@ Tournament:: ~Tournament() {
     
 }
 
+
+//selecting different maps to play on
+void Tournament::mapSelection(){
+    int mapChoice; //choice of user
+    string mapFile; //name of map
+    vector<string> mapsSelected;
+    
+    for(int i=0; i<this->getNumMaps(); i++){
+        cout << "\nPlease enter the number associated with the map you would like to play on: \n"
+           "Select 1 for Big Europe \n"
+           "Select 2 for Geoscape \n"
+           "Select 3 for LOTR \n"
+           "Select 4 for Risk \n"
+           "Select 5 for Solar \n"
+           "Select 6 for notvalid2 \n" << endl;
+           
+           cin >> mapChoice;
+        
+        switch(mapChoice){
+            case 1: mapFile = "bigeurope";
+                break;
+            case 2: mapFile = "geoscape";
+                break;
+            case 3: mapFile = "lotr";
+                break;
+            case 4: mapFile = "risk";
+                break;
+            case 5: mapFile = "solar";
+                break;
+            case 6: mapFile = "notvalid2";
+                break;
+        }
+        
+        //checks if map was not already selected
+        while(find(mapsSelected.begin(), mapsSelected.end(), mapFile) !=mapsSelected.end()){
+            cout << "you have already selected that map, please pick another one!" << endl;
+            cin >> mapChoice;
+            
+            switch(mapChoice){
+                case 1: mapFile = "bigeurope";
+                    break;
+                case 2: mapFile = "geoscape";
+                    break;
+                case 3: mapFile = "lotr";
+                    break;
+                case 4: mapFile = "risk";
+                    break;
+                case 5: mapFile = "solar";
+                    break;
+                case 6: mapFile = "notvalid2";
+                    break;
+            }
+            
+        }
+        
+        
+     mapsSelected.push_back(mapFile);
+
+        
+    }
+    
+}
+
+
+
 //displays the menu that prompts the user for information to set up the tournament
 void Tournament::tournamentSettings(){
+   
     
     int numComps; //number of computers to partake in the tournament
     int numMaps; //number of maps to play on
@@ -607,6 +674,12 @@ void Tournament::tournamentSettings(){
     cout << "There will be games on " << numMaps << " maps." << endl;
     
     this->setNumMaps(numMaps);
+    
+    
+    cout << "You now have to select " << numMaps << " from this list: " << endl;
+    
+    mapSelection();
+    
     
     
     
@@ -702,3 +775,12 @@ int Tournament::getNumComps(){
 void Tournament::setNumComps(int num){
     this->numComps.reset(new int(num));
 }
+
+vector<Map*> Tournament::getTournamentMaps(){
+    return tournamentMaps;
+}
+
+void Tournament::setTournamentMaps(Map* map){
+    tournamentMaps.push_back(map);
+}
+
