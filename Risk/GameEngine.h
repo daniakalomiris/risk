@@ -79,7 +79,7 @@ public:
     
     int getNumComps();
     void setNumComps(int num);
-    
+
 private:
     unique_ptr<int> numMaps;
     unique_ptr<int> numComps; //number of computers;

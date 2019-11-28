@@ -602,38 +602,38 @@ void Tournament::tournamentSettings(){
         cin >> numMaps;
     }
     
-    cout << "There will games on " << numMaps << " maps." << endl;
+    cout << "There will be games on " << numMaps << " maps." << endl;
     
     this->setNumMaps(numMaps);
     
     
     
     
-//    //sets number of players based on input
-//    cout << "Please enter the number of computer players that will participate in the tournament (2 to 4): " << endl;
-//    cin >> numComps;
-//
-//    while(numComps<2 || numComps > 4){
-//        cout << "Invalid entry. Please enter a number between 2 and 4." << endl;
-//        cin >> numComps;
-//    }
-//
-//    cout << "There will be " << numComps << " computer players" << endl;
-//    //set the number of computer players
-//    this->setNumComps(numComps);
-//
+    //sets number of players based on input
+    cout << "Please enter the number of computer players that will participate in the tournament (2 to 4): " << endl;
+    cin >> numComps;
+
+    while(numComps<2 || numComps > 4){
+        cout << "Invalid entry. Please enter a number between 2 and 4." << endl;
+        cin >> numComps;
+    }
+
+    cout << "There will be " << numComps << " computer players" << endl;
+    //set the number of computer players
+    this->setNumComps(numComps);
+
     
     
     
     //sets number of games per map
-    cout << "Please enter the number of maps to play on (1 to 5): " << endl;
-       cin >> numMaps;
-       while(numMaps<1 || numMaps > 5){
+    cout << "Please enter the number of games that will be played on each map (1 to 5): " << endl;
+       cin >> numGames;
+       while(numGames<1 || numGames > 5){
            cout << "Invalid entry. Please enter a number between 1 and 5." << endl;
-           cin >> numMaps;
+           cin >> numGames;
        }
        
-       cout << "There will games on " << numMaps << " maps." << endl;
+       cout << "There will be " << numGames << " games played on each map." << endl;
        
        this->setNumMaps(numMaps);
        
@@ -641,18 +641,18 @@ void Tournament::tournamentSettings(){
     
     
     
-       //sets number of games based on input
-       cout << "Please enter the number of games per map (1 to 5): " << endl;
-       cin >> numGames;
+       //sets maximum number of turns based on input
+       cout << "Please enter the maximum number of turns per game (10 to 50):  " << endl;
+       cin >> numTurns;
        
-       while(numGames<1 || numGames > 5){
-           cout << "Invalid entry. Please enter a number between 1 and 5." << endl;
-           cin >> numGames;
+       while(numTurns<10 || numTurns > 50){
+           cout << "Invalid entry. Please enter a number between 10 and 50." << endl;
+           cin >> numTurns;
        }
        
-       cout << "There will be " << numGames << " games per map" << endl;
+       cout << "There will be a maximum of " << numTurns << " per game" << endl;
        //set the number of computer players
-       this->setNumGames(numGames);
+       this->setNumTurns(numTurns);
     
     
     
@@ -688,7 +688,8 @@ void Tournament::setNumTurns(int num) {
 int Tournament::getNumComps(){
     return *numComps;
 }
-//
-//void Tournament::setNumComps(<#int num#>){
-//    this->numComps.reset(new int(num));
-//}
+
+
+void Tournament::setNumComps(int num){
+    this->numComps.reset(new int(num));
+}
