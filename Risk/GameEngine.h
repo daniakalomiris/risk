@@ -7,6 +7,7 @@
 #include "Cards.h"
 #include "GameObservers.h"
 
+class Tournament;
 
 class GameEngine: public Subject{
     

@@ -13,6 +13,8 @@ using namespace std;
 const int MIN_PLAYERS = 2;
 const int MAX_PLAYERS = 6;
 std::string phase;
+class Tournament;
+
 
 //constructor
 GameEngine:: GameEngine() {
@@ -650,7 +652,7 @@ void Tournament::tournamentSettings(){
            cin >> numTurns;
        }
        
-       cout << "There will be a maximum of " << numTurns << " per game" << endl;
+       cout << "There will be a maximum of " << numTurns << " turns per game" << endl;
        //set the number of computer players
        this->setNumTurns(numTurns);
     
