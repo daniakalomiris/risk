@@ -655,10 +655,17 @@ void Tournament::tournamentSettings(){
        this->setNumTurns(numTurns);
     
     
+
+}
+
+
+//create games based on user input
+void Tournament::createGames(){
     
     
     
 }
+
 
 
 int Tournament::getNumMaps() {
