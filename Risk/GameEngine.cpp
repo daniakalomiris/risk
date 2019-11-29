@@ -861,10 +861,7 @@ void Tournament::tournamentSettings(){
     
     //calls method to select the maps that will be played on
     mapSelection();
-    
-    
-    
-    
+
     
     //sets number of players based on input
     cout << "\nPlease enter the number of computer players that will participate in the tournament (2 to 4): " << endl;
@@ -943,6 +940,7 @@ void Tournament::createGames(bool isTournamentOn){
             aGame->setNumberOfArmiesPerPlayer();
             aGame->setArmiesToCountries();
             aGame->setGameMode(true); //set the game mode to tournament game
+            aGame->setMaxNumTurn(*numTurns);
             //add the game we just create to the games vector
             games.push_back(aGame);
             
