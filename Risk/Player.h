@@ -94,6 +94,8 @@ public:
     void setStrategy(Strategy* strategy);
     Strategy* getStrategy();
     
+    void setStrategyNum(int num);
+    int getStrategyNum();
     /* methods that execute a different strategy depending on what strategy was chosen */
     std::string executeExtraReinforcement();
     int executeCountryToReinforce();
@@ -153,5 +155,6 @@ private:
     std::unique_ptr<int> sourceArmy;
     std::unique_ptr<int> targetArmy;
     Strategy* strategy;
+    std::unique_ptr<int> strategyNum;
     
 };

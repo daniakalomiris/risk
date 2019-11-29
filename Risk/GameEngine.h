@@ -75,7 +75,7 @@ public:
 
     void tournamentSettings(); //display menu to prompts the user for tournament settings
     void mapSelection();//selecting the different maps to play on
-    void createGames(); //create the different games according to user input
+    void createGames(bool isTournamentOn); //create the different games according to user input
     void playerSelection(); //selecting the strategy for each players
     void displayGamesResults();
     int getNumMaps();
@@ -89,7 +89,9 @@ public:
 
     int getNumComps();
     void setNumComps(int num);
-
+    
+    std::vector<GameEngine*> getGames();
+    
     vector<std::string> getTournamentMaps();
     void setTournamentMaps(std::string map);
 

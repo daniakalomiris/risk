@@ -39,7 +39,7 @@ Player::Player(const Player& orig) {
 	orig.counter++;
 	this->id = make_unique<int>(*orig.id);
 	this->phaseStart = make_unique<bool>(false);
-
+    this->strategyNum = make_unique<int>(*orig.strategyNum);
 }
  
 const Player& Player:: operator=(const Player &p) {
@@ -55,6 +55,7 @@ const Player& Player:: operator=(const Player &p) {
         p.counter++;
         this->id = make_unique<int>(*p.id);
         this->phaseStart = make_unique<bool>(false);
+        this->strategyNum = make_unique<int>(*p.strategyNum);
     }
     return *this;
 }
@@ -207,7 +208,13 @@ void Player:: setThisPlayerContinents(Continent *continent) {
     thisPlayerContinents.push_back(continent);
 }
 
+void Player::setStrategyNum(int num) {
+    strategyNum.reset(new int(num));
+}
 
+int Player::getStrategyNum() {
+    return *strategyNum;
+}
 
 void Player:: deleteThisPlayerContinent(Continent *continent) {
     int indexOfContinentToDelete =0;
