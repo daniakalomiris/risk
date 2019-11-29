@@ -21,6 +21,7 @@ class Tournament;
 GameEngine:: GameEngine() {
     maploader = new MapLoader();
     endGame = make_unique<bool>(false);
+    gameMode = make_unique<bool>(false);
 }
 
 
@@ -30,6 +31,7 @@ GameEngine::GameEngine(const GameEngine& orig) {
     this->maploader = new MapLoader();
     *maploader = *orig.maploader;
     this->endGame = make_unique<bool>(false);
+    this->gameMode = make_unique<bool>(false);
 
 }
 
@@ -40,6 +42,7 @@ const GameEngine& GameEngine::operator=(const GameEngine& g){
         this->maploader = new MapLoader();
         *maploader = *g.maploader;
         this->endGame = make_unique<bool>(false);
+        this->gameMode = make_unique<bool>(false);
     }
 
     return *this;
@@ -50,7 +53,7 @@ const GameEngine& GameEngine::operator=(const GameEngine& g){
 GameEngine:: ~GameEngine() {
     delete maploader;
     delete deck;
-    
+
 }
 
 //ask user the number of players playing
@@ -120,7 +123,16 @@ int GameEngine::getMaxNumTurn() {
 
 void GameEngine::setMaxNumTurn(int max) {
     maxNumTurn.reset(new int(max));
-}
+  }
+
+  void GameEngine::setGameMode(bool mode){
+      *gameMode = mode;
+  }
+
+  bool GameEngine::getGamemode(){
+      return *gameMode;
+    }
+
 
 //sets the number of armies per player depending of the number of players
 void GameEngine::setNumberOfArmiesPerPlayer() {
@@ -335,8 +347,8 @@ void GameEngine::assignCountriesToPlayers() {
 
     int numOfCountries = this->map->getCountries().size(); //number of countries in the map
     int numOfPlayers = this->allPlayers.size();
-    
-   
+
+
     //number of countries assigned to players
     int countryNumberPushed = 0;
 
@@ -351,7 +363,7 @@ void GameEngine::assignCountriesToPlayers() {
 
     //checks that there are still countries to assign
     while(countryNumberPushed < numOfCountries) {
-        
+
         int randomCountry = rand() % numOfCountries;
 
         //if the index of countries is not already assigned
@@ -359,7 +371,7 @@ void GameEngine::assignCountriesToPlayers() {
 
             //set the country to the player
             this-> allPlayers.at(playerTurns)->setThisPlayerCountry(map->getCountries().at(randomCountry));
-            
+
             //set the owner id
             map->getCountries().at(randomCountry)->setCountryOwnerId(allPlayers.at(playerTurns)->getID());
 
@@ -377,15 +389,15 @@ void GameEngine::assignCountriesToPlayers() {
         }
     }
     Notify(); //Notify PlayerDomination when countries are initially assigned to players to display original stats
-    
+
 }
 
 //displays countries of a player
 void GameEngine::displayCountriesOfPlayers() {
-    
+
     for (int i = 0; i < allPlayers.size(); i++) {
         cout << "\n\nPlayer " << allPlayers.at(i)->getName() << "(ID: "<< allPlayers.at(i)->getID() << ") countries: " << endl;
-        
+
         for (int j = 0; j < allPlayers.at(i)->getThisPlayerCountries().size(); j++) {
             cout << j+1 << " " << allPlayers.at(i)->getThisPlayerCountries().at(j)->getCountryName() << endl;
         }
@@ -491,10 +503,10 @@ void GameEngine:: mainGameLoop() {
 
     //while the game is still playing
     while (getEndGame() == false) {
-        
+
         //increment the number of turns played
         numTurnsPlayed++;
-        
+
         //vector of the country owner id before the attack
         vector<int> OldCountryOwnerId;
 
@@ -508,12 +520,12 @@ void GameEngine:: mainGameLoop() {
             //display which player is playing
             cout << "\n\n************** Player " << this->getAllPlayers().at(i)->getName() << "'s turn **************\n" << endl;
 
-            
+
             currentPlayerIndex = i;
             //make the player reinforce, attack and fortify
             setPhase(1);
             Notify();
-            
+
             this->getAllPlayers().at(i)->setStrategy(user);
             this->getAllPlayers().at(i)->reinforce();
             Notify();
@@ -589,7 +601,7 @@ void GameEngine:: mainGameLoop() {
             }
 
         }
-        
+
         //check if the number of turns played is greater than the max number of turns, end the game
         //add another if statement inside here
         if(numTurnsPlayed == getMaxNumTurn() ) {
@@ -610,7 +622,7 @@ void GameEngine:: mainGameLoop() {
 //**********Implementation for Tournament class**********
 
 Tournament::Tournament() {
-   
+
 }
 
 Tournament::Tournament(const Tournament& orig) {
@@ -684,7 +696,7 @@ void Tournament::mapSelection(){
 
 
      tournamentMaps.push_back(mapFile);
-    
+
         cout << "You chose the map " << mapFile << " to play" << endl;
 
     }
@@ -692,10 +704,10 @@ void Tournament::mapSelection(){
 }
 
 void Tournament:: playerSelection() {
-    
+
     //for each computer players create a new player and make the user choose its strategy
     for(int i=0; i < *numComps; i++) {
-        
+
             int strategy;
             cout << "\nWhich strategy would you like to use for player #" << i+1 << "? Please enter the number of the strategy to make your choice." << endl;
             cout << "(1) Aggressive Strategy" << endl;
@@ -703,12 +715,13 @@ void Tournament:: playerSelection() {
             cout << "(3) Cheater Strategy" << endl;
             cout << "(4) Random Strategy" << endl;
             cin >> strategy;
-        
+
             while (strategy < 0 || strategy > 4) {
                 cout << "Please select a valid strategy from the list of strategies." << endl;
+                cin >> strategy;
             }
-        
-          
+
+
             Aggressive* aggressive = new Aggressive();
             Benevolent* benevolent = new Benevolent();
             //WILL NEED TO CREATE A RANDOM AND CHEATER TOO
@@ -748,12 +761,12 @@ void Tournament:: playerSelection() {
                 }
             }
         }
-        
-        
+
+
     }
-    
-    
-    
+
+
+
 
 
 //displays the menu that prompts the user for information to set up the tournament
@@ -780,6 +793,7 @@ void Tournament::tournamentSettings(){
 
     cout << "You now have to select " << numMaps << " from this list: " << endl;
 
+    //calls method to select the maps that will be played on
     mapSelection();
 
 
@@ -809,7 +823,7 @@ void Tournament::tournamentSettings(){
            cout << "Invalid entry. Please enter a number between 1 and 5." << endl;
            cin >> numGames;
        }
-   
+
 
        cout << "There will be " << numGames << " games played on each map." << endl;
 
@@ -835,25 +849,25 @@ void Tournament::tournamentSettings(){
 
 //create games based on user input
 void Tournament::createGames(){
-    
+
     //for each maps
     for(int i = 0; i <*numMaps; i++) {
-        
+
         //create the number of games the user input
         for(int j=0; j < *numGames; j++) {
-            
+
             cout << "\n\n*************Creating the Game " << j+1 << " on map " << i+1 << "*************\n\n" << endl;
             GameEngine* aGame = new GameEngine();
             aGame->createMap(tournamentMaps.at(i));
-            
+
             //create the players in the games with the players created in tournament
             for(int k=0; k < *numComps; k++ ) {
-                
+
                 //we need to pass a map to the player
                 Player *temp = new Player(*allCompPlayers.at(k));
 
                 temp->setMap(aGame->getMap());
-                
+
                 aGame->setPlayer(temp);
             }
             aGame->setNumberOfPlayers(*numComps);
@@ -861,10 +875,10 @@ void Tournament::createGames(){
             aGame->displayCountriesOfPlayers();
             aGame->setNumberOfArmiesPerPlayer();
             aGame->setArmiesToCountries();
-            
+
             //add the game we just create to the games vector
             games.push_back(aGame);
-            
+
             //delete the game
             delete aGame;
             aGame = NULL;
@@ -874,17 +888,17 @@ void Tournament::createGames(){
 
 
 void Tournament::displayGamesResults() {
-    
+
     cout << "\n\n**** GAMES RESULTS ****" << endl;
     cout << "Number of maps: " << *numMaps << endl;
     cout << "Players playing: ";
     for(int i=0 ; i <allCompPlayers.size(); i++) {
         cout << allCompPlayers.at(i)->getName() << ", ";
     }
-    
+
     cout << "\nNumber of games played: " << *numGames << endl;
     cout << "Maximum number of turns: " << *numTurns << endl;
-    
+
 }
 int Tournament::getNumMaps() {
     return *numMaps;

@@ -8,7 +8,7 @@ void part1();
 void part2();
 void part3();
 void computerGameInput();
-
+void selectGameMode();
 
 int main() {
 
@@ -19,6 +19,8 @@ int main() {
    // part3();
 
   computerGameInput();
+  //computerGameInput();
+    selectGameMode();
 }
 
 
@@ -102,6 +104,49 @@ void part3() {
     delete theGame;
     theGame = NULL;
 }
+
+
+//method to select the single mode vs tournamenent mode
+void selectGameMode(){
+
+    int choice; //choice input of user
+    GameEngine *theGame = new GameEngine();
+
+
+    cout << "Please select the game mode" << endl;
+    cout << "(1) Single Game Mode" << endl;
+    cout << "(2) Tournament Mode" << endl;
+
+    cin >> choice;
+
+    while(choice <1 || choice >2){
+        cout << "Invalid entry." << endl;
+        cout << "Please select the game mode" << endl;
+        cout << "(1) Single Game Mode" << endl;
+        cout << "(2) Tournament Mode" << endl;
+        cin >> choice;
+
+    }
+
+    //set gameMode to true if tournament mode is selected
+    if(choice==1){
+
+        theGame->setGameMode(false);
+        cout << "We will load up single player mode for you!" << endl;
+
+    }else if(choice == 2){
+
+        theGame->setGameMode(true);
+        cout << "We will load up tournament mode for you!" << endl;
+    }
+
+    cout << "test";
+
+    delete theGame;
+    theGame=NULL;
+
+};
+
 
 //driver for displaying the menu of the computer game
 void computerGameInput(){

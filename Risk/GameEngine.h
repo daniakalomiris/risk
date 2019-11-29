@@ -21,6 +21,7 @@ private:
     std::unique_ptr<int> numberOfArmiesPerPlayer;
     std::unique_ptr<bool> endGame; //tells if it is the end of the game
     std::unique_ptr<int> maxNumTurn; //maximum number of turns
+    std::unique_ptr<bool>gameMode; //tells if the game mode is a tournament
 public:
 
     GameEngine(); //constructor
@@ -45,11 +46,14 @@ public:
     void setPhase(int phase);
     Map* getMap();
     void setMap(Map* map);
+    void setGameMode(bool mode);
+    bool getGamemode();
+
     std::vector <Player*> getAllPlayers();
     Deck* getDeck();
     int getMaxNumTurn();
     void setMaxNumTurn(int max);
-    
+
     void askNumberOfPlayers();
     void createMap(std::string mapFile);
      void createMap();
@@ -85,7 +89,7 @@ public:
 
     int getNumComps();
     void setNumComps(int num);
-   
+
     vector<std::string> getTournamentMaps();
     void setTournamentMaps(std::string map);
 
