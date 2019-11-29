@@ -7,16 +7,20 @@ using namespace std;
 void part1();
 void part2();
 void part3();
+void computerGameInput();
+
 
 int main() {
 
     //call the drivers that is necessary to test the parts
     //uncommented the part you want to test
      //part1();
-     part2();
+   //  part2();
    // part3();
 
+    computerGameInput();
 }
+
 
 //driver for part 1 Game Start of assignment 2
 void part1() {
@@ -97,4 +101,16 @@ void part3() {
     theGame->mainGameLoop();
     delete theGame;
     theGame = NULL;
+}
+
+//driver for displaying the menu of the computer game
+void computerGameInput(){
+
+    Tournament* theTournament = new Tournament();
+    theTournament -> tournamentSettings();
+
+
+    delete theTournament;
+    theTournament = NULL;
+
 }
