@@ -49,7 +49,8 @@ public:
     Deck* getDeck();
 
     void askNumberOfPlayers();
-    void createMap();
+    void createMap(std::string mapFile);
+     void createMap();
     void createPlayers();
     void showPlayerOrder();
     void assignCountriesToPlayers();
@@ -69,7 +70,7 @@ public:
     void tournamentSettings(); //display menu to prompts the user for tournament settings
     void mapSelection();//selecting the different maps to play on
     void createGames(); //create the different games according to user input
-
+    void playerSelection(); //selecting the strategy for each players
 
     int getNumMaps();
     void setNumMaps(int num);
@@ -83,18 +84,21 @@ public:
     int getNumComps();
     void setNumComps(int num);
 
-    vector<Map*> getTournamentMaps();
-    void setTournamentMaps(Map* map);
+//    vector<Map*> getTournamentMaps();
+//    void setTournamentMaps(Map* map);
+    
+    vector<std::string> getTournamentMaps();
+    void setTournamentMaps(std::string map);
 
 private:
     unique_ptr<int> numMaps;
     unique_ptr<int> numComps; //number of computers;
     unique_ptr<int> numGames;
     unique_ptr<int> numTurns;
-    std::vector<GameEngine> games; //vector of gameEngines objects
+    std::vector<GameEngine*> games; //vector of gameEngines objects
     std::vector<Player*> allCompPlayers; //vector of computers
-    std::vector<Map*> tournamentMaps; //vector of all maps of tournament
-
+   // std::vector<Map*> tournamentMaps; //vector of all maps of tournament
+    std::vector<std::string> tournamentMaps;
 
 
 };

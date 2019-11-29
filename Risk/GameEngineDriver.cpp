@@ -15,10 +15,10 @@ int main() {
     //call the drivers that is necessary to test the parts
     //uncommented the part you want to test
      //part1();
-   //  part2();
+    // part2();
    // part3();
 
-    computerGameInput();
+  computerGameInput();
 }
 
 
@@ -108,7 +108,7 @@ void computerGameInput(){
 
     Tournament* theTournament = new Tournament();
     theTournament -> tournamentSettings();
-
+    theTournament->createGames();
 
     delete theTournament;
     theTournament = NULL;

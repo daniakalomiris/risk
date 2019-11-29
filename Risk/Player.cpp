@@ -42,6 +42,23 @@ Player::Player(const Player& orig) {
 
 }
  
+const Player& Player:: operator=(const Player &p) {
+    if(&p!=this) {
+        delete dice;
+        delete hand;
+        this->dice = new Dice();
+        *dice = *p.dice;
+        this->hand = new Hand(counter);
+        *hand = *p.hand;
+        this->setName(p.name);
+        this->strategy = p.strategy;
+        p.counter++;
+        this->id = make_unique<int>(*p.id);
+        this->phaseStart = make_unique<bool>(false);
+    }
+    return *this;
+}
+
 //player constructor with parameters
 Player::Player(string name, Map* map) {
     this->dice = new Dice();
