@@ -539,54 +539,45 @@ Cheater::~Cheater()
 {
 }
 
-std::string Cheater::extraReinforcement()
-{
-	return std::string();
-}
-
+//Cheater will double the number of armies on all of its countries 
 int Cheater::countryToReinforce(Player* player)
 {
-	return 0;
+	for (unsigned int i = 0; i < player->getThisPlayerCountries.size(); i++) {
+		int currentArmy = player->getThisPlayerCountries().at(i)->getNumberOfArmies();
+		int cheaterArmy = (currentArmy * 2);
+		player->getThisPlayerCountries().at(i)->setNumberOfArmies(cheaterArmy);
+	}
 }
 
-int Cheater::armiesToPlace(Player* player)
-{
-	return 0;
-}
-
+//Cheater will always attack as it is the most advantageous technic to win the game 
 std::string Cheater::chooseAttack()
 {
-	return std::string();
+	return "Y";
 }
 
-int Cheater::attackFrom(Player* player)
+//Method that automatically conquers all its adjacent countries 
+void Cheater::attackCheater(Player* player)
 {
-	return 0;
+	vector<Country*> neighbors;
+	neighbors.clear();
+
+	for (unsigned int i = 0; i < player->getThisPlayerCountries.size(); i++) { 
+		if ( player->getID != ( player->getThisPlayerCountries.at(i)->getAdjacentCountries()->getCountryOwnerId() ) ) { // verify that the country belongs to another player
+			neighbors.push_back(player->getThisPlayerCountries.at(i)->getAdjacentCountries());
+		}
+	}
+	for (unsigned int i = 0; i < neighbors.size(); i++) {
+		neighbors.at(i)->setNumberOfArmies(1); // might delete this line, assuming that the attacker will take the country with the armies on it
+		neighbors.at(i)->setCountryOwnerId(player->getID());
+	}
+
+	// Add a Display method ?
 }
 
-int Cheater::countryToAttack(Country* attackFrom)
-{
-	return 0;
-}
-
-int Cheater::attackerRoll()
-{
-	return 0;
-}
-
-int Cheater::defenderRoll()
-{
-	return 0;
-}
-
-int Cheater::armiesToMove(int armiesCanMove)
-{
-	return 0;
-}
-
+// The cheater will always want to fortify 
 std::string Cheater::chooseFortify()
 {
-	return std::string();
+	return "Y";
 }
 
 std::string Cheater::countryToFortifyFrom(Player* player)
@@ -601,6 +592,7 @@ int Cheater::armiesToFortify(int sourceCounrtyArmies)
 
 std::string Cheater::countryToFortify(Player* player, Country* country)
 {
+	for
 	return std::string();
 }
 
@@ -608,3 +600,38 @@ bool Cheater::exchangeAutom()
 {
 	return false;
 }
+
+//                                       Unnecessary methods
+
+//std::string Cheater::extraReinforcement()
+//{
+//	return std::string();
+//} unnecessary ????  not necessary as the player doubles all its armies anyways ... 
+//int Cheater::armiesToPlace(Player* player)
+//{
+//	return 0;
+//}
+//int Cheater::attackFrom(Player* player)
+//{
+//	return 0;
+//}
+//
+//int Cheater::countryToAttack(Country* attackFrom)
+//{
+//	return 0;
+//}
+//
+//int Cheater::attackerRoll()
+//{
+//	return 0;
+//}
+//
+//int Cheater::defenderRoll()
+//{
+//	return 0;
+//}
+//
+//int Cheater::armiesToMove(int armiesCanMove)
+//{
+//	return 0;
+//}
