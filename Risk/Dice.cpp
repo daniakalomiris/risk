@@ -21,7 +21,6 @@ Dice::~Dice() {
 
 // copy constructor (deep copy)
 Dice::Dice(const Dice& orig) {
-    this->numOfDice = make_unique<int>(*orig.numOfDice);
     this->timesRolled = make_unique<int>(*orig.timesRolled);
     
     //initializes the array that tracks the rolled values with zeros
@@ -34,7 +33,6 @@ Dice::Dice(const Dice& orig) {
 //assignment operators
 const Dice& Dice:: operator=(const Dice &d) {
     if(&d !=this) {
-        this->numOfDice = make_unique<int>(*d.numOfDice);
         this->timesRolled = make_unique<int>(*d.timesRolled);
         
         //initializes the array that tracks the rolled values with zeros

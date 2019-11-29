@@ -328,16 +328,7 @@ void GameEngine::assignCountriesToPlayers() {
     int numOfCountries = this->map->getCountries().size(); //number of countries in the map
     int numOfPlayers = this->allPlayers.size();
     
-    cout << "***numOfCountries " << numOfCountries << endl;
-    cout << "***NUMOFPLAYERS " << this->allPlayers.size() << endl;
-    
-    cout << "THE NUMBER OF COUNTRIES PER PLAYER BEFORE ASSIGN COUNTRIES METHOD" << endl;
-    for(int i=0; i< allPlayers.size(); i++) {
-        cout << "PLAYER ID: " << allPlayers.at(i)->getID() << endl;
-         cout << "PLAYER ID: " << allPlayers.at(i)->getName()<< endl;
-        cout<< "NUMBER OF COUNTRIES: " << allPlayers.at(i)->getThisPlayerCountries().size() << endl;
-    }
-    
+   
     //number of countries assigned to players
     int countryNumberPushed = 0;
 
@@ -353,9 +344,6 @@ void GameEngine::assignCountriesToPlayers() {
     //checks that there are still countries to assign
     while(countryNumberPushed < numOfCountries) {
         
-        cout << "COUNTRY NUMBER PUSHED " << countryNumberPushed << endl;
-        cout << "NUM OF COUNTRIES " << numOfCountries << endl;
-        
         int randomCountry = rand() % numOfCountries;
 
         //if the index of countries is not already assigned
@@ -363,11 +351,6 @@ void GameEngine::assignCountriesToPlayers() {
 
             //set the country to the player
             this-> allPlayers.at(playerTurns)->setThisPlayerCountry(map->getCountries().at(randomCountry));
-            
-            cout << "SET THE COUNTRY " << map->getCountries().at(randomCountry)->getCountryName() << endl;
-            cout << "TO PLAYER " << playerTurns << endl;
-            cout << "PLAYER NAME: " << allPlayers.at(playerTurns)->getName() << endl;
-            cout << "PLAYER ID: " << allPlayers.at(playerTurns)->getID() << endl;
             
             //set the owner id
             map->getCountries().at(randomCountry)->setCountryOwnerId(allPlayers.at(playerTurns)->getID());
@@ -387,12 +370,6 @@ void GameEngine::assignCountriesToPlayers() {
     }
     Notify(); //Notify PlayerDomination when countries are initially assigned to players to display original stats
     
-    cout << "THE NUMBER OF COUNTRIES PER PLAYER IN ASSIGN COUNTRIES METHOD" << endl;
-    for(int i=0; i< allPlayers.size(); i++) {
-        cout << "PLAYER ID: " << allPlayers.at(i)->getID() << endl;
-         cout << "PLAYER ID: " << allPlayers.at(i)->getName()<< endl;
-        cout<< "NUMBER OF COUNTRIES: " << allPlayers.at(i)->getThisPlayerCountries().size() << endl;
-    }
 }
 
 //displays countries of a player
@@ -401,7 +378,6 @@ void GameEngine::displayCountriesOfPlayers() {
     for (int i = 0; i < allPlayers.size(); i++) {
         cout << "\n\nPlayer " << allPlayers.at(i)->getName() << "(ID: "<< allPlayers.at(i)->getID() << ") countries: " << endl;
         
-        cout << "NUMBER OF COUNTRY FOR THIS PLAYER: " << allPlayers.at(i)->getThisPlayerCountries().size() << endl;
         for (int j = 0; j < allPlayers.at(i)->getThisPlayerCountries().size(); j++) {
             cout << j+1 << " " << allPlayers.at(i)->getThisPlayerCountries().at(j)->getCountryName() << endl;
         }
@@ -859,8 +835,8 @@ void Tournament::createGames(){
             for(int k=0; k < *numComps; k++ ) {
                 
                 //we need to pass a map to the player
-                //Player *temp = new Player(*allCompPlayers.at(k));
-                Player *temp = allCompPlayers.at(k);
+                Player *temp = new Player(*allCompPlayers.at(k));
+
                 temp->setMap(aGame->getMap());
                 
                 aGame->setPlayer(temp);
@@ -868,8 +844,8 @@ void Tournament::createGames(){
             aGame->setNumberOfPlayers(*numComps);
             aGame->assignCountriesToPlayers();
             aGame->displayCountriesOfPlayers();
-            //aGame->setNumberOfArmiesPerPlayer();
-            //aGame->setArmiesToCountries();
+            aGame->setNumberOfArmiesPerPlayer();
+            aGame->setArmiesToCountries();
             
             //add the game we just create to the games vector
             games.push_back(aGame);
