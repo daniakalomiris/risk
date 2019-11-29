@@ -20,7 +20,7 @@ private:
     Deck* deck;
     std::unique_ptr<int> numberOfArmiesPerPlayer;
     std::unique_ptr<bool> endGame; //tells if it is the end of the game
-
+    std::unique_ptr<int> maxNumTurn; //maximum number of turns
 public:
 
     GameEngine(); //constructor
@@ -47,7 +47,9 @@ public:
     void setMap(Map* map);
     std::vector <Player*> getAllPlayers();
     Deck* getDeck();
-
+    int getMaxNumTurn();
+    void setMaxNumTurn(int max);
+    
     void askNumberOfPlayers();
     void createMap(std::string mapFile);
      void createMap();
@@ -71,7 +73,7 @@ public:
     void mapSelection();//selecting the different maps to play on
     void createGames(); //create the different games according to user input
     void playerSelection(); //selecting the strategy for each players
-
+    void displayGamesResults();
     int getNumMaps();
     void setNumMaps(int num);
 
@@ -83,10 +85,7 @@ public:
 
     int getNumComps();
     void setNumComps(int num);
-
-//    vector<Map*> getTournamentMaps();
-//    void setTournamentMaps(Map* map);
-    
+   
     vector<std::string> getTournamentMaps();
     void setTournamentMaps(std::string map);
 
@@ -97,7 +96,6 @@ private:
     unique_ptr<int> numTurns;
     std::vector<GameEngine*> games; //vector of gameEngines objects
     std::vector<Player*> allCompPlayers; //vector of computers
-   // std::vector<Map*> tournamentMaps; //vector of all maps of tournament
     std::vector<std::string> tournamentMaps;
 
 

@@ -114,6 +114,14 @@ int GameEngine::getPhase() {
     return *phase;
 }
 
+int GameEngine::getMaxNumTurn() {
+    return *maxNumTurn;
+}
+
+void GameEngine::setMaxNumTurn(int max) {
+    maxNumTurn.reset(new int(max));
+}
+
 //sets the number of armies per player depending of the number of players
 void GameEngine::setNumberOfArmiesPerPlayer() {
 
@@ -478,12 +486,15 @@ void GameEngine:: mainGameLoop() {
     bool allCountriesOwnByPlayer = false;
     int indexOfWinningPlayer = 0;
     User* user = new User();
-
+    int numTurnsPlayed = 0;
     cout << "\n\n****** Main Game Loop *******" << endl;
 
     //while the game is still playing
     while (getEndGame() == false) {
-
+        
+        //increment the number of turns played
+        numTurnsPlayed++;
+        
         //vector of the country owner id before the attack
         vector<int> OldCountryOwnerId;
 
@@ -497,13 +508,12 @@ void GameEngine:: mainGameLoop() {
             //display which player is playing
             cout << "\n\n************** Player " << this->getAllPlayers().at(i)->getName() << "'s turn **************\n" << endl;
 
-
+            
             currentPlayerIndex = i;
             //make the player reinforce, attack and fortify
             setPhase(1);
             Notify();
-            //make the player reinforce, attack and fortify
-
+            
             this->getAllPlayers().at(i)->setStrategy(user);
             this->getAllPlayers().at(i)->reinforce();
             Notify();
@@ -523,11 +533,10 @@ void GameEngine:: mainGameLoop() {
             //compare the old owner ID with the new owner Id if a player won a country
             for(int j = 0; j < map->getCountries().size(); j++) {
 
-                int indexPlayerLostCountry;
+                int indexPlayerLostCountry =0;
 
                 //if the owner id has changed delete the country from the old owner player
                 if(OldCountryOwnerId.at(j) != map->getCountries().at(j)->getCountryOwnerId()) {
-
 
 
                     //get the index of player that lost a country
@@ -580,6 +589,12 @@ void GameEngine:: mainGameLoop() {
             }
 
         }
+        
+        //check if the number of turns played is greater than the max number of turns, end the game
+        //add another if statement inside here
+        if(numTurnsPlayed == getMaxNumTurn() ) {
+            this->setEndGame(true);
+        }
 
         //if countries are own by same player, set the game to end. There is a winner.
         if(allCountriesOwnByPlayer == true) {
@@ -595,7 +610,7 @@ void GameEngine:: mainGameLoop() {
 //**********Implementation for Tournament class**********
 
 Tournament::Tournament() {
-
+   
 }
 
 Tournament::Tournament(const Tournament& orig) {
@@ -858,7 +873,19 @@ void Tournament::createGames(){
 }
 
 
-
+void Tournament::displayGamesResults() {
+    
+    cout << "\n\n**** GAMES RESULTS ****" << endl;
+    cout << "Number of maps: " << *numMaps << endl;
+    cout << "Players playing: ";
+    for(int i=0 ; i <allCompPlayers.size(); i++) {
+        cout << allCompPlayers.at(i)->getName() << ", ";
+    }
+    
+    cout << "\nNumber of games played: " << *numGames << endl;
+    cout << "Maximum number of turns: " << *numTurns << endl;
+    
+}
 int Tournament::getNumMaps() {
     return *numMaps;
 }

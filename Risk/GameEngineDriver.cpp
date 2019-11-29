@@ -109,7 +109,7 @@ void computerGameInput(){
     Tournament* theTournament = new Tournament();
     theTournament -> tournamentSettings();
     theTournament->createGames();
-
+    theTournament->displayGamesResults();
     delete theTournament;
     theTournament = NULL;
 
