@@ -63,6 +63,12 @@ int User::attackerRoll() {
     return input;
 }
 
+int User::defenderRoll() {
+	int input;
+	cin >> input;
+	return input;
+}
+
 int User::armiesToMove(int armiesCanMove) {
     int input;
     cin >> input;
@@ -174,6 +180,13 @@ int Aggressive::attackerRoll() {
     // note that the random function will continuously try a number until it eventually returns a valid one verified by the attack phase
     // thus is may appear as though the computer player is in an infinite loop but this is not the case (it will stop at a number after many tries)
     return (rand() % 3 + 1);
+}
+
+// all computer strategies have no user interaction 
+// defender will always roll 1 to 2 dice
+int Aggressive::defenderRoll() {
+	srand(time(NULL));
+	return (rand() % 2 + 1);
 }
 
 // aggressive player moves all armies that they can move
@@ -326,6 +339,12 @@ int Benevolent::attackerRoll() {
     return 0;
 }
 
+// all computer strategies have no user interaction 
+// benevolent player never attacks
+int Benevolent::defenderRoll() {
+	return 0;
+}
+
 int Benevolent::armiesToMove(int armiesCanMove) {
     return 0;
 }
@@ -468,6 +487,13 @@ int Random::countryToAttack(Country* attackFrom) {
 int Random::attackerRoll() {
 	srand(time(NULL));
 	return (rand() % 3 + 1);
+}
+
+// all computer strategies have no user interaction 
+// defender will always roll 1 to 2 dice
+int Random::defenderRoll() {
+	srand(time(NULL));
+	return (rand() % 2 + 1);
 }
 
 // random player will move a random number of armies

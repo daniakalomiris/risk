@@ -356,6 +356,10 @@ int Player::executeAttackerRoll() {
     return this->strategy->attackerRoll();
 }
 
+int Player::executeDefenderRoll() {
+	return this->strategy->defenderRoll();
+}
+
 int Player::executeArmiesToMove(int armiesCanMove) {
     return this->strategy->armiesToMove(armiesCanMove);
 }
@@ -674,15 +678,18 @@ void Player::attack(){
         }
         
         cout << "Defender (Player " << countryToAttack->getCountryOwnerId() << "), please select the number of dice to roll. You may only roll 1 to " << defenderMaxNumOfDice << " dice." << endl;
-        cin >> defenderRoll;
-        
+		defenderRoll = executeDefenderRoll();
+
+		cout << "You entered: " << defenderRoll << endl;
         
         setDefenderId(countryToAttack->getCountryOwnerId()); //for observer
         
         // check if player selects a valid number of dice
         while (defenderRoll < 1 || defenderRoll > defenderMaxNumOfDice) {
             cout << "Defender (Player " << countryToAttack->getCountryOwnerId() << "), please select a valid number of dice to roll. You may only roll 1 to " << defenderMaxNumOfDice << " dice." << endl;
-            cin >> defenderRoll;
+			defenderRoll = executeDefenderRoll();
+
+			cout << "You entered: " << defenderRoll << endl;
         }
         
         cout << "Defender (Player " << countryToAttack->getCountryOwnerId() << "), you will roll " << defenderRoll << " dice.\n" << endl;
@@ -772,7 +779,6 @@ void Player::attack(){
                     // check if player selects a valid number of armies
                     while (numOfArmiesToMove < 1 || numOfArmiesToMove > attackFrom->getNumberOfArmies() - 1) {
                         cout << "Attacker (Player " << this->getID() << "), please select a valid number of armies to move from " << attackFrom->getCountryName() << ". You may move between 1 to " << attackFrom->getNumberOfArmies() - 1 << " armies." << endl;
-                        cin >> numOfArmiesToMove;
                         
                         // returns response for this strategy
                         numOfArmiesToMove = executeArmiesToMove(attackFrom->getNumberOfArmies() - 1);

@@ -103,6 +103,7 @@ public:
     int executeAttackFrom();
     int executeCountryToAttack(Country* country);
     int executeAttackerRoll();
+	int executeDefenderRoll();
     int executeArmiesToMove(int armiesCanMove);
     
     std::string executeChooseFortify();
