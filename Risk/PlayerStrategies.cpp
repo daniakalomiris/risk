@@ -531,16 +531,80 @@ bool Random::exchangeAutom() {
 } 
 
 
-//
-//
-//
-//Cheater::Cheater() {
-//}
-//
-//Cheater::~Cheater() {
-//}
-//
-//// computer players always exchange
-//bool Cheater::exchangeAutom() {
-//	return true;
-//}
+Cheater::Cheater()
+{
+}
+
+Cheater::~Cheater()
+{
+}
+
+std::string Cheater::extraReinforcement()
+{
+	return std::string();
+}
+
+int Cheater::countryToReinforce(Player* player)
+{
+	return 0;
+}
+
+int Cheater::armiesToPlace(Player* player)
+{
+	return 0;
+}
+
+std::string Cheater::chooseAttack()
+{
+	return std::string();
+}
+
+int Cheater::attackFrom(Player* player)
+{
+	return 0;
+}
+
+int Cheater::countryToAttack(Country* attackFrom)
+{
+	return 0;
+}
+
+int Cheater::attackerRoll()
+{
+	return 0;
+}
+
+int Cheater::defenderRoll()
+{
+	return 0;
+}
+
+int Cheater::armiesToMove(int armiesCanMove)
+{
+	return 0;
+}
+
+std::string Cheater::chooseFortify()
+{
+	return std::string();
+}
+
+std::string Cheater::countryToFortifyFrom(Player* player)
+{
+	return std::string();
+}
+
+int Cheater::armiesToFortify(int sourceCounrtyArmies)
+{
+	return 0;
+}
+
+std::string Cheater::countryToFortify(Player* player, Country* country)
+{
+	return std::string();
+}
+
+bool Cheater::exchangeAutom()
+{
+	return false;
+}
