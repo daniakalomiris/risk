@@ -295,3 +295,13 @@ void Country::setAdjacentCountries(Country * country) {
 	adjacentCountries.push_back(country);
 }
 
+vector<Country*> Country::getEnemies() {
+	std::vector<Country*> enemies;
+	for (int i = 0; i < this->getAdjacentCountries().size(); i++) {
+		Country* neighbor = this->getAdjacentCountries().at(i);
+		if (neighbor->getCountryOwnerId() != this->getCountryOwnerId()) {
+			enemies.push_back(neighbor);
+		}
+	}
+	return enemies;
+}

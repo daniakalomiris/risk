@@ -240,7 +240,7 @@ void selectStrategy(Player* player) {
 	Aggressive* aggressive = new Aggressive();
 	Benevolent* benevolent = new Benevolent();
 	Random* random = new Random();
-	//Cheater* cheater = new Cheater();
+	Cheater* cheater = new Cheater();
 
 	switch (strategy) {
 		case 1:
@@ -261,7 +261,7 @@ void selectStrategy(Player* player) {
 			break;
 		case 5:
 			cout << "You will play this phase as a Cheater computer player." << endl;
-			//player->setStrategy(cheater);
+			player->setStrategy(cheater);
 			break;
 		default:
 			break;

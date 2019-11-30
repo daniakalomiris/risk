@@ -7,7 +7,7 @@ class User;
 class Aggressive;
 class Benevolent;
 class Random;
-//class Cheater;
+class Cheater;
 
 class Strategy {
 public:
@@ -138,23 +138,25 @@ public:
 	Cheater();
 	~Cheater();
 
-	//std::string extraReinforcement();
+	std::string extraReinforcement();
 	int countryToReinforce(Player* player);
-	//int armiesToPlace(Player* player);
+	int armiesToPlace(Player* player);
 
 	std::string chooseAttack();
-	/*int attackFrom(Player* player);
+	int attackFrom(Player* player);
 	int countryToAttack(Country* attackFrom);
 	int attackerRoll();
-	int defenderRoll();*/
-	//int armiesToMove(int armiesCanMove);
-	void attackCheater(Player* player);
+	int defenderRoll();
+	int armiesToMove(int armiesCanMove);
+
+
 	std::string chooseFortify();
 	std::string countryToFortifyFrom(Player* player);
 	int armiesToFortify(int sourceCounrtyArmies);
 	std::string countryToFortify(Player* player, Country* country);
 
 	bool exchangeAutom();
-private:
-	vector<Country*> fortifyCountry;
+
+
+
 };

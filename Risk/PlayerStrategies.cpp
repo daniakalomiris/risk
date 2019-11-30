@@ -531,6 +531,7 @@ bool Random::exchangeAutom() {
 } 
 
 
+
 Cheater::Cheater()
 {
 }
@@ -539,13 +540,33 @@ Cheater::~Cheater()
 {
 }
 
-//Cheater will double the number of armies on all of its countries 
+//Cheater will automatically get twice the amount of soldiers, so it is not necessary to exchange cards. 
+std::string Cheater::extraReinforcement()
+{
+	return "N";
+}
+
+
 int Cheater::countryToReinforce(Player* player)
+{
+	return 0; // all countries will get reinforce in armiesToPlace, so it doesnt matter 
+	
+}
+
+//Cheater will double the number of armies on all of its countries 
+int Cheater::armiesToPlace(Player* player)
 {
 	for (unsigned int i = 0; i < player->getThisPlayerCountries.size(); i++) {
 		int currentArmy = player->getThisPlayerCountries().at(i)->getNumberOfArmies();
 		int cheaterArmy = (currentArmy * 2);
 		player->getThisPlayerCountries().at(i)->setNumberOfArmies(cheaterArmy);
+	}
+	cout << "The following countries will be reinforced" << endl;
+
+	for (unsigned int i = 0; i < player->getThisPlayerCountries.size(); i++) {
+		std::string name = player->getThisPlayerCountries().at(i)->getCountryName();
+		int army = player->getThisPlayerCountries().at(i)->getNumberOfArmies();
+		cout << name << "will now have " << army << " armies." << endl;
 	}
 }
 
@@ -555,83 +576,81 @@ std::string Cheater::chooseAttack()
 	return "Y";
 }
 
-//Method that automatically conquers all its adjacent countries 
-void Cheater::attackCheater(Player* player)
+	
+int Cheater::attackFrom(Player* player)
 {
+	cout << "You will be attacking from all your bordering countries" << endl;
 	vector<Country*> neighbors;
 	neighbors.clear();
 
-	for (unsigned int i = 0; i < player->getThisPlayerCountries.size(); i++) { 
-		if ( player->getID != ( player->getThisPlayerCountries.at(i)->getAdjacentCountries()->getCountryOwnerId() ) ) { // verify that the country belongs to another player
+	for (unsigned int i = 0; i < player->getThisPlayerCountries.size(); i++) {
+		if (player->getID != (player->getThisPlayerCountries.at(i)->getAdjacentCountries()->getCountryOwnerId())) { // verify that the country belongs to another player
 			neighbors.push_back(player->getThisPlayerCountries.at(i)->getAdjacentCountries());
 		}
 	}
 	for (unsigned int i = 0; i < neighbors.size(); i++) {
-		neighbors.at(i)->setNumberOfArmies(1); // might delete this line, assuming that the attacker will take the country with the armies on it
+		//neighbors.at(i)->setNumberOfArmies(1); // might delete this line, assuming that the attacker will take the country with the armies on it
 		neighbors.at(i)->setCountryOwnerId(player->getID());
 	}
-
-	// Add a Display method ?
+	return 0;
 }
 
+int Cheater::countryToAttack(Country* attackFrom)
+{
+	cout << "You will be attacking to all the bordering countries " << endl;
+	return 0; // it doesnt matter as all the countries will get attack 
+}
+
+int Cheater::attackerRoll()
+{
+	return 3; // no need to define as the player will automaticalling win 
+}
+
+int Cheater::defenderRoll()
+{
+	return 2;// no need to define as the player will automaticalling win 
+}
+
+int Cheater::armiesToMove(int armiesCanMove)
+{
+	cout << "You gained the country with its army" << endl;
+	return 0;
+
+}
 // The cheater will always want to fortify 
 std::string Cheater::chooseFortify()
 {
 	return "Y";
 }
 
-std::string Cheater::countryToFortifyFrom(Player* player)
+std::string Cheater::countryToFortifyFrom(Player* player) //Not relevant as we are simply fortifying all countries with enemies
 {
-	return std::string();
+	
+	return "There is no movement of armies, as only the border Countries will get double the soldiers";
 }
 
 int Cheater::armiesToFortify(int sourceCounrtyArmies)
 {
-	return 0;
+	return sourceCounrtyArmies;
 }
 
 std::string Cheater::countryToFortify(Player* player, Country* country)
 {
-	for
-	return std::string();
+
+	vector<Country*> neighbors;
+	neighbors.clear();
+
+	for (unsigned int i = 0; i < player->getThisPlayerCountries().size(); i++) {
+		if (player->getThisPlayerCountries().at(i)->getEnemies().size() > 0) {
+			player->getThisPlayerCountries().at(i)->setNumberOfArmies(player->getThisPlayerCountries().at(i)->getNumberOfArmies() * 2);
+		}
+	}
+	return "You fortified all countries with enemies with the double of soldiers";
 }
 
 bool Cheater::exchangeAutom()
 {
-	return false;
+	return true;
 }
 
-//                                       Unnecessary methods
 
-//std::string Cheater::extraReinforcement()
-//{
-//	return std::string();
-//} unnecessary ????  not necessary as the player doubles all its armies anyways ... 
-//int Cheater::armiesToPlace(Player* player)
-//{
-//	return 0;
-//}
-//int Cheater::attackFrom(Player* player)
-//{
-//	return 0;
-//}
-//
-//int Cheater::countryToAttack(Country* attackFrom)
-//{
-//	return 0;
-//}
-//
-//int Cheater::attackerRoll()
-//{
-//	return 0;
-//}
-//
-//int Cheater::defenderRoll()
-//{
-//	return 0;
-//}
-//
-//int Cheater::armiesToMove(int armiesCanMove)
-//{
-//	return 0;
-//}

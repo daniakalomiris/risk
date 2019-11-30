@@ -99,6 +99,7 @@ public:
 
 	void setNumberOfArmies(int numberOfArmies); //sets the number of armies
 	int getNumberOfArmies(); // number of armies on a country
+	std::vector<Country*> getEnemies();
 
 	//methods to potentially implement GUI
 	void setCoordinateX(int coordinateX);
@@ -117,5 +118,5 @@ private:
 	std::unique_ptr<int> countryOwnerId;
 	std::unique_ptr<int> numberOfArmies;
 	static int countryCounter;
-
+	std::vector<Country*> enemies;
 };
