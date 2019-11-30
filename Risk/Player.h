@@ -98,6 +98,7 @@ public:
     std::string executeExtraReinforcement();
     int executeCountryToReinforce();
     int executeArmiesToPlace();
+	void executeHandleArmies(int country, int numArmies);
     
     std::string executeChooseAttack();
     int executeAttackFrom();

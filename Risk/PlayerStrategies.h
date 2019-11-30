@@ -18,6 +18,7 @@ public:
     virtual std::string extraReinforcement() = 0;
     virtual int countryToReinforce(Player* player) = 0;
     virtual int armiesToPlace(Player* player) = 0;
+	virtual void handleArmies(Player* player, int country, int numArmies) = 0;
     
     /* methods for attack phase */
     virtual std::string chooseAttack() = 0;
@@ -45,6 +46,7 @@ public:
     std::string extraReinforcement();
     int countryToReinforce(Player* player);
     int armiesToPlace(Player* player);
+	void handleArmies(Player* player, int country, int numArmies);
     
     std::string chooseAttack();
     int attackFrom(Player* player);
@@ -69,6 +71,7 @@ public:
     std::string extraReinforcement();
     int countryToReinforce(Player* player);
     int armiesToPlace(Player* player);
+	void handleArmies(Player* player, int country, int numArmies);
     
     std::string chooseAttack();
     int attackFrom(Player* player);
@@ -93,6 +96,7 @@ public:
     std::string extraReinforcement();
     int countryToReinforce(Player* player);
     int armiesToPlace(Player* player);
+	void handleArmies(Player* player, int country, int numArmies);
     
     std::string chooseAttack();
     int attackFrom(Player* player);
@@ -117,6 +121,7 @@ public:
 	std::string extraReinforcement();
 	int countryToReinforce(Player* player);
 	int armiesToPlace(Player* player);
+	void handleArmies(Player* player, int country, int numArmies);
 
 	std::string chooseAttack();
 	int attackFrom(Player* player);
@@ -141,6 +146,7 @@ public:
 	std::string extraReinforcement();
 	int countryToReinforce(Player* player);
 	int armiesToPlace(Player* player);
+	void handleArmies(Player* player, int country, int numArmies);
 
 	std::string chooseAttack();
 	int attackFrom(Player* player);
@@ -156,5 +162,4 @@ public:
 	std::string countryToFortify(Player* player, Country* country);
 
 	bool exchangeAutom();
-	int counter2=0;
 };

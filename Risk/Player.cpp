@@ -340,6 +340,10 @@ int Player::executeArmiesToPlace() {
     return this->strategy->armiesToPlace(this);
 }
 
+void Player::executeHandleArmies(int country, int numArmies) {
+	return this->strategy->handleArmies(this, country, numArmies);
+}
+
 string Player::executeChooseAttack() {
     return this->strategy->chooseAttack();
 }
@@ -506,20 +510,13 @@ void Player::reinforce() {
             // returns response for this strategy
             numArmies = executeArmiesToPlace(); // aggressive and benevolent players can't have an invalid input because armyAdd will always be <= armyAdd
             
-            cout << "You entered: " << country << endl;
+            cout << "You entered: " << numArmies << endl;
         }
         
-        //increment the number of armies on the chosen country
-        int newNumArmies = getThisPlayerCountries().at(country-1)->getNumberOfArmies() + numArmies;
-        getThisPlayerCountries().at(country-1)->setNumberOfArmies(newNumArmies);
+		executeHandleArmies(country, numArmies);
         
-        //decrement the number of army to add
-        numOfArmiesForReinforcement = numOfArmiesForReinforcement - numArmies;
-        
-        cout << "The country " << getThisPlayerCountries().at(country-1)->getCountryName() << " has now " << getThisPlayerCountries().at(country-1)->getNumberOfArmies() << " armies" << endl;
-        cout << "You still have " << numOfArmiesForReinforcement << " armies to place" << endl;
-        
-    }    cout << "\n\n~~~~~ End of the reinforce phase for player " << this->getName() << " ~~~~~" << endl;
+    }    
+	cout << "\n\n~~~~~ End of the reinforce phase for player " << this->getName() << " ~~~~~" << endl;
     this->setPhaseStart(true); //we start the phase
 }
 
