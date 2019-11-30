@@ -719,6 +719,21 @@ void Tournament::mapSelection(){
         
         cin >> mapChoice;
         
+        //checks if input corresponds to a map
+              while(mapChoice<1 || mapChoice >6){
+                  cout << "Invalid map. Please select one from the choices below: " << endl;
+                  cout << "Please enter the number associated with the map you would like to play on: \n"
+                  "Select 1 for Big Europe \n"
+                  "Select 2 for Geoscape \n"
+                  "Select 3 for LOTR \n"
+                  "Select 4 for Risk \n"
+                  "Select 5 for Solar \n"
+                  "Select 6 for notvalid2 \n" << endl;
+                  
+                  cin>>mapChoice;
+              }
+              
+        
         switch(mapChoice){
             case 1: mapFile = "bigeurope";
                 break;
@@ -960,6 +975,14 @@ void Tournament::displayGamesResults() {
     
     cout << "\nNumber of games played: " << *numGames << endl;
     cout << "Maximum number of turns: " << *numTurns << endl;
+    
+    //printing the outcome on each map
+    for(int i=0; i<*numMaps; i++){
+        
+        
+    }
+    
+    
     
 }
 int Tournament::getNumMaps() {

@@ -24,15 +24,15 @@ int main() {
     // selectGameMode();
     //computerGameInput();
     
-    if(isTournamentModeOn()) {
-        cout << "\n********* TOURNAMENT MODE *********\n" << endl;
-        tournamentMode(true);
-    }
-    
-    else {
-        cout << "\n********* SINGLE GAME MODE *********\n" << endl;
-        singleGameMode(false);
-    }
+//    if(isTournamentModeOn()) {
+//        cout << "\n********* TOURNAMENT MODE *********\n" << endl;
+//        tournamentMode(true);
+//    }
+//
+//    else {
+//        cout << "\n********* SINGLE GAME MODE *********\n" << endl;
+//        singleGameMode(false);
+//    }
     
     
 }
