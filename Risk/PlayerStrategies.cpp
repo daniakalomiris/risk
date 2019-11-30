@@ -1,6 +1,7 @@
 #include <iostream>
 #include "PlayerStrategies.h"
 #include "time.h"
+#include <vector>;
 
 using namespace std;
 
@@ -547,27 +548,36 @@ std::string Cheater::extraReinforcement()
 }
 
 
-int Cheater::countryToReinforce(Player* player)
-{
-	return 0; // all countries will get reinforce in armiesToPlace, so it doesnt matter 
+int Cheater::countryToReinforce(Player* player){
 	
+	for (unsigned int i = 0; i < player->getThisPlayerCountries().size(); i++) {
+		 counter2++;
+	}
+	return counter2;
+
 }
 
 //Cheater will double the number of armies on all of its countries 
 int Cheater::armiesToPlace(Player* player)
 {
-	for (unsigned int i = 0; i < player->getThisPlayerCountries.size(); i++) {
+	for (unsigned int i = 0; i < player->getThisPlayerCountries().size(); i++) {
 		int currentArmy = player->getThisPlayerCountries().at(i)->getNumberOfArmies();
 		int cheaterArmy = (currentArmy * 2);
 		player->getThisPlayerCountries().at(i)->setNumberOfArmies(cheaterArmy);
 	}
 	cout << "The following countries will be reinforced" << endl;
 
-	for (unsigned int i = 0; i < player->getThisPlayerCountries.size(); i++) {
+	for (unsigned int i = 0; i < player->getThisPlayerCountries().size(); i++) {
 		std::string name = player->getThisPlayerCountries().at(i)->getCountryName();
 		int army = player->getThisPlayerCountries().at(i)->getNumberOfArmies();
 		cout << name << "will now have " << army << " armies." << endl;
 	}
+
+	counter2 = 0;
+	for (unsigned int i = 0; i < player->getThisPlayerCountries().size(); i++) {
+		counter2++;
+	}
+	return counter2;
 }
 
 //Cheater will always attack as it is the most advantageous technic to win the game 
@@ -580,19 +590,28 @@ std::string Cheater::chooseAttack()
 int Cheater::attackFrom(Player* player)
 {
 	cout << "You will be attacking from all your bordering countries" << endl;
+
 	vector<Country*> neighbors;
 	neighbors.clear();
 
-	for (unsigned int i = 0; i < player->getThisPlayerCountries.size(); i++) {
-		if (player->getID != (player->getThisPlayerCountries.at(i)->getAdjacentCountries()->getCountryOwnerId())) { // verify that the country belongs to another player
-			neighbors.push_back(player->getThisPlayerCountries.at(i)->getAdjacentCountries());
+	for (unsigned int i = 0; i < player->getThisPlayerCountries().size(); i++) {
+
+		if (player->getThisPlayerCountries().at(i)->getEnemies().size() > 0) {
+			for (unsigned int j = 0; j < player->getThisPlayerCountries().at(i)->getEnemies().size(); j++) {
+				neighbors.push_back(player->getThisPlayerCountries().at(i)->getEnemies().at(j));
+			}
 		}
 	}
+
 	for (unsigned int i = 0; i < neighbors.size(); i++) {
-		//neighbors.at(i)->setNumberOfArmies(1); // might delete this line, assuming that the attacker will take the country with the armies on it
 		neighbors.at(i)->setCountryOwnerId(player->getID());
 	}
-	return 0;
+
+	counter2 = 0;
+	for (unsigned int i = 0; i < player->getThisPlayerCountries().size(); i++) {
+		counter2++;
+	}
+	return counter2;
 }
 
 int Cheater::countryToAttack(Country* attackFrom)
@@ -639,7 +658,6 @@ std::string Cheater::countryToFortify(Player* player, Country* country)
 
 	vector<Country*> neighbors;
 	neighbors.clear();
-
 	for (unsigned int i = 0; i < player->getThisPlayerCountries().size(); i++) {
 		if (player->getThisPlayerCountries().at(i)->getEnemies().size() > 0) {
 			player->getThisPlayerCountries().at(i)->setNumberOfArmies(player->getThisPlayerCountries().at(i)->getNumberOfArmies() * 2);

@@ -156,7 +156,5 @@ public:
 	std::string countryToFortify(Player* player, Country* country);
 
 	bool exchangeAutom();
-
-
-
+	int counter2=0;
 };
