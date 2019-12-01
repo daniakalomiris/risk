@@ -730,8 +730,7 @@ string Cheater::chooseAttack() {
 	return "Y";
 }
 	
-int Cheater::attackFrom(Player* player)
-{
+int Cheater::attackFrom(Player* player) {
 	cout << "You will be attacking from all your bordering countries" << endl;
 
 	vector<Country*> neighbors;
@@ -802,8 +801,13 @@ string Cheater::countryToFortify(Player* player, Country* country) {
 // cheater will fortify all of its countries that have enemy neighbors by doubling their armies
 void Cheater::handleFortification(Player* player, int indexOfSourceCountry, int indexOfTargetCountry, int numOfArmies) {
 	for (unsigned int i = 0; i < player->getThisPlayerCountries().size(); i++) {
-		if (player->getThisPlayerCountries().at(i)->getEnemies().size() > 0) {
-			player->getThisPlayerCountries().at(i)->setNumberOfArmies(player->getThisPlayerCountries().at(i)->getNumberOfArmies() * 2);
+		player->getThisPlayerCountries().at(i)->setEnemies(); // assign enemies of each owned country
+	}
+
+	for (unsigned int i = 0; i < player->getThisPlayerCountries().size(); i++) {
+		if (player->getThisPlayerCountries().at(i)->getEnemies().size() > 0) { // if each owned country has at least one enemy neighbor
+			int prevArmies = player->getThisPlayerCountries().at(i)->getNumberOfArmies();
+			player->getThisPlayerCountries().at(i)->setNumberOfArmies(prevArmies * 2);// double this country's armies
 		}
 	}
 
