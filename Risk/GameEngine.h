@@ -22,6 +22,7 @@ private:
     std::unique_ptr<bool> endGame; //tells if it is the end of the game
     std::unique_ptr<int> maxNumTurn; //maximum number of turns
     std::unique_ptr<bool>gameMode; //tells if the game mode is a tournament
+    std::unique_ptr<std::string> winner; //contains the name of the winner
 public:
 
     GameEngine(); //constructor
@@ -48,7 +49,8 @@ public:
     void setMap(Map* map);
     void setGameMode(bool mode);
     bool getGamemode();
-
+    string getWinner();
+    void setWinner(std::string name);
     std::vector <Player*> getAllPlayers();
     Deck* getDeck();
     int getMaxNumTurn();

@@ -7,7 +7,7 @@
 #include <random>
 #include <chrono>
 #include <algorithm>
-
+#include <iomanip>
 using namespace std;
 
 //maximum and minimum number of players that can play the game
@@ -22,6 +22,7 @@ GameEngine:: GameEngine() {
     maploader = new MapLoader();
     endGame = make_unique<bool>(false);
     gameMode = make_unique<bool>(false);
+    winner = make_unique<string>("Draw");
 }
 
 
@@ -133,6 +134,13 @@ bool GameEngine::getGamemode(){
     return *gameMode;
 }
 
+string GameEngine::getWinner() {
+    return *winner;
+}
+
+void GameEngine::setWinner(string name) {
+    this->winner.reset(new string(name));
+}
 
 //sets the number of armies per player depending of the number of players
 void GameEngine::setNumberOfArmiesPerPlayer() {
@@ -667,16 +675,20 @@ void GameEngine:: mainGameLoop() {
         //check if the number of turns played is greater than the max number of turns
         //if we are playing a tournament end the game
         if(numTurnsPlayed == getMaxNumTurn() && *gameMode == true) {
+             cout << "\n\n ************** The Game is a draw **************\n End of the game" << endl;
             this->setEndGame(true);
         }
         
         //if countries are own by same player, set the game to end. There is a winner.
         if(allCountriesOwnByPlayer == true) {
             this->setEndGame(true);
+            string winner = getAllPlayers().at(indexOfWinningPlayer)->getName();
+            this->setWinner(winner);
+             cout << "\n\n **************Player " << indexOfWinningPlayer +1 << " wins the game **************\n End of the game" << endl;
         }
     }
     
-    cout << "\n\n **************Player " << indexOfWinningPlayer +1 << " wins the game **************\n End of the game" << endl;
+   
 }
 
 
@@ -976,11 +988,58 @@ void Tournament::displayGamesResults() {
     cout << "\nNumber of games played: " << *numGames << endl;
     cout << "Maximum number of turns: " << *numTurns << endl;
     
+    int gameId = 0;
+    
     //printing the outcome on each map
     for(int i=0; i<*numMaps; i++){
-        
-        
+
+        cout << "\n***** MAP " << i+1 << " *****" << endl;
+
+        //printing each game
+        for(int j =0; j <*numGames; j++) {
+
+            cout << "\n\tGame " << j+1 << endl;
+            cout << "\tWinner: " << games.at(gameId)->getWinner() << endl;
+
+            if(gameId < games.size()) {
+                           gameId++;
+                       }
+        }
+
     }
+    
+    
+    
+//
+//    games.at(0)->setWinner("Aggressive");
+//    games.at(1)->setWinner("Random");
+//    games.at(2)->setWinner("Cheater");
+//    cout << "\n\n|\t\t\t\t";
+//    for(int i=0; i < *numGames; i++) {
+//        cout << "|\t\tGame " << i+1 << "\t\t" ;
+//    }
+//    cout<< "|" << endl;
+//
+//        int gameId = 0;
+//
+//       //printing the outcome on each map
+//        for(int i=0; i<*numMaps; i++){
+//
+//            cout  << "|MAP " << i+1 << "\t\t\t";
+//
+//            //printing each game
+//           for(int j =0; j <*numGames; j++) {
+//
+//
+//                cout  << "|\t\t" << games.at(gameId)->getWinner() << "\t\t";
+//
+//                if(gameId < games.size()) {
+//                               gameId++;
+//                           }
+//            }
+//
+//            cout << "\n"; //change line for the other map
+//        }
     
     
     
