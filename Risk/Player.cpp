@@ -384,6 +384,10 @@ string Player::executeCountryToFortify(Country* country) {
     return this->strategy->countryToFortify(this, country);
 }
 
+void Player::executeHandleFortification(int indexOfSourceCountry, int indexOfTargetCountry, int numOfArmies) {
+	return this->strategy->handleFortification(this, indexOfSourceCountry, indexOfTargetCountry, numOfArmies);
+}
+
 bool Player::executeExchangeAutom() {
     return this->strategy->exchangeAutom();
 }
@@ -495,15 +499,11 @@ void Player::reinforce() {
         // returns response for this strategy
         country = executeCountryToReinforce();
         
-        cout << "You entered: " << country << endl;
-        
         int numArmies;
         cout << "\nEnter the number of armies you would like to place on this country" << endl;
         
         // returns response for this strategy
         numArmies = executeArmiesToPlace();
-        
-        cout << "You entered: " << numArmies << endl;
         
         while(numArmies <= 0 || numArmies > numOfArmiesForReinforcement) {
             cout << "Please enter a valid number of armies to place on this country" << endl;
@@ -565,24 +565,18 @@ void Player::attack(){
                 
                 // returns response for this strategy
                 selectAttackFrom = executeAttackFrom();
-                
-                cout << "You entered: " << selectAttackFrom << endl;
             }
             else if (getThisPlayerCountries().at(selectAttackFrom - 1)->getNumberOfArmies() < 2) {
                 cout << "Please select a country with at least 2 armies placed on it." << endl;
                 
                 // returns response for this strategy
                 selectAttackFrom = executeAttackFrom();
-                
-                cout << "You entered: " << selectAttackFrom << endl;
             }
         }
         
         // player attacks from the valid country they selected
         attackFrom = getThisPlayerCountries().at(selectAttackFrom - 1);
-        
-        cout << "You will be attacking from " << attackFrom->getCountryName() << " with " << attackFrom->getNumberOfArmies() << " armies.\n" << endl;
-        
+                
         setAttackerCountry(attackFrom->getCountryName()); //setting for obs method
         setStartA(attackFrom->getNumberOfArmies());
         
@@ -842,7 +836,7 @@ void Player::fortify() {
     
     if(attack.compare("Y") == 0) {
         this->setPhaseStart(true); //we start the phase
-        cout << "\nThis is your countries, their number of armies and their adjacent countries" << endl;
+        cout << "\nThese are your countries, their number of armies and their adjacent countries:" << endl;
         
         for(unsigned int i = 0 ; i < getThisPlayerCountries().size(); i++) {
             cout << getThisPlayerCountries().at(i)->getCountryName() << " " << getThisPlayerCountries().at(i)->getNumberOfArmies();
@@ -1029,27 +1023,10 @@ void Player::fortify() {
                 }
                 
             }
-            
-            //set the new number of armies for the source country
-            int numberOfArmiesSourceCountry = this->getThisPlayerCountries().at(indexOfSourceCountry)->getNumberOfArmies();
-            this->getThisPlayerCountries().at(indexOfSourceCountry)->setNumberOfArmies(numberOfArmiesSourceCountry - numOfArmies);
-            
-            
-            //set the new number of armies for the target country
-            int numberOfArmiesTargetCountry = this->getThisPlayerCountries().at(indexOfTargetCountry)->getNumberOfArmies();
-            this->getThisPlayerCountries().at(indexOfTargetCountry)->setNumberOfArmies(numberOfArmiesTargetCountry + numOfArmies);
-            
-            setFortifySourceCountry(nameSourceCountry);
-            setFortifyTargetCountry(nameTargetCountry);
-            int sourceArmy = this->getThisPlayerCountries().at(indexOfSourceCountry)->getNumberOfArmies();
-            int targetArmy = this->getThisPlayerCountries().at(indexOfTargetCountry)->getNumberOfArmies();
-            setSourceArmy(sourceArmy);
-            setTargetArmy(targetArmy);
-            //Display the new number of armies for source country and target country
-            cout << "The player fortified succesfully the country: " << nameTargetCountry  << endl;
-            cout << nameSourceCountry << " has now " << this->getThisPlayerCountries().at(indexOfSourceCountry)->getNumberOfArmies() << " armies"  << endl;
-            cout << nameTargetCountry << " has now " << this->getThisPlayerCountries().at(indexOfTargetCountry)->getNumberOfArmies() << " armies"  << endl;
 
+			// the strategy will fortify the country/countries
+			executeHandleFortification(indexOfSourceCountry, indexOfTargetCountry, numOfArmies);
+            
 			cout << "The fortification phase has ended." << endl;
         }
     }

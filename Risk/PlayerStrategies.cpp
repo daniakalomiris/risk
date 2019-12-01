@@ -31,12 +31,14 @@ string User::extraReinforcement() {
 int User::countryToReinforce(Player* player) {
     int input;
     cin >> input;
+	cout << "You entered: " << input << endl;
     return input;
 }
 
 int User::armiesToPlace(Player* player) {
     int input;
     cin >> input;
+	cout << "You entered: " << input << endl;
     return input;
 }
 
@@ -61,6 +63,7 @@ string User::chooseAttack() {
 int User::attackFrom(Player* player) {
     int input;
     cin >> input;
+	cout << "You entered: " << input << endl;
     return input;
 }
 
@@ -114,6 +117,28 @@ string User::countryToFortify(Player* player, Country* country) {
     return input;
 }
 
+void User::handleFortification(Player* player, int indexOfSourceCountry, int indexOfTargetCountry, int numOfArmies) {
+	//set the new number of armies for the source country
+	int numberOfArmiesSourceCountry = player->getThisPlayerCountries().at(indexOfSourceCountry)->getNumberOfArmies();
+	player->getThisPlayerCountries().at(indexOfSourceCountry)->setNumberOfArmies(numberOfArmiesSourceCountry - numOfArmies);
+			
+	//set the new number of armies for the target country
+	int numberOfArmiesTargetCountry = player->getThisPlayerCountries().at(indexOfTargetCountry)->getNumberOfArmies();
+	player->getThisPlayerCountries().at(indexOfTargetCountry)->setNumberOfArmies(numberOfArmiesTargetCountry + numOfArmies);
+
+	player->setFortifySourceCountry(player->getThisPlayerCountries().at(indexOfSourceCountry)->getCountryName());
+	player->setFortifyTargetCountry(player->getThisPlayerCountries().at(indexOfTargetCountry)->getCountryName());
+	int sourceArmy = player->getThisPlayerCountries().at(indexOfSourceCountry)->getNumberOfArmies();
+	int targetArmy = player->getThisPlayerCountries().at(indexOfTargetCountry)->getNumberOfArmies();
+	player->setSourceArmy(sourceArmy);
+	player->setTargetArmy(targetArmy);
+
+	//Display the new number of armies for source country and target country
+	cout << "The player fortified succesfully the country: " << player->getThisPlayerCountries().at(indexOfTargetCountry)->getCountryName() << endl;
+	cout << player->getThisPlayerCountries().at(indexOfSourceCountry)->getCountryName() << " has now " << player->getThisPlayerCountries().at(indexOfSourceCountry)->getNumberOfArmies() << " armies." << endl;
+	cout << player->getThisPlayerCountries().at(indexOfTargetCountry)->getCountryName() << " has now " << player->getThisPlayerCountries().at(indexOfTargetCountry)->getNumberOfArmies() << " armies." << endl;
+}
+
 // human players choose when to exchange
 bool User::exchangeAutom() {
     return false;
@@ -144,11 +169,13 @@ int Aggressive::countryToReinforce(Player* player) {
         }
     }
     
+	cout << "You entered: " << max + 1 << endl;
     return max + 1; // returning the country number with the most armies
 }
 
 // aggressive player will put all of armies that can be added to their chosen country
 int Aggressive::armiesToPlace(Player* player) {
+	cout << "You entered: " << player->getNumOfArmiesForReinforcement() << endl;
     return player->getNumOfArmiesForReinforcement();
 }
 
@@ -180,6 +207,7 @@ int Aggressive::attackFrom(Player* player) {
         }
     }
     
+	cout << "You entered: " << max + 1 << endl;
     return max + 1; // returning the country number with the most armies
 }
 
@@ -191,8 +219,9 @@ int Aggressive::countryToAttack(Country* attackFrom) {
     
     // generates random number from 1 to the number of adjacent countries
     // note that the random function will continuously try a number until it eventually returns a valid one verified by the attack phase
-    // thus is may appear as though the computer player is in an infinite loop but this is not the case (it will stop at a number after many tries)
-    return (rand() % attackFrom->getAdjacentCountries().size() + 1);
+	int choice = (rand() % attackFrom->getAdjacentCountries().size() + 1);
+	cout << "You entered: " << choice << endl;
+	return choice;
 }
 
 // aggressive player will roll a random number of dice
@@ -203,7 +232,6 @@ int Aggressive::attackerRoll() {
     
     // generates random number from 1 to 3 (attack phase is in charge of verifying if 3 is not valid)
     // note that the random function will continuously try a number until it eventually returns a valid one verified by the attack phase
-    // thus is may appear as though the computer player is in an infinite loop but this is not the case (it will stop at a number after many tries)
     return (rand() % 3 + 1);
 }
 
@@ -309,6 +337,28 @@ string Aggressive::countryToFortify(Player* player, Country* country) {
     return player->getThisPlayerCountries().at(max)->getCountryName(); // returning the country number with the most armies
 }
 
+void Aggressive::handleFortification(Player* player, int indexOfSourceCountry, int indexOfTargetCountry, int numOfArmies) {
+	//set the new number of armies for the source country
+	int numberOfArmiesSourceCountry = player->getThisPlayerCountries().at(indexOfSourceCountry)->getNumberOfArmies();
+	player->getThisPlayerCountries().at(indexOfSourceCountry)->setNumberOfArmies(numberOfArmiesSourceCountry - numOfArmies);
+
+	//set the new number of armies for the target country
+	int numberOfArmiesTargetCountry = player->getThisPlayerCountries().at(indexOfTargetCountry)->getNumberOfArmies();
+	player->getThisPlayerCountries().at(indexOfTargetCountry)->setNumberOfArmies(numberOfArmiesTargetCountry + numOfArmies);
+
+	player->setFortifySourceCountry(player->getThisPlayerCountries().at(indexOfSourceCountry)->getCountryName());
+	player->setFortifyTargetCountry(player->getThisPlayerCountries().at(indexOfTargetCountry)->getCountryName());
+	int sourceArmy = player->getThisPlayerCountries().at(indexOfSourceCountry)->getNumberOfArmies();
+	int targetArmy = player->getThisPlayerCountries().at(indexOfTargetCountry)->getNumberOfArmies();
+	player->setSourceArmy(sourceArmy);
+	player->setTargetArmy(targetArmy);
+
+	//Display the new number of armies for source country and target country
+	cout << "The player fortified succesfully the country: " << player->getThisPlayerCountries().at(indexOfTargetCountry)->getCountryName() << endl;
+	cout << player->getThisPlayerCountries().at(indexOfSourceCountry)->getCountryName() << " has now " << player->getThisPlayerCountries().at(indexOfSourceCountry)->getNumberOfArmies() << " armies." << endl;
+	cout << player->getThisPlayerCountries().at(indexOfTargetCountry)->getCountryName() << " has now " << player->getThisPlayerCountries().at(indexOfTargetCountry)->getNumberOfArmies() << " armies." << endl;
+}
+
 // computer players always exchange
 bool Aggressive::exchangeAutom() {
     return true;
@@ -339,11 +389,13 @@ int Benevolent::countryToReinforce(Player* player) {
         }
     }
     
+	cout << "You entered: " << min + 1 << endl;
     return min + 1; // returning the country number with the least armies
 }
 
 // benevolent player will put all of armies that can be added to their chosen country
 int Benevolent::armiesToPlace(Player* player) {
+	cout << "You entered: " << player->getNumOfArmiesForReinforcement() << endl;
     return player->getNumOfArmiesForReinforcement();
 }
 
@@ -473,6 +525,28 @@ string Benevolent::countryToFortify(Player* player, Country* country) {
     return country->getAdjacentCountries().at(min)->getCountryName(); // returning the country number with the most armies
 }
 
+void Benevolent::handleFortification(Player* player, int indexOfSourceCountry, int indexOfTargetCountry, int numOfArmies) {
+	//set the new number of armies for the source country
+	int numberOfArmiesSourceCountry = player->getThisPlayerCountries().at(indexOfSourceCountry)->getNumberOfArmies();
+	player->getThisPlayerCountries().at(indexOfSourceCountry)->setNumberOfArmies(numberOfArmiesSourceCountry - numOfArmies);
+
+	//set the new number of armies for the target country
+	int numberOfArmiesTargetCountry = player->getThisPlayerCountries().at(indexOfTargetCountry)->getNumberOfArmies();
+	player->getThisPlayerCountries().at(indexOfTargetCountry)->setNumberOfArmies(numberOfArmiesTargetCountry + numOfArmies);
+
+	player->setFortifySourceCountry(player->getThisPlayerCountries().at(indexOfSourceCountry)->getCountryName());
+	player->setFortifyTargetCountry(player->getThisPlayerCountries().at(indexOfTargetCountry)->getCountryName());
+	int sourceArmy = player->getThisPlayerCountries().at(indexOfSourceCountry)->getNumberOfArmies();
+	int targetArmy = player->getThisPlayerCountries().at(indexOfTargetCountry)->getNumberOfArmies();
+	player->setSourceArmy(sourceArmy);
+	player->setTargetArmy(targetArmy);
+
+	//Display the new number of armies for source country and target country
+	cout << "The player fortified succesfully the country: " << player->getThisPlayerCountries().at(indexOfTargetCountry)->getCountryName() << endl;
+	cout << player->getThisPlayerCountries().at(indexOfSourceCountry)->getCountryName() << " has now " << player->getThisPlayerCountries().at(indexOfSourceCountry)->getNumberOfArmies() << " armies." << endl;
+	cout << player->getThisPlayerCountries().at(indexOfTargetCountry)->getCountryName() << " has now " << player->getThisPlayerCountries().at(indexOfTargetCountry)->getNumberOfArmies() << " armies." << endl;
+}
+
 // computer players always exchange
 bool Benevolent::exchangeAutom() {
     return true;
@@ -494,13 +568,17 @@ string Random::extraReinforcement() {
 // random player will randomly select one of their countries
 int Random::countryToReinforce(Player* player) {
 	srand(time(NULL));
-	return (rand() % player->getThisPlayerCountries().size() + 1);
+	int choice = (rand() % player->getThisPlayerCountries().size() + 1);
+	cout << "You entered: " << choice << endl;
+	return choice;
 }
 
 // random player will place a random number of armies
 int Random::armiesToPlace(Player* player) {
 	srand(time(NULL));
-	return (rand() % player->getNumOfArmiesForReinforcement() + 1);
+	int choice = (rand() % player->getNumOfArmiesForReinforcement() + 1);
+	cout << "You entered: " << choice << endl;
+	return choice;
 }
 
 void Random::handleArmies(Player* player, int country, int numArmies) {
@@ -523,7 +601,9 @@ string Random::chooseAttack() {
 // random player will randomly select one of their countries
 int Random::attackFrom(Player* player) {
 	srand(time(NULL));
-	return (rand() % player->getThisPlayerCountries().size() + 1);
+	int choice = (rand() % player->getThisPlayerCountries().size() + 1);
+	cout << "You entered: " << choice << endl;
+	return choice;
 }
 
 // random player will attack random country from list of neighbors
@@ -574,6 +654,28 @@ string Random::countryToFortify(Player* player, Country* country) {
 	return country->getAdjacentCountries().at(rand() % country->getAdjacentCountries().size())->getCountryName();
 }
 
+void Random::handleFortification(Player* player, int indexOfSourceCountry, int indexOfTargetCountry, int numOfArmies) {
+	//set the new number of armies for the source country
+	int numberOfArmiesSourceCountry = player->getThisPlayerCountries().at(indexOfSourceCountry)->getNumberOfArmies();
+	player->getThisPlayerCountries().at(indexOfSourceCountry)->setNumberOfArmies(numberOfArmiesSourceCountry - numOfArmies);
+
+	//set the new number of armies for the target country
+	int numberOfArmiesTargetCountry = player->getThisPlayerCountries().at(indexOfTargetCountry)->getNumberOfArmies();
+	player->getThisPlayerCountries().at(indexOfTargetCountry)->setNumberOfArmies(numberOfArmiesTargetCountry + numOfArmies);
+
+	player->setFortifySourceCountry(player->getThisPlayerCountries().at(indexOfSourceCountry)->getCountryName());
+	player->setFortifyTargetCountry(player->getThisPlayerCountries().at(indexOfTargetCountry)->getCountryName());
+	int sourceArmy = player->getThisPlayerCountries().at(indexOfSourceCountry)->getNumberOfArmies();
+	int targetArmy = player->getThisPlayerCountries().at(indexOfTargetCountry)->getNumberOfArmies();
+	player->setSourceArmy(sourceArmy);
+	player->setTargetArmy(targetArmy);
+
+	//Display the new number of armies for source country and target country
+	cout << "The player fortified succesfully the country: " << player->getThisPlayerCountries().at(indexOfTargetCountry)->getCountryName() << endl;
+	cout << player->getThisPlayerCountries().at(indexOfSourceCountry)->getCountryName() << " has now " << player->getThisPlayerCountries().at(indexOfSourceCountry)->getNumberOfArmies() << " armies." << endl;
+	cout << player->getThisPlayerCountries().at(indexOfTargetCountry)->getCountryName() << " has now " << player->getThisPlayerCountries().at(indexOfTargetCountry)->getNumberOfArmies() << " armies." << endl;
+}
+
 // computer players always exchange
 bool Random::exchangeAutom() {
 	return true;
@@ -592,11 +694,13 @@ string Cheater::extraReinforcement() {
 
 // cheater will make a fake selection of the first country they own from the list
 int Cheater::countryToReinforce(Player* player) {
+	cout << "You entered: " << 1 << endl;
 	return 1;
 }
 
 // cheater will make a fake selection of 1
 int Cheater::armiesToPlace(Player* player) {
+	cout << "You entered: " << 1 << endl;
 	return 1;
 }
 
@@ -621,8 +725,6 @@ void Cheater::handleArmies(Player* player, int country, int numArmies) {
 	cout << "\nYou still have " << player->getNumOfArmiesForReinforcement() << " armies to place." << endl;
 }
 
-
-
 // cheater will always attack
 string Cheater::chooseAttack() {
 	return "Y";
@@ -633,10 +735,8 @@ int Cheater::attackFrom(Player* player)
 	cout << "You will be attacking from all your bordering countries" << endl;
 
 	vector<Country*> neighbors;
-	neighbors.clear();
 
 	for (unsigned int i = 0; i < player->getThisPlayerCountries().size(); i++) {
-
 		if (player->getThisPlayerCountries().at(i)->getEnemies().size() > 0) {
 			for (unsigned int j = 0; j < player->getThisPlayerCountries().at(i)->getEnemies().size(); j++) {
 				neighbors.push_back(player->getThisPlayerCountries().at(i)->getEnemies().at(j));
@@ -666,49 +766,53 @@ int Cheater::countryToAttack(Country* attackFrom) {
 }
 
 int Cheater::attackerRoll() {
-	return 3; // no need to define as the player will automatically own neighbors 
+	return 1; // returning guaranteed valid number since it will not be used as player will automatically own neighbors 
 }
 
 int Cheater::defenderRoll() {
-	return 2; // no need to define as the player will automatically own neighbors 
+	return 1; // returning guaranteed valid number since it will not be used as player will automatically own neighbors  
 }
 
 int Cheater::armiesToMove(int armiesCanMove) {
-	return 0;
+	return 1; // returning guaranteed valid number since it will not be used as player will automatically own neighbors 
 }
 
-
-
-
-
-// The cheater will always want to fortify 
-std::string Cheater::chooseFortify()
-{
+// cheater will always fortify 
+string Cheater::chooseFortify() {
 	return "Y";
 }
 
-std::string Cheater::countryToFortifyFrom(Player* player) //Not relevant as we are simply fortifying all countries with enemies
-{
-	
-	return "There is no movement of armies, as only the border Countries will get double the soldiers";
+string Cheater::countryToFortifyFrom(Player* player) {
+	srand(time(NULL));
+	return player->getThisPlayerCountries().at(rand() % player->getThisPlayerCountries().size())->getCountryName(); // return random owned country since we will fortify all countries with enemies
 }
 
-int Cheater::armiesToFortify(int sourceCounrtyArmies)
-{
-	return sourceCounrtyArmies;
+// cheater will be doubling the armies so we can return a random number which will not be used
+int Cheater::armiesToFortify(int sourceCountryArmies) {
+	srand(time(NULL));
+	return (rand() % sourceCountryArmies + 1); 
 }
 
-std::string Cheater::countryToFortify(Player* player, Country* country)
-{
+// cheater will select random owned country which will not be used
+string Cheater::countryToFortify(Player* player, Country* country) {
+	srand(time(NULL));
+	return country->getAdjacentCountries().at(rand() % country->getAdjacentCountries().size())->getCountryName();  
+}
 
-	vector<Country*> neighbors;
-	neighbors.clear();
+// cheater will fortify all of its countries that have enemy neighbors by doubling their armies
+void Cheater::handleFortification(Player* player, int indexOfSourceCountry, int indexOfTargetCountry, int numOfArmies) {
 	for (unsigned int i = 0; i < player->getThisPlayerCountries().size(); i++) {
 		if (player->getThisPlayerCountries().at(i)->getEnemies().size() > 0) {
 			player->getThisPlayerCountries().at(i)->setNumberOfArmies(player->getThisPlayerCountries().at(i)->getNumberOfArmies() * 2);
 		}
 	}
-	return "You fortified all countries with enemies with the double of soldiers";
+
+	cout << "\nThese are your countries and their number of armies after fortifying them." << endl;
+
+	for (unsigned int i = 0; i < player->getThisPlayerCountries().size(); i++) {
+		cout << player->getThisPlayerCountries().at(i)->getCountryName() << " " << player->getThisPlayerCountries().at(i)->getNumberOfArmies() << endl;
+	}
+
 }
 
 bool Cheater::exchangeAutom() {

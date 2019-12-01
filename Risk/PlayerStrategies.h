@@ -33,6 +33,7 @@ public:
     virtual std::string countryToFortifyFrom(Player* player) = 0;
     virtual int armiesToFortify(int sourceCounrtyArmies) = 0;
     virtual std::string countryToFortify(Player* player, Country* country) = 0;
+	virtual void handleFortification(Player* player, int indexOfSourceCountry, int indexOfTargetCountry, int numOfArmies) = 0;
     
     // determines how exchange is handled for each strategy
     virtual bool exchangeAutom() = 0;
@@ -59,7 +60,8 @@ public:
     std::string countryToFortifyFrom(Player* player);
     int armiesToFortify(int sourceCounrtyArmies);
     std::string countryToFortify(Player* player, Country *);
-    
+	void handleFortification(Player* player, int indexOfSourceCountry, int indexOfTargetCountry, int numOfArmies);
+
     bool exchangeAutom();
 };
 
@@ -84,7 +86,8 @@ public:
     std::string countryToFortifyFrom(Player* player);
     int armiesToFortify(int sourceCounrtyArmies);
     std::string countryToFortify(Player* player, Country *);
-    
+	void handleFortification(Player* player, int indexOfSourceCountry, int indexOfTargetCountry, int numOfArmies);
+
     bool exchangeAutom();
 };
 
@@ -109,6 +112,7 @@ public:
     std::string countryToFortifyFrom(Player* player);
     int armiesToFortify(int sourceCounrtyArmies);
     std::string countryToFortify(Player* player, Country* country);
+	void handleFortification(Player* player, int indexOfSourceCountry, int indexOfTargetCountry, int numOfArmies);
     
     bool exchangeAutom();
 };
@@ -134,6 +138,7 @@ public:
 	std::string countryToFortifyFrom(Player* player);
 	int armiesToFortify(int sourceCounrtyArmies);
 	std::string countryToFortify(Player* player, Country* country);
+	void handleFortification(Player* player, int indexOfSourceCountry, int indexOfTargetCountry, int numOfArmies);
 
 	bool exchangeAutom();
 };
@@ -155,11 +160,11 @@ public:
 	int defenderRoll();
 	int armiesToMove(int armiesCanMove);
 
-
 	std::string chooseFortify();
 	std::string countryToFortifyFrom(Player* player);
 	int armiesToFortify(int sourceCounrtyArmies);
 	std::string countryToFortify(Player* player, Country* country);
+	void handleFortification(Player* player, int indexOfSourceCountry, int indexOfTargetCountry, int numOfArmies);
 
 	bool exchangeAutom();
 };

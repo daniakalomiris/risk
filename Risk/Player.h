@@ -111,6 +111,7 @@ public:
     std::string executeCountryToFortifyFrom();
     int executeArmiesToFortify(int sourceCountryArmies);
     std::string executeCountryToFortify(Country* country);
+	void executeHandleFortification(int indexOfSourceCountry, int indexOfTargetCountry, int numOfArmies);
     
     bool executeExchangeAutom();
 private:

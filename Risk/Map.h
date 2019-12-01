@@ -99,7 +99,9 @@ public:
 
 	void setNumberOfArmies(int numberOfArmies); //sets the number of armies
 	int getNumberOfArmies(); // number of armies on a country
-	std::vector<Country*> getEnemies();
+
+	void setEnemies(Country* country);
+	std::vector<Country*> getEnemies(); // get adjacent countries not owned by player
 
 	//methods to potentially implement GUI
 	void setCoordinateX(int coordinateX);
