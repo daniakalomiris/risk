@@ -209,7 +209,6 @@ string Aggressive::countryToFortifyFrom(Player* player) {
             
             //if the country has 1 army, don't choose that country
             if (player->getThisPlayerCountries().at(i)->getNumberOfArmies() == 1) {
-                cout << "TTHE COUNTRY ONLY HAS ONE ARMY" << endl;
                 continue;
             }
             
@@ -256,7 +255,6 @@ string Aggressive::countryToFortifyFrom(Player* player) {
         }
     }
     
-    cout << "NUMBER OF ARMIES ON THE COUNTRY CHOSEN: " << player->getThisPlayerCountries().at(min)->getNumberOfArmies();
     return player->getThisPlayerCountries().at(min)->getCountryName(); // returning the country number with the most armies
     
 }
@@ -276,9 +274,7 @@ string Aggressive::countryToFortify(Player* player, Country* country) {
     int indexSourceCountry =0;
     //get the name of the source country
     string nameSourceCountry = player->getFortifySourceCountry();
-    cout << "NAME SOURCE COUNTRY: " << nameSourceCountry << endl;
-    cout << "NAME SOURCE COUNTRY: " << country->getCountryName() << endl;
-    
+  
     for (unsigned int i = 1; i < player->getThisPlayerCountries().size(); i++) {
         
         //find the source country in the player's countries
@@ -500,7 +496,6 @@ string Benevolent::countryToFortify(Player* player, Country* country) {
     
     //get the name of the source country
     string nameSourceCountry = player->getFortifySourceCountry();
-    cout << "NAME SOURCE COUNTRY: " << nameSourceCountry << endl;
     
     for (unsigned int i = 1; i < player->getThisPlayerCountries().size(); i++) {
         
@@ -517,8 +512,7 @@ string Benevolent::countryToFortify(Player* player, Country* country) {
         if ( country->getAdjacentCountries().at(i)->getNumberOfArmies() < country->getAdjacentCountries().at(min)->getNumberOfArmies()) {
             
             string nameCountryMaxArmies = country->getAdjacentCountries().at(i)->getCountryName();
-            cout << "COUNTRY WITH MAX ARMIES " << nameCountryMaxArmies << endl;
-            
+                     
             //check if the country is own by the player
             for(int j = 0; j < player->getThisPlayerCountries().size(); j++) {
                 
