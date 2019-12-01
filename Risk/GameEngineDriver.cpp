@@ -169,10 +169,10 @@ void tournamentMode(bool isTournamentOn){
     theTournament -> tournamentSettings();
     theTournament->createGames(isTournamentOn);
     
-//    //play the game for each games in the tournament
-//    for(int i =0; i < theTournament->getGames().size(); i++) {
-//        theTournament->getGames().at(i)->mainGameLoop();
-//    }
+    //play the game for each games in the tournament
+    for(int i =0; i < theTournament->getGames().size(); i++) {
+        theTournament->getGames().at(i)->mainGameLoop();
+    }
     
     theTournament->displayGamesResults();
     delete theTournament;

@@ -551,7 +551,7 @@ void Player::attack(){
     Country* attackFrom;
     Country* countryToAttack;
     vector<int> attackerDiceValues, defenderDiceValues;
-    
+    bool canAttack = false;
     cout << "\n~~~~~ Attack Phase ~~~~~\n" << endl;
     
     cout << "Player " << this->getID() << ", do you want to attack? (Press Y to attack or anything else to end attack phase)\n" << endl;
@@ -560,6 +560,19 @@ void Player::attack(){
     
     cout << "You entered: " << playerAttack << endl;
     setNumAttack(0);
+    
+    //check if all player's countries has at least 2 armies, the player can't attack otherwise
+      for(int i =0; i <getThisPlayerCountries().size(); i++) {
+          
+          if(getThisPlayerCountries().at(i)->getNumberOfArmies() >= 2) {
+              canAttack = true;
+          }
+
+      }
+    
+    if(canAttack == false) {
+        playerAttack = "N";
+    }
     
     while (playerAttack == "Y") {
         
@@ -842,7 +855,7 @@ void Player::fortify() {
     bool isTargetCountryValid = false;
     bool isTargetCountryNeighbour = false;
     bool isNumOfArmiesValid = true;
-    
+    bool sourceCountryEnoughArmies = false;
     //tells if the source countries has a neighbour that the user own
     bool neighbourCountries = false;
     
@@ -851,8 +864,12 @@ void Player::fortify() {
     int numOfArmies = 0;
     int indexOfSourceCountry = 0;
     int indexOfTargetCountry = 0;
-    
+    bool canfortify = false;
     cout << "\n~~~~~ Fortification Phase ~~~~~" << endl;
+    
+    
+    
+    
     
     cout << "\nPlayer " << getName() << ", do you want to fortify? (Press Y to fortify or anything else to end fortify phase)" << endl;
     string attack;
@@ -861,6 +878,22 @@ void Player::fortify() {
     attack = executeChooseFortify();
     
     cout << "You entered: " << attack << endl;
+    
+    //check if all player's countries has only 1 army, the player can't fortify
+    for(int i =0; i <getThisPlayerCountries().size(); i++) {
+        
+        if(getThisPlayerCountries().at(i)->getNumberOfArmies() != 1) {
+            canfortify = true;
+        }
+
+    }
+    
+
+    
+    if(canfortify == false) {
+        attack = "N";
+    }
+    
     
     if(attack.compare("Y") == 0) {
         this->setPhaseStart(true); //we start the phase
@@ -930,10 +963,38 @@ void Player::fortify() {
                 }
             }
             
+            //check if the chosen country has more than 1 army
+            for(unsigned int i =0; i < this->getThisPlayerCountries().size(); i++) {
+                
+                //find the country with the same name input by user
+                if( nameSourceCountry.compare(this->getThisPlayerCountries().at(i)->getCountryName()) == 0) {
+                    
+                    //check if the country owns more than 1 army
+                    if(this->getThisPlayerCountries().at(i)->getNumberOfArmies() > 1) {
+                        sourceCountryEnoughArmies = true;
+                    }
+                    
+                    
+                }
+                
+            }
+            
             
             //asks the player again to enter a valid source country if it was not valid
-            while(isSourceCountryValid == false || sourceCountriesNeighbours == false) {
-                cout << "\nThe source country you choose is not own by you or doesn't exists or doesn't have adjacent countries your own \nPlease choose a new source country" << endl;
+            while(isSourceCountryValid == false || sourceCountriesNeighbours == false || sourceCountryEnoughArmies == false) {
+                
+                if(isSourceCountryValid == false) {
+                    cout << "\nThe source country you choose is not own by you or doesn't exists.\nPlease choose a new source country" << endl;
+                }
+                
+                else if(sourceCountriesNeighbours == false) {
+                     cout << "\nThe source country you choose doesn't have adjacent countries your own. \nPlease choose a new source country" << endl;
+                }
+                
+                else if(sourceCountryEnoughArmies == false) {
+                    cout << "\nThe source country you choose doesn't have enough armies to move, it needs to have more than 1 army.\nPlease choose a new source country" << endl;
+                }
+               
                 cout << "Please write the name of the chosen source country \n(capitalize the first letter)" << endl;
                 
                 // returns response for this strategy
@@ -964,8 +1025,25 @@ void Player::fortify() {
                     
                 }
                 
+                //check if the chosen country has more than 1 army
+                       for(unsigned int i =0; i < this->getThisPlayerCountries().size(); i++) {
+                           
+                           //find the country with the same name input by user
+                           if( nameSourceCountry.compare(this->getThisPlayerCountries().at(i)->getCountryName()) == 0) {
+                               
+                               //check if the country owns more than 1 army
+                               if(this->getThisPlayerCountries().at(i)->getNumberOfArmies() > 1) {
+                                   sourceCountryEnoughArmies = true;
+                               }
+                               
+                               
+                           }
+                           
+                       }
+                
             }
-            
+            setFortifySourceCountry(nameSourceCountry);
+
             
             cout << "Please enter the number of armies you would like to move" << endl;
             
@@ -1026,7 +1104,14 @@ void Player::fortify() {
             
             //if the target country is not valid, ask again
             while(isTargetCountryValid == false || isTargetCountryNeighbour == false) {
-                cout << "\nThe target country you choose is not own by you or doesn't exists or is not a neighbour of the source country \nPlease choose a valid country" << endl;
+                if(isTargetCountryValid == false) {
+                     cout << "\nThe target country you choose is not own by you or doesn't exists.\nPlease choose a valid country" << endl;
+                }
+                
+                else if(isTargetCountryNeighbour == false) {
+                    cout << "\nThe target country you choose is not a neighbour of the source country. \nPlease choose a valid country" << endl;
+                }
+                
                 cout << "Enter the name of a valid chosen target country" << endl;
                 
                 // returns response for this strategy
@@ -1061,7 +1146,6 @@ void Player::fortify() {
             int numberOfArmiesTargetCountry = this->getThisPlayerCountries().at(indexOfTargetCountry)->getNumberOfArmies();
             this->getThisPlayerCountries().at(indexOfTargetCountry)->setNumberOfArmies(numberOfArmiesTargetCountry + numOfArmies);
             
-            setFortifySourceCountry(nameSourceCountry);
             setFortifyTargetCountry(nameTargetCountry);
             int sourceArmy = this->getThisPlayerCountries().at(indexOfSourceCountry)->getNumberOfArmies();
             int targetArmy = this->getThisPlayerCountries().at(indexOfTargetCountry)->getNumberOfArmies();
