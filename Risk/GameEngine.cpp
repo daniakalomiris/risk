@@ -574,6 +574,7 @@ void GameEngine:: mainGameLoop() {
     //while the game is still playing
     cout << "END GAME: " << boolalpha << getEndGame() << endl;
     while (getEndGame() == false) {
+       
         cout << "TURN #" << numTurnsPlayed << endl;
         //increment the number of turns played
         numTurnsPlayed++;
