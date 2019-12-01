@@ -644,39 +644,43 @@ int Cheater::attackFrom(Player* player)
 		}
 	}
 
+	// cheater owns all neighbors of all its countries
 	for (unsigned int i = 0; i < neighbors.size(); i++) {
-		neighbors.at(i)->setCountryOwnerId(player->getID());
+		neighbors.at(i)->setCountryOwnerId(player->getID());  
+		player->setThisPlayerCountry(neighbors.at(i)); 
 	}
 
-	/*counter2 = 0;
+	// this is only displayed for cheater
+	cout << "These are the countries you now own and the number of armies placed on them:" << endl;
 	for (unsigned int i = 0; i < player->getThisPlayerCountries().size(); i++) {
-		counter2++;
-	}*/
-	return 1;
+		cout << "Country " << i + 1 << ": " << player->getThisPlayerCountries().at(i)->getCountryName() << " \tNumber of Armies: " << player->getThisPlayerCountries().at(i)->getNumberOfArmies() << endl;
+	}
+
+	srand(time(NULL));
+	return (rand() % player->getThisPlayerCountries().size() + 1); // return random country (does not matter since all neighbored countries are attacked regardless)
 }
 
-int Cheater::countryToAttack(Country* attackFrom)
-{
-	cout << "You will be attacking to all the bordering countries " << endl;
-	return 0; // it doesnt matter as all the countries will get attack 
+int Cheater::countryToAttack(Country* attackFrom) {
+	srand(time(NULL));
+	return (rand() % attackFrom->getAdjacentCountries().size() + 1); // return random country (does not matter since all neighbored countries are attacked regardless)
 }
 
-int Cheater::attackerRoll()
-{
-	return 3; // no need to define as the player will automaticalling win 
+int Cheater::attackerRoll() {
+	return 3; // no need to define as the player will automatically own neighbors 
 }
 
-int Cheater::defenderRoll()
-{
-	return 2;// no need to define as the player will automaticalling win 
+int Cheater::defenderRoll() {
+	return 2; // no need to define as the player will automatically own neighbors 
 }
 
-int Cheater::armiesToMove(int armiesCanMove)
-{
-	cout << "You gained the country with its army" << endl;
+int Cheater::armiesToMove(int armiesCanMove) {
 	return 0;
-
 }
+
+
+
+
+
 // The cheater will always want to fortify 
 std::string Cheater::chooseFortify()
 {
