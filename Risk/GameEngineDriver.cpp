@@ -29,8 +29,6 @@ int main() {
         cout << "\n********* SINGLE GAME MODE *********\n" << endl;
         singleGameMode(false);
     }
-    
-    
 }
 
 

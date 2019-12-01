@@ -231,8 +231,8 @@ void GameEngine::setArmiesToCountries() {
             cout << "You have " << allPlayers.at(i)->getNumOfArmiesAtStartUpPhase() << " armies left to place" << endl;
             cout << "Enter the name of the country you would like to place one army" << endl;
             
- 
-           //it means we have a user player
+            
+            //it means we have a user player
             if( allPlayers.at(i)->getStrategyNum() == 5) {
                 //use this if we the user chose it himself
                 cin >> countryChosen;
@@ -249,15 +249,15 @@ void GameEngine::setArmiesToCountries() {
                 cout << "You chose the country " << countryChosen << endl;
             }
             
-                //check if the country enter is valid
-                for(int j = 0; j < allPlayers.at(i)->getThisPlayerCountries().size(); j++ ) {
-                    
-                    //if the country is own by the player, the country is valid
-                    if(countryChosen.compare(allPlayers.at(i)->getThisPlayerCountries().at(j)->getCountryName()) == 0 ) {
-                        isCountryChosenValid = true;
-                        indexOfCountryChosen = j;
-                    }
+            //check if the country enter is valid
+            for(int j = 0; j < allPlayers.at(i)->getThisPlayerCountries().size(); j++ ) {
+                
+                //if the country is own by the player, the country is valid
+                if(countryChosen.compare(allPlayers.at(i)->getThisPlayerCountries().at(j)->getCountryName()) == 0 ) {
+                    isCountryChosenValid = true;
+                    indexOfCountryChosen = j;
                 }
+            }
             
             //ask to enter another country if the one enter is not valid
             while(isCountryChosenValid == false) {
@@ -499,7 +499,7 @@ void GameEngine::createMap() {
     
     
     cout << "\nPlease enter the number associated with the map you would like to play on: \n"
-    "Select 1 for Big Europe \n"
+    "Select 1 for Roman Empire \n"
     "Select 2 for Geoscape \n"
     "Select 3 for LOTR \n"
     "Select 4 for Risk \n"
@@ -511,7 +511,7 @@ void GameEngine::createMap() {
     //checks if entry is valid
     while(mapChoice<1 || mapChoice>6){
         cout << "Invalid entry please nter a valid choice: \n"
-        "Select 1 for Big Europe \n"
+        "Select 1 for Roman Empire \n"
         "Select 2 for Geoscape \n"
         "Select 3 for LOTR \n"
         "Select 4 for Risk \n"
@@ -523,8 +523,8 @@ void GameEngine::createMap() {
     
     //associated choice of user with a map that is available
     if (mapChoice == 1) {
-        cout << "You selected Big Europe. We will load that up for you" << endl;
-        mapFile = "bigeurope";
+        cout << "You selected Roman Empire. We will load that up for you" << endl;
+        mapFile = "roman_empire";
     }
     else if (mapChoice == 2) {
         cout << "You selected Geoscape. We will load that up for you" << endl;
@@ -574,8 +574,8 @@ void GameEngine:: mainGameLoop() {
     //while the game is still playing
     cout << "END GAME: " << boolalpha << getEndGame() << endl;
     while (getEndGame() == false) {
-       
-        cout << "TURN #" << numTurnsPlayed << endl;
+        
+        cout << "\n\n ********* TURN #" << numTurnsPlayed << " *********"<< endl;
         //increment the number of turns played
         numTurnsPlayed++;
         
@@ -675,21 +675,23 @@ void GameEngine:: mainGameLoop() {
         
         //check if the number of turns played is greater than the max number of turns
         //if we are playing a tournament end the game
-        if(numTurnsPlayed == getMaxNumTurn() && *gameMode == true) {
-             cout << "\n\n ************** The Game is a draw **************\n End of the game" << endl;
-            this->setEndGame(true);
-        }
+        if(*gameMode == true) {
         
+            if(numTurnsPlayed == getMaxNumTurn()) {
+            cout << "\n\n ************** The Game is a draw **************\n End of the game" << endl;
+            this->setEndGame(true);
+            }
+        }
         //if countries are own by same player, set the game to end. There is a winner.
         if(allCountriesOwnByPlayer == true) {
             this->setEndGame(true);
             string winner = getAllPlayers().at(indexOfWinningPlayer)->getName();
             this->setWinner(winner);
-             cout << "\n\n **************Player " << indexOfWinningPlayer +1 << " wins the game **************\n End of the game" << endl;
+            cout << "\n\n **************Player " << indexOfWinningPlayer +1 << " wins the game **************\n End of the game" << endl;
         }
     }
     
-   
+    
 }
 
 
@@ -723,7 +725,7 @@ void Tournament::mapSelection(){
     for(int i=0; i<this->getNumMaps(); i++){
         cout << "\nPlease select map #" << i+1 <<endl;
         cout << "Please enter the number associated with the map you would like to play on: \n"
-        "Select 1 for Big Europe \n"
+        "Select 1 for Roman Empire \n"
         "Select 2 for Geoscape \n"
         "Select 3 for LOTR \n"
         "Select 4 for Risk \n"
@@ -733,22 +735,22 @@ void Tournament::mapSelection(){
         cin >> mapChoice;
         
         //checks if input corresponds to a map
-              while(mapChoice<1 || mapChoice >6){
-                  cout << "Invalid map. Please select one from the choices below: " << endl;
-                  cout << "Please enter the number associated with the map you would like to play on: \n"
-                  "Select 1 for Big Europe \n"
-                  "Select 2 for Geoscape \n"
-                  "Select 3 for LOTR \n"
-                  "Select 4 for Risk \n"
-                  "Select 5 for Solar \n"
-                  "Select 6 for notvalid2 \n" << endl;
-                  
-                  cin>>mapChoice;
-              }
-              
+        while(mapChoice<1 || mapChoice >6){
+            cout << "Invalid map. Please select one from the choices below: " << endl;
+            cout << "Please enter the number associated with the map you would like to play on: \n"
+            "Select 1 for Roman Empire \n"
+            "Select 2 for Geoscape \n"
+            "Select 3 for LOTR \n"
+            "Select 4 for Risk \n"
+            "Select 5 for Solar \n"
+            "Select 6 for notvalid2 \n" << endl;
+            
+            cin>>mapChoice;
+        }
+        
         
         switch(mapChoice){
-            case 1: mapFile = "bigeurope";
+            case 1: mapFile = "roman_empire";
                 break;
             case 2: mapFile = "geoscape";
                 break;
@@ -846,7 +848,7 @@ void Tournament:: playerSelection() {
                 Player *rPlayer = new Player("Random");
                 cout << "The player #" << i+1 << " will play as an Random computer player" << endl;
                 //  rPlayer->setStrategy(random);
-                  //rPlayer->setStrategyNum(4);
+                //rPlayer->setStrategyNum(4);
                 allCompPlayers.push_back(rPlayer); //push the created player in the vector allComPlayers
                 break;
             }
@@ -889,7 +891,7 @@ void Tournament::tournamentSettings(){
     
     //calls method to select the maps that will be played on
     mapSelection();
-
+    
     
     //sets number of players based on input
     cout << "\nPlease enter the number of computer players that will participate in the tournament (2 to 4): " << endl;
@@ -993,58 +995,25 @@ void Tournament::displayGamesResults() {
     
     //printing the outcome on each map
     for(int i=0; i<*numMaps; i++){
-
+        
         cout << "\n***** MAP " << i+1 << " *****" << endl;
-
+        
         //printing each game
         for(int j =0; j <*numGames; j++) {
-
+            
             cout << "\n\tGame " << j+1 << endl;
             cout << "\tWinner: " << games.at(gameId)->getWinner() << endl;
-
+            
             if(gameId < games.size()) {
-                           gameId++;
-                       }
+                gameId++;
+            }
         }
-
+        
     }
     
     
-    
-//
-//    games.at(0)->setWinner("Aggressive");
-//    games.at(1)->setWinner("Random");
-//    games.at(2)->setWinner("Cheater");
-//    cout << "\n\n|\t\t\t\t";
-//    for(int i=0; i < *numGames; i++) {
-//        cout << "|\t\tGame " << i+1 << "\t\t" ;
-//    }
-//    cout<< "|" << endl;
-//
-//        int gameId = 0;
-//
-//       //printing the outcome on each map
-//        for(int i=0; i<*numMaps; i++){
-//
-//            cout  << "|MAP " << i+1 << "\t\t\t";
-//
-//            //printing each game
-//           for(int j =0; j <*numGames; j++) {
-//
-//
-//                cout  << "|\t\t" << games.at(gameId)->getWinner() << "\t\t";
-//
-//                if(gameId < games.size()) {
-//                               gameId++;
-//                           }
-//            }
-//
-//            cout << "\n"; //change line for the other map
-//        }
-    
-    
-    
 }
+
 int Tournament::getNumMaps() {
     return *numMaps;
 }
