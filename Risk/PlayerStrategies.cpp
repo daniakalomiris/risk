@@ -91,6 +91,14 @@ int User::armiesToMove(int armiesCanMove) {
     return input;
 }
 
+void User::setArmies(Player* player, int numOfArmiesToMove, Country* countryToAttack) {
+	// numOfArmiesToMove
+	countryToAttack->setNumberOfArmies(numOfArmiesToMove);
+
+	cout << "Attacker (Player " << player->getID() << "), you have decided to move " << numOfArmiesToMove << " armies to " << countryToAttack->getCountryName() << "." << endl;
+	cout << countryToAttack->getCountryName() << " now has " << numOfArmiesToMove << " armies." << endl;
+}
+
 string User::chooseFortify() {
     string input;
     cin >> input;
@@ -247,6 +255,14 @@ int Aggressive::armiesToMove(int armiesCanMove) {
     return armiesCanMove;
 }
 
+void Aggressive::setArmies(Player* player, int numOfArmiesToMove, Country* countryToAttack) {
+	// numOfArmiesToMove
+	countryToAttack->setNumberOfArmies(numOfArmiesToMove);
+
+	cout << "Attacker (Player " << player->getID() << "), you have decided to move " << numOfArmiesToMove << " armies to " << countryToAttack->getCountryName() << "." << endl;
+	cout << countryToAttack->getCountryName() << " now has " << numOfArmiesToMove << " armies." << endl;
+}
+
 // aggressive player will fortify
 string Aggressive::chooseFortify() {
     return "Y";
@@ -350,7 +366,7 @@ string Aggressive::countryToFortify(Player* player, Country* country) {
     }
     
     //loop throught the adjacent country of the source country
-    for(int i = 0; i < country->getAdjacentCountries().size(); i++) {
+    for(unsigned int i = 0; i < country->getAdjacentCountries().size(); i++) {
         
        
         
@@ -359,7 +375,7 @@ string Aggressive::countryToFortify(Player* player, Country* country) {
             string nameCountryMaxArmies = country->getAdjacentCountries().at(i)->getCountryName();
             
             //check if the country is own by the player
-            for(int j = 0; j < player->getThisPlayerCountries().size(); j++) {
+            for(unsigned int j = 0; j < player->getThisPlayerCountries().size(); j++) {
                 
                 //if the country name is found in the player's countries
                 if( (nameCountryMaxArmies.compare(player->getThisPlayerCountries().at(j)->getCountryName())) == 0) {
@@ -376,7 +392,7 @@ string Aggressive::countryToFortify(Player* player, Country* country) {
             bool countryOwnByPlayer = false;
 
             
-            for(int j = 0; j <player->getThisPlayerCountries().size(); j++) {
+            for(unsigned int j = 0; j <player->getThisPlayerCountries().size(); j++) {
                 string nameCountryMaxArmies = country->getAdjacentCountries().at(max)->getCountryName();
                 
                 //if the max countries is not own by the player, put the max country to the next one
@@ -501,6 +517,10 @@ int Benevolent::armiesToMove(int armiesCanMove) {
     return 0;
 }
 
+void Benevolent::setArmies(Player* player, int numOfArmiesToMove, Country* countryToAttack) {
+	// does nothing
+}
+
 // benevolent player will fortify
 string Benevolent::chooseFortify() {
     return "Y";
@@ -520,12 +540,12 @@ string Benevolent::countryToFortifyFrom(Player* player) {
     
     while(maxCountryHasNeighbour == false) {
         //for all countries that are adjacent to the max
-        for(int i = 0; i < player->getThisPlayerCountries().at(max)->getAdjacentCountries().size(); i++) {
+        for(unsigned int i = 0; i < player->getThisPlayerCountries().at(max)->getAdjacentCountries().size(); i++) {
             
             string adjacentCountryName = player->getThisPlayerCountries().at(max)->getAdjacentCountries().at(i)->getCountryName();
             
             //check if they belong to the player
-            for(int j = 0; j < player->getThisPlayerCountries().size(); j++) {
+            for(unsigned int j = 0; j < player->getThisPlayerCountries().size(); j++) {
                 
                 //if we find a country with the same name
                 if( (adjacentCountryName.compare(player->getThisPlayerCountries().at(j)->getCountryName())) == 0) {
@@ -614,7 +634,7 @@ string Benevolent::countryToFortify(Player* player, Country* country) {
     }
     
     //loop throught the adjacent country of the source country
-    for(int i = 0; i < country->getAdjacentCountries().size(); i++) {
+    for(unsigned int i = 0; i < country->getAdjacentCountries().size(); i++) {
         
         //if the next adjacent country has less armies
         if ( country->getAdjacentCountries().at(i)->getNumberOfArmies() < country->getAdjacentCountries().at(min)->getNumberOfArmies()) {
@@ -622,7 +642,7 @@ string Benevolent::countryToFortify(Player* player, Country* country) {
             string nameCountryMaxArmies = country->getAdjacentCountries().at(i)->getCountryName();
                      
             //check if the country is own by the player
-            for(int j = 0; j < player->getThisPlayerCountries().size(); j++) {
+            for(unsigned int j = 0; j < player->getThisPlayerCountries().size(); j++) {
                 
                 //if the country name is found in the player's countries
                 if( (nameCountryMaxArmies.compare(player->getThisPlayerCountries().at(j)->getCountryName())) == 0) {
@@ -638,7 +658,7 @@ string Benevolent::countryToFortify(Player* player, Country* country) {
             bool countryOwnByPlayer = false;
 
             
-            for(int j = 0; j <player->getThisPlayerCountries().size(); j++) {
+            for(unsigned int j = 0; j <player->getThisPlayerCountries().size(); j++) {
                 string nameCountryMaxArmies = country->getAdjacentCountries().at(min)->getCountryName();
                 
                 //if the max countries is not own by the player, put the max country to the next one
@@ -772,6 +792,14 @@ int Random::armiesToMove(int armiesCanMove) {
 	return (rand() % armiesCanMove);
 }
 
+void Random::setArmies(Player* player, int numOfArmiesToMove, Country* countryToAttack) {
+	// numOfArmiesToMove
+	countryToAttack->setNumberOfArmies(numOfArmiesToMove);
+
+	cout << "Attacker (Player " << player->getID() << "), you have decided to move " << numOfArmiesToMove << " armies to " << countryToAttack->getCountryName() << "." << endl;
+	cout << countryToAttack->getCountryName() << " now has " << numOfArmiesToMove << " armies." << endl;
+}
+
 // random player will fortify
 string Random::chooseFortify() {
 	return "Y";
@@ -797,12 +825,12 @@ string Random::countryToFortifyFrom(Player* player) {
     while(hasAdjacentCountries == false) {
         
         //loop through the adjacent countries of the country chosen
-        for(int i=0; i < player->getThisPlayerCountries().at(indexChosenCountry)->getAdjacentCountries().size(); i++) {
+        for(unsigned int i=0; i < player->getThisPlayerCountries().at(indexChosenCountry)->getAdjacentCountries().size(); i++) {
             
             string nameAdjacentCountry = player->getThisPlayerCountries().at(indexChosenCountry)->getAdjacentCountries().at(i)->getCountryName();
             
             //loop through the countries owned by the player
-            for(int j =0; j <player->getThisPlayerCountries().size(); j++) {
+            for(unsigned int j =0; j <player->getThisPlayerCountries().size(); j++) {
                 if(nameAdjacentCountry.compare(player->getThisPlayerCountries().at(j)->getCountryName()) ==0) {
                     hasAdjacentCountries = true;
                 }
@@ -956,6 +984,10 @@ int Cheater::defenderRoll() {
 
 int Cheater::armiesToMove(int armiesCanMove) {
 	return 1; // returning guaranteed valid number since it will not be used as player will automatically own neighbors 
+}
+
+void Cheater::setArmies(Player* player, int numOfArmiesToMove, Country* countryToAttack) {
+	// does nothing
 }
 
 // cheater will always fortify 

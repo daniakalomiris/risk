@@ -392,6 +392,10 @@ int Player::executeArmiesToMove(int armiesCanMove) {
     return this->strategy->armiesToMove(armiesCanMove);
 }
 
+void Player::executeSetArmies(int numOfArmiesToMove, Country* countryToAttack) {
+	return this->strategy->setArmies(this, numOfArmiesToMove, countryToAttack);
+}
+
 string Player::executeChooseFortify() {
     return this->strategy->chooseFortify();
 }
@@ -816,12 +820,8 @@ void Player::attack(){
 
                         cout << "You entered: " << numOfArmiesToMove << endl;
                     }
-                    // numOfArmiesToMove
-                    countryToAttack->setNumberOfArmies(numOfArmiesToMove);
-
-                    cout << "Attacker (Player " << this->getID() << "), you have decided to move " << numOfArmiesToMove << " armies to " << countryToAttack->getCountryName() << "." << endl;
-                    cout << countryToAttack->getCountryName() << " now has " << numOfArmiesToMove << " armies." << endl;
-
+                    
+					executeSetArmies(numOfArmiesToMove, countryToAttack);
 
                 }
 

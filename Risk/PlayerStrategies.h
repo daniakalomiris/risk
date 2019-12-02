@@ -27,6 +27,8 @@ public:
     virtual int attackerRoll() = 0;
 	virtual int defenderRoll() = 0;
     virtual int armiesToMove(int armiesCanMove) = 0;
+	virtual void setArmies(Player* player, int numOfArmiesToMove, Country* countryToAttack) = 0;
+
     
     /* methods for fortify phase */
     virtual std::string chooseFortify() = 0;
@@ -55,6 +57,7 @@ public:
     int attackerRoll();
 	int defenderRoll();
     int armiesToMove(int armiesCanMove);
+    void setArmies(Player* player, int numOfArmiesToMove, Country* countryToAttack);
     
     std::string chooseFortify();
     std::string countryToFortifyFrom(Player* player);
@@ -81,6 +84,7 @@ public:
     int attackerRoll();
 	int defenderRoll();
     int armiesToMove(int armiesCanMove);
+	void setArmies(Player* player, int numOfArmiesToMove, Country* countryToAttack);
     
     std::string chooseFortify();
     std::string countryToFortifyFrom(Player* player);
@@ -107,6 +111,7 @@ public:
     int attackerRoll();
 	int defenderRoll();
     int armiesToMove(int armiesCanMove);
+	void setArmies(Player* player, int numOfArmiesToMove, Country* countryToAttack);
     
     std::string chooseFortify();
     std::string countryToFortifyFrom(Player* player);
@@ -133,6 +138,7 @@ public:
 	int attackerRoll();
 	int defenderRoll();
 	int armiesToMove(int armiesCanMove);
+	void setArmies(Player* player, int numOfArmiesToMove, Country* countryToAttack);
 
 	std::string chooseFortify();
 	std::string countryToFortifyFrom(Player* player);
@@ -159,6 +165,7 @@ public:
 	int attackerRoll();
 	int defenderRoll();
 	int armiesToMove(int armiesCanMove);
+	void setArmies(Player* player, int numOfArmiesToMove, Country* countryToAttack);
 
 	std::string chooseFortify();
 	std::string countryToFortifyFrom(Player* player);
