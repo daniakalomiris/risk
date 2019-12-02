@@ -29,13 +29,10 @@ void A3part2() {
     theGame->assignCountriesToPlayers();
     theGame->displayCountriesOfPlayers();
 
-
     //assign 5 armies to all countries of each player, just for testing
     for (int i = 0; i < theGame->getAllPlayers().size(); i++) {
-
         for (int j = 0; j < theGame->getAllPlayers().at(i)->getThisPlayerCountries().size(); j++) {
             theGame->getAllPlayers().at(i)->getThisPlayerCountries().at(j)->setNumberOfArmies(5);
-
         }
     }
 
@@ -43,7 +40,6 @@ void A3part2() {
     PhaseObs* phaseObs = new PhaseObs(theGame);
 
     theGame->mainGameLoop();
-
 
     delete theGame;
     theGame = NULL;
@@ -73,7 +69,6 @@ void A3part3() {
     continent1->setNumberOfArmies(10);
     continent2->setNumberOfArmies(7);
     continent3->setNumberOfArmies(9);
-
 
     continent1->setAdjacentContinents(continent2);
     continent2->setAdjacentContinents(continent1);
@@ -107,7 +102,6 @@ void A3part3() {
     country5->setAdjacentCountries(country6);
     country6->setAdjacentCountries(country5);
     country6->setAdjacentCountries(country1);
-
 
     //setting countries to continents
     continent1->setCountriesOfContinent(country1);
@@ -143,13 +137,10 @@ void A3part3() {
     theGame->assignCountriesToPlayers();
     theGame->displayCountriesOfPlayers();
 
-
     //assign 1 army to all countries of each player, just for testing
     for (int i = 0; i < theGame->getAllPlayers().size(); i++) {
-
         for (int j = 0; j < theGame->getAllPlayers().at(i)->getThisPlayerCountries().size(); j++) {
             theGame->getAllPlayers().at(i)->getThisPlayerCountries().at(j)->setNumberOfArmies(1);
-
         }
     }
 
@@ -171,7 +162,6 @@ void A3part3() {
     delete country5;
     delete country6;
 
-
     theGame = NULL;
     map = NULL;
     continent1 = NULL;
@@ -183,5 +173,4 @@ void A3part3() {
     country4 = NULL;
     country5 = NULL;
     country6 = NULL;
-
 }

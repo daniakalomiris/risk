@@ -325,8 +325,7 @@ string Aggressive::countryToFortifyFrom(Player* player) {
     //loop through all the countries
     for (unsigned int i = 0; i < player->getThisPlayerCountries().size(); i++) {
         int max = 0;
-        
-                
+         
         //if the country has more armies than the next player owned country
         if (player->getThisPlayerCountries().at(min)->getNumberOfArmies() > player->getThisPlayerCountries().at(i)->getNumberOfArmies()) {
             
@@ -334,13 +333,9 @@ string Aggressive::countryToFortifyFrom(Player* player) {
             if (player->getThisPlayerCountries().at(i)->getNumberOfArmies() == 1) {
                 continue;
             }
-            
             else {
-                
-                
                 //loop through the countries again
                 for (unsigned int j = 1; j < player->getThisPlayerCountries().size(); j++) {
-                    
                     
                     //if the country has more armies than the max country, max will get assign to j
                     if (player->getThisPlayerCountries().at(j)->getNumberOfArmies() > player->getThisPlayerCountries().at(max)->getNumberOfArmies()) {
@@ -350,27 +345,17 @@ string Aggressive::countryToFortifyFrom(Player* player) {
                         //loop through the adjacent countries of the max country
                         for(unsigned int k =0; k< player->getThisPlayerCountries().at(max)->getAdjacentCountries().size(); k++) {
                             
-                            
                             //if the country with the leeast armies is a neighbor of the country with the most armies
                             if(player->getThisPlayerCountries().at(i)->getCountryName().compare(player->getThisPlayerCountries().at(max)->getAdjacentCountries().at(k)->getCountryName()) == 0) {
                                 min = i; // assigning the index of the vector
-                                
-                                
-                                
-                                
                             }
                             else {
-                                
                                 continue;
                             }
                             continue;
                         }
-                        
                     }
-                    
-                    
                 }
-                  
             }
         }
     }
@@ -381,14 +366,11 @@ string Aggressive::countryToFortifyFrom(Player* player) {
     }
     
     return player->getThisPlayerCountries().at(min)->getCountryName(); // returning the country number with the most armies
-    
 }
 
 // aggressive player moves all armies from source country to target country
 int Aggressive::armiesToFortify(int sourceCountryArmies) {
-    
     return sourceCountryArmies;
-    
 }
 
 // aggressive player will fortify country with most armies on it
@@ -410,11 +392,7 @@ string Aggressive::countryToFortify(Player* player, Country* country) {
     
     //loop throught the adjacent country of the source country
     for(unsigned int i = 0; i < country->getAdjacentCountries().size(); i++) {
-        
-       
-        
         if ( country->getAdjacentCountries().at(i)->getNumberOfArmies() > country->getAdjacentCountries().at(max)->getNumberOfArmies()) {
-            
             string nameCountryMaxArmies = country->getAdjacentCountries().at(i)->getCountryName();
             
             //check if the country is own by the player
@@ -423,18 +401,13 @@ string Aggressive::countryToFortify(Player* player, Country* country) {
                 //if the country name is found in the player's countries
                 if( (nameCountryMaxArmies.compare(player->getThisPlayerCountries().at(j)->getCountryName())) == 0) {
                     max = i;
-                    
                 }
-                
             }
         }
         
         //if we don't change the max look if the max is own by the player
         else {
-            
             bool countryOwnByPlayer = false;
-
-            
             for(unsigned int j = 0; j <player->getThisPlayerCountries().size(); j++) {
                 string nameCountryMaxArmies = country->getAdjacentCountries().at(max)->getCountryName();
                 
@@ -442,9 +415,6 @@ string Aggressive::countryToFortify(Player* player, Country* country) {
                 if(nameCountryMaxArmies.compare(player->getThisPlayerCountries().at(j)->getCountryName()) == 0) {
                     countryOwnByPlayer = true;
                 }
-                
-                
-                
             }
             
             //if the country is not owned by player go to the next one
@@ -455,8 +425,7 @@ string Aggressive::countryToFortify(Player* player, Country* country) {
     }
    
     cout << "COUNTRY TO FORTIFY : " << country->getAdjacentCountries().at(max)->getCountryName();
-    //  return player->getThisPlayerCountries().at(max)->getCountryName(); // returning the country number with the most armies
-    return country->getAdjacentCountries().at(max)->getCountryName();
+    return country->getAdjacentCountries().at(max)->getCountryName(); // returning the country number with the most armies
 }
 
 void Aggressive::handleFortification(Player* player, int indexOfSourceCountry, int indexOfTargetCountry, int numOfArmies) {
@@ -592,9 +561,9 @@ string Benevolent::countryToFortifyFrom(Player* player) {
     
     //check if the max country has neighbours countries that the player owns
     while(maxCountryHasNeighbour == false) {
+        
         //for all countries that are adjacent to the max
         for(unsigned int i = 0; i < player->getThisPlayerCountries().at(max)->getAdjacentCountries().size(); i++) {
-            
             string adjacentCountryName = player->getThisPlayerCountries().at(max)->getAdjacentCountries().at(i)->getCountryName();
             
             //check if they belong to the player
@@ -606,6 +575,7 @@ string Benevolent::countryToFortifyFrom(Player* player) {
                 }
             }
         }
+
         //if country doesn't have neighbour, increment the max to start with the next one
         if(maxCountryHasNeighbour == false) {
             max++;
@@ -624,38 +594,27 @@ string Benevolent::countryToFortifyFrom(Player* player) {
                 continue;
             }
             else {
-                
-                
                 //loop through the countries again
                 for (unsigned int j = 1; j < player->getThisPlayerCountries().size(); j++) {
                     
-                    
                     //if the country has more armies than the min country, min will get assign to j
                     if (player->getThisPlayerCountries().at(j)->getNumberOfArmies() < player->getThisPlayerCountries().at(min)->getNumberOfArmies()) {
-                        
                         min = j;
                         
                         //loop through the adjacent countries of the min country
                         for(unsigned int k =0; k< player->getThisPlayerCountries().at(min)->getAdjacentCountries().size(); k++) {
                             
-                            
                             //if the country with the most armies is a neighbor of the country with the least armies
                             if(player->getThisPlayerCountries().at(i)->getCountryName().compare(player->getThisPlayerCountries().at(min)->getAdjacentCountries().at(k)->getCountryName()) == 0) {
                                 max = i; // assigning the index of the vector
-                                
-                                
                             }
                             else {
-                                
                                 continue;
                             }
                             continue;
-                        }
-                        
+                        } 
                     }
-                    
                 }
-                
             }
         }
     }
@@ -691,7 +650,6 @@ string Benevolent::countryToFortify(Player* player, Country* country) {
         
         //if the next adjacent country has less armies
         if ( country->getAdjacentCountries().at(i)->getNumberOfArmies() < country->getAdjacentCountries().at(min)->getNumberOfArmies()) {
-            
             string nameCountryMaxArmies = country->getAdjacentCountries().at(i)->getCountryName();
                      
             //check if the country is own by the player
@@ -700,17 +658,13 @@ string Benevolent::countryToFortify(Player* player, Country* country) {
                 //if the country name is found in the player's countries
                 if( (nameCountryMaxArmies.compare(player->getThisPlayerCountries().at(j)->getCountryName())) == 0) {
                     min = i;
-                    
                 }
             }
         }
         
         //if we don't change the min look if the max is own by the player
         else {
-            
             bool countryOwnByPlayer = false;
-
-            
             for(unsigned int j = 0; j <player->getThisPlayerCountries().size(); j++) {
                 string nameCountryMaxArmies = country->getAdjacentCountries().at(min)->getCountryName();
                 
@@ -718,9 +672,6 @@ string Benevolent::countryToFortify(Player* player, Country* country) {
                 if(nameCountryMaxArmies.compare(player->getThisPlayerCountries().at(j)->getCountryName()) == 0) {
                     countryOwnByPlayer = true;
                 }
-                
-                
-                
             }
             
             //if the country is not owned by player go to the next one
@@ -880,14 +831,11 @@ string Random::countryToFortifyFrom(Player* player) {
         indexChosenCountry = rand() % player->getThisPlayerCountries().size();
     }
     
-    
-    
     //check if the country chosen has adjacent countries own by the player
     while(hasAdjacentCountries == false) {
         
         //loop through the adjacent countries of the country chosen
         for(unsigned int i=0; i < player->getThisPlayerCountries().at(indexChosenCountry)->getAdjacentCountries().size(); i++) {
-            
             string nameAdjacentCountry = player->getThisPlayerCountries().at(indexChosenCountry)->getAdjacentCountries().at(i)->getCountryName();
             
             //loop through the countries owned by the player
@@ -896,7 +844,6 @@ string Random::countryToFortifyFrom(Player* player) {
                     hasAdjacentCountries = true;
                 }
             }
-            
         }
         
         //select a new country if the chosen countries doesn't have neighbour owns by the player
@@ -905,9 +852,7 @@ string Random::countryToFortifyFrom(Player* player) {
             rand(); rand(); //help randomize more
             indexChosenCountry = rand() % player->getThisPlayerCountries().size();
         }
-    
     }
-    
     return player->getThisPlayerCountries().at(indexChosenCountry)->getCountryName();
 }
 

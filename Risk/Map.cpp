@@ -4,18 +4,16 @@
 #include <memory>
 
 using namespace std;
+
 //map constructor
 Map::Map() {
 }
 
 Map::~Map() {
-
 }
-
 
 //setter 
 //pushes continent objects to continent vector
-
 void Map::setContinent(Continent* continent) {
 	continents.push_back(continent);
 }
@@ -34,7 +32,6 @@ vector<Continent*> Map::getContinents() {
 vector<Country*> Map::getCountries() {
 	return countries;
 }
-
 
 void Map::getOwnerCountries(int playerId) {
 	for (unsigned int i = 0; i < countries.size(); i++) {
@@ -143,12 +140,10 @@ bool Map::countryHasContinent() {
 }
 
 bool Map::isValidMap() {
-    
 	if (isContinentSubgraph() && isCountrySubgraph() && isCountryInOneContinent() && isNotEmptyContinent() && countryHasContinent()) {
 		cout << "Map is valid." << endl;
 		return true;
 	}
-    
 	return false;
 }
 
@@ -193,11 +188,11 @@ void Continent::setNumberOfArmies(int numberOfArmies) {
 }
 
 //set the id to the player who owns the continent
-void Continent:: setOwnerId(int playerId) {
+void Continent::setOwnerId(int playerId) {
     ownerId = make_unique<int>(playerId);
 }
 //get the id of the player who owns the continent
-int Continent:: getOwnerId() {
+int Continent::getOwnerId() {
     return *ownerId;
 }
 
@@ -213,9 +208,8 @@ bool Continent::continentOwnByAPlayer() {
         }
         
     }
-    
-    //set the owner ID
-    setOwnerId(countryOwner);
+
+    setOwnerId(countryOwner); //set the owner ID
     return true;
 }
 
@@ -258,9 +252,7 @@ int Country::getCountryOwnerId() {
 }
 
 void Country::setCountryOwnerId(int countryOwnerId) {
-    
 	this->countryOwnerId.reset(new int(countryOwnerId));
-    
 }
 
 int Country::getNumberOfArmies() {

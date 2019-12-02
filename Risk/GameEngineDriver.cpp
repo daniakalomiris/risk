@@ -1,7 +1,7 @@
 #include "GameEngine.h"
 #include <iostream>
-using namespace std;
 
+using namespace std;
 
 //declare 3 functions that will serve as drivers for part1, part2 and part 3 of assignment 2
 void part1();
@@ -40,19 +40,16 @@ void part1() {
     
     delete theGame;
     theGame = NULL;
-    
 }
 
 //driver for part 2 Game Play startup phase of assignment 2
 void part2() {
     GameEngine* theGame = new GameEngine();
     
-    
     theGame->createMap();
     theGame->askNumberOfPlayers();
     theGame->createPlayers();
     cout << "There are " << theGame->getNumberOfPlayers() << " players." << endl;
-    
     
     cout << "We will now output the turn of each player: " << endl;
     theGame->setPlayerOrder();
@@ -82,7 +79,6 @@ void part2() {
 
 //driver for part 3 Game play main loop of assignment 2
 void part3() {
-    
     GameEngine* theGame = new GameEngine();
     theGame->createMap();
     theGame->askNumberOfPlayers();
@@ -90,13 +86,10 @@ void part3() {
     theGame->assignCountriesToPlayers();
     theGame->displayCountriesOfPlayers();
     
-    
     //assign 5 armies to all countries of each player, just for testing
     for(int i =0; i < theGame->getAllPlayers().size(); i++) {
-        
         for(int j = 0; j < theGame->getAllPlayers().at(i)->getThisPlayerCountries().size(); j++) {
-            theGame->getAllPlayers().at(i)->getThisPlayerCountries().at(j)->setNumberOfArmies(5);
-            
+            theGame->getAllPlayers().at(i)->getThisPlayerCountries().at(j)->setNumberOfArmies(5);      
         }
     }
     
@@ -112,54 +105,38 @@ void part3() {
 
 
 //method to select the single mode vs tournamenent mode
-bool isTournamentModeOn(){
-    
+bool isTournamentModeOn() {
     int choice; //choice input of user
-    // GameEngine *theGame = new GameEngine();
-    
-    
+
     cout << "Please select the game mode" << endl;
     cout << "(1) Single Game Mode" << endl;
     cout << "(2) Tournament Mode" << endl;
     
     cin >> choice;
     
-    while(choice <1 || choice >2){
+    while(choice <1 || choice >2) {
         cout << "Invalid entry." << endl;
         cout << "Please select the game mode" << endl;
         cout << "(1) Single Game Mode" << endl;
         cout << "(2) Tournament Mode" << endl;
         cin >> choice;
-        
     }
     
     //set gameMode to true if tournament mode is selected
-    if(choice==1){
-        
-        // theGame->setGameMode(false);
-        
+    if(choice==1) {
         cout << "We will load up single player mode for you!\n" << endl;
         return false;
-        
-    }else if(choice == 2){
-        
-        // theGame->setGameMode(true);
+    }
+    else if(choice == 2) {
         cout << "We will load up tournament mode for you!\n" << endl;
         return true;
     }
-    
-    // cout << "test";
-    
-    // delete theGame;
-    //theGame=NULL;
-    
     return NULL;
 };
 
 
 //driver for displaying the menu of the computer game
-void tournamentMode(bool isTournamentOn){
-    
+void tournamentMode(bool isTournamentOn) {
     Tournament* theTournament = new Tournament();
     theTournament -> tournamentSettings();
     theTournament->createGames(isTournamentOn);
@@ -172,7 +149,6 @@ void tournamentMode(bool isTournamentOn){
     theTournament->displayGamesResults();
     delete theTournament;
     theTournament = NULL;
-    
 }
 
 void singleGameMode(bool isTournamentOn) {

@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Dice:: Dice() {
+Dice::Dice() {
     
     //initializes the array that tracks the rolled values with zeros
     for(int i = 0; i <6; i++) {
@@ -16,7 +16,6 @@ Dice:: Dice() {
 }
 
 Dice::~Dice() {
-    
 }
 
 // copy constructor (deep copy)
@@ -27,23 +26,20 @@ Dice::Dice(const Dice& orig) {
       for(int i = 0; i <6; i++) {
           this->valuesTracker[i] = orig.valuesTracker[i];
       }
-
 }
 
 //assignment operators
-const Dice& Dice:: operator=(const Dice &d) {
+const Dice& Dice::operator=(const Dice &d) {
     if(&d !=this) {
         this->timesRolled = make_unique<int>(*d.timesRolled);
         
         //initializes the array that tracks the rolled values with zeros
-          for(int i = 0; i <6; i++) {
-              this->valuesTracker[i] = d.valuesTracker[i];
-          }
+        for(int i = 0; i <6; i++) {
+            this->valuesTracker[i] = d.valuesTracker[i];
+        }
     }
-    
     return *this;
 }
-
 
 // Player selects how many dice to roll
 void Dice::setDiceToRoll(int numOfDice) {
@@ -108,13 +104,12 @@ void Dice::keepTracks() {
     for(int i = 0 ; i< 6; i++) {
         double percentage = ((double)valuesTracker[i]/(double)*timesRolled) * 100;
         cout << (i+1) << ": " << percentage << "%" << endl;
-        
     }
     cout << "Total number of times you rolled a die: " << *timesRolled << "\n" << endl;
 }
 
 
-std::vector<int> Dice:: getValuesRolled() {
+std::vector<int> Dice::getValuesRolled() {
     return valuesRolled;
 }
 
