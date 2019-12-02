@@ -99,6 +99,12 @@ void User::setArmies(Player* player, int numOfArmiesToMove, Country* countryToAt
 	cout << countryToAttack->getCountryName() << " now has " << numOfArmiesToMove << " armies." << endl;
 }
 
+string User::attackAgain() {
+	string input;
+	cin >> input;
+	return input;
+}
+
 string User::chooseFortify() {
     string input;
     cin >> input;
@@ -261,6 +267,12 @@ void Aggressive::setArmies(Player* player, int numOfArmiesToMove, Country* count
 
 	cout << "Attacker (Player " << player->getID() << "), you have decided to move " << numOfArmiesToMove << " armies to " << countryToAttack->getCountryName() << "." << endl;
 	cout << countryToAttack->getCountryName() << " now has " << numOfArmiesToMove << " armies." << endl;
+}
+
+
+// aggressive player always attacks again
+string Aggressive::attackAgain() {
+	return "Y";
 }
 
 // aggressive player will fortify
@@ -519,6 +531,11 @@ int Benevolent::armiesToMove(int armiesCanMove) {
 
 void Benevolent::setArmies(Player* player, int numOfArmiesToMove, Country* countryToAttack) {
 	// does nothing
+}
+
+// benevolent player never attacks
+string Benevolent::attackAgain() {
+	return "n";
 }
 
 // benevolent player will fortify
@@ -800,6 +817,11 @@ void Random::setArmies(Player* player, int numOfArmiesToMove, Country* countryTo
 	cout << countryToAttack->getCountryName() << " now has " << numOfArmiesToMove << " armies." << endl;
 }
 
+// random player always attacks again
+string Random::attackAgain() {
+	return "Y";
+}
+
 // random player will fortify
 string Random::chooseFortify() {
 	return "Y";
@@ -988,6 +1010,11 @@ int Cheater::armiesToMove(int armiesCanMove) {
 
 void Cheater::setArmies(Player* player, int numOfArmiesToMove, Country* countryToAttack) {
 	// does nothing
+}
+
+// cheater will never attack again (entire attack turn is done automatically in one turn)
+string Cheater::attackAgain() {
+	return "Y";
 }
 
 // cheater will always fortify 

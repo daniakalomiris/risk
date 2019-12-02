@@ -396,6 +396,10 @@ void Player::executeSetArmies(int numOfArmiesToMove, Country* countryToAttack) {
 	return this->strategy->setArmies(this, numOfArmiesToMove, countryToAttack);
 }
 
+string Player::executeAttackAgain() {
+	return this->strategy->attackAgain();
+}
+
 string Player::executeChooseFortify() {
     return this->strategy->chooseFortify();
 }
@@ -836,7 +840,8 @@ void Player::attack(){
         defenderDiceValues.clear();
         
         cout << "Player " << this->getID() << ", do you want to attack again? (Press Y to attack again or anything else to end attack phase)\n" << endl;
-        playerAttack = executeChooseAttack();
+
+		playerAttack = executeAttackAgain();
 
         cout << "You entered: " << playerAttack << endl;
         
