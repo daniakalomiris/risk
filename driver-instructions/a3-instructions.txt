@@ -1,8 +1,7 @@
 ******* This is an instruction booklet to run all the drivers for assignment 3 *******
 
-
 ******* Part 1 *******
-1.Go in file PlayerStrategies.cpp
+1.Go in file PlayerStrategiesDriver
 2.Uncomment the main method (make sure it is the only method uncommented)
 3.Run the code
 
@@ -24,5 +23,5 @@
 
 NOTE
 In the folder maps, there are two subfolders
-put the domination map files into the domination folder
-put the conquest map files into the conquest map file
+Put the domination map files into the domination folder
+Put the conquest map files into the conquest map file

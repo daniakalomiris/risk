@@ -10,7 +10,6 @@
 class Tournament;
 
 class GameEngine: public Subject{
-
 private:
     std::unique_ptr<int> numberOfPlayers;
     std::unique_ptr<int> phase;
@@ -24,16 +23,12 @@ private:
     std::unique_ptr<bool>gameMode; //tells if the game mode is a tournament
     std::unique_ptr<std::string> winner; //contains the name of the winner
 public:
-
     GameEngine(); //constructor
     GameEngine(const GameEngine& orig); //copy constructor
-
     const GameEngine& operator=(const GameEngine& g);
     ~GameEngine();
     int currentPlayerIndex;
     int currentDefenderIndex;
-
-    //getter and setter methods
     int getNumberOfPlayers();
     void setNumberOfPlayers(int numberOfPlayers);
     void setNumberOfArmiesPerPlayer();
@@ -55,7 +50,6 @@ public:
     Deck* getDeck();
     int getMaxNumTurn();
     void setMaxNumTurn(int max);
-
     void askNumberOfPlayers();
     void createMap(std::string mapFile);
      void createMap();
@@ -64,17 +58,13 @@ public:
     void assignCountriesToPlayers();
     void displayCountriesOfPlayers();
     void mainGameLoop();
-
-
 };
 
 class Tournament {
 public:
     Tournament();
     Tournament(const Tournament& orig); //copy constructor
-    //const Tournament& operator=(const Tournament& t); //assignment operator
     ~Tournament();
-
     void tournamentSettings(); //display menu to prompts the user for tournament settings
     void mapSelection();//selecting the different maps to play on
     void createGames(bool isTournamentOn); //create the different games according to user input
@@ -82,21 +72,15 @@ public:
     void displayGamesResults();
     int getNumMaps();
     void setNumMaps(int num);
-
     int getNumGames();
     void setNumGames(int num);
-
     int getNumTurns();
     void setNumTurns(int num);
-
     int getNumComps();
     void setNumComps(int num);
-    
     std::vector<GameEngine*> getGames();
-    
     vector<std::string> getTournamentMaps();
     void setTournamentMaps(std::string map);
-
 private:
     unique_ptr<int> numMaps;
     unique_ptr<int> numComps; //number of computers;
@@ -105,6 +89,4 @@ private:
     std::vector<GameEngine*> games; //vector of gameEngines objects
     std::vector<Player*> allCompPlayers; //vector of computers
     std::vector<std::string> tournamentMaps;
-
-
 };
