@@ -207,7 +207,7 @@ bool Continent::continentOwnByAPlayer() {
     int countryOwner = getCountriesOfContinent().at(0)->getCountryOwnerId();
     
     //check if the id of the first country in the continent is the same for the other countries in the continent
-    for(int i = 0; i <getCountriesOfContinent().size(); i++) {
+    for(unsigned int i = 0; i <getCountriesOfContinent().size(); i++) {
         if(countryOwner != getCountriesOfContinent().at(i)->getCountryOwnerId()) {
             return false;
         }
@@ -295,3 +295,14 @@ void Country::setAdjacentCountries(Country * country) {
 	adjacentCountries.push_back(country);
 }
 
+void Country::setEnemies() {
+	for (unsigned int i = 0; i < this->getAdjacentCountries().size(); i++) {
+		if (this->getAdjacentCountries().at(i)->getCountryOwnerId() != this->getCountryOwnerId()) {
+			enemies.push_back(this->getAdjacentCountries().at(i));
+		}
+	}
+}
+
+vector<Country*> Country::getEnemies() {
+	return enemies;
+}

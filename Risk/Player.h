@@ -100,17 +100,20 @@ public:
     std::string executeExtraReinforcement();
     int executeCountryToReinforce();
     int executeArmiesToPlace();
+	void executeHandleArmies(int country, int numArmies);
     
     std::string executeChooseAttack();
     int executeAttackFrom();
     int executeCountryToAttack(Country* country);
     int executeAttackerRoll();
+	int executeDefenderRoll();
     int executeArmiesToMove(int armiesCanMove);
     
     std::string executeChooseFortify();
     std::string executeCountryToFortifyFrom();
     int executeArmiesToFortify(int sourceCountryArmies);
     std::string executeCountryToFortify(Country* country);
+	void executeHandleFortification(int indexOfSourceCountry, int indexOfTargetCountry, int numOfArmies);
     
     bool executeExchangeAutom();
 private:

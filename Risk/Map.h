@@ -100,6 +100,9 @@ public:
 	void setNumberOfArmies(int numberOfArmies); //sets the number of armies
 	int getNumberOfArmies(); // number of armies on a country
 
+	void setEnemies();
+	std::vector<Country*> getEnemies(); // get adjacent countries not owned by player
+
 	//methods to potentially implement GUI
 	void setCoordinateX(int coordinateX);
 	int getCoordinateX();
@@ -117,5 +120,5 @@ private:
 	std::unique_ptr<int> countryOwnerId;
 	std::unique_ptr<int> numberOfArmies;
 	static int countryCounter;
-
+	std::vector<Country*> enemies;
 };
