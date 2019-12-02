@@ -568,7 +568,7 @@ void Player::attack(){
             }
             else if (getThisPlayerCountries().at(selectAttackFrom - 1)->getNumberOfArmies() < 2) {
                 cout << "Please select a country with at least 2 armies placed on it." << endl;
-                
+
                 // returns response for this strategy
                 selectAttackFrom = executeAttackFrom();
             }

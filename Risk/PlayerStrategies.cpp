@@ -601,6 +601,7 @@ string Random::chooseAttack() {
 // random player will randomly select one of their countries
 int Random::attackFrom(Player* player) {
 	srand(time(NULL));
+    rand(); rand(); //help randomize more
 	int choice = (rand() % player->getThisPlayerCountries().size() + 1);
 	cout << "You entered: " << choice << endl;
 	return choice;
@@ -609,12 +610,14 @@ int Random::attackFrom(Player* player) {
 // random player will attack random country from list of neighbors
 int Random::countryToAttack(Country* attackFrom) {
 	srand(time(NULL));
+    rand(); rand(); //help randomize more
 	return (rand() % attackFrom->getAdjacentCountries().size() + 1);
 }
 
 // random player will roll a random number of dice
 int Random::attackerRoll() {
 	srand(time(NULL));
+    rand(); rand(); //help randomize more
 	return (rand() % 3 + 1);
 }
 
@@ -622,12 +625,14 @@ int Random::attackerRoll() {
 // defender will always roll 1 to 2 dice
 int Random::defenderRoll() {
 	srand(time(NULL));
+    rand(); rand(); //help randomize more
 	return (rand() % 2 + 1);
 }
 
 // random player will move a random number of armies
 int Random::armiesToMove(int armiesCanMove) {
 	srand(time(NULL));
+    rand(); rand(); //help randomize more
 	return (rand() % armiesCanMove);
 }
 
@@ -639,18 +644,59 @@ string Random::chooseFortify() {
 // random player will randomly select one of their countries 
 string Random::countryToFortifyFrom(Player* player) {
 	srand(time(NULL));
-	return player->getThisPlayerCountries().at(rand() % player->getThisPlayerCountries().size())->getCountryName();
+    rand(); rand(); //help randomize more
+    int indexChosenCountry = rand() % player->getThisPlayerCountries().size();
+    bool hasAdjacentCountries = false;
+    
+    //check if the country has more than 1 army, if not choose another country
+    while(player->getThisPlayerCountries().at(indexChosenCountry)->getNumberOfArmies() == 1) {
+        srand(time(NULL));
+        rand(); rand(); //help randomize more
+        indexChosenCountry = rand() % player->getThisPlayerCountries().size();
+    }
+    
+    
+    
+    //check if the country chosen has adjacent countries own by the player
+    while(hasAdjacentCountries == false) {
+        
+        //loop through the adjacent countries of the country chosen
+        for(int i=0; i < player->getThisPlayerCountries().at(indexChosenCountry)->getAdjacentCountries().size(); i++) {
+            
+            string nameAdjacentCountry = player->getThisPlayerCountries().at(indexChosenCountry)->getAdjacentCountries().at(i)->getCountryName();
+            
+            //loop through the countries owned by the player
+            for(int j =0; j <player->getThisPlayerCountries().size(); j++) {
+                if(nameAdjacentCountry.compare(player->getThisPlayerCountries().at(j)->getCountryName()) ==0) {
+                    hasAdjacentCountries = true;
+                }
+            }
+            
+        }
+        
+        //select a new country if the chosen countries doesn't have neighbour owns by the player
+        if(hasAdjacentCountries == false) {
+            srand(time(NULL));
+            rand(); rand(); //help randomize more
+            indexChosenCountry = rand() % player->getThisPlayerCountries().size();
+        }
+    
+    }
+    
+    return player->getThisPlayerCountries().at(indexChosenCountry)->getCountryName();
 }
 
 // random player moves a random number of armies
 int Random::armiesToFortify(int sourceCountryArmies) {
 	srand(time(NULL));
+    rand(); rand(); //help randomize more
 	return (rand() % sourceCountryArmies + 1);
 }
 
 // random player will randomly select one of the source country's neighbors 
 string Random::countryToFortify(Player* player, Country* country) {
 	srand(time(NULL));
+    rand(); rand(); //help randomize more
 	return country->getAdjacentCountries().at(rand() % country->getAdjacentCountries().size())->getCountryName();
 }
 
