@@ -246,22 +246,27 @@ void selectStrategy(Player* player) {
 		case 1:
 			cout << "You will play this phase as a User." << endl;
 			player->setStrategy(user);
+            player->setStrategyNum(5);
 			break;
 		case 2:
 			cout << "You will play this phase as an Aggressive computer player." << endl;
 			player->setStrategy(aggressive);
+            player->setStrategyNum(1);
 			break;
 		case 3:
 			cout << "You will play this phase as a Benevolent computer player." << endl;
 			player->setStrategy(benevolent);
+            player->setStrategyNum(2);
 			break;
 		case 4:
 			cout << "You will play this phase as a Random computer player." << endl;
 			player->setStrategy(random);
+            player->setStrategyNum(4);
 			break;
 		case 5:
 			cout << "You will play this phase as a Cheater computer player." << endl;
 			player->setStrategy(cheater);
+            player->setStrategyNum(3);
 			break;
 		default:
 			break;

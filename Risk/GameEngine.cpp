@@ -328,9 +328,8 @@ void GameEngine::createPlayers() {
         Aggressive* aggressive = new Aggressive();
         Benevolent* benevolent = new Benevolent();
         User* user = new User();
-        //WILL NEED TO CREATE A RANDOM AND CHEATER TOO
-        //Random random = new Random();
-        //Cheater cheater = new Cheater;
+        Random *random = new Random();
+        Cheater *cheater = new Cheater();
         switch (strategy) {
             case 1: {
                 Player *aPlayer = new Player("Aggressive", getMap());
@@ -351,16 +350,16 @@ void GameEngine::createPlayers() {
             case 3: {
                 Player *cPlayer = new Player("Cheater", getMap());
                 cout << "The player #" << i+1 << " will play as an Cheater computer player" << endl;
-                //  cPlayer->setStrategy(cheater);
-                //cPlayer->setStrategyNum(3);
+                cPlayer->setStrategy(cheater);
+                cPlayer->setStrategyNum(3);
                 setPlayer(cPlayer);
                 break;
             }
             case 4: {
                 Player *rPlayer = new Player("Random", getMap());
                 cout << "The player #" << i+1 << " will play as an Random computer player" << endl;
-                //  rPlayer->setStrategy(random);
-                //rPlayer->setStrategyNum(4);
+                rPlayer->setStrategy(random);
+                rPlayer->setStrategyNum(4);
                 setPlayer(rPlayer);
                 break;
             }
@@ -816,9 +815,8 @@ void Tournament:: playerSelection() {
         
         Aggressive* aggressive = new Aggressive();
         Benevolent* benevolent = new Benevolent();
-        //WILL NEED TO CREATE A RANDOM AND CHEATER TOO
-        //Random random = new Random();
-        //Cheater cheater = new Cheater;
+        Random* random = new Random();
+        Cheater* cheater = new Cheater;
         switch (strategy) {
             case 1: {
                 Player *aPlayer = new Player("Aggressive");
@@ -839,16 +837,16 @@ void Tournament:: playerSelection() {
             case 3: {
                 Player *cPlayer = new Player("Cheater");
                 cout << "The player #" << i+1 << " will play as an Cheater computer player" << endl;
-                //  cPlayer->setStrategy(cheater);
-                //cPlayer->setStrategyNum(3);
+                cPlayer->setStrategy(cheater);
+                cPlayer->setStrategyNum(3);
                 allCompPlayers.push_back(cPlayer); //push the created player in the vector allComPlayers
                 break;
             }
             case 4: {
                 Player *rPlayer = new Player("Random");
                 cout << "The player #" << i+1 << " will play as an Random computer player" << endl;
-                //  rPlayer->setStrategy(random);
-                //rPlayer->setStrategyNum(4);
+                rPlayer->setStrategy(random);
+                rPlayer->setStrategyNum(4);
                 allCompPlayers.push_back(rPlayer); //push the created player in the vector allComPlayers
                 break;
             }

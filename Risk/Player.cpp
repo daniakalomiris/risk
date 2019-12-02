@@ -596,21 +596,24 @@ void Player::attack(){
 
         // check if player enters a valid country number (not negative or bigger than number of owned countries)
         // check if country selected has at least 2 armies placed on it
-        while (selectAttackFrom <= 0 || selectAttackFrom > getThisPlayerCountries().size() || getThisPlayerCountries().at(selectAttackFrom - 1)->getNumberOfArmies() < 2) {
-            if (selectAttackFrom <= 0 || selectAttackFrom > getThisPlayerCountries().size()) {
-                cout << "Please enter a valid country number." << endl;
-
-                // returns response for this strategy
-                selectAttackFrom = executeAttackFrom();
+        
+        //check it only if the player is not a cheater, #3 is a cheater
+            while (selectAttackFrom <= 0 || selectAttackFrom > getThisPlayerCountries().size() || getThisPlayerCountries().at(selectAttackFrom - 1)->getNumberOfArmies() < 2) {
+                if (selectAttackFrom <= 0 || selectAttackFrom > getThisPlayerCountries().size()) {
+                    cout << "Please enter a valid country number." << endl;
+                    
+                    // returns response for this strategy
+                    selectAttackFrom = executeAttackFrom();
+                }
+                else if (getThisPlayerCountries().at(selectAttackFrom - 1)->getNumberOfArmies() < 2) {
+                    cout << "Please select a country with at least 2 armies placed on it." << endl;
+                    
+                    // returns response for this strategy
+                    selectAttackFrom = executeAttackFrom();
+                }
             }
-            else if (getThisPlayerCountries().at(selectAttackFrom - 1)->getNumberOfArmies() < 2) {
-                cout << "Please select a country with at least 2 armies placed on it." << endl;
-
-                // returns response for this strategy
-                selectAttackFrom = executeAttackFrom();
-            }
-        }
-
+        
+        
         // player attacks from the valid country they selected
         attackFrom = getThisPlayerCountries().at(selectAttackFrom - 1);
 
@@ -831,11 +834,13 @@ void Player::attack(){
         // clear dice vectors at the end of each attack
         attackerDiceValues.clear();
         defenderDiceValues.clear();
-
+        
         cout << "Player " << this->getID() << ", do you want to attack again? (Press Y to attack again or anything else to end attack phase)\n" << endl;
         playerAttack = executeChooseAttack();
 
         cout << "You entered: " << playerAttack << endl;
+        
+        
     };
 
     cout << "Player " << this->getID() << "'s attack phase is over." << endl;
