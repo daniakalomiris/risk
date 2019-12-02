@@ -388,12 +388,16 @@ int Player::executeDefenderRoll() {
 	return this->strategy->defenderRoll();
 }
 
+void Player::executeSetNumberOfArmies(Country* country) {
+	return this->strategy->setNumberOfArmies(country);
+}
+
 int Player::executeArmiesToMove(int armiesCanMove) {
     return this->strategy->armiesToMove(armiesCanMove);
 }
 
-void Player::executeSetArmies(int numOfArmiesToMove, Country* countryToAttack) {
-	return this->strategy->setArmies(this, numOfArmiesToMove, countryToAttack);
+void Player::executeSetArmiesEnd(int numOfArmiesToMove, Country* countryToAttack) {
+	return this->strategy->setArmiesEnd(this, numOfArmiesToMove, countryToAttack);
 }
 
 string Player::executeAttackAgain() {
@@ -570,7 +574,7 @@ void Player::attack(){
     setNumAttack(0);
 
     //check if all player's countries has at least 2 armies, the player can't attack otherwise
-      for(int i =0; i <getThisPlayerCountries().size(); i++) {
+      for(unsigned int i =0; i <getThisPlayerCountries().size(); i++) {
 
           if(getThisPlayerCountries().at(i)->getNumberOfArmies() >= 2) {
               canAttack = true;
@@ -604,22 +608,20 @@ void Player::attack(){
 
         // check if player enters a valid country number (not negative or bigger than number of owned countries)
         // check if country selected has at least 2 armies placed on it
-        
-        //check it only if the player is not a cheater, #3 is a cheater
-            while (selectAttackFrom <= 0 || selectAttackFrom > getThisPlayerCountries().size() || getThisPlayerCountries().at(selectAttackFrom - 1)->getNumberOfArmies() < 2) {
-                if (selectAttackFrom <= 0 || selectAttackFrom > getThisPlayerCountries().size()) {
-                    cout << "Please enter a valid country number." << endl;
+        while (selectAttackFrom <= 0 || selectAttackFrom > getThisPlayerCountries().size() || getThisPlayerCountries().at(selectAttackFrom - 1)->getNumberOfArmies() < 2) {
+			if (selectAttackFrom <= 0 || selectAttackFrom > getThisPlayerCountries().size()) {
+				cout << "Please enter a valid country number." << endl;
                     
-                    // returns response for this strategy
-                    selectAttackFrom = executeAttackFrom();
-                }
-                else if (getThisPlayerCountries().at(selectAttackFrom - 1)->getNumberOfArmies() < 2) {
-                    cout << "Please select a country with at least 2 armies placed on it." << endl;
+				// returns response for this strategy
+				selectAttackFrom = executeAttackFrom();
+			}
+			else if (getThisPlayerCountries().at(selectAttackFrom - 1)->getNumberOfArmies() < 2) {
+				cout << "Please select a country with at least 2 armies placed on it." << endl;
                     
-                    // returns response for this strategy
-                    selectAttackFrom = executeAttackFrom();
-                }
-            }
+				// returns response for this strategy
+				selectAttackFrom = executeAttackFrom();
+			}
+		}
         
         
         // player attacks from the valid country they selected
@@ -775,7 +777,8 @@ void Player::attack(){
             if (attackerDiceValues.at(i) == defenderDiceValues.at(i)) {
                 cout << "Attacker's next highest dice and Defender's next highest dice are the same. Attacker lost this battle.\n" << endl;
                 cout << "Attacker (Player " << this->getID() << "), you have lost 1 army in " << attackFrom->getCountryName() << ".\n" << endl;
-                attackFrom->setNumberOfArmies(attackFrom->getNumberOfArmies() - 1); // attacker loses one army from their country
+
+				executeSetNumberOfArmies(attackFrom); // attacker loses one army from their country
 
                 setEndA(attackFrom->getNumberOfArmies());  //set For Observer
                 setEndD(countryToAttack->getNumberOfArmies());
@@ -784,7 +787,8 @@ void Player::attack(){
                 cout << "Attacker's next highest dice is lower than Defender's next highest dice. Attacker lost this battle.\n" << endl;
 
                 cout << "Attacker (Player " << this->getID() << "), you have lost 1 army in " << attackFrom->getCountryName() << ".\n" << endl;
-                attackFrom->setNumberOfArmies(attackFrom->getNumberOfArmies() - 1); // attacker loses one army from their country
+
+				executeSetNumberOfArmies(attackFrom); // attacker loses one army from their country
 
                 setEndA(attackFrom->getNumberOfArmies());  //set For Observer
                 setEndD(countryToAttack->getNumberOfArmies());
@@ -792,7 +796,8 @@ void Player::attack(){
             else if (attackerDiceValues.at(i) > defenderDiceValues.at(i)) {
                 cout << "Defender's next highest dice is lower than Defender's next highest dice. Defender lost this battle.\n" << endl;
                 cout << "Defender (Player " << countryToAttack->getCountryOwnerId() << "), you have lost 1 army in " << countryToAttack->getCountryName() << ".\n" << endl;
-                countryToAttack->setNumberOfArmies(countryToAttack->getNumberOfArmies() - 1); // defender looses one army from their country
+
+				executeSetNumberOfArmies(countryToAttack); // defender looses one army from their country
 
                 setEndA(attackFrom->getNumberOfArmies());  //set For Observer
                 setEndD(countryToAttack->getNumberOfArmies());
@@ -825,7 +830,7 @@ void Player::attack(){
                         cout << "You entered: " << numOfArmiesToMove << endl;
                     }
                     
-					executeSetArmies(numOfArmiesToMove, countryToAttack);
+					executeSetArmiesEnd(numOfArmiesToMove, countryToAttack);
 
                 }
 
@@ -886,7 +891,7 @@ void Player::fortify() {
     cout << "You entered: " << attack << endl;
 
     //check if all player's countries has only 1 army, the player can't fortify
-    for(int i =0; i <getThisPlayerCountries().size(); i++) {
+    for(unsigned int i =0; i <getThisPlayerCountries().size(); i++) {
 
         if(getThisPlayerCountries().at(i)->getNumberOfArmies() != 1) {
             canfortify = true;

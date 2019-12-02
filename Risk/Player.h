@@ -107,8 +107,9 @@ public:
     int executeCountryToAttack(Country* country);
     int executeAttackerRoll();
 	int executeDefenderRoll();
+	void executeSetNumberOfArmies(Country* country);
     int executeArmiesToMove(int armiesCanMove);
-	void executeSetArmies(int numOfArmiesToMove, Country* countryToAttack);
+	void executeSetArmiesEnd(int numOfArmiesToMove, Country* countryToAttack);
 	std::string executeAttackAgain();
     
     std::string executeChooseFortify();

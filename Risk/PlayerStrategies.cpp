@@ -85,13 +85,17 @@ int User::defenderRoll() {
 	return input;
 }
 
+void User::setNumberOfArmies(Country* country) {
+	country->setNumberOfArmies(country->getNumberOfArmies() - 1);
+}
+
 int User::armiesToMove(int armiesCanMove) {
     int input;
     cin >> input;
     return input;
 }
 
-void User::setArmies(Player* player, int numOfArmiesToMove, Country* countryToAttack) {
+void User::setArmiesEnd(Player* player, int numOfArmiesToMove, Country* countryToAttack) {
 	// numOfArmiesToMove
 	countryToAttack->setNumberOfArmies(numOfArmiesToMove);
 
@@ -256,12 +260,16 @@ int Aggressive::defenderRoll() {
 	return (rand() % 2 + 1);
 }
 
+void Aggressive::setNumberOfArmies(Country* country) {
+	country->setNumberOfArmies(country->getNumberOfArmies() - 1);
+}
+
 // aggressive player moves all armies that they can move
 int Aggressive::armiesToMove(int armiesCanMove) {
     return armiesCanMove;
 }
 
-void Aggressive::setArmies(Player* player, int numOfArmiesToMove, Country* countryToAttack) {
+void Aggressive::setArmiesEnd(Player* player, int numOfArmiesToMove, Country* countryToAttack) {
 	// numOfArmiesToMove
 	countryToAttack->setNumberOfArmies(numOfArmiesToMove);
 
@@ -525,11 +533,15 @@ int Benevolent::defenderRoll() {
 	return 0;
 }
 
+void Benevolent::setNumberOfArmies(Country* country) {
+	// does nothing
+}
+
 int Benevolent::armiesToMove(int armiesCanMove) {
     return 0;
 }
 
-void Benevolent::setArmies(Player* player, int numOfArmiesToMove, Country* countryToAttack) {
+void Benevolent::setArmiesEnd(Player* player, int numOfArmiesToMove, Country* countryToAttack) {
 	// does nothing
 }
 
@@ -802,6 +814,10 @@ int Random::defenderRoll() {
 	return (rand() % 2 + 1);
 }
 
+void Random::setNumberOfArmies(Country* country) {
+	country->setNumberOfArmies(country->getNumberOfArmies() - 1);
+}
+
 // random player will move a random number of armies
 int Random::armiesToMove(int armiesCanMove) {
 	srand(time(NULL));
@@ -809,8 +825,7 @@ int Random::armiesToMove(int armiesCanMove) {
 	return (rand() % armiesCanMove);
 }
 
-void Random::setArmies(Player* player, int numOfArmiesToMove, Country* countryToAttack) {
-	// numOfArmiesToMove
+void Random::setArmiesEnd(Player* player, int numOfArmiesToMove, Country* countryToAttack) {
 	countryToAttack->setNumberOfArmies(numOfArmiesToMove);
 
 	cout << "Attacker (Player " << player->getID() << "), you have decided to move " << numOfArmiesToMove << " armies to " << countryToAttack->getCountryName() << "." << endl;
@@ -1004,11 +1019,15 @@ int Cheater::defenderRoll() {
 	return 1; // returning guaranteed valid number since it will not be used as player will automatically own neighbors  
 }
 
+void Cheater::setNumberOfArmies(Country* country) {
+	// does nothing
+}
+
 int Cheater::armiesToMove(int armiesCanMove) {
 	return 1; // returning guaranteed valid number since it will not be used as player will automatically own neighbors 
 }
 
-void Cheater::setArmies(Player* player, int numOfArmiesToMove, Country* countryToAttack) {
+void Cheater::setArmiesEnd(Player* player, int numOfArmiesToMove, Country* countryToAttack) {
 	// does nothing
 }
 

@@ -26,8 +26,9 @@ public:
     virtual int countryToAttack(Country* attackFrom) = 0;
     virtual int attackerRoll() = 0;
 	virtual int defenderRoll() = 0;
+	virtual void setNumberOfArmies(Country* country) = 0;
     virtual int armiesToMove(int armiesCanMove) = 0;
-	virtual void setArmies(Player* player, int numOfArmiesToMove, Country* countryToAttack) = 0;
+	virtual void setArmiesEnd(Player* player, int numOfArmiesToMove, Country* countryToAttack) = 0;
 	virtual std::string attackAgain() = 0;
     
     /* methods for fortify phase */
@@ -56,8 +57,9 @@ public:
     int countryToAttack(Country* attackFrom);
     int attackerRoll();
 	int defenderRoll();
+	void setNumberOfArmies(Country* country);
     int armiesToMove(int armiesCanMove);
-    void setArmies(Player* player, int numOfArmiesToMove, Country* countryToAttack);
+    void setArmiesEnd(Player* player, int numOfArmiesToMove, Country* countryToAttack);
 	std::string attackAgain();
     
     std::string chooseFortify();
@@ -84,8 +86,9 @@ public:
     int countryToAttack(Country* attackFrom);
     int attackerRoll();
 	int defenderRoll();
+	void setNumberOfArmies(Country* country);
     int armiesToMove(int armiesCanMove);
-	void setArmies(Player* player, int numOfArmiesToMove, Country* countryToAttack);
+	void setArmiesEnd(Player* player, int numOfArmiesToMove, Country* countryToAttack);
 	std::string attackAgain();
     
     std::string chooseFortify();
@@ -112,8 +115,9 @@ public:
     int countryToAttack(Country* attackFrom);
     int attackerRoll();
 	int defenderRoll();
+	void setNumberOfArmies(Country* country);
     int armiesToMove(int armiesCanMove);
-	void setArmies(Player* player, int numOfArmiesToMove, Country* countryToAttack);
+	void setArmiesEnd(Player* player, int numOfArmiesToMove, Country* countryToAttack);
 	std::string attackAgain();
     
     std::string chooseFortify();
@@ -140,8 +144,9 @@ public:
 	int countryToAttack(Country* attackFrom);
 	int attackerRoll();
 	int defenderRoll();
+	void setNumberOfArmies(Country* country);
 	int armiesToMove(int armiesCanMove);
-	void setArmies(Player* player, int numOfArmiesToMove, Country* countryToAttack);
+	void setArmiesEnd(Player* player, int numOfArmiesToMove, Country* countryToAttack);
 	std::string attackAgain();
 
 	std::string chooseFortify();
@@ -168,8 +173,9 @@ public:
 	int countryToAttack(Country* attackFrom);
 	int attackerRoll();
 	int defenderRoll();
+	void setNumberOfArmies(Country* country);
 	int armiesToMove(int armiesCanMove);
-	void setArmies(Player* player, int numOfArmiesToMove, Country* countryToAttack);
+	void setArmiesEnd(Player* player, int numOfArmiesToMove, Country* countryToAttack);
 	std::string attackAgain();
 
 	std::string chooseFortify();
