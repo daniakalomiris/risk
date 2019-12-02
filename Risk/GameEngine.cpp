@@ -340,8 +340,8 @@ void GameEngine::createPlayers() {
                 break;
             }
             case 2: {
-                Player *bPlayer = new Player("Benevolant", getMap());
-                cout << "The player #" << i+1 << " will play as an Benevolant computer player" << endl;
+                Player *bPlayer = new Player("Benevolent", getMap());
+                cout << "The player #" << i+1 << " will play as a Benevolent computer player" << endl;
                 bPlayer->setStrategy(benevolent);
                 bPlayer->setStrategyNum(2);
                 setPlayer(bPlayer);
@@ -349,7 +349,7 @@ void GameEngine::createPlayers() {
             }
             case 3: {
                 Player *cPlayer = new Player("Cheater", getMap());
-                cout << "The player #" << i+1 << " will play as an Cheater computer player" << endl;
+                cout << "The player #" << i+1 << " will play as a Cheater computer player" << endl;
                 cPlayer->setStrategy(cheater);
                 cPlayer->setStrategyNum(3);
                 setPlayer(cPlayer);
@@ -357,7 +357,7 @@ void GameEngine::createPlayers() {
             }
             case 4: {
                 Player *rPlayer = new Player("Random", getMap());
-                cout << "The player #" << i+1 << " will play as an Random computer player" << endl;
+                cout << "The player #" << i+1 << " will play as a Random computer player" << endl;
                 rPlayer->setStrategy(random);
                 rPlayer->setStrategyNum(4);
                 setPlayer(rPlayer);
@@ -659,7 +659,7 @@ void GameEngine:: mainGameLoop() {
         //check if countries are own by same player"
         for(int j =0; j < this->getMap()->getCountries().size()-1; j++) {
             
-            //compare the index of the country owner with the next one, if they are not the same then the countries are not own byt the player
+            //compare the index of the country owner with the next one, if they are not the same then the countries are not own by the player
             if(getMap()->getCountries().at(j)->getCountryOwnerId() != getMap()->getCountries().at(j+1)->getCountryOwnerId()) {
                 allCountriesOwnByPlayer = false;
                 break;
@@ -684,9 +684,9 @@ void GameEngine:: mainGameLoop() {
         //if countries are own by same player, set the game to end. There is a winner.
         if(allCountriesOwnByPlayer == true) {
             this->setEndGame(true);
-            string winner = getAllPlayers().at(indexOfWinningPlayer)->getName();
+            string winner = getAllPlayers().at(indexOfWinningPlayer-1)->getName();
             this->setWinner(winner);
-            cout << "\n\n **************Player " << indexOfWinningPlayer +1 << " wins the game **************\n End of the game" << endl;
+            cout << "\n\n **************Player " << indexOfWinningPlayer << " wins the game **************\n End of the game" << endl;
         }
     }
     
@@ -827,8 +827,8 @@ void Tournament:: playerSelection() {
                 break;
             }
             case 2: {
-                Player *bPlayer = new Player("Benevolant");
-                cout << "The player #" << i+1 << " will play as an Benevolant computer player" << endl;
+                Player *bPlayer = new Player("Benevolent");
+                cout << "The player #" << i+1 << " will play as a Benevolent computer player" << endl;
                 bPlayer->setStrategy(benevolent);
                 bPlayer->setStrategyNum(2);
                 allCompPlayers.push_back(bPlayer); //push the created player in the vector allComPlayers
@@ -836,7 +836,7 @@ void Tournament:: playerSelection() {
             }
             case 3: {
                 Player *cPlayer = new Player("Cheater");
-                cout << "The player #" << i+1 << " will play as an Cheater computer player" << endl;
+                cout << "The player #" << i+1 << " will play as a Cheater computer player" << endl;
                 cPlayer->setStrategy(cheater);
                 cPlayer->setStrategyNum(3);
                 allCompPlayers.push_back(cPlayer); //push the created player in the vector allComPlayers
@@ -844,7 +844,7 @@ void Tournament:: playerSelection() {
             }
             case 4: {
                 Player *rPlayer = new Player("Random");
-                cout << "The player #" << i+1 << " will play as an Random computer player" << endl;
+                cout << "The player #" << i+1 << " will play as a Random computer player" << endl;
                 rPlayer->setStrategy(random);
                 rPlayer->setStrategyNum(4);
                 allCompPlayers.push_back(rPlayer); //push the created player in the vector allComPlayers

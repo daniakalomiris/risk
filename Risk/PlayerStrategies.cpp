@@ -292,20 +292,41 @@ string Aggressive::chooseFortify() {
 string Aggressive::countryToFortifyFrom(Player* player) {
     // set min country to be first index in the list of player's countries
     int min = 0;
-    
-    
+    bool minCountryHasNeighbour = false;
+
+    //if the min country only has 1 army, change the min country
     while(player->getThisPlayerCountries().at(min)->getNumberOfArmies() == 1) {
         min++;
     }
+    
+    //check if the chosen countries has neighbours own by player
+    while(minCountryHasNeighbour == false) {
+         //for all countries that are adjacent to the max
+         for(int i = 0; i < player->getThisPlayerCountries().at(min)->getAdjacentCountries().size(); i++) {
+             
+             string adjacentCountryName = player->getThisPlayerCountries().at(min)->getAdjacentCountries().at(i)->getCountryName();
+             
+             //check if they belong to the player
+             for(int j = 0; j < player->getThisPlayerCountries().size(); j++) {
+                 
+                 //if we find a country with the same name
+                 if( (adjacentCountryName.compare(player->getThisPlayerCountries().at(j)->getCountryName())) == 0) {
+                     minCountryHasNeighbour = true;
+                 }
+             }
+         }
+         //if country doesn't have neighbour, increment the max to start with the next one
+         if(minCountryHasNeighbour == false) {
+             min++;
+         }
+     }
     
         
     //loop through all the countries
     for (unsigned int i = 0; i < player->getThisPlayerCountries().size(); i++) {
         int max = 0;
         
-        
-        //check the country at index 0,
-        
+                
         //if the country has more armies than the next player owned country
         if (player->getThisPlayerCountries().at(min)->getNumberOfArmies() > player->getThisPlayerCountries().at(i)->getNumberOfArmies()) {
             
@@ -349,12 +370,14 @@ string Aggressive::countryToFortifyFrom(Player* player) {
                     
                     
                 }
-                
-                
-                
-                
+                  
             }
         }
+    }
+    
+    //if the min country only has 1 army, change the min country
+    while(player->getThisPlayerCountries().at(min)->getNumberOfArmies() == 1) {
+        min++;
     }
     
     return player->getThisPlayerCountries().at(min)->getCountryName(); // returning the country number with the most armies
@@ -562,11 +585,12 @@ string Benevolent::countryToFortifyFrom(Player* player) {
     int max = 0;
     bool maxCountryHasNeighbour = false;
     
-    //check if the max country has neighbours countries that the player owns
+    //check if the max country has at least 1 armies
     while(player->getThisPlayerCountries().at(max)->getNumberOfArmies() == 1) {
         max++;
     }
     
+    //check if the max country has neighbours countries that the player owns
     while(maxCountryHasNeighbour == false) {
         //for all countries that are adjacent to the max
         for(unsigned int i = 0; i < player->getThisPlayerCountries().at(max)->getAdjacentCountries().size(); i++) {
@@ -1033,7 +1057,7 @@ void Cheater::setArmiesEnd(Player* player, int numOfArmiesToMove, Country* count
 
 // cheater will never attack again (entire attack turn is done automatically in one turn)
 string Cheater::attackAgain() {
-	return "Y";
+	return "N";
 }
 
 // cheater will always fortify 
@@ -1043,6 +1067,7 @@ string Cheater::chooseFortify() {
 
 string Cheater::countryToFortifyFrom(Player* player) {
 	srand(time(NULL));
+    rand(); rand();
 	return player->getThisPlayerCountries().at(rand() % player->getThisPlayerCountries().size())->getCountryName(); // return random owned country since we will fortify all countries with enemies
 }
 
@@ -1054,7 +1079,9 @@ int Cheater::armiesToFortify(int sourceCountryArmies) {
 
 // cheater will select random owned country which will not be used
 string Cheater::countryToFortify(Player* player, Country* country) {
-	srand(time(NULL));
+    srand(time(NULL));
+    rand();
+    rand();
 	return country->getAdjacentCountries().at(rand() % country->getAdjacentCountries().size())->getCountryName();  
 }
 

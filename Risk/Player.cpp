@@ -591,7 +591,22 @@ void Player::attack(){
         setNumAttack(getNumAttack()+1);
         //we start the phase
         this->setPhaseStart(true);
+        
+        //if we are already inside in the while loop, still check if we have a country with more than 2 armies
+        //check if all player's countries has at least 2 armies, the player can't attack otherwise
+             for(unsigned int i =0; i <getThisPlayerCountries().size(); i++) {
 
+                 if(getThisPlayerCountries().at(i)->getNumberOfArmies() >= 2) {
+                     canAttack = true;
+                 }
+
+             }
+
+           if(canAttack == false) {
+               break; //exit while loop
+           }
+        
+        
         cout << "These are the countries you own and the number of armies placed on them:" << endl;
         for (unsigned int i = 0; i < getThisPlayerCountries().size(); i++) {
             cout << "Country " << i + 1 << ": " << getThisPlayerCountries().at(i)->getCountryName() << " \tNumber of Armies: " << getThisPlayerCountries().at(i)->getNumberOfArmies() << endl;
@@ -878,10 +893,6 @@ void Player::fortify() {
     bool canfortify = false;
     cout << "\n~~~~~ Fortification Phase ~~~~~" << endl;
 
-
-
-
-
     cout << "\nPlayer " << getName() << ", do you want to fortify? (Press Y to fortify or anything else to end fortify phase)" << endl;
     string attack;
 
@@ -920,7 +931,8 @@ void Player::fortify() {
             cout << ") " << endl;
         }
 
-
+                   
+        
         //check if there are countries adjacent to each other, if not, the player can't fortify
         string nameCountry;
         for(unsigned int i =0; i< this->getThisPlayerCountries().size(); i++) {

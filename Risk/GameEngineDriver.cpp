@@ -7,29 +7,26 @@ using namespace std;
 void part1();
 void part2();
 void part3();
+
+//declare 3 functions to to test part 2 of assignment 4
 void tournamentMode(bool isTournamentOn);
 void singleGameMode(bool isTournamentOn);
 bool isTournamentModeOn();
 
-//int main() {
-//    
-//    //call the drivers that is necessary to test the parts
-//    //uncommented the part you want to test
-//    //part1();
-//    // part2();
-//    // part3();
-//    
-//        
-//    if(isTournamentModeOn()) {
-//        cout << "\n********* TOURNAMENT MODE *********\n" << endl;
-//        tournamentMode(true);
-//    }
-//
-//    else {
-//        cout << "\n********* SINGLE GAME MODE *********\n" << endl;
-//        singleGameMode(false);
-//    }
-//}
+int main() {
+    
+    //if the tournament mode is on, played tournatement mode
+    if(isTournamentModeOn()) {
+        cout << "\n********* TOURNAMENT MODE *********\n" << endl;
+        tournamentMode(true);
+    }
+    
+    //else play single game mode
+    else {
+        cout << "\n********* SINGLE GAME MODE *********\n" << endl;
+        singleGameMode(false);
+    }
+}
 
 
 //driver for part 1 Game Start of assignment 2
