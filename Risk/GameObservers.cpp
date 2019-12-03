@@ -2,6 +2,7 @@
 #include "GameObservers.h"
 #include <iostream>
 #include <string>
+
 using namespace std;
 
 //-------------- OBSERVER CLASS ----------------
@@ -29,26 +30,20 @@ void Subject::Detach(Observer* o) {
 //notify function
 void Subject::Notify() {
     list<Observer*>::iterator i = observers->begin();
-    
     for (; i != observers->end(); ++i) {
         (*i)->Update();
     }
 }
 
-
-
-
 // ------------- Concrete Subject ------------
 //  The concrete Subjet is actually the GameEngine class, slight modifications were done to notify the observers
-
-
 
 //-------------- CONCRETE OBSERVERS ----------
 
 //---------------------Concrete observer for Game Statistics Observer
-PlayerDominationView::PlayerDominationView(){
-    
+PlayerDominationView::PlayerDominationView() {
 }
+
 PlayerDominationView::PlayerDominationView(GameEngine* s) {
     //When object is instantiated, it attaches itself to a GameEngine
     subject = s;
@@ -71,7 +66,6 @@ void PlayerDominationView::display() {
     //total number of players
     int numPlayers = subject->getNumberOfPlayers();
     
-    
     //total number of countries
     int numOfCountries = subject->getMap()->getCountries().size();
     
@@ -81,13 +75,11 @@ void PlayerDominationView::display() {
     cout << "                    PLAYER STATS" << endl;
     cout << "=========================================================" << endl;
     
-    
     //iterates through all players
     for(int i=0; i<numPlayers; i++){
         
         //players names
         string playerName = subject->getAllPlayers().at(i)->getName();
-        
         
         //number of countries per player
         int playerNumCountries = subject->getAllPlayers().at(i)->getThisPlayerCountries().size();
@@ -106,19 +98,13 @@ void PlayerDominationView::display() {
         cout << "COUNTRIES OWNED: " << playerNumCountries << endl;
         cout << "PERCENTAGE OF COUNTRIES OWNED: " << percentageOwned << "%" << endl;
         cout << endl;
-        
-        
+         
         //Checks if a player has all countries
         if(subject->getAllPlayers().at(i)->getThisPlayerCountries().size() == subject->getMap()->getCountries().size()){
             cout << "Congratulations!!! " << subject->getAllPlayers().at(i)->getName() << " has 100% of the countries!" <<endl;
         }
-        
     }
-    
 }
-
-
-
 
 //---------------------Concrete observer for Phase Observer
 PhaseObs::PhaseObs() {
@@ -141,7 +127,6 @@ void PhaseObs::Update() {
 }
 
 void PhaseObs::display() {
-    
     int i = subject->currentPlayerIndex;
     
     int phaseR = 1;
@@ -152,7 +137,6 @@ void PhaseObs::display() {
     string playerName = subject->getAllPlayers().at(i)->getName();
     int id = subject->getAllPlayers().at(i)->getID();
     if (phase == phaseR) {
-        
         cout << "\n\n--------------------------------------------------------------" << endl;
         cout << "Player " << id << ", " << playerName << ": Reinfore Phase." << endl;
         
@@ -169,6 +153,7 @@ void PhaseObs::display() {
             cout << "--------------------------------------------------------------" << endl;
         }
     }
+
     if (phase == phaseA) {
         cout << "\n\n--------------------------------------------------------------" << endl;
         cout << "Player " << id << ", " << playerName << ": Attack Phase." << endl;
@@ -198,6 +183,4 @@ void PhaseObs::display() {
             cout << "--------------------------------------------------------------" << endl;
         }
     }
-    
-    
 }

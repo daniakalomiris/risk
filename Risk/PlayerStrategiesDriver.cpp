@@ -217,6 +217,7 @@ void selectStrategy(Player* player);
 //	country11 = NULL;
 //	delete deck;
 //	deck = NULL;
+//
 //}
 //
 //// asks user which strategy to use
@@ -227,28 +228,46 @@ void selectStrategy(Player* player);
 //	cout << "(1) User Strategy" << endl;
 //	cout << "(2) Aggressive Strategy" << endl;
 //	cout << "(3) Benevolent Strategy" << endl;
+//	cout << "(4) Random Strategy" << endl;
+//	cout << "(5) Cheater Strategy" << endl;
 //	cin >> strategy;
 //
-//	while (strategy < 0 || strategy > 3) {
+//	while (strategy < 0 || strategy > 5) {
 //		cout << "Please select a valid strategy from the list of strategies." << endl;
+//		cin >> strategy;
 //	}
 //	
 //	User* user = new User();
 //	Aggressive* aggressive = new Aggressive();
 //	Benevolent* benevolent = new Benevolent();
+//	Random* random = new Random();
+//	Cheater* cheater = new Cheater();
 //
 //	switch (strategy) {
 //		case 1:
 //			cout << "You will play this phase as a User." << endl;
 //			player->setStrategy(user);
+//            player->setStrategyNum(5);
 //			break;
 //		case 2:
 //			cout << "You will play this phase as an Aggressive computer player." << endl;
 //			player->setStrategy(aggressive);
+//            player->setStrategyNum(1);
 //			break;
 //		case 3:
 //			cout << "You will play this phase as a Benevolent computer player." << endl;
 //			player->setStrategy(benevolent);
+//            player->setStrategyNum(2);
+//			break;
+//		case 4:
+//			cout << "You will play this phase as a Random computer player." << endl;
+//			player->setStrategy(random);
+//            player->setStrategyNum(4);
+//			break;
+//		case 5:
+//			cout << "You will play this phase as a Cheater computer player." << endl;
+//			player->setStrategy(cheater);
+//            player->setStrategyNum(3);
 //			break;
 //		default:
 //			break;

@@ -48,3 +48,4 @@ ipch/
 .vs/
 CppProperties.json
 Risk/Debug/
+Risk/x64/

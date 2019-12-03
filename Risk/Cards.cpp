@@ -7,10 +7,8 @@
 #include <string>
 using namespace std;
 
-// ------------ CARDS CLASS --------
 //default constructor
 Cards::Cards() {
-    
 };
 
 //constructor with parameters
@@ -28,13 +26,9 @@ Cards::Cards(const Cards& orig) {
 	setType(*orig.typeNum);
 }
 
-
-
 Cards::~Cards() {
-    
 }
 
-//Getters Cards
 //gets the type of the card
 std::string Cards::getType() {
     return *type;
@@ -62,8 +56,6 @@ void Cards::setType(int typeNum) {
     }
 }
 
-//----------------- DECK CLASS -------------
-
 //Default Constructor 
 Deck::Deck() {
     
@@ -82,7 +74,6 @@ Deck::Deck(Map* map) {
     bool numCountriesDivisible3 = true;
     numOfCardsInDeck = make_unique<int>(numCountries);
     
-    
     //check if number of countries is divisible by 3
     if( (numCountries % 3) != 0) {
         numCountriesDivisible3 = false;
@@ -95,7 +86,6 @@ Deck::Deck(Map* map) {
     cout << "There are a total of " << numCountries << " countries in the map." << endl;
     cout << "There will be " << *numOfCardsInDeck << " cards in the deck." << endl;
     cout << "There will be " << *cardsPerType << " cards per type." << endl;
-    
     
     //creates card objects of type infantry, sets worth to 1, sets location, pushes card to deck (based on the number of countries/3)
     for (int i = 0; i < *cardsPerType; i++) {
@@ -140,8 +130,7 @@ Deck::Deck(Map* map) {
 }
 
 //Destructor
-Deck::~Deck() {
-    
+Deck::~Deck() {  
 }
 
 //Getters Deck
@@ -170,8 +159,7 @@ void Deck::draw(Hand* hand, string playerName) {
         cout << "No more cards in the deck. The player can't draw" << endl;
     }
     
-    else {
-        
+    else {    
         cout << "\nPlayer " << playerName << " draw a card" << endl;
         Cards* cardDrawn;
         int temp;
@@ -179,8 +167,7 @@ void Deck::draw(Hand* hand, string playerName) {
         //choose a random card to draw
         srand(time(NULL)); // randomize
         temp = rand() % (*numOfCardsInDeck);
-        cardDrawn = cardsInDeck.at(temp);
-        
+        cardDrawn = cardsInDeck.at(temp); 
         
         //remove the card in deck, decrease the amount of card in deck, add the card to the hand
         this->cardsInDeck.erase(cardsInDeck.begin() + temp);
@@ -189,18 +176,14 @@ void Deck::draw(Hand* hand, string playerName) {
     }
 }
 
-// --------------- HAND CLASS -------------- 
-
 //Default Constructor Hands
 Hand::Hand() {
-    
 }
 
 // Takes player's id
 Hand::Hand(int id) {
     this->id = id;
     numOfArmiesToPlace = make_unique<int>(0);
-    
 }
 
 //copy constructor
@@ -210,7 +193,7 @@ Hand::Hand(const Hand& orig) {
 }
 
 //assignment operators
-const Hand& Hand:: operator=(const Hand& h){
+const Hand& Hand::operator=(const Hand& h){
     if(&h !=this) {
         this->id = h.id;
         this->numOfArmiesToPlace = make_unique<int>(*h.numOfArmiesToPlace);
@@ -219,7 +202,6 @@ const Hand& Hand:: operator=(const Hand& h){
 }
 
 Hand::~Hand() {
-    
 }
 
 void Hand::removeCard(int i) {
@@ -255,7 +237,6 @@ void Hand::exchange() {
     bool exchangeAgain = true;
     
     while(exchangeAgain) {
-        
         //resets all data
         infantry =0;
         artillery =0;
@@ -270,7 +251,6 @@ void Hand::exchange() {
         
         //check the amount of cards of each type
         for (unsigned int i = 0; i < this->getCardsInHand().size(); i++) {
-            
             if (( this->getCardsInHand().at(i)->getType()).compare("Infantry") == 0) { //checks if of type of infantry
                 infantry++;
             }
@@ -281,8 +261,7 @@ void Hand::exchange() {
                 cavalry++;
             }
         }
-        
-        
+    
         //Prints the card in the hand of the player
         cout << "\n\nThese are the cards in your hand and their types" << endl;
         for (unsigned int i = 0; i < this->getCardsInHand().size(); i++) {
@@ -291,8 +270,7 @@ void Hand::exchange() {
         
         //if we have more than 3 cards of the same type, display that the player can exchange
         if(infantry >= 3 || artillery >= 3 || cavalry >= 3) {
-            
-            
+
             //if the player has more than 3 infantry cards, ask the player if he wants to exchange them
             if(infantry >=3) {
                 cout << "You have at least a set of 3 infantry cards, do you want to exchange it? (y/n)" << endl;
@@ -329,13 +307,11 @@ void Hand::exchange() {
                 
                 if(answer.compare("y") == 0) {
                     exchangeCavalry = true;
-                }
-                
+                } 
                 else {
                     //if player doesn't want to exchange, put back the cavalry cards to 0, so we don't ask the player again to exchange cards
                     cavalry = 0;
-                }
-                
+                }  
             }
             
             //if the player has more than 3 artillery cards, ask the player if he wants to exchange them
@@ -382,6 +358,7 @@ void Hand::exchange() {
                 cavalry = 0;
             }
         }
+
         else {
             cout << "You cannot exchange any cards from your hand" << endl;
             exchangeAgain = false;
@@ -393,12 +370,9 @@ void Hand::exchange() {
             
             while(infantryExchanged < 3) {
                 for (unsigned int i = 0; i < this->getCardsInHand().size(); i++) { // remove 3 infantry cards from hand
-                    
                     if ((this->getCardsInHand().at(i)->getType()).compare("Infantry") == 0) {
-                        
                         this->removeCard(i);
-                        infantryExchanged++; // increment the number of infantry cards we have exchanged
-                        
+                        infantryExchanged++; // increment the number of infantry cards we have exchanged 
                     }
                 }
             }
@@ -413,10 +387,8 @@ void Hand::exchange() {
         
         //if we have at leat 3 cards of type artillery and the player wants to exchange, exchange 3 cards
         else if (exchangeArtillery) { //if number of artillery type cards if greater or equal than 3
-            
             while(artilleryExchanged < 3) {
-                for (unsigned int i = 0; i < this->getCardsInHand().size(); i++) {
-                    
+                for (unsigned int i = 0; i < this->getCardsInHand().size(); i++) {    
                     if ((this->getCardsInHand().at(i)->getType()).compare("Artillery") == 0) {
                         this->removeCard(i);
                         artilleryExchanged++;
@@ -434,12 +406,10 @@ void Hand::exchange() {
         //if we have at leat 3 cards of type cavalry and the player wants to exchange, exchange 3 cards
         else if (exchangeCavalry) {
             while(cavalryExchanged < 3) {
-                for (unsigned int i = 0; i < this->getCardsInHand().size(); i++) {
-                    
+                for (unsigned int i = 0; i < this->getCardsInHand().size(); i++) {    
                     if ((this->getCardsInHand().at(i)->getType()).compare("Cavalry") == 0) {
                         this->removeCard(i);
                         cavalryExchanged++;
-                        
                     }
                 }
             }
@@ -450,7 +420,6 @@ void Hand::exchange() {
             cout << "Number of exchanges made so far: " << *exchangeCount << endl;
             cout << "You have exchanged 3 Cavalry cards for " << numArmiesExchanged << " armies" << endl;
             cavalry = cavalry - 3;
-            
         }
         
         //if we have at leat 1 card of each type and the player wants to exchange. Exchange the set.
@@ -458,9 +427,7 @@ void Hand::exchange() {
             int i =0;
             bool allCardsFound = false;
             while(!allCardsFound) {
-                
                 for (int i = this->getCardsInHand().size()-1; i >= 0; i--) {
-                    
                     if ((this->getCardsInHand().at(i)->getType()).compare("Infantry") == 0 && infantryExchanged != 1) {
                         this->removeCard(i);
                         infantryExchanged++;
@@ -482,15 +449,17 @@ void Hand::exchange() {
                     allCardsFound = true;
                 }
             }
-            cavalry --;
-            artillery --;
-            infantry --;
-            *exchangeCount = *exchangeCount +1;
+
+            cavalry--;
+            artillery--;
+            infantry--;
+            *exchangeCount = *exchangeCount + 1;
             numArmiesExchanged += 5;
             this->addNumberOfArmies(numArmiesExchanged);
             cout << "Number of exchanges made so far: " << *exchangeCount << endl;
             cout << "You have exchanged " << infantryExchanged << " infantry card, " << artilleryExchanged << " artillery card and " << cavalryExchanged << " cavalry card for " << numArmiesExchanged << " armies" << endl;
         }
+
         else {
             exchangeAgain = false;
         }
@@ -508,8 +477,7 @@ void Hand::exchange() {
             
             if(answer.compare("y") != 0) {
                 exchangeAgain= false;
-            }
-            
+            } 
         }
         
         else if(infantry == 1 && artillery == 1 && cavalry == 1) {
@@ -527,29 +495,26 @@ void Hand::exchange() {
                 exchangeAgain= false;
             }
         }
-        
     }
 }
 
-void Hand:: addNumberOfArmies(int number) {
-    *numOfArmiesToPlace = *numOfArmiesToPlace + number;
-    
+void Hand::addNumberOfArmies(int number) {
+    *numOfArmiesToPlace = *numOfArmiesToPlace + number; 
 }
 
-void Hand:: deleteNumberOfArmies(int number) {
+void Hand::deleteNumberOfArmies(int number) {
     *numOfArmiesToPlace = *numOfArmiesToPlace - number;
 }
 
-int Hand:: numArmiesExchanged = 0;
-int* Hand:: exchangeCount = new int(0);
-
+int Hand::numArmiesExchanged = 0;
+int* Hand::exchangeCount = new int(0);
 
 //Getters and Setters
-vector<Cards*> Hand:: getCardsInHand() {
+vector<Cards*> Hand::getCardsInHand() {
     return cardsInHand;
 }
 
-int Hand:: getNumberOfArmiesToPlace() {
+int Hand::getNumberOfArmiesToPlace() {
     return *numOfArmiesToPlace;
 }
 
@@ -557,6 +522,6 @@ void Hand::setCardInHand(Cards* card) {
     cardsInHand.push_back(card);
 }
 
-void Hand:: setNumberOfArmiesToPlace(int num) {
+void Hand::setNumberOfArmiesToPlace(int num) {
     numOfArmiesToPlace = make_unique<int>(num);
 }

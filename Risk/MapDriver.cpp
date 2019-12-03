@@ -5,7 +5,6 @@
 
 using namespace std;
 
-
 //int main() {
 //	/* creating VALID map */
 //	Map* map1 = new Map();

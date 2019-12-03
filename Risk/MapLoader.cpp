@@ -5,22 +5,20 @@
 #include <string>
 #include <sstream>
 
-
 using namespace std;
 
 //******************* Implementation for the MapLoader Class *******************
 
 MapLoader::MapLoader() {
     map = new Map();
-    
 }
 
-MapLoader:: ~MapLoader() {
+MapLoader::~MapLoader() {
     delete map;
 }
 
 //copy constructor
-MapLoader:: MapLoader(const MapLoader &orig){
+MapLoader::MapLoader(const MapLoader &orig){
     this->continents_info = orig.continents_info;
     this->countries_info = orig.countries_info;
     this->borders_info = orig.borders_info;
@@ -28,24 +26,19 @@ MapLoader:: MapLoader(const MapLoader &orig){
     *map = *orig.map;
 }
 
-
 //assignment operator
-const MapLoader& MapLoader:: operator=(const MapLoader& m){
+const MapLoader& MapLoader::operator=(const MapLoader& m){
     if(&m !=this) {
         delete map;
        this->map = new Map();
        *map = *m.map;
     }
-    
     return *this;
 }
 
-
 void MapLoader::readMapFile(string fileName) {
-    
-    
-    //create mapFile stream
-    ifstream mapFile;
+
+    ifstream mapFile; //create mapFile stream
     
     //tells if the map is valid or not
     bool isValidMapFile1 = false;
@@ -53,10 +46,8 @@ void MapLoader::readMapFile(string fileName) {
     bool isValidMapFile3 = false;
     
     string line;
-    
-    //open the file
-    mapFile.open(fileName);
-    
+
+    mapFile.open(fileName); //open the file
     
     //if i can't open the mapfile, display a error message and exit program
     if (mapFile.fail()) {
@@ -70,7 +61,6 @@ void MapLoader::readMapFile(string fileName) {
     //while you can read a line and the file is not at the end
     while (getline(mapFile, line) && !mapFile.eof()) {
         
-        
         //if line is equal to [continents]
         if (line.find("[continents]") != std::string::npos) {
             isValidMapFile1 = true;
@@ -78,16 +68,13 @@ void MapLoader::readMapFile(string fileName) {
             //start reading the continents until we reach an empty line
             //Be carefull the last element will be an empty line
             while (getline(mapFile, line) && line.find("[countries]") == std::string::npos) {
-                //push the continents data into the vector
-                continents_info.push_back(line);
+                continents_info.push_back(line); //push the continents data into the vector
             }
         }
         
         //if the line is equal to [countries]
         if (line.find("[countries]") != std::string::npos) {
-            
             isValidMapFile2 = true;
-            
             
             //start reading the countries until we reach an empty line
             //Be carefull the last element will be an empty line
@@ -97,14 +84,11 @@ void MapLoader::readMapFile(string fileName) {
             }
         }
         
-        
         //if the line is equal to [borders]
         if (line.find("[borders]") != std::string::npos) {
-            
             isValidMapFile3 = true;
             
             //start reading the borders until we reach an empty line
-            
             while (getline(mapFile, line) && line != "") {
                 //push the countries data into the vector
                 borders_info.push_back(line);
@@ -117,16 +101,13 @@ void MapLoader::readMapFile(string fileName) {
         exit(1);
     }
     
-    
     //delete the last empty line of the countries_info and continents_info
     countries_info.pop_back();
     continents_info.pop_back();
     mapFile.close();
-    
 }
 
 void MapLoader::createMap() {
-    
     
     //create continents
     for(int i = 0; i< continents_info.size(); i++) {
@@ -156,9 +137,9 @@ void MapLoader::createMap() {
     for(int i = 0; i< countries_info.size(); i++) {
         
         //temp string array to store a continent info
-        //temp[0] = countryNumber
-        //temp[1] = countryName
-        //temp[2] = continents it belongs to
+        //temp[0] is the countryNumber
+        //temp[1] is the countryName
+        //temp[2] is the continents it belongs to
         string temp[5];
         
         //put each line of the contients_info vector into a string
@@ -186,13 +167,10 @@ void MapLoader::createMap() {
         map->setCountry(country);
     }
     
-    
-    
     //create borders
     //create a temp vector containing the info of one line of the border_info
     //we can't use an array like for countries and continents because the number of elements per line change
     for(int i = 0; i < borders_info.size(); i++) {
-        
         vector <string> temp;
         
         //put each line of the borders_info vector into a string
@@ -213,7 +191,6 @@ void MapLoader::createMap() {
         //while loop to calculate the number of element on 1 line
         while(helper >> temp2 ) {
             numElements++;
-            
         }
         
         //create a stringstream to separate each elements on the line
@@ -226,22 +203,14 @@ void MapLoader::createMap() {
         }
         
         
-        
         for(int j = 1; j < temp.size(); j ++) {
             // cout << temp.at(j) << endl;
             
             for(int k = 0; k < map->getCountries().size(); k++) {
-                
                 if(this->map->getCountries().at(k)->getCountryNumber() == (stoi(temp.at(j)))) {
-                    
-                    //   cout << map->getCountries().at(k)->getCountryName() << endl;
                     map->getCountries().at(i)->setAdjacentCountries(map->getCountries().at(k));
-                    
                 }
-                
-                
             }
-            
         }
     }
     
@@ -267,17 +236,11 @@ void MapLoader::createMap() {
                 
                 // Check if continent has not been added already, if not add them as an adjacent continent
                 if (it1 == currentContinentOfCountry.end()) {
-                    
                     map->getCountries().at(i)->getContinentOfCountry()->setAdjacentContinents(map->getCountries().at(i)->getAdjacentCountries().at(j)->getContinentOfCountry());
-                    
-                }
-                
+                } 
             }
-            
         }
-        
     }
-    
     //check if the map created is valid or not
     map->isValidMap();
 }
@@ -287,13 +250,10 @@ Map* MapLoader::getMap() {
 }
 
 void MapLoader::displayMap() {
-    
     cout << "\nThese are the map's continents and their armies: " << endl;
-    
     
     //display the continents
     for (int i = 0; i < map->getContinents().size(); i++) {
-        
         cout << "\nContinent #" << i <<endl;
         cout<< map->getContinents().at(i)->getContinentName() << ": " << map->getContinents().at(i)->getNumberOfArmies() << " armies" << endl;
         
@@ -309,8 +269,6 @@ void MapLoader::displayMap() {
         cout << map->getCountries().at(i)->getCountryName() << " : " ;
         for(int j = 0 ; j < map->getCountries().at(i)->getAdjacentCountries().size(); j++) {
             cout << map->getCountries().at(i)->getAdjacentCountries().at(j)->getCountryName() << ", " ;
-            
-            
         }
         cout << " " << endl;
     }
@@ -321,17 +279,10 @@ void MapLoader::displayMap() {
         cout << map->getContinents().at(i)->getContinentName() << " : ";
         for(int j=0; j < map->getContinents().at(i)->getAdjacentContinents().size(); j++) {
             cout << map->getContinents().at(i)->getAdjacentContinents().at(j)->getContinentName() << ", ";
-            
-            
         }
         cout << " " << endl;
     }
-    
-    
-    
 }
-
-
 
 //******************* Implementation for the MapLoaderConquest Class *******************
 
@@ -341,12 +292,12 @@ ConquestMapLoader::ConquestMapLoader() {
 }
 
 //destructor
-ConquestMapLoader:: ~ConquestMapLoader() {
+ConquestMapLoader::~ConquestMapLoader() {
     delete map;
 }
 
 //copy constructor
-ConquestMapLoader:: ConquestMapLoader(const ConquestMapLoader &orig) {
+ConquestMapLoader::ConquestMapLoader(const ConquestMapLoader &orig) {
     this->continents_info = orig.continents_info;
     this->territories_info = orig.territories_info;
     this->map = new Map();
@@ -360,7 +311,6 @@ const ConquestMapLoader& ConquestMapLoader::operator=(const ConquestMapLoader& c
         Map* newMap = new Map();
         this->map = newMap;
     }
-    
     return *this;
 }
 
@@ -370,7 +320,6 @@ void ConquestMapLoader::readConquestMapFile(string fileName) {
     //create mapFile stream
     ifstream mapFile;
     
-    
     //tells if the map is valid or not
     bool isValidMapFile1 = false;
     bool isValidMapFile2 = false;
@@ -379,7 +328,6 @@ void ConquestMapLoader::readConquestMapFile(string fileName) {
     
     //open the file
     mapFile.open(fileName);
-    
     
     //if i can't open the mapfile, display a error message and exit program
     if (mapFile.fail()) {
@@ -400,54 +348,33 @@ void ConquestMapLoader::readConquestMapFile(string fileName) {
             //start reading the continents until we reach an empty line
             //Be carefull the last element will be an empty line
             while (getline(mapFile, line) && line.find("[Territories]") == std::string::npos) {
-                
                 string* lineToPush = new string();
-                
                 *lineToPush = line;
-                
-                //push the continents data into the vector
-                continents_info.push_back(lineToPush);
-                
-                
+                continents_info.push_back(lineToPush); //push the continents data into the vector
             }
         }
         
-        
-        
         //if the line is equal to [Territories]
         if (line.find("[Territories]") != std::string::npos) {
-            
             isValidMapFile2 = true;
-            
             
             //start reading the countries until we reach an empty line
             //Be carefull the last element will be an empty line
             while (getline(mapFile, line)) {
-                
                 string* lineToPush = new string;
-                
                 *lineToPush = line;
-                
-                //push the countries data into the vector
-                territories_info.push_back(lineToPush);
-                
+                territories_info.push_back(lineToPush); //push the countries data into the vector
             }
         }
     }
-    
-    
-    
+      
     //delete empty lines in territories_info vectors
     for(int i = territories_info.size()-1; i >= 0; i--) {
-        
-        //contains the line
-        string temp = *territories_info.at(i);
+        string temp = *territories_info.at(i); //contains the line
         
         //if the length of the line is 1
         if(temp.length() == 1) {
-            
-            //char that contains the blank character
-            char empty = temp.at(0);
+            char empty = temp.at(0); //char that contains the blank character
             
             //if the char is a space character, erase that line
             if(isspace(empty)) {
@@ -459,18 +386,13 @@ void ConquestMapLoader::readConquestMapFile(string fileName) {
         }
     }
     
-    
     //delete empty lines in continent_info vectors
     for(int i = continents_info.size()-1; i >= 0; i--) {
-        
-        //contains the line
-        string temp = *continents_info.at(i);
+        string temp = *continents_info.at(i); //contains the line
         
         //if the length of the line is 1
         if(temp.length() == 1) {
-            
-            //char that contains the blank character
-            char empty = temp.at(0);
+            char empty = temp.at(0); //char that contains the blank character
             
             //if the char is a space character, erase that line
             if(isspace(empty)) {
@@ -482,24 +404,19 @@ void ConquestMapLoader::readConquestMapFile(string fileName) {
         }
     }
     
-    
     if( (isValidMapFile1 && isValidMapFile2) == false) {
         cout << "This is not a valid map file, the program will terminate" <<endl;
         exit(1);
     }
     
-    //close the file
-    mapFile.close();
-    
+    mapFile.close(); //close the file
 }
 
 //create the conquest map
 void ConquestMapLoader::createConquestMap() {
     
-    
     //create continents
     for(int i = 0; i< continents_info.size(); i++) {
-        
         
         //temp string array to store a continent info
         string temp[2];
@@ -522,9 +439,7 @@ void ConquestMapLoader::createConquestMap() {
         
         //separate the line in two string, don't care about the = sign
         while(getline(elements_line, data, '=')) {
-            
-            //put the data in the temp array string
-            temp[indexTemp] = data;
+            temp[indexTemp] = data; //put the data in the temp array string
             indexTemp++;
         }
         
@@ -532,8 +447,6 @@ void ConquestMapLoader::createConquestMap() {
         continent->setContinentName(temp[0]);
         
         continent->setNumberOfArmies(stoi (temp[1]));
-        
-        
     }
     
     //create territories
@@ -550,13 +463,11 @@ void ConquestMapLoader::createConquestMap() {
         //will contains the important data on the line
         string data;
         
-        
         //separate the line in different string, use the coma as a delimiter
         while(getline(elements_line, data, ',')) {
             // put the data in the temp array string
             tempTerritoriesInfo.push_back(data);
         }
-        
         
         //create a new country
         Country* country = new Country();
@@ -569,22 +480,14 @@ void ConquestMapLoader::createConquestMap() {
         
         //look for the continent in the map
         for(int j=0; j <map->getContinents().size(); j++) {
-            
-            //the continent name we are looking for
-            string continentName = tempTerritoriesInfo[3];
-            
+            string continentName = tempTerritoriesInfo[3]; //the continent name we are looking for
             if(continentName.compare(map->getContinents().at(j)->getContinentName()) == 0) {
-                
-                //set the continent of the country
-                country->setContinentOfCountry(map->getContinents().at(j));
+                country->setContinentOfCountry(map->getContinents().at(j)); //set the continent of the country
                 map->getContinents().at(j)->setCountriesOfContinent(country);
             }
-            
         }
         
-        //set the country to the map
-        map->setCountry(country);
-        
+        map->setCountry(country); //set the country to the map 
     }
     
     //create adjacent territories
@@ -602,7 +505,6 @@ void ConquestMapLoader::createConquestMap() {
         //will contains the important data on the line
         string data;
         
-        
         //separate the line in different string, use the coma as a delimiter
         while(getline(elements_line, data, ',')) {
             
@@ -612,8 +514,6 @@ void ConquestMapLoader::createConquestMap() {
             // put the data in the temp array string
             tempTerritoriesInfo.push_back(data);
         }
-        
-        
         
         //loop throught the names of the adjacent countries in the tempTerritoriesInfo vector
         for(int j=4; j < tempTerritoriesInfo.size(); j++) {
@@ -625,7 +525,6 @@ void ConquestMapLoader::createConquestMap() {
             //loop in the countries of the map to get the country with the right name
             for(int k = 0; k < map->getCountries().size(); k++) {
                 
-                
                 //if we have the found the country with the righ name
                 if(countryName.compare(map->getCountries().at(k)->getCountryName()) == 0) {
                     
@@ -633,14 +532,9 @@ void ConquestMapLoader::createConquestMap() {
                     map->getCountries().at(i)->setAdjacentCountries(map->getCountries().at(k));
                     break;
                 }
-                
             }
-            
-            
         }
-        
     }
-    
     
     //creates adjacent continents
     //loop through all countries in the map
@@ -663,33 +557,24 @@ void ConquestMapLoader::createConquestMap() {
                 
                 // Check if continent has not been added already, if not add them as an adjacent continent
                 if (it1 == currentContinentOfCountry.end()) {
-                    
                     map->getCountries().at(i)->getContinentOfCountry()->setAdjacentContinents(map->getCountries().at(i)->getAdjacentCountries().at(j)->getContinentOfCountry());
-                    
                 }
-                
-            }
-            
+            } 
         }
-        
     }
     
-    
     //check if the map created is valid or not
-    map->isValidMap();
-    
-    
+    map->isValidMap();    
 }
 
 //get the map created
-Map* ConquestMapLoader:: getMap() {
+Map* ConquestMapLoader::getMap() {
     return map;
 }
 
 //display the conquest map
-void ConquestMapLoader:: displayConquestMap() {
+void ConquestMapLoader::displayConquestMap() {
     cout << "\nThese are the map's continents and their armies: " << endl;
-    
     
     //display the continents
     for (int i = 0; i < map->getContinents().size(); i++) {
@@ -709,8 +594,6 @@ void ConquestMapLoader:: displayConquestMap() {
         cout << map->getCountries().at(i)->getCountryName() << " : " ;
         for(int j = 0 ; j < map->getCountries().at(i)->getAdjacentCountries().size(); j++) {
             cout << map->getCountries().at(i)->getAdjacentCountries().at(j)->getCountryName() << ", " ;
-            
-            
         }
         cout << " " << endl;
     }
@@ -721,43 +604,35 @@ void ConquestMapLoader:: displayConquestMap() {
         cout << map->getContinents().at(i)->getContinentName() << " : ";
         for(int j=0; j < map->getContinents().at(i)->getAdjacentContinents().size(); j++) {
             cout << map->getContinents().at(i)->getAdjacentContinents().at(j)->getContinentName() << ", ";
-            
-            
         }
         cout << " " << endl;
-    }
-    
-    
+    }   
 }
-
 
 //******************* Implementation for the adapterMap Class *******************
 
 //default constructor
-AdapterConquestMaploader:: AdapterConquestMaploader() {
-    
+AdapterConquestMaploader::AdapterConquestMaploader() {
 }
 
 //constructor with 1 parameter
-AdapterConquestMaploader:: AdapterConquestMaploader(ConquestMapLoader* conquestMap) {
+AdapterConquestMaploader::AdapterConquestMaploader(ConquestMapLoader* conquestMap) {
     conquestMaploader = conquestMap;
 }
 
 //destructor
-AdapterConquestMaploader:: ~AdapterConquestMaploader() {
+AdapterConquestMaploader::~AdapterConquestMaploader() {
     delete conquestMaploader;
 }
 
 //copy construstor
-AdapterConquestMaploader:: AdapterConquestMaploader(const AdapterConquestMaploader &orig) {
+AdapterConquestMaploader::AdapterConquestMaploader(const AdapterConquestMaploader &orig) {
     this->conquestMaploader = new ConquestMapLoader();
-    
-    *conquestMaploader = *orig.conquestMaploader;
-    
+    *conquestMaploader = *orig.conquestMaploader;  
 }
 
 //overloading assignment operator
-const AdapterConquestMaploader& AdapterConquestMaploader:: operator=(const AdapterConquestMaploader &a) {
+const AdapterConquestMaploader& AdapterConquestMaploader::operator=(const AdapterConquestMaploader &a) {
     if(&a !=this) {
         delete conquestMaploader;
         AdapterConquestMaploader* tempAdapter = new AdapterConquestMaploader(a);
