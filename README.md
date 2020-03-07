@@ -1,4 +1,4 @@
-# COMP 345 - Risk
+# COMP 345: Advanced Program Design with C++
 
 The specific project for this semester consists in building a simple *Risk* computer game. 🕹️
 
